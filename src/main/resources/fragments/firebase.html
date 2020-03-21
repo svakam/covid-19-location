@@ -1,34 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- at bottom of body -->
 
+<div th:fragment="firebase">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
-
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyA4b4sPta4vNf584OQ31QrVaVeaAijU22A",
-    authDomain: "covid-19-6e67a.firebaseapp.com",
-    databaseURL: "https://covid-19-6e67a.firebaseio.com",
-    projectId: "covid-19-6e67a",
-    storageBucket: "covid-19-6e67a.appspot.com",
-    messagingSenderId: "432674772527",
-    appId: "1:432674772527:web:05186690997caae78158da",
-    measurementId: "G-KYWZ7276NS"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-</script>
-</body>
-</html>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyA4b4sPta4vNf584OQ31QrVaVeaAijU22A",
+        authDomain: "covid-19-6e67a.firebaseapp.com",
+        databaseURL: "https://covid-19-6e67a.firebaseio.com",
+        projectId: "covid-19-6e67a",
+        storageBucket: "covid-19-6e67a.appspot.com",
+        messagingSenderId: "432674772527",
+        appId: "1:432674772527:web:05186690997caae78158da",
+        measurementId: "G-KYWZ7276NS"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+</div>
