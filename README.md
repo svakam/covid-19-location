@@ -40,12 +40,12 @@ APIs and data used/consulted:
 - State/local health departments
 
 Spring.io documentation:
-- https://spring.io/guides/gs/rest-service/
-- https://spring.io/guides/tutorials/bookmarks/
-- https://spring.io/guides/gs/serving-web-content/
+- REST: https://spring.io/guides/gs/rest-service/
+- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
+- REST: https://spring.io/guides/gs/serving-web-content/
 
 Baeldung documentation:
-- __
+- HTTP: https://www.baeldung.com/java-http-request
 
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
@@ -56,7 +56,8 @@ Stack Overflow:
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 
-YouTube videos:
+Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
+- HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 
 Code Fellows Java curriculum

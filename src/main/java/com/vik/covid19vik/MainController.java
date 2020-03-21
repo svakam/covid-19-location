@@ -25,4 +25,11 @@ public class MainController {
         model.addAttribute("city", city);
         return "results";
     }
+
+    // get information from covid19api
+    @GetMapping("/covid19api")
+    public String covid19api() {
+
+        return "covid19api";
+    }
 }
