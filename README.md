@@ -23,6 +23,11 @@ Or if you'd like to run it from your local machine:
 - Set up Spring Boot, SpringMVC
 - Initialized Firebase
 
+03/21/2020
+- Initialized Bootstrap
+- Set up templates
+- Rendering templates through Thymeleaf
+
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
@@ -47,6 +52,9 @@ Bootstrap documentation:
 
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
+
+Thymeleaf documentation: 
+- Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 
 YouTube videos:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0

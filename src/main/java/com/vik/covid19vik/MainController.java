@@ -18,4 +18,11 @@ public class MainController {
         model.addAttribute("name", name);
         return "greeting";
     }
+
+    // from search box, render results for given state/county/zip code
+    @GetMapping("/results")
+    public String results(@RequestParam(value = "city", required = true, defaultValue = "US") String city, Model model) {
+        model.addAttribute("city", city);
+        return "results";
+    }
 }
