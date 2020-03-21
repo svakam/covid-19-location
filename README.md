@@ -12,15 +12,16 @@ Or if you'd like to run it from your local machine:
 - Install IntelliJ IDEA. 
 - Clone this repository into your local machine through the terminal command 'git clone https://github.com/svakam/covid-19-location.git'. 
 - Open IntelliJ IDEA. 
-- Choose the 'Import project' option, locate the folder through the file explorer, and import this project. 
+- Choose the 'Import project' option, locate the project folder through the file explorer, and import this project. 
 - Wait for the project to build. 
-- Run the app with the green Play button, either located on the bottom left of the IDE or at the top right. 
+- Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
 ## Change log
 03/20/2020
 - Initialized app
 - Spring set up
+- Firebase initialized
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
@@ -35,5 +36,9 @@ Spring.io documentation:
 
 Baeldung documentation:
 - __
+
+Stack Overflow questions:
+- Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
+
 
 Code Fellows Java curriculum
