@@ -3,7 +3,7 @@
 Deployed at: ____
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
-information on how COVID-19 is impacting their community. Information is retrieved using the Covid19api
+information on how COVID-19 is impacting their community in the United States.
 
 ## Run the app
 Visit the website at: ___
@@ -20,25 +20,44 @@ Or if you'd like to run it from your local machine:
 ## Change log
 03/20/2020
 - Initialized app
-- Spring set up
-- Firebase initialized
+- Set up Spring Boot, SpringMVC
+- Initialized Firebase
+
+03/21/2020
+- Initialized Bootstrap
+- Set up templates
+- Rendering templates through Thymeleaf
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Acknowledgements
-APIs used:
+APIs and data used/consulted:
 - Kyle Redelinghuys, who created the Covid19API: https://covid19api.com/#details
 - CDC: https://open.cdc.gov/apis.html
+- Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19
+- USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
+- State/local health departments
 
 Spring.io documentation:
-- https://spring.io/guides/gs/rest-service/
+- REST: https://spring.io/guides/gs/rest-service/
+- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
+- REST: https://spring.io/guides/gs/serving-web-content/
 
 Baeldung documentation:
-- __
+- HTTP: https://www.baeldung.com/java-http-request
 
-Stack Overflow questions:
+Bootstrap documentation: 
+- Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
+
+Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 
+Thymeleaf documentation: 
+- Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
+
+Other:
+- HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
+- HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 
 Code Fellows Java curriculum
