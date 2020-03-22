@@ -3,6 +3,7 @@ package com.vik.covid19vik;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,13 @@ public class MainController {
         return "greeting";
     }
 
-    // from search box, render results for given state/county/zip code
+//    // post request with user's search
+//    @PostMapping("/")
+//    public String submitSearch(String country) {
+//        // submit form input with country info
+//        // create country instance
+//        // redirect to results
+//    }
 
     // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/results")
@@ -71,9 +78,13 @@ public class MainController {
 //        out.flush();
 //        out.close();
 
-        // return JSON representation at this route
         in.close();
         con.disconnect();
+
+        // deserialize JSON output
+        Countries searchedByCountry = new Countries();
+
+        // return output
         model.addAttribute("content", content);
         return "results";
     }

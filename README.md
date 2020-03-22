@@ -37,6 +37,10 @@ Or if you'd like to run it from your local machine:
 - Rendering templates through Thymeleaf
 - Called Covid19API successfully with HttpURLConnection class
 
+03/22/2020
+- Passing JSON info successfully into template 
+
+
 ## Data flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
 the /countries endpoint. If successful, it must be decided whether the query was a country or a state/province. If a country was entered, the /summary endpoint will be queried
@@ -68,6 +72,7 @@ Spring.io documentation:
 
 Baeldung documentation:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
+- Thymeleaf: https://www.baeldung.com/thymeleaf-in-spring-mvc
 
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
@@ -78,6 +83,7 @@ Stack Overflow:
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
+- Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
