@@ -17,7 +17,10 @@
         <h1>COVID-19 Locator</h1>
         <h3>See how COVID-19 is affecting your community.</h3>
 
-        <p><a href="/results">Search box</a></p>
+        <form action="/search" method="POST">
+            <label>Country <input type="text" id="country" name="country"></label>
+            <button type="submit">Search</button>
+        </form>
 
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
