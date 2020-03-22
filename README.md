@@ -85,6 +85,9 @@ Thymeleaf documentation:
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
+W3 Schools:
+- Dropdown: https://www.w3schools.com/tags/att_option_value.asp
+
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
