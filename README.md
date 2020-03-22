@@ -27,12 +27,13 @@ Or if you'd like to run it from your local machine:
 - Initialized Bootstrap
 - Set up templates
 - Rendering templates through Thymeleaf
+- 
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Acknowledgements
-APIs and data used/consulted:
+COVID-19 APIs and COVID-19 data used/consulted:
 - Kyle Redelinghuys, who created the Covid19API: https://covid19api.com/#details
 - CDC: https://open.cdc.gov/apis.html
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19
@@ -45,7 +46,7 @@ Spring.io documentation:
 - REST: https://spring.io/guides/gs/serving-web-content/
 
 Baeldung documentation:
-- HTTP: https://www.baeldung.com/java-http-request
+- HTTP Request in Java: https://www.baeldung.com/java-http-request
 
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
@@ -59,5 +60,6 @@ Thymeleaf documentation:
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
+- GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
 
 Code Fellows Java curriculum

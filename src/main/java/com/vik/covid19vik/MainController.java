@@ -6,7 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import java.util.concurrent.atomic.AtomicLong;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.Buffer;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -26,10 +33,53 @@ public class MainController {
         return "results";
     }
 
-    // get information from covid19api
+    // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/covid19api")
-    public String covid19api() {
+    public String covid19api() throws IOException {
+        URL url = new URL("https://api.covid19api.com/");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Content-Type", "application/json");
 
-        return "covid19api";
+        int status = con.getResponseCode();
+        System.out.println("status = " + status);
+
+        BufferedReader in;
+        StringBuffer content;
+
+        FullResponseBuilder.getFullResponse(con);
+
+        if (status > 299) {
+            in = new BufferedReader(
+                    new InputStreamReader(con.getErrorStream()));
+        } else {
+            in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+        }
+
+        // timeout methods if needed
+        // con.setConnectTimeout(5000);
+        // con.setReadTimeout(5000);
+
+        // add parameters to request if needed
+//        Map<String, String> parameters = new HashMap<>();
+//        parameters.put("param1", "val");
+
+//        con.setDoOutput(true);
+//        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+//        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+//        out.flush();
+//        out.close();
+
+        con.disconnect();
+        return content;
+
+        // return JSON representation at this route
     }
 }
