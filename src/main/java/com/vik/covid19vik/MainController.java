@@ -16,7 +16,7 @@ import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 public class MainController {
     private static final String template = "Hello, %s!";
 
@@ -28,16 +28,11 @@ public class MainController {
     }
 
     // from search box, render results for given state/county/zip code
-    @GetMapping("/results")
-    public String results(@RequestParam(value = "city", required = true, defaultValue = "US") String city, Model model) {
-        model.addAttribute("city", city);
-        return "results";
-    }
 
     // get request to covid19api: https://api.covid19api.com/
-    @GetMapping("/covid19api")
-    public String covid19api() throws IOException {
-        URL url = new URL("https://api.covid19api.com/");
+    @GetMapping("/results")
+    public String covid19api(Model model) throws IOException {
+        URL url = new URL("https://api.covid19api.com/countries");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Content-Type", "application/json");
@@ -79,6 +74,7 @@ public class MainController {
         // return JSON representation at this route
         in.close();
         con.disconnect();
-        return content.toString();
+        model.addAttribute("content", content);
+        return "results";
     }
 }
