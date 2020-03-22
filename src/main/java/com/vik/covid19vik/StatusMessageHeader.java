@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StatusMessageHeader {
-    public static String getFullResponse(HttpURLConnection con) throws IOException {
+    public static String getInfo(HttpURLConnection con) throws IOException {
         StringBuilder fullResponseBuilder = new StringBuilder();
 
         // read status and message

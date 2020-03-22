@@ -48,7 +48,7 @@ public class MainController {
         BufferedReader in;
         StringBuilder content = new StringBuilder();
 
-        System.out.println(StatusMessageHeader.getFullResponse(con));
+        System.out.println(StatusMessageHeader.getInfo(con));
 
         if (status > 299) {
             in = new BufferedReader(
