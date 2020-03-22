@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import java.io.*;
@@ -15,7 +16,7 @@ import java.nio.Buffer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 public class MainController {
     private static final String template = "Hello, %s!";
 
@@ -45,9 +46,9 @@ public class MainController {
         System.out.println("status = " + status);
 
         BufferedReader in;
-        StringBuffer content;
+        StringBuilder content = new StringBuilder();
 
-        FullResponseBuilder.getFullResponse(con);
+        System.out.println(StatusMessageHeader.getFullResponse(con));
 
         if (status > 299) {
             in = new BufferedReader(
@@ -56,11 +57,9 @@ public class MainController {
             in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
-            content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
-            in.close();
         }
 
         // timeout methods if needed
@@ -77,9 +76,9 @@ public class MainController {
 //        out.flush();
 //        out.close();
 
-        con.disconnect();
-        return content;
-
         // return JSON representation at this route
+        in.close();
+        con.disconnect();
+        return content.toString();
     }
 }

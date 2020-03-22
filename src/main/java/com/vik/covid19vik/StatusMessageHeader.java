@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.util.Iterator;
 import java.util.List;
 
-public class FullResponseBuilder {
+public class StatusMessageHeader {
     public static String getFullResponse(HttpURLConnection con) throws IOException {
         StringBuilder fullResponseBuilder = new StringBuilder();
 
@@ -34,14 +34,6 @@ public class FullResponseBuilder {
                 });
 
         // read response content
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
 
         return fullResponseBuilder.toString();
     }
