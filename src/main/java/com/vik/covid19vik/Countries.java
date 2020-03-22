@@ -1,15 +1,16 @@
 package com.vik.covid19vik;
 
 public class Countries {
-    private String country;
-    private String slug;
-    private String[] provinces;
+    private String Country;
+    private String Slug;
+    private String[] Provinces;
 
     Countries() {
         // no-args constructor
     }
 
     public Countries(String country) {
-        this.country = country;
+        this.Country = country;
+
     }
 }

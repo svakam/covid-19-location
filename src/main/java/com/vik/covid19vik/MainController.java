@@ -28,7 +28,23 @@ public class MainController {
 //        return "greeting";
 //    }
 
-    //
+    // index
+    @GetMapping("/")
+    public String getIndex(Model model) throws IOException {
+        // call to countries endpoint: contains country, slug, and array of provinces
+//        StringBuilder countries = apiCallWithURL("https://api.covid19api.com/countries");
+
+        // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
+        // would avoid redundant api call
+
+        // deserialize JSON
+        // get list of countries and store in hashmap of country:slug and hashmap of country:provinces
+
+        // add deserialized version as attribute to index
+//        model.addAttribute("countries", countries);
+
+        return "index";
+    }
 
     // post request with user's search
     @PostMapping("/search")
@@ -43,16 +59,17 @@ public class MainController {
     // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/results")
     public String covid19api(Model model) throws IOException {
-        StringBuilder result = apiCallWithURL("https://api.covid19api.com/countries");
+        StringBuilder JSONResult = apiCallWithURL("https://api.covid19api.com/countries");
 
         // deserialize JSON output
         Countries searchedByCountry = new Countries();
 
         // return output
-        model.addAttribute("result", result);
+        model.addAttribute("result", JSONResult);
         return "results";
     }
 
+    // api call method takes in an endpoint and returns a string(builder)
     private StringBuilder apiCallWithURL(String endpoint) throws IOException {
         URL url = new URL(endpoint);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -12,13 +12,17 @@
         <title>COVID-19 Locator</title>
     </head>
     <body>
-<!--        <p>Get your greeting <a href="/greeting">here</a></p>-->
 
         <h1>COVID-19 Locator</h1>
         <h3>See how COVID-19 is affecting your community.</h3>
 
+        <!-- dropdown of countries rendered by passed in attribute -->
+        <!-- submit button below it submits selected country on POST route -->
         <form action="/search" method="POST">
-            <label>Country <input type="text" name="country"></label>
+            <select id="countrydropdown" name="country">
+                <option value="United States">United States</option>
+                <option value="Canada">Canada</option>
+            </select>
             <button type="submit">Search</button>
         </form>
 
