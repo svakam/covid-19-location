@@ -43,7 +43,7 @@ Or if you'd like to run it from your local machine:
 - GSON deserializing JSON from API
 - Passing JSON and objects appropriately into template
 - Populating country dropdown menu with countries
-
+- Passing dropdown choice to results page and rendering country's information (country, slug, provinces)
 
 ## Data flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 

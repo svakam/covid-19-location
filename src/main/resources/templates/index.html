@@ -20,9 +20,12 @@
         <!-- submit button below it submits selected country on POST route -->
 
         <!-- refactor so that only an array of country names is being passed in? -->
-        <form action="/search" method="POST">
+        <form action="/results" method="POST">
             <select id="countrydropdown" name="searchedCountry">
-                <option value="Enter country">Select country...</option>
+                <option value="Enter country" disabled>Select country...</option>
+                <option value="United States">United States</option>
+                <option value="Canada">Canada</option>
+                <option value="Mexico">Mexico</option>
                 <th:block th:each="country: ${countries}">
                     <option th:value="${country.Country}" th:id="${country.Country}" th:text="${country.Country}"></option>
                 </th:block>
