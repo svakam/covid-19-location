@@ -34,18 +34,13 @@ public class MainController {
     @GetMapping("/")
     public String getIndex(Model model) throws IOException {
         // call to countries endpoint: contains country, slug, and array of provinces
-        apiCallWithURLAndJSON("https://api.covid19api.com/countries");
+        Countries[] countries = apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
 
-//        model.addAttribute("countries", countryArray);
+        // add deserialized JSON as attribute to index
+        model.addAttribute("countries", countries);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
-
-        // deserialize JSON
-        // get list of countries and store in hashmap of country:slug and hashmap of country:provinces
-
-        // add deserialized version as attribute to index
-//        model.addAttribute("countries", countries);
 
         return "index";
     }
@@ -63,7 +58,7 @@ public class MainController {
     // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/results")
     public String covid19api(Model model) {
-        apiCallWithURLAndJSON("https://api.covid19api.com/countries");
+        apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
 
         // deserialize JSON output
         Countries searchedByCountry = new Countries();
@@ -74,8 +69,9 @@ public class MainController {
     }
 
     // api call method takes in an endpoint and returns a string(builder)
-    private void apiCallWithURLAndJSON(String endpoint) {
+    private Countries[] apiCallWithURLAndJSONConv(String endpoint) {
         URL url = null;
+        Countries[] countries = null;
         try {
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
@@ -83,9 +79,9 @@ public class MainController {
 //            return e.getMessage();
         }
         try {
+            assert url != null;
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             Gson gson = new Gson();
-            Countries[] countries;
 
             con.setRequestMethod("GET");
             con.setRequestProperty("Content-Type", "application/json");
@@ -104,9 +100,6 @@ public class MainController {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
                 countries = gson.fromJson(in, Countries[].class);
-                for (Countries country : countries) {
-                    System.out.println("country = " + country);
-                }
             }
 //            while ((inputLine = in.readLine()) != null) {
 //                content.append(inputLine).append("\n");
@@ -129,12 +122,10 @@ public class MainController {
             in.close();
             con.disconnect();
 
-//            return content.toString();
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
-//            return e.getMessage();
         }
+        return countries;
     }
 }

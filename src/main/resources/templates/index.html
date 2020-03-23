@@ -26,7 +26,13 @@
             <button type="submit">Search</button>
         </form>
 
-        <p th:text="${countries}"></p>
+        <div th:each="country: ${countries}">
+            <p th:text="${country.Country}"></p>
+            <p th:text="${country.Slug}"></p>
+            <div th:each="province: ${country.Provinces}">
+                <p th:text="${province}"></p>
+            </div>
+        </div>
 
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
