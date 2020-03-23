@@ -1,5 +1,7 @@
 package com.vik.covid19vik;
 
+import java.util.Arrays;
+
 public class Countries {
     private String Country;
     private String Slug;
@@ -9,8 +11,12 @@ public class Countries {
         // no-args constructor
     }
 
-    public Countries(String country) {
-        this.Country = country;
-
+    @Override
+    public String toString() {
+        return "Countries{" +
+                "Country='" + Country + '\'' +
+                ", Slug='" + Slug + '\'' +
+                ", Provinces=" + Arrays.toString(Provinces) +
+                '}';
     }
 }

@@ -80,6 +80,7 @@ Bootstrap documentation:
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
+- GSON import/build issue: https://stackoverflow.com/questions/47566665/cannot-resolve-symbol-gson-and-it-wont-allow-me-to-import/47566770
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
