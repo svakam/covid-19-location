@@ -39,6 +39,10 @@ Or if you'd like to run it from your local machine:
 
 03/22/2020
 - Passing JSON info successfully into template 
+- Refactored HttpURLConnection to work with GSON and API call
+- GSON deserializing JSON from API
+- Passing JSON and objects appropriately into template
+- Populating country dropdown menu with countries
 
 
 ## Data flow
@@ -80,9 +84,11 @@ Bootstrap documentation:
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
+- GSON import/build issue: https://stackoverflow.com/questions/47566665/cannot-resolve-symbol-gson-and-it-wont-allow-me-to-import/47566770
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
+- Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
 W3 Schools:

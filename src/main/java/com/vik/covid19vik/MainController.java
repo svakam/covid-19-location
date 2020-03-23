@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+import com.google.gson.Gson;
 
 
 import java.io.*;
@@ -15,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.Buffer;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,16 +34,13 @@ public class MainController {
     @GetMapping("/")
     public String getIndex(Model model) throws IOException {
         // call to countries endpoint: contains country, slug, and array of provinces
-//        StringBuilder countries = apiCallWithURL("https://api.covid19api.com/countries");
+        Countries[] countries = apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
+
+        // add deserialized JSON as attribute to index
+        model.addAttribute("countries", countries);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
-
-        // deserialize JSON
-        // get list of countries and store in hashmap of country:slug and hashmap of country:provinces
-
-        // add deserialized version as attribute to index
-//        model.addAttribute("countries", countries);
 
         return "index";
     }
@@ -58,49 +57,59 @@ public class MainController {
 
     // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/results")
-    public String covid19api(Model model) throws IOException {
-        StringBuilder JSONResult = apiCallWithURL("https://api.covid19api.com/countries");
+    public String covid19api(Model model) {
+        apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
 
         // deserialize JSON output
         Countries searchedByCountry = new Countries();
 
         // return output
-        model.addAttribute("result", JSONResult);
+//        model.addAttribute("result", JSONResult);
         return "results";
     }
 
     // api call method takes in an endpoint and returns a string(builder)
-    private StringBuilder apiCallWithURL(String endpoint) throws IOException {
-        URL url = new URL(endpoint);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Content-Type", "application/json");
-
-        int status = con.getResponseCode();
-        System.out.println("status = " + status);
-
-        BufferedReader in;
-        StringBuilder content = new StringBuilder();
-
-        System.out.println(StatusMessageHeader.getInfo(con));
-
-        if (status > 299) {
-            in = new BufferedReader(
-                    new InputStreamReader(con.getErrorStream()));
-        } else {
-            in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
+    private Countries[] apiCallWithURLAndJSONConv(String endpoint) {
+        URL url = null;
+        Countries[] countries = null;
+        try {
+            url = new URL(endpoint);
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+//            return e.getMessage();
         }
+        try {
+            assert url != null;
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            Gson gson = new Gson();
 
-        // timeout methods if needed
-        // con.setConnectTimeout(5000);
-        // con.setReadTimeout(5000);
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "application/json");
 
-        // add parameters to request if needed
+            System.out.println(StatusMessageHeader.getInfo(con));
+
+            BufferedReader in;
+//            StringBuilder content = new StringBuilder();
+//            String inputLine;
+
+            int status = con.getResponseCode();
+            if (status > 299) {
+                in = new BufferedReader(
+                        new InputStreamReader(con.getErrorStream()));
+            } else {
+                in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                countries = gson.fromJson(in, Countries[].class);
+            }
+//            while ((inputLine = in.readLine()) != null) {
+//                content.append(inputLine).append("\n");
+//            }
+
+            // timeout methods if needed
+            // con.setConnectTimeout(5000);
+            // con.setReadTimeout(5000);
+
+            // add parameters to request if needed
 //        Map<String, String> parameters = new HashMap<>();
 //        parameters.put("param1", "val");
 
@@ -110,9 +119,13 @@ public class MainController {
 //        out.flush();
 //        out.close();
 
-        in.close();
-        con.disconnect();
+            in.close();
+            con.disconnect();
 
-        return content;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return countries;
     }
 }
