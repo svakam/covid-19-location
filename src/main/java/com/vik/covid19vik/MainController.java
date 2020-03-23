@@ -70,8 +70,7 @@ public class MainController {
 
     @GetMapping("/results")
     public String covid19api(Model model) {
-        
-        // query summary api
+        model.addAttribute("countryInfo", countryInfo);
 
         return "results";
     }

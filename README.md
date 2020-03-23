@@ -51,10 +51,12 @@ the /countries endpoint. If successful, it must be decided whether the query was
 to obtain the country, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /country/
 {countryslug}/status/{status} endpoint. The array of states/provinces from the /countries endpoint will be used to further find the desired state/province and iterate through
 the endpoint for /country/{countryslug}/status/{status} to get the state/province information. 
+
+Covid19API endpoints (see the [API](https://covid19api.com/#details))
 /countries: Country, Slug, Provinces[]
 /summary: Countries[Country, CountrySlug, NewConfirmed, TotalConfirmed, NewDeaths, TotalDeaths, NewRecovered, TotalRecovered]
 /total/country/{countryslug}/status/{status}: Country (same one), Province, Lat/Lon, Date, Cases, Status (same one): relevant data is total # cases per day
-/country/{countryslug}/status/{status}: same as above but relevant data is specific to province level
+/country/{countryslug}/status/{status}: same as above, but relevant data is specific to province level
 /total/dayone/country/{countryslug}/status/{status}: for specific country only: and since day one of case #1 only
 /dayone/country/{countryslug}/status/{status}: same as above but specific to province level
 
@@ -63,7 +65,7 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data used/consulted:
-- Kyle Redelinghuys, who created the Covid19API: https://covid19api.com/#details
+- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - CDC: https://open.cdc.gov/apis.html
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
