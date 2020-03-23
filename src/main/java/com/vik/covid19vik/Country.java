@@ -3,16 +3,16 @@ package com.vik.covid19vik;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Countries implements Serializable {
+public class Country implements Serializable {
     private String Country;
     private String Slug;
     private String[] Provinces;
 
-    Countries() {
+    Country() {
         // no-args constructor
     }
 
-    public Countries(String country, String slug, String[] provinces) {
+    public Country(String country, String slug, String[] provinces) {
         this.Country = country;
         this.Slug = slug;
         this.Provinces = provinces;
@@ -34,7 +34,6 @@ public class Countries implements Serializable {
     public String toString() {
         return "Country='" + Country + '\'' +
                 ", Slug='" + Slug + '\'' +
-                ", Provinces=" + Arrays.toString(Provinces) +
-                '}';
+                ", Provinces=" + Arrays.toString(Provinces);
     }
 }

@@ -4,8 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import com.google.gson.Gson;
 
@@ -14,11 +12,8 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.Buffer;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 
 @Controller
 public class MainController {
@@ -30,14 +25,23 @@ public class MainController {
 //        return "greeting";
 //    }
 
+    Country[] countriesArray;
+    HashSet<String> countriesHashSet = new HashSet<>();
+    Country countryInfo;
+
     // index
     @GetMapping("/")
     public String getIndex(Model model) throws IOException {
         // call to countries endpoint: contains country, slug, and array of provinces
-        Countries[] countries = apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
+        countriesArray = apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
+
+        // add countries to hashset
+        for (Country country : countriesArray) {
+            countriesHashSet.add(country.getCountry());
+        }
 
         // add deserialized JSON as attribute to index
-        model.addAttribute("countries", countries);
+        model.addAttribute("countries", countriesArray);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
@@ -47,31 +51,35 @@ public class MainController {
 
     // post request with user's search
     @PostMapping("/search")
-    public RedirectView submitSearch(String country) {
-        System.out.println("country = " + country);
+    public RedirectView submitSearch(String searchedCountry, Model model) {
+
         // submit form input with country info
+        System.out.println("country = " + searchedCountry);
+
         // create country instance
-        // redirect to results
-        return new RedirectView("/");
+        for (Country country : countriesArray) {
+            if (searchedCountry.equals(country.getCountry())) {
+                countryInfo = new Country(country.getCountry(), country.getSlug(), country.getProvinces());
+            }
+        }
+
+        assert countryInfo != null;
+
+        return new RedirectView("/results");
     }
 
-    // get request to covid19api: https://api.covid19api.com/
     @GetMapping("/results")
     public String covid19api(Model model) {
-        apiCallWithURLAndJSONConv("https://api.covid19api.com/countries");
+        
+        // query summary api
 
-        // deserialize JSON output
-        Countries searchedByCountry = new Countries();
-
-        // return output
-//        model.addAttribute("result", JSONResult);
         return "results";
     }
 
     // api call method takes in an endpoint and returns a string(builder)
-    private Countries[] apiCallWithURLAndJSONConv(String endpoint) {
+    private Country[] apiCallWithURLAndJSONConv(String endpoint) {
         URL url = null;
-        Countries[] countries = null;
+        Country[] countries = null;
         try {
             url = new URL(endpoint);
         } catch (MalformedURLException e) {
@@ -99,7 +107,7 @@ public class MainController {
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
-                countries = gson.fromJson(in, Countries[].class);
+                countries = gson.fromJson(in, Country[].class);
             }
 //            while ((inputLine = in.readLine()) != null) {
 //                content.append(inputLine).append("\n");
