@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-
-import java.io.*;
 import java.util.HashSet;
 
 @Controller
@@ -16,11 +14,10 @@ public class MainController {
 
     Country[] countriesArray;
     HashSet<String> countriesHashSet = new HashSet<>();
-    Country countryInfo;
 
     // index
     @GetMapping("/")
-    public String getIndex(Model model) throws IOException {
+    public String getIndex(Model model) {
         // GET request to /countries endpoint: contains country, slug, and array of provinces
         countriesArray = Country.getCountries();
 
