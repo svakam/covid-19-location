@@ -7,12 +7,15 @@ html {
 }
 
 #indexbody section {
-    background-image: url("william-navarro-world.jpg");
+    background-image: url("william-navarro-world-1920.jpg");
     background-size: cover;
     color: white;
-    height: 100vh;
     padding: 7%;
     margin-bottom: -2rem;
+}
+
+iframe {
+    margin-top: 50px;
 }
 
 #disclaimer {
@@ -20,9 +23,80 @@ html {
     font-size: 12px;
 }
 
+#indexbody section h1 {
+    animation-duration: 0.5s;
+    animation-name: slidedownfadeinh1;
+}
+
+#indexbody section h3,hr {
+    animation-duration: 1s;
+    animation-name: slidedownfadeinh3;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+}
+
+#indexbody section form {
+    animation-duration: 1s;
+    animation-name: slidedownfadeinform;
+    animation-delay: 2s;
+    animation-fill-mode: both;
+}
+
+#disclaimer {
+    animation-duration: 1s;
+    animation-name: slidedownfadeindisclaimer;
+    animation-delay: 3s;
+    animation-fill-mode: both;
+}
+
+@keyframes slidedownfadeinh1 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slidedownfadeinh3 {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slidedownfadeinform {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slidedownfadeindisclaimer {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @media (min-width: 820px) {
     #disclaimer {
         margin-top: 200px;
+    }
+
+    #indexbody section article {
+        margin-right: 100px;
+        margin-left: 100px;
     }
 }
 
