@@ -52,8 +52,8 @@ Or if you'd like to run it from your local machine:
 - Began Bootstrap work on index - jumbotron implemented and sized
 
 03/24/2020
+- Added JHU CSSE dashboard to front page
 - Header nav bar for results page to filter by province if available
-- 
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
