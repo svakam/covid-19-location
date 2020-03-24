@@ -9,14 +9,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <title th:if="${searchedCountry} == 'US'" th:text='Results for United States'></title>
-        <title th:if="${searchedCountry} == 'occupied Palestinian territory'" th:text='Results for Occupied Palestinian Territory'></title>
+        <title th:if="${searchedCountry} == 'US'">Results for United States</title>
+        <title th:if="${searchedCountry} == 'occupied Palestinian territory'">Results for Occupied Palestinian Territory</title>
         <title th:unless="${searchedCountry} == 'US' or ${searchedCountry} == 'occupied Palestinian territory'"
             th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
     <body>
-        <h1 th:if="${searchedCountry} == 'US'" th:text='Results for United States'></h1>
-        <h1 th:if="${searchedCountry} == 'occupied Palestinian territory'" th:text='Results for Occupied Palestinian Territory'></h1>
+        <h1 th:if="${searchedCountry} == 'US'">Results for United States</h1>
+        <h1 th:if="${searchedCountry} == 'occupied Palestinian territory'">Results for Occupied Palestinian Territory</h1>
         <h1 th:unless="${searchedCountry} == 'US' or ${searchedCountry} == 'occupied Palestinian territory'"
             th:text="'Results for ' + ${searchedCountry}"></h1>
 

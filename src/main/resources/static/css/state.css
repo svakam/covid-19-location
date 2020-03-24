@@ -6,28 +6,28 @@
 #indexbody section h3,hr {
     animation-duration: 1s;
     animation-name: slidedownfadein;
-    animation-delay: 1s;
+    animation-delay: 0.5s;
     animation-fill-mode: both;
 }
 
 #indexbody section form {
     animation-duration: 1s;
     animation-name: slidedownfadein;
-    animation-delay: 2s;
+    animation-delay: 1.5s;
     animation-fill-mode: both;
 }
 
 iframe {
     animation-duration: 1s;
     animation-name: slidedownfadein;
-    animation-delay: 3s;
+    animation-delay: 2.5s;
     animation-fill-mode: both;
 }
 
 #disclaimer {
     animation-duration: 1s;
     animation-name: slidedownfadein;
-    animation-delay: 4s;
+    animation-delay: 3.5s;
     animation-fill-mode: both;
 }
 
