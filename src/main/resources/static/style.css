@@ -1,6 +1,14 @@
 #indexbody section {
     background-image: url("william-navarro-world.jpg");
     background-size: cover;
+    color: white;
+    height: 100vh;
+    padding: 7%;
+    margin-bottom: -2rem;
+}
+
+#indexbody {
+    background-color: black;
 }
 
 /* color scheme: #FFF2C4 light caramel, #303FB3 dark blue, #6D7FFF light blue, #FFE078 some yellow, #B38B00 turd
