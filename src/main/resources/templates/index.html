@@ -12,26 +12,31 @@
         <title>COVID-19 Locator</title>
     </head>
     <body>
-
-        <h1>COVID-19 Locator</h1>
-        <h3>See how COVID-19 is affecting your community.</h3>
-
-        <!-- dropdown of countries rendered by passed in attribute -->
-        <!-- submit button below it submits selected country on POST route -->
-
-        <!-- refactor so that only an array of country names is being passed in? -->
-        <form action="/results" method="POST">
-            <select id="countrydropdown" name="searchedCountry">
-                <option value="Enter country" disabled>Select country...</option>
-                <option value="US">United States</option>
-                <option value="Canada">Canada</option>
-                <option value="Mexico">Mexico</option>
-                <th:block th:each="country: ${countries}">
-                    <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
-                </th:block>
-            </select>
-            <button type="submit">Search</button>
-        </form>
+        <section class="jumbotron">
+            <h1 class="display-1 text-center">COVID-19 Locator</h1>
+            <p class="display-4 text-center">Learn how your community is being affected.</p>
+            <hr class="my-4">
+            <form action="/results" method="POST">
+                <div class="row justify-content-center">
+                    <label for="countrydropdown">Search by country</label>
+                </div>
+                <div class="row">
+                    <select id="countrydropdown" name="searchedCountry">
+                        <option value="Enter country" disabled>Select country...</option>
+                        <option value="US">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Mexico">Mexico</option>
+                        <th:block th:each="country: ${countries}">
+                            <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
+                        </th:block>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                </div>
+            </form>
+        </section>
+        <p>Information about sources being used</p>
+        <p>Disclaimer about how this website shouldn't be used to obtain medical information and rely on for accuracy</p>
+        <p>Links to </p>
 
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
