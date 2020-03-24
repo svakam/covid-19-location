@@ -69,10 +69,10 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data used/consulted:
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
+- Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
-- Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
-- State/local health departments
+- State/local health department websites
 
 Spring.io documentation:
 - REST: https://spring.io/guides/gs/rest-service/
@@ -83,6 +83,7 @@ Baeldung documentation:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
 - Thymeleaf: https://www.baeldung.com/thymeleaf-in-spring-mvc
 - Path variables: https://www.baeldung.com/spring-thymeleaf-path-variables
+- GSON Deserialization: https://www.baeldung.com/gson-deserialization-guide
 
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
@@ -104,5 +105,6 @@ Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 - GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
+- GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
 
 Code Fellows Java curriculum

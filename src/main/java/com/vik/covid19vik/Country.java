@@ -20,12 +20,6 @@ public class Country implements Serializable {
         // no-args constructor
     }
 
-    public Country(String country, String slug, String[] provinces) {
-        this.Country = country;
-        this.Slug = slug;
-        this.Provinces = provinces;
-    }
-
     public String getCountry() {
         return Country;
     }

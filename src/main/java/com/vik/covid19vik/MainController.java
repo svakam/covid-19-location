@@ -7,13 +7,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 @Controller
 public class MainController {
 
+    // consider adding to database
     Country[] countriesArray;
+    String[] countryNames;
     HashSet<String> countriesHashSet = new HashSet<>();
+    HashMap<String, Array> countriesHashMap = new HashMap<>();
 
     // index
     @GetMapping("/")
@@ -21,13 +28,14 @@ public class MainController {
         // GET request to /countries endpoint: contains country, slug, and array of provinces
         countriesArray = Country.getCountries();
 
-        // add countries to hashset
-        for (Country country : countriesArray) {
-            countriesHashSet.add(country.getCountry());
+        countryNames = new String[countriesArray.length];
+
+        for (int i = 0; i < countriesArray.length; i++) {
+            countryNames[i] = countriesArray[i].getCountry();
         }
 
         // add deserialized JSON as attribute to index
-        model.addAttribute("countries", countriesArray);
+        model.addAttribute("countries", countryNames);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
@@ -58,8 +66,15 @@ public class MainController {
 
     @GetMapping("/results/{slug}")
     public String allResults(@PathVariable String slug, Model model) {
+
+        // get slug
         System.out.println(slug);
         model.addAttribute("slug", slug);
+
+        // use slug to access a hashmap<country, array> where country is slugs and array is an order of types of cases for that country
+
+
+        //
 
         return "results";
     }
