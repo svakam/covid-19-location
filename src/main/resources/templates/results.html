@@ -21,7 +21,7 @@
         <p th:text="${slug}"></p>
 
         <p th:text="${summ}"></p>
-        <th:block th:each="country: ${summ}">
+        <th:block th:each="country: ${countrySummary}">
             <p th:text="${summ.Country}"></p>
             <p th:text="${summ.Date}"></p>
         </th:block>

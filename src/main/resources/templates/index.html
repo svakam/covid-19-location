@@ -27,7 +27,7 @@
                 <option value="Canada">Canada</option>
                 <option value="Mexico">Mexico</option>
                 <th:block th:each="country: ${countries}">
-                    <option th:value="${country.Country}" th:id="${country.Country}" th:text="${country.Country}"></option>
+                    <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
                 </th:block>
             </select>
             <button type="submit">Search</button>

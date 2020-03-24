@@ -5,18 +5,15 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.List;
 
 // https:/api.covid19api.com/summary - 1st level
-public class CountrySummaryCases {
-    private List<CountrySummary> Countries;
+public class SummaryCasesByCountry {
+    private CountrySummary[] Countries;
 
-    CountrySummaryCases() {
+    SummaryCasesByCountry() {
        // no args constructor
     }
 
@@ -71,7 +68,7 @@ public class CountrySummaryCases {
 
     private String Date;
 
-    public List<CountrySummary> getCountries() {
+    public CountrySummary[] getCountries() {
         return Countries;
     }
 
@@ -80,8 +77,8 @@ public class CountrySummaryCases {
     }
 
     // GET request returns list of countries w/ confirmed, deaths, recovered cases and time of data
-    static CountrySummaryCases getCountryCases() {
-        CountrySummaryCases countrysummary = null;
+    static SummaryCasesByCountry getCountriesCases() {
+        SummaryCasesByCountry countrysummary = null;
         URL url = null;
         try {
             url = new URL("https://api.covid19api.com/summary");
@@ -108,7 +105,7 @@ public class CountrySummaryCases {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
                 Gson gson = new Gson();
-                countrysummary = gson.fromJson(in, CountrySummaryCases.class);
+                countrysummary = gson.fromJson(in, SummaryCasesByCountry.class);
             }
 
             in.close();
