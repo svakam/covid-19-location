@@ -15,7 +15,7 @@
         <title>COVID-19 Locator</title>
     </head>
     <body id="indexbody">
-        <section class="jumbotron">
+        <section class="jumbotron jumbotron-fluid">
             <h1 class="display-1 text-center">COVID-19 Locator</h1>
             <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
             <hr class="my-4">
@@ -36,11 +36,11 @@
                     <button id="countrybutton" type="submit" class="btn btn-primary btn-lg">Search</button>
                 </div>
             </form>
-            <p>DISCLAIMER: <br> This website's data is sourced from the <a href="https://covid19api.com/">Covid19API</a>, whose data is sourced
-                from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>. As written in JHU CSSE's Terms of Use:
+            <div class="alert alert-light" role="alert" id="disclaimer">DISCLAIMER: <br> This website's data is sourced from the <a href="https://covid19api.com/">Covid19API</a>, whose data is sourced
+                from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>. From JHU CSSE's Terms of Use:
                 "The Website relies upon publicly available data from multiple sources, that do not always agree. The Johns Hopkins University hereby
                 disclaims any and all representations and warranties with respect to the Website, including accuracy, fitness for use, and merchantability.
-                Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."</p>
+                Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."</div>
         </section>
 
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>

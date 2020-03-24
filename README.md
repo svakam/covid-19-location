@@ -49,6 +49,11 @@ Or if you'd like to run it from your local machine:
 - Refactored postmapping to be more RESTful with dropdown choice and /results
 - Successfully accessing endpoint with case information for countries
 - Rendering confirmed/death/recovered cases of user's choice of country on /results
+- Began Bootstrap work on index - jumbotron implemented and sized
+
+03/24/2020
+- Header nav bar for results page to filter by province if available
+- 
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
