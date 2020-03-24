@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -25,11 +22,13 @@ public class MainController {
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
+
         // GET request to /countries endpoint: contains country, slug, and array of provinces
+        // deserializing JSON
         countriesArray = Country.getCountries();
 
+        // array of country names
         countryNames = new String[countriesArray.length];
-
         for (int i = 0; i < countriesArray.length; i++) {
             countryNames[i] = countriesArray[i].getCountry();
         }
@@ -43,16 +42,14 @@ public class MainController {
         return "index";
     }
 
-    // post request with user's search
+    // post request with user's country name search
     @PostMapping("/results")
     public RedirectView submitSearch(String searchedCountry) {
 
-        // submit form input with country info
         System.out.println("Dropdown selected = " + searchedCountry);
 
-        String slug = null;
-
         // find slug for country
+        String slug = null;
         for (Country country : countriesArray) {
             if (searchedCountry.equals(country.getCountry())) {
                 slug = country.getSlug();
@@ -61,20 +58,24 @@ public class MainController {
 
         // some kind of error checking if slug comes back as null
 
-        return new RedirectView("/results/" + slug);
+        return new RedirectView("/results/" + searchedCountry + "/" + slug);
     }
 
-    @GetMapping("/results/{slug}")
-    public String allResults(@PathVariable String slug, Model model) {
+    @GetMapping("/results/{searchedCountry}/{slug}")
+    public String allResults(@PathVariable String slug, @PathVariable String searchedCountry, Model model) {
 
-        // get slug
         System.out.println(slug);
+
         model.addAttribute("slug", slug);
+        model.addAttribute("searchedCountry", searchedCountry);
+
+        // GET request to /summary endpoint: contains country, slug, and case info on country level
+        // deserializes JSON
+        HashMap<String, int[]> summaryCasesByCountry = SummaryCasesByCountry.getCountriesCases();
 
         // use slug to access a hashmap<country, array> where country is slugs and array is an order of types of cases for that country
-
-
-        //
+        int[] caseInfoForCountry = summaryCasesByCountry.get(slug);
+        model.addAttribute("caseInfoForCountry", caseInfoForCountry);
 
         return "results";
     }
