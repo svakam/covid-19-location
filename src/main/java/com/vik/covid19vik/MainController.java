@@ -58,10 +58,10 @@ public class MainController {
 
         // some kind of error checking if slug comes back as null
 
-        return new RedirectView("/results/" + searchedCountry + "/" + slug);
+        return new RedirectView("/results/" + searchedCountry + "&" + slug);
     }
 
-    @GetMapping("/results/{searchedCountry}/{slug}")
+    @GetMapping("/results/{searchedCountry}&{slug}")
     public String allResults(@PathVariable String slug, @PathVariable String searchedCountry, Model model) {
 
         System.out.println(slug);
