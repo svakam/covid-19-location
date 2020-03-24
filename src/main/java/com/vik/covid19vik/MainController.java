@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 @Controller
 public class MainController {
 
-    Country[] countriesArray;
+    Country[] countriesArray; // consider adding to database
     HashSet<String> countriesHashSet = new HashSet<>();
 
     // index
@@ -60,6 +61,12 @@ public class MainController {
     public String allResults(@PathVariable String slug, Model model) {
         System.out.println(slug);
         model.addAttribute("slug", slug);
+
+        CountrySummaryCases countrysummary = CountrySummaryCases.getCountryCases();
+        System.out.println("countrysummary = " + countrysummary);
+        System.out.println(countrysummary.getCountries());
+        System.out.println(countrysummary.getDate());
+//        model.addAttribute("summ", countrysummary);
 
         return "results";
     }

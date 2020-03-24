@@ -20,6 +20,12 @@
 
         <p th:text="${slug}"></p>
 
+        <p th:text="${summ}"></p>
+        <th:block th:each="country: ${summ}">
+            <p th:text="${summ.Country}"></p>
+            <p th:text="${summ.Date}"></p>
+        </th:block>
+
         <h2>County/State in the news</h2>
 
         <h2>Ways to stay safe</h2>

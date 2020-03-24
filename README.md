@@ -104,5 +104,6 @@ Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 - GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
+- GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
 
 Code Fellows Java curriculum
