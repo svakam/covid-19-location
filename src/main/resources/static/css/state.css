@@ -1,0 +1,42 @@
+#indexbody section h1 {
+    animation-duration: 0.5s;
+    animation-name: slidedownfadein;
+}
+
+#indexbody section h3,hr {
+    animation-duration: 1s;
+    animation-name: slidedownfadein;
+    animation-delay: 0.5s;
+    animation-fill-mode: both;
+}
+
+#indexbody section form {
+    animation-duration: 1s;
+    animation-name: slidedownfadein;
+    animation-delay: 1.5s;
+    animation-fill-mode: both;
+}
+
+iframe {
+    animation-duration: 1s;
+    animation-name: slidedownfadein;
+    animation-delay: 2.5s;
+    animation-fill-mode: both;
+}
+
+#disclaimer {
+    animation-duration: 1s;
+    animation-name: slidedownfadein;
+    animation-delay: 3.5s;
+    animation-fill-mode: both;
+}
+
+@keyframes slidedownfadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

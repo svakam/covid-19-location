@@ -1,0 +1,28 @@
+html {
+    min-width: 480px;
+}
+
+#indexbody section {
+    padding: 7%;
+    margin-bottom: -2rem;
+}
+
+iframe {
+    margin-top: 50px;
+}
+
+#disclaimer {
+    margin-top: 50px;
+    font-size: 12px;
+}
+
+@media (min-width: 820px) {
+    #disclaimer {
+        margin-top: 100px;
+    }
+
+    #indexbody section article {
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}

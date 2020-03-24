@@ -1,0 +1,12 @@
+#indexbody {
+    background-color: #010302;
+}
+
+#indexbody section {
+    background-image: url("../img/william-navarro-world-1920.jpg");
+    background-size: cover;
+    color: white;
+}
+
+
+/* color scheme: #FFF2C4 light caramel, #303FB3 dark blue, #6D7FFF light blue, #FFE078 some yellow, #B38B00 turd

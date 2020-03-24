@@ -9,22 +9,27 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-        <title>Results for </title>
+        <title th:if="${searchedCountry} == 'US'">Results for United States</title>
+        <title th:if="${searchedCountry} == 'occupied Palestinian territory'">Results for Occupied Palestinian Territory</title>
+        <title th:unless="${searchedCountry} == 'US' or ${searchedCountry} == 'occupied Palestinian territory'"
+            th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
     <body>
-        <h1>Results for County/State</h1>
+        <h1 th:if="${searchedCountry} == 'US'">Results for United States</h1>
+        <h1 th:if="${searchedCountry} == 'occupied Palestinian territory'">Results for Occupied Palestinian Territory</h1>
+        <h1 th:unless="${searchedCountry} == 'US' or ${searchedCountry} == 'occupied Palestinian territory'"
+            th:text="'Results for ' + ${searchedCountry}"></h1>
+
         <h2>Statistics</h2>
         <h3>Cases confirmed</h3>
+        <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
+        <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
         <h3>Deaths</h3>
+        <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
+        <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
         <h3>Recovered</h3>
-
-        <p th:text="${slug}"></p>
-
-        <p th:text="${summ}"></p>
-        <th:block th:each="country: ${countrySummary}">
-            <p th:text="${summ.Country}"></p>
-            <p th:text="${summ.Date}"></p>
-        </th:block>
+        <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
+        <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
 
         <h2>County/State in the news</h2>
 

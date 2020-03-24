@@ -25,7 +25,7 @@ Or if you'd like to run it from your local machine:
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
-## Change log
+## Change log/Commit History
 03/20/2020
 - Initialized app
 - Set up Spring Boot, SpringMVC
@@ -47,8 +47,15 @@ Or if you'd like to run it from your local machine:
 
 03/23/2020
 - Refactored postmapping to be more RESTful with dropdown choice and /results
+- Successfully accessing endpoint with case information for countries
+- Rendering confirmed/death/recovered cases of user's choice of country on /results
+- Began Bootstrap work on index - jumbotron implemented and sized
 
-## Data flow
+03/24/2020
+- Added JHU CSSE dashboard to front page
+- Header nav bar for results page to filter by province if available
+
+## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
 the /countries endpoint. If successful, it must be decided whether the query was a country or a state/province. If a country was entered, the /summary endpoint will be queried
 to obtain the country, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /country/
