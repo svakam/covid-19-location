@@ -5,9 +5,12 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.HashMap;
 
 // https:/api.covid19api.com/summary - 1st level
 public class SummaryCasesByCountry {
@@ -63,6 +66,20 @@ public class SummaryCasesByCountry {
         public int getTotalRecovered() {
             return TotalRecovered;
         }
+
+        @Override
+        public String toString() {
+            return "CountrySummary{" +
+                    "Country='" + Country + '\'' +
+                    ", Slug='" + Slug + '\'' +
+                    ", NewConfirmed=" + NewConfirmed +
+                    ", TotalConfirmed=" + TotalConfirmed +
+                    ", NewDeaths=" + NewDeaths +
+                    ", TotalDeaths=" + TotalDeaths +
+                    ", NewRecovered=" + NewRecovered +
+                    ", TotalRecovered=" + TotalRecovered +
+                    '}';
+        }
     }
 
 
@@ -76,9 +93,17 @@ public class SummaryCasesByCountry {
         return Date;
     }
 
+    @Override
+    public String toString() {
+        return "SummaryCasesByCountry{" +
+                "Countries=" + Arrays.toString(Countries) +
+                ", Date='" + Date + '\'' +
+                '}';
+    }
+
     // GET request returns list of countries w/ confirmed, deaths, recovered cases and time of data
-    static SummaryCasesByCountry getCountriesCases() {
-        SummaryCasesByCountry countrysummary = null;
+    static HashMap<String, int[]> getCountriesCases() {
+        SummaryCasesByCountry countrySummary = null;
         URL url = null;
         try {
             url = new URL("https://api.covid19api.com/summary");
@@ -105,7 +130,7 @@ public class SummaryCasesByCountry {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
                 Gson gson = new Gson();
-                countrysummary = gson.fromJson(in, SummaryCasesByCountry.class);
+                countrySummary = gson.fromJson(in, SummaryCasesByCountry.class);
             }
 
             in.close();
@@ -115,6 +140,15 @@ public class SummaryCasesByCountry {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-        return countrysummary;
+
+        // create hashmap<slug, array>
+        HashMap<String, int[]> casesByCountry = new HashMap<>();
+        assert countrySummary != null;
+        for (CountrySummary country : countrySummary.getCountries()) {
+            casesByCountry.put(country.Slug, new int[]{country.NewConfirmed, country.TotalConfirmed, country.NewDeaths,
+                    country.TotalDeaths, country.NewRecovered, country.TotalRecovered});
+        }
+
+        return casesByCountry;
     }
 }
