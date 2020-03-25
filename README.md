@@ -105,6 +105,13 @@ Thymeleaf documentation:
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
+Deployment: 
+- Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
+- CNAME and Domain Names: https://www.freecodecamp.org/news/why-cant-a-domain-s-root-be-a-cname-8cbab38e5f5c/
+- AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
+- Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
+beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
+
 W3 Schools:
 - Dropdown: https://www.w3schools.com/tags/att_option_value.asp
 
