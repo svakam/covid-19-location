@@ -13,11 +13,18 @@ import java.util.*;
 @Controller
 public class MainController {
 
-    // consider adding to database
+    // consider adding to database:
+
+    // array of all countries with country names/slug/province
     Country[] countriesArray;
+    // array of country names for country dropdown
     String[] countryNames;
-    HashSet<String> countriesHashSet = new HashSet<>();
-    HashMap<String, Array> countriesHashMap = new HashMap<>();
+    // array of province/state names for province/state dropdown
+    String[] provinceStateNames;
+    // hashmap with country as key and instance of a hashset of provinces/states in country
+    HashMap<String, HashSet<String>> countryProvinceHashMap = new HashMap<>();
+    // new hashset instance for every country
+    HashSet<String> provincesForCountry;
 
     // index
     @GetMapping("/")
@@ -27,14 +34,36 @@ public class MainController {
         // deserializing JSON
         countriesArray = Country.getCountries();
 
-        // array of country names
+        // array of country names, array of state/province names (if available), array of county names (if available)
         countryNames = new String[countriesArray.length];
         for (int i = 0; i < countriesArray.length; i++) {
-            countryNames[i] = countriesArray[i].getCountry();
+            // array of all country names
+            String givenCountry = countriesArray[i].getCountry();
+            countryNames[i] = givenCountry;
+
+            int numberOfProvincesOfCountry = countriesArray[i].getProvinces().length;
+
+            // array of all province names per country
+            provinceStateNames = new String[numberOfProvincesOfCountry];
+            provincesForCountry = new HashSet<>();
+            if (numberOfProvincesOfCountry != 0) {
+                for (int j = 0; j < numberOfProvincesOfCountry; j++) {
+                    String givenProvince = countriesArray[i].getProvinces()[j];
+                    provinceStateNames[j] = givenProvince;
+
+                    // hashmap of associated provinces per country
+                    String givenProvinceOfCountry = countriesArray[i].getProvinces()[j];
+                    provincesForCountry.add(givenProvinceOfCountry);
+                    countryProvinceHashMap.put(givenCountry, provincesForCountry);
+                }
+            }
+
+            // array of all county names
         }
 
-        // add deserialized JSON as attribute to index
-        model.addAttribute("countries", countryNames);
+        // add arrays to index
+        model.addAttribute("countryNames", countryNames);
+        model.addAttribute("provinceStateNames", provinceStateNames);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
@@ -65,6 +94,7 @@ public class MainController {
     public String allResults(@PathVariable String slug, @PathVariable String searchedCountry, Model model) {
 
         System.out.println(slug);
+        System.out.println(searchedCountry);
 
         model.addAttribute("slug", slug);
         model.addAttribute("searchedCountry", searchedCountry);

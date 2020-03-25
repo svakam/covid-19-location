@@ -1,6 +1,6 @@
 # COVID-19 Location Info
 
-Deployed at: ____
+Deployed at: www.cv19location.com
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
 information on how COVID-19 is impacting their community in the United States.
@@ -11,10 +11,10 @@ total number of cases in their province/state, and total number of cases in thei
 
 The number of cases of COVID-19 will contain numbers for confirmed cases, recovered cases, and death cases. 
 
-Case data for the designated country or state tends to be up to date. County data may lag behind by about 12 days. 
+NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. 
 
 ## Run the app
-Visit the website at: ___
+Visit the website at: www.cv19location.com
 
 Or if you'd like to run it from your local machine: 
 - Install IntelliJ IDEA. 
@@ -53,6 +53,11 @@ Or if you'd like to run it from your local machine:
 
 03/24/2020
 - Added JHU CSSE dashboard to front page
+- Deployed to AWS EB
+
+03/25/2020
+- Note: JHU CSSE data proceeding 03/23/2020 contains mixed JSON representation of country/state/county names. Additional sorting was done today to account for this in order
+to assimilate these differences
 - Header nav bar for results page to filter by province if available
 
 ## Data Flow
