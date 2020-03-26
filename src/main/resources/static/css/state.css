@@ -1,16 +1,16 @@
-#indexbody section h1 {
+#indexbody main section h1 {
     animation-duration: 0.5s;
     animation-name: slidedownfadein;
 }
 
-#indexbody section h3,hr {
+#indexbody main section h3,hr {
     animation-duration: 1s;
     animation-name: slidedownfadein;
     animation-delay: 0.5s;
     animation-fill-mode: both;
 }
 
-#indexbody section form {
+#indexbody main section form {
     animation-duration: 1s;
     animation-name: slidedownfadein;
     animation-delay: 1.5s;

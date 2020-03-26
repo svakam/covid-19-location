@@ -17,42 +17,92 @@
         <title>COVID-19 Locator</title>
     </head>
     <body id="indexbody">
-        <section class="jumbotron jumbotron-fluid">
-            <h1 class="display-1 text-center">COVID-19 Locator</h1>
-            <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
-            <hr class="my-4">
-            <form action="/results" method="POST">
-                <div class="row justify-content-center">
-                    <label for="countrydropdown">Search by country</label>
+        <header class="sticky-top">
+            <nav class="navbar sticky-top navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="/">CV19Locator</a>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbarNav">
+                        <!-- dropdown country -->
+                        <form action="/results" class="nav-item" method="POST">
+                            <div class="row">
+                                <label for="countrydropdown">Search by country:</label>
+                            </div>
+                            <div class="row">
+                                <select id="countrydropdown" name="searchedCountry">
+                                    <option value="Enter country" disabled>Select country...</option>
+                                    <option value="US">United States</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Mexico">Mexico</option>
+                                    <th:block th:each="country: ${countryNames}">
+                                        <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
+                                    </th:block>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                            </div>
+                        </form>
+                        <a class="nav-item nav-link" href="#">Pricing</a>
+                        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </div>
                 </div>
-                <div class="row justify-content-center">
-                    <select id="countrydropdown" name="searchedCountry">
-                        <option value="Enter country" disabled>Select country...</option>
-                        <option value="US">United States</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Mexico">Mexico</option>
-                        <th:block th:each="country: ${countryNames}">
-                            <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
-                        </th:block>
-                    </select>
-                    <button id="countrybutton" type="submit" class="btn btn-primary btn-lg">Search</button>
+            </nav>
+        </header>
+        <main>
+            <section class="jumbotron jumbotron-fluid">
+                <h1 class="display-1 text-center">COVID-19 Locator</h1>
+                <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
+                <hr class="my-4">
+                <form action="/results" method="POST">
+                    <div class="row justify-content-center">
+                        <label for="countrydropdown">Search by country</label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <select id="countrydropdownbody" name="searchedCountry">
+                            <option value="Enter country" disabled>Select country...</option>
+                            <option value="US">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Mexico">Mexico</option>
+                            <th:block th:each="country: ${countryNames}">
+                                <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
+                            </th:block>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </form>
+                <form action="/results" method="POST">
+                    <div class="row justify-content-center">
+                        <label for="provincedropdownbody">Search by state/province</label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <select id="provincedropdownbody" name="searchedCountry">
+                            <option value="Enter country" disabled>Select province...</option>
+                            <th:block th:each="province,iter: ${provinceNames}">
+                                <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
+                            </th:block>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </form>
+                <article class="row row-cols-1 justify-content-center">
+                    <iframe width="850" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
+                            src="//gisanddata.maps.arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=
+                        true&previewImage=false&scale=true&disable_scroll=true&theme=light"></iframe>
+                    <p class="text-right"><em>Source: Johns Hopkins University</em></p>
+                </article>
+                <!-- https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61 -->
+                <div class="alert alert-light" role="alert" id="disclaimer">DISCLAIMER: <br> This website's data is sourced from the <a href="https://covid19api.com/">Covid19API</a>, whose data is sourced
+                    from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>. From JHU CSSE's Terms of Use:
+                    "The Website relies upon publicly available data from multiple sources, that do not always agree. The Johns Hopkins University hereby
+                    disclaims any and all representations and warranties with respect to the Website, including accuracy, fitness for use, and merchantability.
+                    Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."
                 </div>
-            </form>
-            <article class="row row-cols-1 justify-content-center">
-                <iframe width="850" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
-                        src="//gisanddata.maps.arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=
-                    true&previewImage=false&scale=true&disable_scroll=true&theme=light"></iframe>
-                <p class="text-right"><em>Source: Johns Hopkins University</em></p>
-            </article>
-            <!-- https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61 -->
-            <div class="alert alert-light" role="alert" id="disclaimer">DISCLAIMER: <br> This website's data is sourced from the <a href="https://covid19api.com/">Covid19API</a>, whose data is sourced
-                from <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>. From JHU CSSE's Terms of Use:
-                "The Website relies upon publicly available data from multiple sources, that do not always agree. The Johns Hopkins University hereby
-                disclaims any and all representations and warranties with respect to the Website, including accuracy, fitness for use, and merchantability.
-                Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."
-            </div>
-        </section>
+            </section>
+        </main>
+        <footer>
 
+        </footer>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
