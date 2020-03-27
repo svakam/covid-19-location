@@ -86,15 +86,9 @@ public class MainController {
         // if searched country is redundant, get all slugs, total case data up appropriately, and add to model
         HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
         if (redundantCountriesWithSlugs.containsKey(searchedCountry)) {
-            caseInfoForCountry = new int[]{0,0,0,0,0,0};
             String[] slugs = redundantCountriesWithSlugs.get(searchedCountry);
-            for (String redundantSlug : slugs) {
-                System.out.println("redundantSlug = " + redundantSlug);
-                int[] caseInfoPerSlug = summaryCasesByCountry.get(redundantSlug);
-                for (int i = 0; i < caseInfoPerSlug.length; i++) {
-                    caseInfoForCountry[i] += caseInfoPerSlug[i];
-                }
-            }
+            String slugWithMostRelevantData = slugs[slugs.length - 1];
+            caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantData);
         } // else get case data for slug
         else {
             caseInfoForCountry = summaryCasesByCountry.get(slug);

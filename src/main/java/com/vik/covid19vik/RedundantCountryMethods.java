@@ -5,6 +5,7 @@ import java.util.*;
 public class RedundantCountryMethods {
 
     // used to get a country name and get order of slugs that represents corrected order of data
+    // NOTE: to obtain most relevant data for a country, the corrected data is associated with the slug at the end of the array, with the exception of
     public static HashMap<String, String[]> getRedundantCountriesWithSlugs() {
         // redundant country hashmap: country name as key and array of possible slugs as values
         HashMap<String, String[]> redundantCountriesWithSlugs = new HashMap<>();
@@ -12,12 +13,12 @@ public class RedundantCountryMethods {
         redundantCountriesWithSlugs.put("Bahamas", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
         redundantCountriesWithSlugs.put("Gambia", new String[]{"the-gambia", "gambia-the", "gambia"});
         redundantCountriesWithSlugs.put("Hong Kong", new String[]{"hong-kong", "hong-kong-sar"});
-        redundantCountriesWithSlugs.put("Iran", new String[]{"iran", "iran-(islamic-republic-of)"});
-        redundantCountriesWithSlugs.put("Russia", new String[]{"russia", "russian-federation"});
+        redundantCountriesWithSlugs.put("Iran", new String[]{"iran", "iran-(islamic-republic-of)", "iran"});
+        redundantCountriesWithSlugs.put("Russia", new String[]{"russia", "russian-federation", "russia"});
         redundantCountriesWithSlugs.put("Korea, South", new String[]{"south-korea", "republic-of-korea", "korea-south"});
-        redundantCountriesWithSlugs.put("Taiwan", new String[]{"taiwan", "taipei-and-environs"});
+        redundantCountriesWithSlugs.put("Taiwan", new String[]{"taiwan", "taipei-and-environs", "taiwan"});
         redundantCountriesWithSlugs.put("UK", new String[]{"uk", "united-kingdom"});
-        redundantCountriesWithSlugs.put("Vietnam", new String[]{"vietnam", "viet-nam"});
+        redundantCountriesWithSlugs.put("Vietnam", new String[]{"vietnam", "viet-nam", "vietnam"});
         return redundantCountriesWithSlugs;
     }
 
@@ -29,12 +30,12 @@ public class RedundantCountryMethods {
         redundantSlugsCheck.put(new String[]{"the-bahamas", "bahamas-the", "bahamas"}, false);
         redundantSlugsCheck.put(new String[]{"the-gambia", "gambia-the", "gambia"}, false);
         redundantSlugsCheck.put(new String[]{"hong-kong", "hong-kong-sar"}, false);
-        redundantSlugsCheck.put(new String[]{"iran", "iran-(islamic-republic-of)"}, false);
-        redundantSlugsCheck.put(new String[]{"russia", "russian-federation"}, false);
+        redundantSlugsCheck.put(new String[]{"iran", "iran-(islamic-republic-of)", "iran"}, false);
+        redundantSlugsCheck.put(new String[]{"russia", "russian-federation", "russia"}, false);
         redundantSlugsCheck.put(new String[]{"south-korea", "republic-of-korea", "korea-south"}, false);
-        redundantSlugsCheck.put(new String[]{"taiwan", "taipei-and-environs"}, false);
+        redundantSlugsCheck.put(new String[]{"taiwan", "taipei-and-environs", "taiwan"}, false);
         redundantSlugsCheck.put(new String[]{"uk", "united-kingdom"}, false);
-        redundantSlugsCheck.put(new String[]{"vietnam", "viet-nam"}, false);
+        redundantSlugsCheck.put(new String[]{"vietnam", "viet-nam", "vietnam"}, false);
         return redundantSlugsCheck;
     }
 
