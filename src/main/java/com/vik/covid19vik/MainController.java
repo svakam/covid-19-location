@@ -35,38 +35,10 @@ public class MainController {
         // deserializing JSON
         countriesArray = Country.getCountries();
 
-        countryNames = new LinkedList<>();
-
-        HashMap<String[], Boolean> checkIfCountryAddedAlready = RedundantCountryMethods.getRedundantSlugsCheck();
-
-        // add country names to a country dropdown list:
-        // iterate over raw countries array
-        // if a country is redundant, don't add it to the dropdown list:
-        // get the slug of ith country
-        // if that slug is contained in a list of redundant countries, get the slug's associated redundancies and check if it was already added (true/false flag)
-
-        for (Country country : countriesArray) {
-            // if a country has already been added to the dropdown, don't add the redundant country to the dropdown list
-            String slug = country.getSlug();
-            HashSet<String> redundantCountryList = RedundantCountryMethods.getRedundantCountries();
-            if (redundantCountryList.contains(slug)) {
-                HashMap<String, String[]> redundantSlugs = RedundantCountryMethods.getRedundantSlugs();
-                String[] redundanciesForACountry = redundantSlugs.get(slug);
-                // if slug's country hasn't been added to dropdown yet (flag == false), add it and switch flag to true,
-                if (checkIfCountryAddedAlready.containsKey(redundanciesForACountry) && !checkIfCountryAddedAlready.get(redundanciesForACountry)) {
-                    countryNames.add(country.getCountry());
-                    checkIfCountryAddedAlready.put(redundanciesForACountry, true);
-                }
-                // else don't add it
-            } else {
-                countryNames.add(country.getCountry());
-            }
-        }
-
-
+        countryNames = RedundantCountryMethods.filterRedundantCountries(countriesArray);
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
-        // would avoid redundant api call
+        // would avoid repetitive api call
 
         model.addAttribute("countryNames", countryNames);
         return "index";

@@ -51,18 +51,41 @@ public class RedundantCountryMethods {
         return redundantCountries;
     }
 
-    // list of all possible slugs as keys with array of their associated redundant slugs as values
-    public static HashMap<String, String[]> getRedundantSlugs() {
-        // redundant slug hashmap: slug as key and array of associated slugs as values
+    // final filter of redundant countries
+    public static LinkedList<String> filterRedundantCountries(Country[] countriesArray) {
+        LinkedList<String> countryNames = new LinkedList<>();
+        // add country names to a country dropdown list:
+        // iterate over raw countries array
+        // if a country is redundant, don't add it to the dropdown list:
+        // get the slug of ith country
+        // if that slug is contained in a list of redundant countries, get the slug's associated redundancies and check if it was already added (true/false flag)
+
         HashMap<String, String[]> redundantSlugs = new HashMap<>();
 
-        HashMap<String[], Boolean> allSlugsWithBooleans = getRedundantSlugsCheck();
+        // slug set with booleans to check if country already added to dropdown menu
+        HashMap<String[], Boolean> allSlugsWithBooleans = RedundantCountryMethods.getRedundantSlugsCheck();
         Set<String[]> allSlugsSet = allSlugsWithBooleans.keySet();
         for (String[] slugSet : allSlugsSet) {
             for (String slug : slugSet) {
                 redundantSlugs.put(slug, slugSet);
             }
         }
-        return redundantSlugs;
+
+        for (Country country : countriesArray) {
+            String slug = country.getSlug();
+            HashSet<String> redundantCountryList = RedundantCountryMethods.getRedundantCountries();
+            if (redundantCountryList.contains(slug)) {
+                String[] redundanciesForACountry = redundantSlugs.get(slug);
+                // if slug's country hasn't been added to dropdown yet (flag == false), add it and switch flag to true,
+                if (allSlugsWithBooleans.containsKey(redundanciesForACountry) && !allSlugsWithBooleans.get(redundanciesForACountry))
+                    countryNames.add(country.getCountry());
+                allSlugsWithBooleans.put(redundanciesForACountry, true);
+                // else don't add it
+            } else {
+                countryNames.add(country.getCountry());
+            }
+        }
+
+        return countryNames;
     }
 }

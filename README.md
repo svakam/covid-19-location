@@ -63,7 +63,8 @@ these issues here: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2L
 - Header nav bar for results page to filter by province if available
 
 03/26/2020
-
+- Refactored country dropdown methods to filter out redundant countries from data
+- Refactored "/" getmapping route functions out to appropriate clas
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
