@@ -66,11 +66,4 @@ public class SlugTest {
             System.out.println(slug);
         }
     }
-
-    @Test
-    public void testGetRedundantSlugs() {
-        HashMap<String, String[]> d = RedundantCountryMethods.getRedundantSlugs();
-        System.out.println(d.keySet());
-        System.out.println(d.entrySet());
-    }
 }
