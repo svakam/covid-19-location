@@ -20,13 +20,6 @@ public class MainController {
     // array of country names for country dropdown
     LinkedList<String> countryNames;
 
-    // hashmap with country as key and instance of a hashset of provinces/states in country
-    HashMap<String, HashSet<String>> countryProvinceHashMap = new HashMap<>();
-    // array of province/state names for province/state dropdown
-    LinkedList<String> provinceNames;
-    // new hashset instance for every country
-    HashSet<String> provincesForCountry;
-
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
@@ -49,37 +42,74 @@ public class MainController {
     public RedirectView submitSearch(String searchedCountry) {
 
         System.out.println("Dropdown selected = " + searchedCountry);
+        RedirectView rv;
 
-        // find slug for country
-        String slug = null;
-        for (Country country : countriesArray) {
-            if (searchedCountry.equals(country.getCountry())) {
-                slug = country.getSlug();
+        // if a redundant country, access the redundant country hashmap, get all its slugs in proper order and return view with slugs passed in with country
+        HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
+        if (redundantCountriesWithSlugs.containsKey(searchedCountry)) {
+            String[] allSlugsForCountry = redundantCountriesWithSlugs.get(searchedCountry);
+            StringBuilder slugs = new StringBuilder();
+            for (String slug : allSlugsForCountry) {
+                slugs.append("&").append(slug);
             }
+            rv = new RedirectView("/results/" + searchedCountry + "+" + slugs);
+
+        } // else find slug for country
+        else {
+            String slug = null;
+            for (Country country : countriesArray) {
+                if (searchedCountry.equals(country.getCountry())) {
+                    slug = country.getSlug();
+                }
+            }
+            if (slug == null) {
+                return new RedirectView("/error/404/" + searchedCountry);
+            }
+            rv = new RedirectView("/results/" + searchedCountry + "+" + slug);
         }
 
-        // some kind of error checking if slug comes back as null
-
-        return new RedirectView("/results/" + searchedCountry + "&" + slug);
+        return rv;
     }
 
-    @GetMapping("/results/{searchedCountry}&{slug}")
-    public String allResults(@PathVariable String slug, @PathVariable String searchedCountry, Model model) {
+    @GetMapping("/results/{searchedCountry}+{slug}")
+    public String allResults(@PathVariable String searchedCountry, @PathVariable String slug, Model model) {
 
         System.out.println(slug);
         System.out.println(searchedCountry);
-
-        model.addAttribute("slug", slug);
-        model.addAttribute("searchedCountry", searchedCountry);
 
         // GET request to /summary endpoint: contains country, slug, and case info on country level
         // deserializes JSON
         HashMap<String, int[]> summaryCasesByCountry = SummaryCasesByCountry.getCountriesCases();
 
-        // use slug to access a hashmap<country, array> where country is slugs and array is an order of types of cases for that country
-        int[] caseInfoForCountry = summaryCasesByCountry.get(slug);
+        int[] caseInfoForCountry;
+
+        // if searched country is redundant, get all slugs, total case data up appropriately, and add to model
+        HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
+        if (redundantCountriesWithSlugs.containsKey(searchedCountry)) {
+            caseInfoForCountry = new int[]{0,0,0,0,0,0};
+            String[] slugs = redundantCountriesWithSlugs.get(searchedCountry);
+            for (String redundantSlug : slugs) {
+                System.out.println("redundantSlug = " + redundantSlug);
+                int[] caseInfoPerSlug = summaryCasesByCountry.get(redundantSlug);
+                for (int i = 0; i < caseInfoPerSlug.length; i++) {
+                    caseInfoForCountry[i] += caseInfoPerSlug[i];
+                }
+            }
+        } // else get case data for slug
+        else {
+            caseInfoForCountry = summaryCasesByCountry.get(slug);
+        }
+
+        model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
 
         return "results";
+    }
+
+    // error for slug
+    @GetMapping("/error/404/{searchedCountry}")
+    public String error404(@PathVariable String searchedCountry, Model model) {
+        model.addAttribute(searchedCountry);
+        return "error404";
     }
 }

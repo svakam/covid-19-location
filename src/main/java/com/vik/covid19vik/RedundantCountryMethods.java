@@ -8,15 +8,15 @@ public class RedundantCountryMethods {
     public static HashMap<String, String[]> getRedundantCountriesWithSlugs() {
         // redundant country hashmap: country name as key and array of possible slugs as values
         HashMap<String, String[]> redundantCountriesWithSlugs = new HashMap<>();
-        redundantCountriesWithSlugs.put("Azerbaijan", new String[]{"-azerbaijan", "azerbaijan"});
-        redundantCountriesWithSlugs.put("Bahamas, The", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
-        redundantCountriesWithSlugs.put("Gambia, The", new String[]{"the-gambia", "gambia-the", "gambia"});
+        redundantCountriesWithSlugs.put(" Azerbaijan", new String[]{"-azerbaijan", "azerbaijan"});
+        redundantCountriesWithSlugs.put("Bahamas", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
+        redundantCountriesWithSlugs.put("Gambia", new String[]{"the-gambia", "gambia-the", "gambia"});
         redundantCountriesWithSlugs.put("Hong Kong", new String[]{"hong-kong", "hong-kong-sar"});
         redundantCountriesWithSlugs.put("Iran", new String[]{"iran", "iran-(islamic-republic-of)"});
         redundantCountriesWithSlugs.put("Russia", new String[]{"russia", "russian-federation"});
-        redundantCountriesWithSlugs.put("South Korea", new String[]{"south-korea", "republic-of-korea", "korea-south"});
+        redundantCountriesWithSlugs.put("Korea, South", new String[]{"south-korea", "republic-of-korea", "korea-south"});
         redundantCountriesWithSlugs.put("Taiwan", new String[]{"taiwan", "taipei-and-environs"});
-        redundantCountriesWithSlugs.put("United Kingdom", new String[]{"uk", "united-kingdom"});
+        redundantCountriesWithSlugs.put("UK", new String[]{"uk", "united-kingdom"});
         redundantCountriesWithSlugs.put("Vietnam", new String[]{"vietnam", "viet-nam"});
         return redundantCountriesWithSlugs;
     }
@@ -49,6 +49,24 @@ public class RedundantCountryMethods {
             redundantCountries.addAll(Arrays.asList(entry.getValue()));
         }
         return redundantCountries;
+    }
+
+    //
+
+    // get all associated slugs for a given slug
+    public static HashMap<String, String[]> getRedundantSlugs() {
+        HashMap<String, String[]> redundantSlugs = new HashMap<>();
+
+        // slug set with booleans to check if country already added to dropdown menu
+        HashMap<String[], Boolean> allSlugsWithBooleans = RedundantCountryMethods.getRedundantSlugsCheck();
+        Set<String[]> allSlugsSet = allSlugsWithBooleans.keySet();
+        for (String[] slugSet : allSlugsSet) {
+            for (String slug : slugSet) {
+                redundantSlugs.put(slug, slugSet);
+            }
+        }
+
+        return redundantSlugs;
     }
 
     // final filter of redundant countries

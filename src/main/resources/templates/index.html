@@ -17,38 +17,7 @@
         <title>COVID-19 Locator</title>
     </head>
     <body id="indexbody">
-        <header class="sticky-top">
-            <nav class="navbar sticky-top navbar-dark bg-dark">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="/">CV19Locator</a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbarNav">
-                        <!-- dropdown country -->
-                        <form action="/results" class="nav-item" method="POST">
-                            <div class="row">
-                                <label for="countrydropdown">Search by country:</label>
-                            </div>
-                            <div class="row">
-                                <select id="countrydropdown" name="searchedCountry">
-                                    <option value="Enter country" disabled>Select country...</option>
-                                    <option value="US">United States</option>
-                                    <option value="Canada">Canada</option>
-                                    <option value="Mexico">Mexico</option>
-                                    <th:block th:each="country: ${countryNames}">
-                                        <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
-                                    </th:block>
-                                </select>
-                                <button type="submit" class="btn btn-primary btn-lg">Search</button>
-                            </div>
-                        </form>
-                        <a class="nav-item nav-link" href="#">Pricing</a>
-                        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
+        <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
             <section class="jumbotron jumbotron-fluid">
                 <h1 class="display-1 text-center">COVID-19 Locator</h1>
@@ -56,7 +25,7 @@
                 <hr class="my-4">
                 <form action="/results" method="POST">
                     <div class="row justify-content-center">
-                        <label for="countrydropdown">Search by country</label>
+                        <label for="countrydropdownbody">Search by country</label>
                     </div>
                     <div class="row justify-content-center">
                         <select id="countrydropdownbody" name="searchedCountry">
@@ -67,8 +36,9 @@
                             <th:block th:each="country: ${countryNames}">
                                 <option th:if="${country} == 'Viet Nam'">Vietnam</option>
                                 <option th:if="${country} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
-                                <option th:unless="${country} == 'Viet Nam' or ${country} == '' or ${country} == 'occupied Palestinian Territory'"
-                                        th:value="${country}" th:text="${country}"></option>
+                                <option th:if="${country} == 'Taipei and environs'">Taiwan</option>
+                                <option th:unless="${country} == 'Viet Nam' or ${country} == '' or ${country} == 'occupied Palestinian territory'
+                                or ${country} == 'Taipei and environs'" th:value="${country}" th:text="${country}"></option>
                             </th:block>
                         </select>
                         <button type="submit" class="btn btn-primary btn-lg">Search</button>

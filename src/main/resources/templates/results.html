@@ -12,6 +12,7 @@
         <title th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
     <body>
+        <header th:replace="../fragments/headernav :: headernav"></header>
         <h1 th:text="'Results for ' + ${searchedCountry}"></h1>
         <h2>Statistics</h2>
         <h3>Cases confirmed</h3>
