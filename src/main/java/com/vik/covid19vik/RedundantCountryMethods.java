@@ -63,30 +63,6 @@ public class RedundantCountryMethods {
                 redundantSlugs.put(slug, slugSet);
             }
         }
-
-//        redundantSlugs.put("-azerbaijan", new String[]{"-azerbaijan", "azerbaijan"});
-//        redundantSlugs.put("azerbaijan", new String[]{"-azerbaijan", "azerbaijan"});
-//        redundantSlugs.put("the-bahamas", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
-//        redundantSlugs.put("bahamas-the", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
-//        redundantSlugs.put("bahamas", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
-//        redundantSlugs.put("the-gambia", new String[]{"the-gambia", "gambia-the", "gambia"});
-//        redundantSlugs.put("gambia-the", new String[]{"the-gambia", "gambia-the", "gambia"});
-//        redundantSlugs.put("gambia", new String[]{"the-gambia", "gambia-the", "gambia"});
-//        redundantSlugs.put("hong-kong", new String[]{"hong-kong", "hong-kong-sar"});
-//        redundantSlugs.put("hong-kong-sar", new String[]{"hong-kong", "hong-kong-sar"});
-//        redundantSlugs.put("iran", new String[]{"iran", "iran-(islamic-republic-of)"});
-//        redundantSlugs.put("iran-(islamic-republic-of)", new String[]{"iran", "iran-(islamic-republic-of)"});
-//        redundantSlugs.put("russia", new String[]{"russia", "russian-federation"});
-//        redundantSlugs.put("russian-federation", new String[]{"russia", "russian-federation"});
-//        redundantSlugs.put("south-korea", new String[]{"south-korea", "republic-of-korea", "korea-south"});
-//        redundantSlugs.put("republic-of-korea", new String[]{"south-korea", "republic-of-korea", "korea-south"});
-//        redundantSlugs.put("korea-south", new String[]{"-azerbaijan", "azerbaijan"});
-//        redundantSlugs.put("taiwan", new String[]{"taiwan", "taipei-and-environs"});
-//        redundantSlugs.put("taipei-and-environs", new String[]{"taiwan", "taipei-and-environs"});
-//        redundantSlugs.put("uk", new String[]{"uk", "united-kingdom"});
-//        redundantSlugs.put("united-kingdom", new String[]{"uk", "united-kingdom"});
-//        redundantSlugs.put("vietnam", new String[]{"vietnam", "viet-nam"});
-//        redundantSlugs.put("viet-nam", new String[]{"vietnam", "viet-nam"});
         return redundantSlugs;
     }
 }

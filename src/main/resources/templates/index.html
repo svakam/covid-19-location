@@ -71,20 +71,20 @@
                         <button type="submit" class="btn btn-primary btn-lg">Search</button>
                     </div>
                 </form>
-                <form action="/results" method="POST">
-                    <div class="row justify-content-center">
-                        <label for="provincedropdownbody">Search by state/province</label>
-                    </div>
-                    <div class="row justify-content-center">
-                        <select id="provincedropdownbody" name="searchedCountry">
-                            <option value="Enter country" disabled>Select province...</option>
-                            <th:block th:each="province,iter: ${provinceNames}">
-                                <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
-                            </th:block>
-                        </select>
-                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
-                    </div>
-                </form>
+<!--                <form action="/results" method="POST">-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <label for="provincedropdownbody">Search by state/province</label>-->
+<!--                    </div>-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <select id="provincedropdownbody" name="searchedCountry">-->
+<!--                            <option value="Enter country" disabled>Select province...</option>-->
+<!--                            <th:block th:each="province,iter: ${provinceNames}">-->
+<!--                                <option th:value="${province}" th:id="${province}" th:text="${province}"></option>-->
+<!--                            </th:block>-->
+<!--                        </select>-->
+<!--                        <button type="submit" class="btn btn-primary btn-lg">Search</button>-->
+<!--                    </div>-->
+<!--                </form>-->
                 <article class="row row-cols-1 justify-content-center">
                     <iframe width="850" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
                             src="//gisanddata.maps.arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=
