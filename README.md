@@ -11,7 +11,9 @@ total number of cases in their province/state, and total number of cases in thei
 
 The number of cases of COVID-19 will contain numbers for confirmed cases, recovered cases, and death cases. 
 
-NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. 
+NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
+there are a number of redundancies in country names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
+imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
 ## Run the app
 Visit the website at: www.cv19location.com
@@ -56,9 +58,12 @@ Or if you'd like to run it from your local machine:
 - Deployed to AWS EB
 
 03/25/2020
-- Note: JHU CSSE data proceeding 03/23/2020 contains mixed JSON representation of country/state/county names. Additional sorting was done today to account for this in order
-to assimilate these differences
+- Note: JHU CSSE data contains a number of discrepancies/conflicts on the country, state, and county level. Created a spreadsheet that accounts for 
+these issues here: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 - Header nav bar for results page to filter by province if available
+
+03/26/2020
+
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
@@ -78,13 +83,24 @@ Covid19API endpoints (see the [API](https://covid19api.com/#details)):
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
+## Languages Used
+- Java
+- HTML/CSS
+
+## Tools, Libraries, Frameworks, IDEs Used
+- IntelliJ IDEA
+- Spring: SpringMVC, Boot, Thymeleaf
+- AWS: Route 53, Elastic Beanstalk
+- Postman
+- 
+
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data used/consulted:
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
-- State/local health department websites
+- Some state/local health department websites
 
 Spring.io documentation:
 - REST: https://spring.io/guides/gs/rest-service/
@@ -104,6 +120,7 @@ Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
 - GSON import/build issue: https://stackoverflow.com/questions/47566665/cannot-resolve-symbol-gson-and-it-wont-allow-me-to-import/47566770
+- Thymeleaf list iteration: https://stackoverflow.com/questions/38367339/thymeleaf-how-to-loop-a-list-by-index
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html

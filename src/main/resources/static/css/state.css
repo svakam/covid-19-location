@@ -1,37 +1,37 @@
 #indexbody main section h1 {
     animation-duration: 0.5s;
-    animation-name: slidedownfadein;
+    animation-name: fadein;
 }
 
 #indexbody main section h3,hr {
-    animation-duration: 1s;
-    animation-name: slidedownfadein;
+    animation-duration: 1.0s;
+    animation-name: fadein;
     animation-delay: 0.5s;
     animation-fill-mode: both;
 }
 
 #indexbody main section form {
-    animation-duration: 1s;
-    animation-name: slidedownfadein;
+    animation-duration: 1.0s;
+    animation-name: fadein;
     animation-delay: 1.5s;
     animation-fill-mode: both;
 }
 
 iframe {
-    animation-duration: 1s;
-    animation-name: slidedownfadein;
+    animation-duration: 1.0s;
+    animation-name: fadein;
     animation-delay: 2.5s;
     animation-fill-mode: both;
 }
 
 #disclaimer {
-    animation-duration: 1s;
-    animation-name: slidedownfadein;
+    animation-duration: 1.0s;
+    animation-name: fadein;
     animation-delay: 3.5s;
     animation-fill-mode: both;
 }
 
-@keyframes slidedownfadein {
+@keyframes fadein {
     from {
         opacity: 0;
     }

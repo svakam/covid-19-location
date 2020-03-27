@@ -18,11 +18,12 @@ public class MainController {
     // array of all countries with country names/slug/province
     Country[] countriesArray;
     // array of country names for country dropdown
-    String[] countryNames;
-    // array of province/state names for province/state dropdown
-    LinkedList<String> provinceNames;
+    LinkedList<String> countryNames;
+
     // hashmap with country as key and instance of a hashset of provinces/states in country
     HashMap<String, HashSet<String>> countryProvinceHashMap = new HashMap<>();
+    // array of province/state names for province/state dropdown
+    LinkedList<String> provinceNames;
     // new hashset instance for every country
     HashSet<String> provincesForCountry;
 
@@ -30,46 +31,31 @@ public class MainController {
     @GetMapping("/")
     public String getIndex(Model model) {
 
-        // GET request to /countries endpoint: contains country, slug, and array of provinces
+        // GET request to /countries endpoint: redundant list contains country, slug, and array of provinces
         // deserializing JSON
         countriesArray = Country.getCountries();
 
-        // remove redundant country names
+        countryNames = new LinkedList<>();
 
-        // array of country names, list of all state/province names (if available), array of county names (if available)
-        countryNames = new String[countriesArray.length];
-        provinceNames = new LinkedList<>();
+        HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
+        HashSet<String> redundantCountries = RedundantCountryMethods.getRedundantCountries();
+
+        // add country names to a country dropdown list
+        // iterate over raw countries array
+        // if a country is redundant, don't add it to the dropdown list
 
         for (int i = 0; i < countriesArray.length; i++) {
-            // array of all country names
-            String givenCountry = countriesArray[i].getCountry();
-            countryNames[i] = givenCountry;
+            // if a country has already been added to the dropdown, don't add the redundant country to the dropdown list
 
-            int numberOfProvincesOfCountry = countriesArray[i].getProvinces().length;
-
-            provincesForCountry = new HashSet<>();
-            if (numberOfProvincesOfCountry != 0) {
-                for (int j = 0; j < numberOfProvincesOfCountry; j++) {
-                    // hashmap of associated provinces per country
-                    String givenProvinceOfCountry = countriesArray[i].getProvinces()[j];
-                    provincesForCountry.add(givenProvinceOfCountry);
-
-                    // list of all province names
-                    provinceNames.add(countriesArray[i].getProvinces()[j]);
-                }
-                countryProvinceHashMap.put(givenCountry, provincesForCountry);
-            }
-
-            // array of all county names
+            countryNames.add(countriesArray[i].getCountry());
         }
 
-        // add arrays to index
-        model.addAttribute("countryNames", countryNames);
-        model.addAttribute("provinceNames", provinceNames);
+
 
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid redundant api call
 
+        model.addAttribute("countryNames", countryNames);
         return "index";
     }
 

@@ -12,7 +12,7 @@
         <title th:if="${searchedCountry} == 'US'">Results for United States</title>
         <title th:if="${searchedCountry} == 'occupied Palestinian territory'">Results for Occupied Palestinian Territory</title>
         <title th:if="${searchedCountry} == 'Gambia, The'">Results for The Gambia</title>
-        <title th:if="${searchedCountry} == 'Bahamas, The'">Results for The Bahamas</title>
+        <title th:if="${searchedCountry} == 'Bahamas, The' or ">Results for The Bahamas</title>
         <title th:unless="${searchedCountry} == 'US' or ${searchedCountry} == 'occupied Palestinian territory'"
             th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
