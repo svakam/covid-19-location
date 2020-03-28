@@ -23,11 +23,9 @@ public class AllCountries implements Serializable {
     public String getCountry() {
         return Country;
     }
-
     public String getSlug() {
         return Slug;
     }
-
     public String[] getProvinces() {
         return Provinces;
     }

@@ -21,15 +21,12 @@ public class MainController {
     // JSON deserialization
     AllCountries[] countriesArray = AllCountries.getCountries();
 
-    // extract only country names
+    // extract only country names for country dropdown menu
     LinkedList<String> countryNames = RedundantCountryMethods.filterRedundantCountries(countriesArray);
 
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
-        // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
-        // would avoid repetitive api call
-
         model.addAttribute("countryNames", countryNames);
         return "index";
     }
@@ -123,8 +120,12 @@ public class MainController {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
         }
 
-        // get list of provinces
+        // get list of provinces to pass in dropdown
+        // error check for empty data set: if null, pass in error
 
+        // dropdown for country
+        model.addAttribute("countryNames", countryNames);
+        // dropdown for provinces
 
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
@@ -136,6 +137,7 @@ public class MainController {
     @GetMapping("/results/country/province")
     public String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
 
+        model.addAttribute("countryNames", countryNames);
         return "provinceResults";
     }
 
@@ -143,12 +145,14 @@ public class MainController {
     @GetMapping("/error/404/{searchedCountry}")
     public String error404(@PathVariable String searchedCountry, Model model) {
         model.addAttribute(searchedCountry);
+        model.addAttribute("countryNames", countryNames);
         return "error404";
     }
 
     // fallback
     @GetMapping("*")
-    public String fallback() {
+    public String fallback(Model model) {
+        model.addAttribute("countryNames", countryNames);
         return "error404";
     }
 }
