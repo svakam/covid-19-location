@@ -5,8 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.annotation.security.RunAs;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -42,19 +44,37 @@ public class MainController {
     public RedirectView submitSearch(String searchedCountry) {
 
         System.out.println("Dropdown selected = " + searchedCountry);
+
         RedirectView rv;
 
         // if a redundant country, access the redundant country hashmap, get all its slugs in proper order and return view with slugs passed in with country
         HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
         if (redundantCountriesWithSlugs.containsKey(searchedCountry)) {
             String[] allSlugsForCountry = redundantCountriesWithSlugs.get(searchedCountry);
-            StringBuilder slugs = new StringBuilder();
-            for (String slug : allSlugsForCountry) {
-                slugs.append("&").append(slug);
+            StringBuilder slug = new StringBuilder();
+            for (int i = 0; i < allSlugsForCountry.length; i++) {
+                if (i != allSlugsForCountry.length - 1) {
+                    slug.append(allSlugsForCountry[i]).append(",");
+                } else {
+                    slug.append(allSlugsForCountry[i]);
+                }
             }
-            rv = new RedirectView("/results/" + searchedCountry + "+" + slugs);
+            rv = new RedirectView("/results/" + searchedCountry + "&slug=" + slug);
+        }
 
-        } // else find slug for country
+        // else if searched country is also a province, pass its slug along with the country it's a province of
+        else if (CountriesAsProvinces.countriesAsProvinces().containsKey(searchedCountry)) {
+            String slug = null;
+            for (Country country : countriesArray) {
+                if (searchedCountry.equals(country.getCountry())) {
+                    slug = country.getSlug();
+                }
+            }
+            String countryOfProvince = CountriesAsProvinces.countriesAsProvinces().get(searchedCountry);
+            rv = new RedirectView("/results/" + searchedCountry + "?slug=" + slug + "&countryofprovince=" + countryOfProvince);
+        }
+
+        // else find slug for country
         else {
             String slug = null;
             for (Country country : countriesArray) {
@@ -65,17 +85,22 @@ public class MainController {
             if (slug == null) {
                 return new RedirectView("/error/404/" + searchedCountry);
             }
-            rv = new RedirectView("/results/" + searchedCountry + "+" + slug);
+            rv = new RedirectView("/results/" + searchedCountry + "?slug=" + slug);
         }
 
         return rv;
     }
 
-    @GetMapping("/results/{searchedCountry}+{slug}")
-    public String allResults(@PathVariable String searchedCountry, @PathVariable String slug, Model model) {
+    // path variable always searchedCountry
+    // possible params: slug: not required (if not redundant or a province), slugs: not required (if redundant), slug AND countryOfProvince: not required (if also a province)
+    @GetMapping("/results/{searchedCountry}")
+    public String allResults(@PathVariable String searchedCountry,
+                             @RequestParam(required = false, name = "slug") String slug, @RequestParam(required = false, name = "countryofprovince")
+                                         String countryOfProvince, Model model) {
 
-        System.out.println(slug);
-        System.out.println(searchedCountry);
+        System.out.println("slug = " + slug);
+        System.out.println("searched country = " + searchedCountry);
+        System.out.println("country of province = " + countryOfProvince);
 
         // GET request to /summary endpoint: contains country, slug, and case info on country level
         // deserializes JSON
@@ -83,11 +108,11 @@ public class MainController {
 
         int[] caseInfoForCountry;
 
-        // if searched country is redundant, get all slugs, total case data up appropriately, and add to model
-        HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
-        if (redundantCountriesWithSlugs.containsKey(searchedCountry)) {
-            String[] slugs = redundantCountriesWithSlugs.get(searchedCountry);
-            String slugWithMostRelevantData = slugs[slugs.length - 1];
+        // if searched country is redundant, get all slugs, get case data for last slug and pass to template
+        if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
+            HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
+            String[] allSlugs = redundantCountriesWithSlugs.get(searchedCountry);
+            String slugWithMostRelevantData = allSlugs[allSlugs.length - 1];
             caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantData);
         } // else get case data for slug
         else {
@@ -99,6 +124,15 @@ public class MainController {
 
         return "results";
     }
+
+//    @GetMapping("/results/{searchedCountry}")
+//    public String resultsIfCountryIsProvince(@PathVariable String searchedCountry, @RequestParam(value="countryOfProvince") String countryOfProvince, Model model) {
+//        System.out.println(searchedCountry);
+//        System.out.println(countryOfProvince);
+//        model.addAttribute(searchedCountry);
+//        model.addAttribute(countryOfProvince);
+//        return "results";
+//    }
 
     // error for slug
     @GetMapping("/error/404/{searchedCountry}")

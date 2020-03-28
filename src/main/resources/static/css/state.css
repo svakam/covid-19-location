@@ -13,21 +13,21 @@
 #indexbody main section form {
     animation-duration: 1.0s;
     animation-name: fadein;
-    animation-delay: 1.5s;
+    animation-delay: 1.2s;
     animation-fill-mode: both;
 }
 
 iframe {
     animation-duration: 1.0s;
     animation-name: fadein;
-    animation-delay: 2.5s;
+    animation-delay: 2.2s;
     animation-fill-mode: both;
 }
 
 #disclaimer {
     animation-duration: 1.0s;
     animation-name: fadein;
-    animation-delay: 3.5s;
+    animation-delay: 3.2s;
     animation-fill-mode: both;
 }
 

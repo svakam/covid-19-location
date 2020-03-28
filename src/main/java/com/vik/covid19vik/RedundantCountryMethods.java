@@ -5,14 +5,14 @@ import java.util.*;
 public class RedundantCountryMethods {
 
     // used to get a country name and get order of slugs that represents corrected order of data
-    // NOTE: to obtain most relevant data for a country, the corrected data is associated with the slug at the end of the array, with the exception of
+    // NOTE: to obtain most relevant data for a country, use the slug at the end of the array instance for a given country. If there seem to be "typos" in country names, those
+    // are intentional and actually account for typos in the JHU CSSE data.
     public static HashMap<String, String[]> getRedundantCountriesWithSlugs() {
         // redundant country hashmap: country name as key and array of possible slugs as values
         HashMap<String, String[]> redundantCountriesWithSlugs = new HashMap<>();
         redundantCountriesWithSlugs.put(" Azerbaijan", new String[]{"-azerbaijan", "azerbaijan"});
         redundantCountriesWithSlugs.put("Bahamas", new String[]{"the-bahamas", "bahamas-the", "bahamas"});
         redundantCountriesWithSlugs.put("Gambia", new String[]{"the-gambia", "gambia-the", "gambia"});
-        redundantCountriesWithSlugs.put("Hong Kong", new String[]{"hong-kong", "hong-kong-sar"});
         redundantCountriesWithSlugs.put("Iran", new String[]{"iran", "iran-(islamic-republic-of)", "iran"});
         redundantCountriesWithSlugs.put("Russia", new String[]{"russia", "russian-federation", "russia"});
         redundantCountriesWithSlugs.put("Korea, South", new String[]{"south-korea", "republic-of-korea", "korea-south"});
@@ -29,7 +29,6 @@ public class RedundantCountryMethods {
         redundantSlugsCheck.put(new String[]{"-azerbaijan", "azerbaijan"}, false);
         redundantSlugsCheck.put(new String[]{"the-bahamas", "bahamas-the", "bahamas"}, false);
         redundantSlugsCheck.put(new String[]{"the-gambia", "gambia-the", "gambia"}, false);
-        redundantSlugsCheck.put(new String[]{"hong-kong", "hong-kong-sar"}, false);
         redundantSlugsCheck.put(new String[]{"iran", "iran-(islamic-republic-of)", "iran"}, false);
         redundantSlugsCheck.put(new String[]{"russia", "russian-federation", "russia"}, false);
         redundantSlugsCheck.put(new String[]{"south-korea", "republic-of-korea", "korea-south"}, false);
@@ -51,8 +50,6 @@ public class RedundantCountryMethods {
         }
         return redundantCountries;
     }
-
-    //
 
     // get all associated slugs for a given slug
     public static HashMap<String, String[]> getRedundantSlugs() {

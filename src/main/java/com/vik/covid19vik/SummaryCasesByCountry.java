@@ -82,7 +82,6 @@ public class SummaryCasesByCountry {
         }
     }
 
-
     private String Date;
 
     public CountrySummary[] getCountries() {

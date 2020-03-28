@@ -12,18 +12,25 @@
         <title th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
     <body>
-        <header th:replace="../fragments/headernav :: headernav"></header>
-        <h1 th:text="'Results for ' + ${searchedCountry}"></h1>
-        <h2>Statistics</h2>
-        <h3>Cases confirmed</h3>
-        <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
-        <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
-        <h3>Deaths</h3>
-        <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
-        <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
-        <h3>Recovered</h3>
-        <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
-        <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+        <th:block th:if="${countryOfProvince}">
+            <h3 th:text="'Sorry, but summary results for ' + ${searchedCountry} + ' is not up to date at the moment. View it as a province of ' + ${countryOfProvince}
+                + 'instead.'"></h3>
+            <a th:href="'/results/' + ${countryOfProvince} + '/' + ${searchedCountry}"></a>
+        </th:block>
+        <th:block th:unless="${countryOfProvince}">
+            <header th:replace="../fragments/headernav :: headernav"></header>
+            <h1 th:text="'Results for ' + ${searchedCountry}"></h1>
+            <h2>Statistics</h2>
+            <h3>Cases confirmed</h3>
+            <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
+            <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
+            <h3>Deaths</h3>
+            <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
+            <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
+            <h3>Recovered</h3>
+            <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
+            <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+        </th:block>
 
         <h2>County/State in the news</h2>
 

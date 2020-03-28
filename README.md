@@ -64,7 +64,7 @@ these issues here: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2L
 
 03/26/2020
 - Refactored country dropdown methods to filter out redundant countries from data
-- Refactored "/" getmapping route functions out to appropriate clas
+- Refactored "/" getmapping route functions out to appropriate class
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also country, will be used to query 
@@ -88,12 +88,11 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 - Java
 - HTML/CSS
 
-## Tools, Libraries, Frameworks, IDEs Used
-- IntelliJ IDEA
+## Tools, Libraries, Frameworks, IDEs, APIs used
+- IDE: IntelliJ IDEA
 - Spring: SpringMVC, Boot, Thymeleaf
 - AWS: Route 53, Elastic Beanstalk
-- Postman
-- 
+- APIs: Covid19API, Postman
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data used/consulted:
@@ -122,6 +121,7 @@ Stack Overflow:
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
 - GSON import/build issue: https://stackoverflow.com/questions/47566665/cannot-resolve-symbol-gson-and-it-wont-allow-me-to-import/47566770
 - Thymeleaf list iteration: https://stackoverflow.com/questions/38367339/thymeleaf-how-to-loop-a-list-by-index
+- Ambiguous handler methods: https://stackoverflow.com/questions/35155916/handling-ambiguous-handler-methods-mapped-in-rest-application-with-spring
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
@@ -143,5 +143,7 @@ Other:
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 - GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
 - GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
+- RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
+https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
 
 Code Fellows Java curriculum
