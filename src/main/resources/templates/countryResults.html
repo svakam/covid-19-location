@@ -16,7 +16,7 @@
         <main>
             <th:block th:if="${countryOfProvince}">
                 <h3 th:text="'Sorry, but summary results for ' + ${searchedCountry} + ' is not up to date at the moment. View it as a province of ' + ${countryOfProvince}
-                    + 'instead.'"></h3>
+                    + ' instead.'"></h3>
                 <a th:href="'/results/' + ${countryOfProvince} + '/' + ${searchedCountry}"></a>
             </th:block>
             <th:block th:unless="${countryOfProvince}">
@@ -43,6 +43,7 @@
             <!-- populate province dropdown based on what the current country is -->
             <h3>Filter by Province/State</h3>
             <form>
+
             </form>
         </main>
     </body>

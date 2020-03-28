@@ -17,21 +17,16 @@ public class MainController {
 
     // consider adding to database:
 
-    // array of all countries with country names/slug/province
-    AllCountries[] countriesArray;
-    // array of country names for country dropdown
-    LinkedList<String> countryNames;
+    // GET request to /countries endpoint returns list of countries (name, slug, provinces)
+    // JSON deserialization
+    AllCountries[] countriesArray = AllCountries.getCountries();
+
+    // extract only country names
+    LinkedList<String> countryNames = RedundantCountryMethods.filterRedundantCountries(countriesArray);
 
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
-
-        // GET request to /countries endpoint: redundant list contains country, slug, and array of provinces
-        // deserializing JSON
-        countriesArray = AllCountries.getCountries();
-
-        countryNames = RedundantCountryMethods.filterRedundantCountries(countriesArray);
-
         // ideally some code that caches result of JSONResult or stores in database, and checks to see if anything's changed after a day or since last update
         // would avoid repetitive api call
 
@@ -92,7 +87,7 @@ public class MainController {
     }
 
 //    @PostMapping("/results/country/province")
-//    public RedirectView submitProvinceSearch() {
+//    public RedirectView submitProvinceSearch(String province) {
 //        RedirectView rv;
 //        return rv;
 //    }
@@ -127,6 +122,9 @@ public class MainController {
         else {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
         }
+
+        // get list of provinces
+
 
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
