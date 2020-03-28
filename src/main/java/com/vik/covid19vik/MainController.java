@@ -83,11 +83,18 @@ public class MainController {
         return rv;
     }
 
-//    @PostMapping("/results/country/province")
-//    public RedirectView submitProvinceSearch(String province) {
-//        RedirectView rv;
-//        return rv;
-//    }
+    @PostMapping("/results/country/province")
+    public RedirectView submitProvinceSearch(String searchedProvince) {
+        RedirectView rv;
+        String slug = null;
+        for (AllCountries country : countriesArray) {
+            if (searchedProvince.equals(country.getCountry())) {
+                slug = country.getSlug();
+            }
+        }
+        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "?slug=" + slug);
+        return rv;
+    }
 
     // path variable always searchedCountry
     // possible params: slug: not required (if not redundant or a province), slugs: not required (if redundant), slug AND countryOfProvince: not required (if also a province)
@@ -102,7 +109,10 @@ public class MainController {
         // deserializes JSON
         HashMap<String, int[]> summaryCasesByCountry = SummaryCasesByCountry.getCountriesCases();
 
+        // summary data initialize
         int[] caseInfoForCountry;
+        // dropdown data initialize
+        String[] provinceNames = null;
 
         // if searched country is redundant, get all slugs, get case data for last slug and pass to template
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
@@ -118,14 +128,21 @@ public class MainController {
         // else get case data for slug
         else {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
+
+            // get list of provinces to pass in dropdown
+            for (AllCountries country : countriesArray) {
+                if (slug.equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
+            }
         }
 
-        // get list of provinces to pass in dropdown
         // error check for empty data set: if null, pass in error
 
         // dropdown for country
         model.addAttribute("countryNames", countryNames);
         // dropdown for provinces
+        model.addAttribute("provinceNames", provinceNames);
 
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
@@ -138,6 +155,7 @@ public class MainController {
     public String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
 
         model.addAttribute("countryNames", countryNames);
+        model.addAttribute("searchedProvince", searchedProvince);
         return "provinceResults";
     }
 
