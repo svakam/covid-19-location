@@ -6,6 +6,11 @@
     </head>
     <body>
         <h1>Error: 404 Not Found</h1>
-        <p>Sorry, but the country you were looking for could not be found.</p>
+        <th:block th:if="${searchedCountry}">
+            <p>Sorry, but the country you were looking for ([[${searchedCountry} could not be found.</p>
+        </th:block>
+        <th:block th:unless="${searchedCountry}">
+            <p>Sorry, but that page could not be found.</p>
+        </th:block>
     </body>
 </html>

@@ -112,6 +112,7 @@ Baeldung documentation:
 - Thymeleaf: https://www.baeldung.com/thymeleaf-in-spring-mvc
 - Path variables: https://www.baeldung.com/spring-thymeleaf-path-variables
 - GSON Deserialization: https://www.baeldung.com/gson-deserialization-guide
+- URLEncoder: https://www.baeldung.com/java-url-encoding-decoding
 
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
@@ -122,6 +123,9 @@ Stack Overflow:
 - GSON import/build issue: https://stackoverflow.com/questions/47566665/cannot-resolve-symbol-gson-and-it-wont-allow-me-to-import/47566770
 - Thymeleaf list iteration: https://stackoverflow.com/questions/38367339/thymeleaf-how-to-loop-a-list-by-index
 - Ambiguous handler methods: https://stackoverflow.com/questions/35155916/handling-ambiguous-handler-methods-mapped-in-rest-application-with-spring
+- URL Encoding: https://stackoverflow.com/questions/10786042/java-url-encoding-of-query-string-parameters
+- @PathVariable vs. @RequestParam in Spring: https://stackoverflow.com/questions/30809302/spring-rest-use-of-pathvariable-and-requestparam 
+https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
 
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
@@ -145,5 +149,7 @@ Other:
 - GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
 - RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
+- URL Encoding: https://www.urlencoder.io/learn/ https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html 
+https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 
 Code Fellows Java curriculum
