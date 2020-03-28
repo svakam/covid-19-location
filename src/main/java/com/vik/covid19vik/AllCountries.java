@@ -11,23 +11,21 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
-public class Country implements Serializable {
+public class AllCountries implements Serializable {
     private String Country;
     private String Slug;
     private String[] Provinces;
 
-    Country() {
+    AllCountries() {
         // no-args constructor
     }
 
     public String getCountry() {
         return Country;
     }
-
     public String getSlug() {
         return Slug;
     }
-
     public String[] getProvinces() {
         return Provinces;
     }
@@ -40,9 +38,9 @@ public class Country implements Serializable {
     }
 
     // GET request returns array of countries
-    static Country[] getCountries() {
+    static AllCountries[] getCountries() {
         URL url = null;
-        Country[] countries = null;
+        AllCountries[] countries = null;
         try {
             url = new URL("https://api.covid19api.com/countries");
         } catch (MalformedURLException e) {
@@ -69,7 +67,7 @@ public class Country implements Serializable {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
                 Gson gson = new Gson();
-                countries = gson.fromJson(in, Country[].class);
+                countries = gson.fromJson(in, AllCountries[].class);
             }
 //            while ((inputLine = in.readLine()) != null) {
 //                content.append(inputLine).append("\n");
@@ -98,4 +96,6 @@ public class Country implements Serializable {
         }
         return countries;
     }
+
+
 }

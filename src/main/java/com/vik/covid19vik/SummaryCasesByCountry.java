@@ -82,7 +82,6 @@ public class SummaryCasesByCountry {
         }
     }
 
-
     private String Date;
 
     public CountrySummary[] getCountries() {
@@ -141,7 +140,7 @@ public class SummaryCasesByCountry {
             e.printStackTrace();
         }
 
-        // create hashmap<slug, array>
+        // create hashmap<slug, array> of every slug's associated case information (totals and news)
         HashMap<String, int[]> casesByCountry = new HashMap<>();
         assert countrySummary != null;
         for (CountrySummary country : countrySummary.getCountries()) {

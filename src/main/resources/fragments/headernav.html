@@ -1,3 +1,32 @@
-<header th:fragment="header">
-
+<header th:fragment="headernav" class="sticky-top">
+    <nav class="navbar sticky-top navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">CV19Locator</a>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbarNav">
+                <!-- dropdown allCountries -->
+                <form action="/results/country" class="nav-item" method="POST">
+                    <div class="row">
+                        <label for="countrydropdown">Search by allCountries:</label>
+                    </div>
+                    <div class="row">
+                        <select id="countrydropdown" name="searchedCountry">
+                            <option value="Select country" disabled>Select country...</option>
+                            <option value="US">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Mexico">Mexico</option>
+                            <th:block th:each="country: ${countryNames}">
+                                <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
+                            </th:block>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                    </div>
+                </form>
+                <a class="nav-item nav-link" href="#">Pricing</a>
+                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </div>
+        </div>
+    </nav>
 </header>

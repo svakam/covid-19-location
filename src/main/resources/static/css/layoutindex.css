@@ -2,7 +2,7 @@ html {
     min-width: 480px;
 }
 
-#indexbody section {
+#indexbody main section {
     padding: 7%;
     margin-bottom: -2rem;
 }
@@ -21,7 +21,7 @@ iframe {
         margin-top: 100px;
     }
 
-    #indexbody section article {
+    #indexbody main section article {
         margin-right: 100px;
         margin-left: 100px;
     }
