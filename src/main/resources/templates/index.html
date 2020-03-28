@@ -23,41 +23,7 @@
                 <h1 class="display-1 text-center">COVID-19 Locator</h1>
                 <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
                 <hr class="my-4">
-                <form action="/results/country" method="POST">
-                    <div class="row justify-content-center">
-                        <label for="countrydropdownbody">Search by Country...</label>
-                    </div>
-                    <div class="row justify-content-center">
-                        <select id="countrydropdownbody" name="searchedCountry">
-                            <option value="Select country" disabled>Select country...</option>
-                            <option value="US">United States</option>
-                            <option value="Canada">Canada</option>
-                            <option value="Mexico">Mexico</option>
-                            <th:block th:each="allCountries: ${countryNames}">
-                                <option th:if="${allCountries} == 'Viet Nam'">Vietnam</option>
-                                <option th:if="${allCountries} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
-                                <option th:if="${allCountries} == 'Taipei and environs'">Taiwan</option>
-                                <option th:unless="${allCountries} == 'Viet Nam' or ${allCountries} == '' or ${allCountries} == 'occupied Palestinian territory'
-                                or ${allCountries} == 'Taipei and environs' or ${allCountries} == 'Macao SAR'" th:value="${allCountries}" th:text="${allCountries}"></option>
-                            </th:block>
-                        </select>
-                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
-                    </div>
-                </form>
-<!--                <form action="/results" method="POST">-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <label for="provincedropdownbody">Search by state/province</label>-->
-<!--                    </div>-->
-<!--                    <div class="row justify-content-center">-->
-<!--                        <select id="provincedropdownbody" name="searchedCountry">-->
-<!--                            <option value="Enter allCountries" disabled>Select province...</option>-->
-<!--                            <th:block th:each="province,iter: ${provinceNames}">-->
-<!--                                <option th:value="${province}" th:id="${province}" th:text="${province}"></option>-->
-<!--                            </th:block>-->
-<!--                        </select>-->
-<!--                        <button type="submit" class="btn btn-primary btn-lg">Search</button>-->
-<!--                    </div>-->
-<!--                </form>-->
+                <form th:replace="../fragments/countrydropdown :: countrydropdown"></form>
                 <article class="row row-cols-1 justify-content-center">
                     <iframe width="850" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
                             src="//gisanddata.maps.arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=

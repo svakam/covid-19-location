@@ -3,7 +3,7 @@ package com.vik.covid19vik;
 import java.util.HashMap;
 
 public class CountriesAsProvinces {
-    public static HashMap<String, String> countriesAsProvinces() {
+    public static HashMap<String, String> getCountriesAsProvinces() {
         // hashmap details countries that are also provinces of a country
         HashMap<String, String> countriesAsProvinces = new HashMap<>();
         countriesAsProvinces.put("Aruba", "Netherlands");

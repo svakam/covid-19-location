@@ -1,0 +1,21 @@
+<form th:fragment="countrydropdown" action="/results/country" method="POST">
+    <div class="row justify-content-center">
+        <label for="countrydropdownbody">Search by Country...</label>
+    </div>
+    <div class="row justify-content-center">
+        <select id="countrydropdownbody" name="searchedCountry">
+            <option value="Select country" disabled>Select country...</option>
+            <option value="US">United States</option>
+            <option value="Canada">Canada</option>
+            <option value="Mexico">Mexico</option>
+            <th:block th:each="country: ${countryNames}">
+                <option th:if="${country} == 'Viet Nam'">Vietnam</option>
+                <option th:if="${country} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
+                <option th:if="${country} == 'Taipei and environs'">Taiwan</option>
+                <option th:unless="${country} == 'Viet Nam' or ${country} == '' or ${country} == 'occupied Palestinian territory'
+                                or ${country} == 'Taipei and environs' or ${country} == 'Macao SAR'" th:value="${country}" th:text="${country}"></option>
+            </th:block>
+        </select>
+        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+    </div>
+</form>

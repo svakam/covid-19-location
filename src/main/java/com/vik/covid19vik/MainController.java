@@ -55,14 +55,14 @@ public class MainController {
         }
 
         // else if searched country is also a province, pass its slug along with the country it's a province of
-        else if (CountriesAsProvinces.countriesAsProvinces().containsKey(searchedCountry)) {
+        else if (CountriesAsProvinces.getCountriesAsProvinces().containsKey(searchedCountry)) {
             String slug = null;
             for (AllCountries country : countriesArray) {
                 if (searchedCountry.equals(country.getCountry())) {
                     slug = country.getSlug();
                 }
             }
-            String countryOfProvince = CountriesAsProvinces.countriesAsProvinces().get(searchedCountry);
+            String countryOfProvince = CountriesAsProvinces.getCountriesAsProvinces().get(searchedCountry);
             rv = new RedirectView("/results/country?sc=" + searchedCountry + "&slug=" + slug + "&cop=" + countryOfProvince);
         }
 
@@ -116,15 +116,44 @@ public class MainController {
 
         // if searched country is redundant, get all slugs, get case data for last slug and pass to template
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
-            HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
-            String[] allSlugs = redundantCountriesWithSlugs.get(searchedCountry);
-            String slugWithMostRelevantData = allSlugs[allSlugs.length - 1];
-            caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantData);
+            System.out.println("redundant slug = " + slug);
+
+            // store last slug from string of slugs in URL and get summary case info by that slug
+            Queue<Character> findLastSlugInURL = new LinkedList<>();
+            StringBuilder slugWithMostRelevantSummary = new StringBuilder();
+            for (int i = 0; i < slug.length(); i++) {
+                if (slug.charAt(i) != ',') {
+                    findLastSlugInURL.add(slug.charAt(i));
+                } else {
+                    while (findLastSlugInURL.peek() != null) {
+                        findLastSlugInURL.poll();
+                    }
+                }
+            }
+            while (findLastSlugInURL.peek() != null) {
+                slugWithMostRelevantSummary.append(findLastSlugInURL.poll());
+            }
+            caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantSummary.toString());
+
+            // populate province dropdown
+            for (AllCountries country : countriesArray) {
+                if (slugWithMostRelevantSummary.toString().equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
+            }
         }
-//        // else if searched country is also a province, fetch all data associated with slug
-//        else if () {
-//
-//        }
+
+        // else if searched country is also a province, fetch all data associated with slug
+        else if (CountriesAsProvinces.getCountriesAsProvinces().containsKey(searchedCountry)) {
+            System.out.println('h');
+            caseInfoForCountry = summaryCasesByCountry.get(slug);
+            for (AllCountries country : countriesArray) {
+                if (slug.equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
+            }
+        }
+
         // else get case data for slug
         else {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
