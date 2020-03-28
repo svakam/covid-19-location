@@ -6,19 +6,19 @@
         <a class="navbar-brand" href="/">CV19Locator</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbarNav">
-                <!-- dropdown country -->
+                <!-- dropdown allCountries -->
                 <form action="/results" class="nav-item" method="POST">
                     <div class="row">
-                        <label for="countrydropdown">Search by country:</label>
+                        <label for="countrydropdown">Search by allCountries:</label>
                     </div>
                     <div class="row">
                         <select id="countrydropdown" name="searchedCountry">
-                            <option value="Enter country" disabled>Select country...</option>
+                            <option value="Enter allCountries" disabled>Select allCountries...</option>
                             <option value="US">United States</option>
                             <option value="Canada">Canada</option>
                             <option value="Mexico">Mexico</option>
-                            <th:block th:each="country: ${countryNames}">
-                                <option th:value="${country}" th:id="${country}" th:text="${country}"></option>
+                            <th:block th:each="allCountries: ${countryNames}">
+                                <option th:value="${allCountries}" th:id="${allCountries}" th:text="${allCountries}"></option>
                             </th:block>
                         </select>
                         <button type="submit" class="btn btn-primary btn-lg">Search</button>

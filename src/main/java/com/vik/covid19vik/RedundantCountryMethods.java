@@ -68,7 +68,7 @@ public class RedundantCountryMethods {
     }
 
     // final filter of redundant countries
-    public static LinkedList<String> filterRedundantCountries(Country[] countriesArray) {
+    public static LinkedList<String> filterRedundantCountries(AllCountries[] countriesArray) {
         LinkedList<String> countryNames = new LinkedList<>();
         // add country names to a country dropdown list:
         // iterate over raw countries array
@@ -87,18 +87,18 @@ public class RedundantCountryMethods {
             }
         }
 
-        for (Country country : countriesArray) {
-            String slug = country.getSlug();
+        for (AllCountries allCountries : countriesArray) {
+            String slug = allCountries.getSlug();
             HashSet<String> redundantCountryList = RedundantCountryMethods.getRedundantCountries();
             if (redundantCountryList.contains(slug)) {
                 String[] redundanciesForACountry = redundantSlugs.get(slug);
                 // if slug's country hasn't been added to dropdown yet (flag == false), add it and switch flag to true,
                 if (allSlugsWithBooleans.containsKey(redundanciesForACountry) && !allSlugsWithBooleans.get(redundanciesForACountry))
-                    countryNames.add(country.getCountry());
+                    countryNames.add(allCountries.getCountry());
                 allSlugsWithBooleans.put(redundanciesForACountry, true);
                 // else don't add it
             } else {
-                countryNames.add(country.getCountry());
+                countryNames.add(allCountries.getCountry());
             }
         }
 

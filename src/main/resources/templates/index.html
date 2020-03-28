@@ -23,22 +23,22 @@
                 <h1 class="display-1 text-center">COVID-19 Locator</h1>
                 <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
                 <hr class="my-4">
-                <form action="/results" method="POST">
+                <form action="/results/country" method="POST">
                     <div class="row justify-content-center">
-                        <label for="countrydropdownbody">Search by country</label>
+                        <label for="countrydropdownbody">Search by allCountries</label>
                     </div>
                     <div class="row justify-content-center">
                         <select id="countrydropdownbody" name="searchedCountry">
-                            <option value="Enter country" disabled>Select country...</option>
+                            <option value="Enter allCountries" disabled>Select allCountries...</option>
                             <option value="US">United States</option>
                             <option value="Canada">Canada</option>
                             <option value="Mexico">Mexico</option>
-                            <th:block th:each="country: ${countryNames}">
-                                <option th:if="${country} == 'Viet Nam'">Vietnam</option>
-                                <option th:if="${country} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
-                                <option th:if="${country} == 'Taipei and environs'">Taiwan</option>
-                                <option th:unless="${country} == 'Viet Nam' or ${country} == '' or ${country} == 'occupied Palestinian territory'
-                                or ${country} == 'Taipei and environs' or ${country} == 'Macao SAR'" th:value="${country}" th:text="${country}"></option>
+                            <th:block th:each="allCountries: ${countryNames}">
+                                <option th:if="${allCountries} == 'Viet Nam'">Vietnam</option>
+                                <option th:if="${allCountries} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
+                                <option th:if="${allCountries} == 'Taipei and environs'">Taiwan</option>
+                                <option th:unless="${allCountries} == 'Viet Nam' or ${allCountries} == '' or ${allCountries} == 'occupied Palestinian territory'
+                                or ${allCountries} == 'Taipei and environs' or ${allCountries} == 'Macao SAR'" th:value="${allCountries}" th:text="${allCountries}"></option>
                             </th:block>
                         </select>
                         <button type="submit" class="btn btn-primary btn-lg">Search</button>
@@ -50,7 +50,7 @@
 <!--                    </div>-->
 <!--                    <div class="row justify-content-center">-->
 <!--                        <select id="provincedropdownbody" name="searchedCountry">-->
-<!--                            <option value="Enter country" disabled>Select province...</option>-->
+<!--                            <option value="Enter allCountries" disabled>Select province...</option>-->
 <!--                            <th:block th:each="province,iter: ${provinceNames}">-->
 <!--                                <option th:value="${province}" th:id="${province}" th:text="${province}"></option>-->
 <!--                            </th:block>-->

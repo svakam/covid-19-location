@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.annotation.security.RunAs;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -20,7 +18,7 @@ public class MainController {
     // consider adding to database:
 
     // array of all countries with country names/slug/province
-    Country[] countriesArray;
+    AllCountries[] countriesArray;
     // array of country names for country dropdown
     LinkedList<String> countryNames;
 
@@ -30,7 +28,7 @@ public class MainController {
 
         // GET request to /countries endpoint: redundant list contains country, slug, and array of provinces
         // deserializing JSON
-        countriesArray = Country.getCountries();
+        countriesArray = AllCountries.getCountries();
 
         countryNames = RedundantCountryMethods.filterRedundantCountries(countriesArray);
 
@@ -67,7 +65,7 @@ public class MainController {
         // else if searched country is also a province, pass its slug along with the country it's a province of
         else if (CountriesAsProvinces.countriesAsProvinces().containsKey(searchedCountry)) {
             String slug = null;
-            for (Country country : countriesArray) {
+            for (AllCountries country : countriesArray) {
                 if (searchedCountry.equals(country.getCountry())) {
                     slug = country.getSlug();
                 }
@@ -79,9 +77,9 @@ public class MainController {
         // else find slug for country
         else {
             String slug = null;
-            for (Country country : countriesArray) {
-                if (searchedCountry.equals(country.getCountry())) {
-                    slug = country.getSlug();
+            for (AllCountries allCountries : countriesArray) {
+                if (searchedCountry.equals(allCountries.getCountry())) {
+                    slug = allCountries.getSlug();
                 }
             }
             if (slug == null) {
@@ -93,17 +91,17 @@ public class MainController {
         return rv;
     }
 
-    @PostMapping("/results/country/province")
-    public void submitProvResults() {
-        RedirectView rv;
+//    @PostMapping("/results/country/province")
+//    public RedirectView submitProvinceSearch() {
+//        RedirectView rv;
 //        return rv;
-    }
+//    }
 
     // path variable always searchedCountry
     // possible params: slug: not required (if not redundant or a province), slugs: not required (if redundant), slug AND countryOfProvince: not required (if also a province)
     @GetMapping("/results/country")
     public String resultsForCountry(@RequestParam(name = "sc") String searchedCountry, @RequestParam(required = false, name = "slug")
-            String slug, @RequestParam(required = false, name = "cop") String countryOfProvince, @RequestParam Model model) {
+            String slug, @RequestParam(required = false, name = "cop") String countryOfProvince, Model model) {
         System.out.println("slug = " + slug);
         System.out.println("searched country = " + searchedCountry);
         System.out.println("country of province = " + countryOfProvince);
@@ -118,10 +116,8 @@ public class MainController {
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
             HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
             String[] allSlugs = redundantCountriesWithSlugs.get(searchedCountry);
-            System.out.println(Arrays.toString(allSlugs));
             String slugWithMostRelevantData = allSlugs[allSlugs.length - 1];
             caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantData);
-            System.out.println(caseInfoForCountry[0]);
         }
 //        // else if searched country is also a province, fetch all data associated with slug
 //        else if () {

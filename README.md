@@ -5,14 +5,14 @@ Deployed at: www.cv19location.com
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
 information on how COVID-19 is impacting their community in the United States.
 
-Upon entering the website, the user will be greeted by a splash page. Here, the user will be provided a search box to enter their country, state, or county. 
-The user will then be taken to a results page that renders information from Covid19API regarding the total number of cases of COVID-19 in their country, 
+Upon entering the website, the user will be greeted by a splash page. Here, the user will be provided a search box to enter their allCountries, state, or county. 
+The user will then be taken to a results page that renders information from Covid19API regarding the total number of cases of COVID-19 in their allCountries, 
 total number of cases in their province/state, and total number of cases in their county. 
 
 The number of cases of COVID-19 will contain numbers for confirmed cases, recovered cases, and death cases. 
 
 NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
-there are a number of redundancies in country names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
+there are a number of redundancies in allCountries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
 ## Run the app
@@ -44,13 +44,13 @@ Or if you'd like to run it from your local machine:
 - Refactored HttpURLConnection to work with GSON and API call
 - GSON deserializing JSON from API
 - Passing JSON and objects appropriately into template
-- Populating country dropdown menu with countries from API
-- Passing dropdown choice to results page and rendering country's information (country, slug, provinces)
+- Populating allCountries dropdown menu with countries from API
+- Passing dropdown choice to results page and rendering allCountries's information (allCountries, slug, provinces)
 
 03/23/2020
 - Refactored postmapping to be more RESTful with dropdown choice and /results
 - Successfully accessing endpoint with case information for countries
-- Rendering confirmed/death/recovered cases of user's choice of country on /results
+- Rendering confirmed/death/recovered cases of user's choice of allCountries on /results
 - Began Bootstrap work on index - jumbotron implemented and sized
 
 03/24/2020
@@ -58,28 +58,28 @@ Or if you'd like to run it from your local machine:
 - Deployed to AWS EB
 
 03/25/2020
-- Note: JHU CSSE data contains a number of discrepancies/conflicts on the country, state, and county level. Created a spreadsheet that accounts for 
+- Note: JHU CSSE data contains a number of discrepancies/conflicts on the allCountries, state, and county level. Created a spreadsheet that accounts for 
 these issues here: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 - Header nav bar for results page to filter by province if available
 
 03/26/2020
-- Refactored country dropdown methods to filter out redundant countries from data
+- Refactored allCountries dropdown methods to filter out redundant countries from data
 - Refactored "/" getmapping route functions out to appropriate class
 
 ## Data Flow
-Search bar entry that ideally contains the state or province, but also country, will be used to query 
-the /countries endpoint. If successful, it must be decided whether the query was a country or a state/province. If a country was entered, the /summary endpoint will be queried
-to obtain the country, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /country/
+Search bar entry that ideally contains the state or province, but also allCountries, will be used to query 
+the /countries endpoint. If successful, it must be decided whether the query was a allCountries or a state/province. If a allCountries was entered, the /summary endpoint will be queried
+to obtain the allCountries, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /allCountries/
 {countryslug}/status/{status} endpoint. The array of states/provinces from the /countries endpoint will be used to further find the desired state/province and iterate through
-the endpoint for /country/{countryslug}/status/{status} to get the state/province information. 
+the endpoint for /allCountries/{countryslug}/status/{status} to get the state/province information. 
 
 Covid19API endpoints (see the [API](https://covid19api.com/#details)):
 - /countries: Country, Slug, Provinces[]
 - /summary: Countries[Country, CountrySlug, NewConfirmed, TotalConfirmed, NewDeaths, TotalDeaths, NewRecovered, TotalRecovered]
-- /total/country/{countryslug}/status/{status}: Country (same one), Province, Lat/Lon, Date, Cases, Status (same one): relevant data is total # cases per day
-- /country/{countryslug}/status/{status}: same as above, but relevant data is specific to province level
-- /total/dayone/country/{countryslug}/status/{status}: for specific country only: and since day one of case #1 only
-- /dayone/country/{countryslug}/status/{status}: same as above but specific to province level
+- /total/allCountries/{countryslug}/status/{status}: Country (same one), Province, Lat/Lon, Date, Cases, Status (same one): relevant data is total # cases per day
+- /allCountries/{countryslug}/status/{status}: same as above, but relevant data is specific to province level
+- /total/dayone/allCountries/{countryslug}/status/{status}: for specific allCountries only: and since day one of case #1 only
+- /dayone/allCountries/{countryslug}/status/{status}: same as above but specific to province level
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
