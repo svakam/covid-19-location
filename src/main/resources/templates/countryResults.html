@@ -9,6 +9,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+        <!-- native CSS -->
+        <link rel="stylesheet" href="../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="../css/state.css" type="text/css">
+
         <title th:text="'Results for ' + ${searchedCountry}"></title>
     </head>
     <body>
@@ -55,6 +60,7 @@
                     </select>
                     <button type="submit" class="btn btn-primary btn-lg">Search</button>
                 </div>
+                <input type="hidden" th:name="countryForProvince" th:value="${searchedCountry}" />
             </form>
         </main>
     </body>

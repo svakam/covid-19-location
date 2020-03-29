@@ -55,14 +55,14 @@ public class MainController {
         }
 
         // else if searched country is also a province, pass its slug along with the country it's a province of
-        else if (CountriesAsProvinces.countriesAsProvinces().containsKey(searchedCountry)) {
+        else if (CountriesAsProvinces.getCountriesAsProvinces().containsKey(searchedCountry)) {
             String slug = null;
             for (AllCountries country : countriesArray) {
                 if (searchedCountry.equals(country.getCountry())) {
                     slug = country.getSlug();
                 }
             }
-            String countryOfProvince = CountriesAsProvinces.countriesAsProvinces().get(searchedCountry);
+            String countryOfProvince = CountriesAsProvinces.getCountriesAsProvinces().get(searchedCountry);
             rv = new RedirectView("/results/country?sc=" + searchedCountry + "&slug=" + slug + "&cop=" + countryOfProvince);
         }
 
@@ -84,15 +84,17 @@ public class MainController {
     }
 
     @PostMapping("/results/country/province")
-    public RedirectView submitProvinceSearch(String searchedProvince) {
+    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
         RedirectView rv;
+        System.out.println("searched country = " + countryForProvince);
         String slug = null;
         for (AllCountries country : countriesArray) {
-            if (searchedProvince.equals(country.getCountry())) {
+            if (countryForProvince.equals(country.getCountry())) {
                 slug = country.getSlug();
+                System.out.println("slug of country = " + slug);
             }
         }
-        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "?slug=" + slug);
+        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "&slug=" + slug);
         return rv;
     }
 
@@ -116,15 +118,44 @@ public class MainController {
 
         // if searched country is redundant, get all slugs, get case data for last slug and pass to template
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
-            HashMap<String, String[]> redundantCountriesWithSlugs = RedundantCountryMethods.getRedundantCountriesWithSlugs();
-            String[] allSlugs = redundantCountriesWithSlugs.get(searchedCountry);
-            String slugWithMostRelevantData = allSlugs[allSlugs.length - 1];
-            caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantData);
+            System.out.println("redundant slug = " + slug);
+
+            // store last slug from string of slugs in URL and get summary case info by that slug
+            Queue<Character> findLastSlugInURL = new LinkedList<>();
+            StringBuilder slugWithMostRelevantSummary = new StringBuilder();
+            for (int i = 0; i < slug.length(); i++) {
+                if (slug.charAt(i) != ',') {
+                    findLastSlugInURL.add(slug.charAt(i));
+                } else {
+                    while (findLastSlugInURL.peek() != null) {
+                        findLastSlugInURL.poll();
+                    }
+                }
+            }
+            while (findLastSlugInURL.peek() != null) {
+                slugWithMostRelevantSummary.append(findLastSlugInURL.poll());
+            }
+            caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantSummary.toString());
+
+            // populate province dropdown
+            for (AllCountries country : countriesArray) {
+                if (slugWithMostRelevantSummary.toString().equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
+            }
         }
-//        // else if searched country is also a province, fetch all data associated with slug
-//        else if () {
-//
-//        }
+
+        // else if searched country is also a province, fetch all data associated with slug
+        else if (CountriesAsProvinces.getCountriesAsProvinces().containsKey(searchedCountry)) {
+            System.out.println('h');
+            caseInfoForCountry = summaryCasesByCountry.get(slug);
+            for (AllCountries country : countriesArray) {
+                if (slug.equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
+            }
+        }
+
         // else get case data for slug
         else {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
@@ -154,8 +185,55 @@ public class MainController {
     @GetMapping("/results/country/province")
     public String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
 
+        System.out.println(searchedProvince);
+        System.out.println(slug);
+
+        // get time series data for province
+        CountryAndProvincesData[][] data = CountryAndProvincesData.getTimeSeriesData(slug);
+        CountryAndProvincesData[] timeSeriesConfirmed = data[0];
+        CountryAndProvincesData[] timeSeriesDeaths = data[1];
+        CountryAndProvincesData[] timeSeriesRecovered = data[2];
+
+        // instantiate storage for case data
+        int[] timeSeriesConfirmedCases = new int[timeSeriesConfirmed.length];
+        int[] timeSeriesDeathsCases = new int[timeSeriesDeaths.length];
+        int[] timeSeriesRecoveredCases = new int[timeSeriesRecovered.length];
+        String[] confirmedDates = new String[timeSeriesConfirmed.length];
+        String[] deathsDates = new String[timeSeriesDeaths.length];
+        String[] recoveredDates = new String[timeSeriesRecovered.length];
+
+        // if province match, get case data
+        for (int i = 0; i < timeSeriesConfirmed.length; i++) {
+            if (timeSeriesConfirmed[i].getProvince().equals(searchedProvince)) {
+                timeSeriesConfirmedCases[i] = timeSeriesConfirmed[i].getCases();
+                confirmedDates[i] = timeSeriesConfirmed[i].getDate();
+            }
+        }
+        for (int i = 0; i < timeSeriesDeaths.length; i++) {
+            if (timeSeriesDeaths[i].getProvince().equals(searchedProvince)) {
+                timeSeriesDeathsCases[i] = timeSeriesDeaths[i].getCases();
+                deathsDates[i] = timeSeriesDeaths[i].getDate();
+            }
+        }
+        for (int i = 0; i < timeSeriesRecovered.length; i++) {
+            if (timeSeriesRecovered[i].getProvince().equals(searchedProvince)) {
+                timeSeriesRecoveredCases[i] = timeSeriesRecovered[i].getCases();
+                recoveredDates[i] = timeSeriesRecovered[i].getDate();
+            }
+        }
+
+
+
         model.addAttribute("countryNames", countryNames);
         model.addAttribute("searchedProvince", searchedProvince);
+
+        model.addAttribute("confirmedCases", timeSeriesConfirmedCases);
+        model.addAttribute("deathsCases", timeSeriesDeathsCases);
+        model.addAttribute("recoveredCases", timeSeriesRecoveredCases);
+        model.addAttribute("confirmedDates", confirmedDates);
+        model.addAttribute("deathsDates", deathsDates);
+        model.addAttribute("recoveredDates", recoveredDates);
+
         return "provinceResults";
     }
 
