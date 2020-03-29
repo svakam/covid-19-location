@@ -95,10 +95,10 @@ public class CountryAndProvincesData implements Serializable {
     }
 
     // GET request returns confirmed cases for time series of country since day 1 of its outbreak (and provinces if available)
-    protected static LinkedList<CountryAndProvincesData[]> getTimeSeriesData(String countrySlug) {
+    protected static CountryAndProvincesData[][] getTimeSeriesData(String countrySlug) {
         URL url = null;
 
-        LinkedList<CountryAndProvincesData[]> data = new LinkedList<>();
+        CountryAndProvincesData[][] data = new CountryAndProvincesData[3][1];
 
         // confirmed cases
         try {
@@ -110,7 +110,7 @@ public class CountryAndProvincesData implements Serializable {
             assert url != null;
             System.out.println(url);
             CountryAndProvincesData[] timeSeriesConfirmed = connectAndDeserialize(url);
-            data.add(timeSeriesConfirmed);
+            data[0] = timeSeriesConfirmed;
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -124,7 +124,7 @@ public class CountryAndProvincesData implements Serializable {
         }
         try {
             CountryAndProvincesData[] timeSeriesDeaths = connectAndDeserialize(url);
-            data.add(timeSeriesDeaths);
+            data[1] = timeSeriesDeaths;
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class CountryAndProvincesData implements Serializable {
         }
         try {
             CountryAndProvincesData[] timeSeriesRecovered = connectAndDeserialize(url);
-            data.add(timeSeriesRecovered);
+            data[2] = timeSeriesRecovered;
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

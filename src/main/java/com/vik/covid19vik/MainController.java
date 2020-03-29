@@ -189,10 +189,13 @@ public class MainController {
         System.out.println(slug);
 
         // get time series data for province
-        LinkedList<CountryAndProvincesData[]> data = CountryAndProvincesData.getTimeSeriesData(slug);
-        for (Iterator i = data.iterator(); i.hasNext();) {
-            System.out.println(i.next());
+        CountryAndProvincesData[][] data = CountryAndProvincesData.getTimeSeriesData(slug);
+        for (CountryAndProvincesData[] datum : data) {
+            for (CountryAndProvincesData countryAndProvincesData : datum) {
+                System.out.println(countryAndProvincesData.getCases());
+            }
         }
+
 
         // if province
 
