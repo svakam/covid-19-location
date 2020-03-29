@@ -27,4 +27,13 @@ public class CountriesAsProvinces {
         countriesAsProvinces.put("Macau", "China");
         return countriesAsProvinces;
     }
+
+    public static void orderOfDataForProvince() {
+        HashMap<String, String[]> orderOfData = new HashMap<>();
+        orderOfData.put("Aruba", new String[]{"Aruba", "country"});
+        orderOfData.put("Curacao", new String[]{"country", "Curacao"});
+        orderOfData.put("Sint Maarten", new String[]{""})
+    }
+
+    // methods to match
 }
