@@ -38,7 +38,7 @@ public class AllCountries implements Serializable {
     }
 
     // GET request returns array of countries
-    static AllCountries[] getCountries() {
+    protected static AllCountries[] getCountries() {
         URL url = null;
         AllCountries[] countries = null;
         try {

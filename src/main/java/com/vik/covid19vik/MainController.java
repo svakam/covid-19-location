@@ -84,15 +84,17 @@ public class MainController {
     }
 
     @PostMapping("/results/country/province")
-    public RedirectView submitProvinceSearch(String searchedProvince) {
+    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
         RedirectView rv;
+        System.out.println("searched country = " + countryForProvince);
         String slug = null;
         for (AllCountries country : countriesArray) {
-            if (searchedProvince.equals(country.getCountry())) {
+            if (countryForProvince.equals(country.getCountry())) {
                 slug = country.getSlug();
+                System.out.println("slug of country = " + slug);
             }
         }
-        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "?slug=" + slug);
+        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "&slug=" + slug);
         return rv;
     }
 
@@ -183,8 +185,20 @@ public class MainController {
     @GetMapping("/results/country/province")
     public String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
 
+        System.out.println(searchedProvince);
+        System.out.println(slug);
+
+        // get time series data for province
+        LinkedList<CountryAndProvincesData[]> data = CountryAndProvincesData.getTimeSeriesData(slug);
+        for (Iterator i = data.iterator(); i.hasNext();) {
+            System.out.println(i.next());
+        }
+
+        // if province
+
         model.addAttribute("countryNames", countryNames);
         model.addAttribute("searchedProvince", searchedProvince);
+
         return "provinceResults";
     }
 
