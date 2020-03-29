@@ -190,17 +190,49 @@ public class MainController {
 
         // get time series data for province
         CountryAndProvincesData[][] data = CountryAndProvincesData.getTimeSeriesData(slug);
-        for (CountryAndProvincesData[] datum : data) {
-            for (CountryAndProvincesData countryAndProvincesData : datum) {
-                System.out.println(countryAndProvincesData.getCases());
+        CountryAndProvincesData[] timeSeriesConfirmed = data[0];
+        CountryAndProvincesData[] timeSeriesDeaths = data[1];
+        CountryAndProvincesData[] timeSeriesRecovered = data[2];
+
+        // instantiate storage for case data
+        int[] timeSeriesConfirmedCases = new int[timeSeriesConfirmed.length];
+        int[] timeSeriesDeathsCases = new int[timeSeriesDeaths.length];
+        int[] timeSeriesRecoveredCases = new int[timeSeriesRecovered.length];
+        String[] confirmedDates = new String[timeSeriesConfirmed.length];
+        String[] deathsDates = new String[timeSeriesDeaths.length];
+        String[] recoveredDates = new String[timeSeriesRecovered.length];
+
+        // if province match, get case data
+        for (int i = 0; i < timeSeriesConfirmed.length; i++) {
+            if (timeSeriesConfirmed[i].getProvince().equals(searchedProvince)) {
+                timeSeriesConfirmedCases[i] = timeSeriesConfirmed[i].getCases();
+                confirmedDates[i] = timeSeriesConfirmed[i].getDate();
+            }
+        }
+        for (int i = 0; i < timeSeriesDeaths.length; i++) {
+            if (timeSeriesDeaths[i].getProvince().equals(searchedProvince)) {
+                timeSeriesDeathsCases[i] = timeSeriesDeaths[i].getCases();
+                deathsDates[i] = timeSeriesDeaths[i].getDate();
+            }
+        }
+        for (int i = 0; i < timeSeriesRecovered.length; i++) {
+            if (timeSeriesRecovered[i].getProvince().equals(searchedProvince)) {
+                timeSeriesRecoveredCases[i] = timeSeriesRecovered[i].getCases();
+                recoveredDates[i] = timeSeriesRecovered[i].getDate();
             }
         }
 
 
-        // if province
 
         model.addAttribute("countryNames", countryNames);
         model.addAttribute("searchedProvince", searchedProvince);
+
+        model.addAttribute("confirmedCases", timeSeriesConfirmedCases);
+        model.addAttribute("deathsCases", timeSeriesDeathsCases);
+        model.addAttribute("recoveredCases", timeSeriesRecoveredCases);
+        model.addAttribute("confirmedDates", confirmedDates);
+        model.addAttribute("deathsDates", deathsDates);
+        model.addAttribute("recoveredDates", recoveredDates);
 
         return "provinceResults";
     }

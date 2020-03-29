@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Required meta -->
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- native CSS -->
+        <link rel="stylesheet" href="../../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="../../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="../../css/state.css" type="text/css">
         <title>Title</title>
     </head>
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-
+            <h1 th:text="'Results for ' + ${searchedProvince}"></h1>
+            <table>
+                <tr>
+                    <th>Confirmed</th>
+                    <td th:each="date : ${confirmedDates}" th:text="${date}"></td>
+                </tr>
+                <tr>
+                    <td>Cases</td>
+                    <td th:each="case : ${confirmedCases}" th:text="${case}"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Deaths</th>
+                    <td th:each="date : ${deathsDates}" th:text="${date}"></td>
+                </tr>
+                <tr>
+                    <td>Cases</td>
+                    <td th:each="case : ${deathsCases}" th:text="${case}"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <th>Recovered</th>
+                    <td th:each="date : ${recoveredDates}" th:text="${date}"></td>
+                </tr>
+                <tr>
+                    <td>Cases</td>
+                    <td th:each="case : ${recoveredCases}" th:text="${case}"></td>
+                </tr>
+            </table>
         </main>
+        <footer>
 
+        </footer>
+        <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

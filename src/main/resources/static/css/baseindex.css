@@ -8,5 +8,9 @@
     color: white;
 }
 
+table, td, tr, th {
+    border: 1px solid black;
+}
+
 
 /* color scheme: #FFF2C4 light caramel, #303FB3 dark blue, #6D7FFF light blue, #FFE078 some yellow, #B38B00 turd
