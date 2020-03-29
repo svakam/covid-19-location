@@ -195,34 +195,32 @@ public class MainController {
         CountryAndProvincesData[] timeSeriesRecovered = data[2];
 
         // instantiate storage for case data
-        int[] timeSeriesConfirmedCases = new int[timeSeriesConfirmed.length];
-        int[] timeSeriesDeathsCases = new int[timeSeriesDeaths.length];
-        int[] timeSeriesRecoveredCases = new int[timeSeriesRecovered.length];
-        String[] confirmedDates = new String[timeSeriesConfirmed.length];
-        String[] deathsDates = new String[timeSeriesDeaths.length];
-        String[] recoveredDates = new String[timeSeriesRecovered.length];
+        LinkedList<Integer> timeSeriesConfirmedCases = new LinkedList<>();
+        LinkedList<Integer> timeSeriesDeathsCases = new LinkedList<>();
+        LinkedList<Integer> timeSeriesRecoveredCases = new LinkedList<>();
+        LinkedList<String> confirmedDates = new LinkedList<>();
+        LinkedList<String> deathsDates = new LinkedList<>();
+        LinkedList<String> recoveredDates = new LinkedList<>();
 
         // if province match, get case data
         for (int i = 0; i < timeSeriesConfirmed.length; i++) {
             if (timeSeriesConfirmed[i].getProvince().equals(searchedProvince)) {
-                timeSeriesConfirmedCases[i] = timeSeriesConfirmed[i].getCases();
-                confirmedDates[i] = timeSeriesConfirmed[i].getDate();
+                timeSeriesConfirmedCases.add(timeSeriesConfirmed[i].getCases());
+                confirmedDates.add(timeSeriesConfirmed[i].getDate());
             }
         }
         for (int i = 0; i < timeSeriesDeaths.length; i++) {
             if (timeSeriesDeaths[i].getProvince().equals(searchedProvince)) {
-                timeSeriesDeathsCases[i] = timeSeriesDeaths[i].getCases();
-                deathsDates[i] = timeSeriesDeaths[i].getDate();
+                timeSeriesDeathsCases.add(timeSeriesDeaths[i].getCases());
+                deathsDates.add(timeSeriesDeaths[i].getDate());
             }
         }
         for (int i = 0; i < timeSeriesRecovered.length; i++) {
             if (timeSeriesRecovered[i].getProvince().equals(searchedProvince)) {
-                timeSeriesRecoveredCases[i] = timeSeriesRecovered[i].getCases();
-                recoveredDates[i] = timeSeriesRecovered[i].getDate();
+                timeSeriesRecoveredCases.add(timeSeriesRecovered[i].getCases());
+                recoveredDates.add(timeSeriesRecovered[i].getDate());
             }
         }
-
-
 
         model.addAttribute("countryNames", countryNames);
         model.addAttribute("searchedProvince", searchedProvince);
