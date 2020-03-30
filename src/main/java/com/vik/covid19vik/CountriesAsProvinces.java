@@ -28,12 +28,13 @@ public class CountriesAsProvinces {
         return countriesAsProvinces;
     }
 
-    public static void orderOfDataForProvince() {
-        HashMap<String, String[]> orderOfData = new HashMap<>();
-        orderOfData.put("Aruba", new String[]{"Aruba", "country"});
-        orderOfData.put("Curacao", new String[]{"country", "Curacao"});
-        orderOfData.put("Sint Maarten", new String[]{""})
-    }
+//    public static void orderOfDataForProvince() {
+//        HashMap<String, String[]> orderOfData = new HashMap<>();
+//        orderOfData.put("Aruba", new String[]{"Aruba", "country"});
+//        orderOfData.put("Curacao", new String[]{"country", "Curacao"});
+//        orderOfData.put("French Guiana", new String[]{"country", ""});
+//        orderOfData.put("Saint Martin", new String[]{
+//    }
 
     // methods to match
 }
