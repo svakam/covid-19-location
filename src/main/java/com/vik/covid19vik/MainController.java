@@ -94,7 +94,7 @@ public class MainController {
                 System.out.println("slug of country = " + slug);
             }
         }
-        rv = new RedirectView("/results/country/province" + "?sp=" + searchedProvince + "&slug=" + slug);
+        rv = new RedirectView("/results/country/province" + "?sc=" + countryForProvince + "&sp=" + searchedProvince + "&slug=" + slug);
         return rv;
     }
 
@@ -140,7 +140,7 @@ public class MainController {
             // populate province dropdown
             for (AllCountries country : countriesArray) {
                 if (slugWithMostRelevantSummary.toString().equals(country.getSlug())) {
-                    provinceNames = country.getProvinces();
+//                    provinceNames = country.getProvinces();
                 }
             }
         }
@@ -151,7 +151,7 @@ public class MainController {
             caseInfoForCountry = summaryCasesByCountry.get(slug);
             for (AllCountries country : countriesArray) {
                 if (slug.equals(country.getSlug())) {
-                    provinceNames = country.getProvinces();
+//                    provinceNames = country.getProvinces();
                 }
             }
         }
@@ -183,50 +183,100 @@ public class MainController {
     }
 
     @GetMapping("/results/country/province")
-    public String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
+    public String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp")
+            String searchedProvince, @RequestParam(required = false, name = "slug") String slug, Model model) {
 
         System.out.println(searchedProvince);
         System.out.println(slug);
 
-        // get time series data for province
-        CountryAndProvincesData[][] data = CountryAndProvincesData.getTimeSeriesData(slug);
-        CountryAndProvincesData[] timeSeriesConfirmed = data[0];
-        CountryAndProvincesData[] timeSeriesDeaths = data[1];
-        CountryAndProvincesData[] timeSeriesRecovered = data[2];
+        LinkedList<String> provinceNames;
 
         // instantiate storage for case data
-        int[] timeSeriesConfirmedCases = new int[timeSeriesConfirmed.length];
-        int[] timeSeriesDeathsCases = new int[timeSeriesDeaths.length];
-        int[] timeSeriesRecoveredCases = new int[timeSeriesRecovered.length];
-        String[] confirmedDates = new String[timeSeriesConfirmed.length];
-        String[] deathsDates = new String[timeSeriesDeaths.length];
-        String[] recoveredDates = new String[timeSeriesRecovered.length];
+        LinkedList<Integer> timeSeriesConfirmedCases = new LinkedList<>();
+        LinkedList<Integer> timeSeriesDeathsCases = new LinkedList<>();
+        LinkedList<Integer> timeSeriesRecoveredCases = new LinkedList<>();
+        LinkedList<String> confirmedDates = new LinkedList<>();
+        LinkedList<String> deathsDates = new LinkedList<>();
+        LinkedList<String> recoveredDates = new LinkedList<>();
 
-        // if province match, get case data
-        for (int i = 0; i < timeSeriesConfirmed.length; i++) {
-            if (timeSeriesConfirmed[i].getProvince().equals(searchedProvince)) {
-                timeSeriesConfirmedCases[i] = timeSeriesConfirmed[i].getCases();
-                confirmedDates[i] = timeSeriesConfirmed[i].getDate();
+        // if searched country is redundant, get all slugs, get case data for last slug and pass to template
+        if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
+
+            // parse out all slugs as strings and add to list
+            LinkedList<String> allSlugs = new LinkedList<>();
+            Queue<Character> slugProcessor = new LinkedList<>();
+            StringBuilder givenSlug = null;
+            for (int i = 0; i < slug.length(); i++) {
+                if (slug.charAt(i) != ',') {
+                    slugProcessor.add(slug.charAt(i));
+                } else {
+                    givenSlug = new StringBuilder();
+                    while (slugProcessor.peek() != null) {
+                        givenSlug.append(slugProcessor.poll());
+                    }
+                    allSlugs.add(givenSlug.toString());
+                }
+            }
+
+            CountryAndProvincesData[] timeSeriesConfirmed;
+            CountryAndProvincesData[] timeSeriesDeaths;
+            CountryAndProvincesData[] timeSeriesRecovered;
+
+            for (int i = 0; i < allSlugs.size(); i++) {
+                // get time series data for province
+                CountryAndProvincesData[][] data = CountryAndProvincesData.getTimeSeriesData(slug);
+                timeSeriesConfirmed = data[0];
+                // if province match, get case data
+                for (int j = 0; j < timeSeriesConfirmed.length; j++) {
+                    if (timeSeriesConfirmed[j].getProvince().equals(searchedProvince)) {
+                        timeSeriesConfirmedCases.add(timeSeriesConfirmed[j].getCases());
+                        confirmedDates.add(timeSeriesConfirmed[j].getDate());
+                    }
+                }
+                timeSeriesDeaths = data[1];
+                for (int j = 0; j < timeSeriesDeaths.length; j++) {
+                    if (timeSeriesDeaths[j].getProvince().equals(searchedProvince)) {
+                        timeSeriesDeathsCases.add(timeSeriesDeaths[j].getCases());
+                        deathsDates.add(timeSeriesDeaths[j].getDate());
+                    }
+                }
+                timeSeriesRecovered = data[2];
+                for (int j = 0; j < timeSeriesRecovered.length; j++) {
+                    if (timeSeriesRecovered[j].getProvince().equals(searchedProvince)) {
+                        timeSeriesRecoveredCases.add(timeSeriesRecovered[j].getCases());
+                        recoveredDates.add(timeSeriesRecovered[j].getDate());
+                    }
+                }
+            }
+
+            // no province dropdown population (except for UK?)
+        }
+
+        // else if searched country is also a province, fetch all data associated with slug
+        else if (CountriesAsProvinces.getCountriesAsProvinces().containsKey(searchedCountry)) {
+            for (AllCountries country : countriesArray) {
+                if (slug.equals(country.getSlug())) {
+//                    provinceNames = country.getProvinces();
+                }
             }
         }
-        for (int i = 0; i < timeSeriesDeaths.length; i++) {
-            if (timeSeriesDeaths[i].getProvince().equals(searchedProvince)) {
-                timeSeriesDeathsCases[i] = timeSeriesDeaths[i].getCases();
-                deathsDates[i] = timeSeriesDeaths[i].getDate();
+
+        // else get case data for slug
+        else {
+
+            // get list of provinces to pass in dropdown
+            for (AllCountries country : countriesArray) {
+                if (slug.equals(country.getSlug())) {
+                    provinceNames = country.getProvinces();
+                }
             }
         }
-        for (int i = 0; i < timeSeriesRecovered.length; i++) {
-            if (timeSeriesRecovered[i].getProvince().equals(searchedProvince)) {
-                timeSeriesRecoveredCases[i] = timeSeriesRecovered[i].getCases();
-                recoveredDates[i] = timeSeriesRecovered[i].getDate();
-            }
-        }
-
-
 
         model.addAttribute("countryNames", countryNames);
+        model.addAttribute("provinceNames", provinceNames);
         model.addAttribute("searchedProvince", searchedProvince);
 
+        // add case data for province to template
         model.addAttribute("confirmedCases", timeSeriesConfirmedCases);
         model.addAttribute("deathsCases", timeSeriesDeathsCases);
         model.addAttribute("recoveredCases", timeSeriesRecoveredCases);

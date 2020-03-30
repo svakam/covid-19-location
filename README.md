@@ -1,6 +1,8 @@
-# COVID-19 Location Info
+# COVID-19 Locator
 
-Deployed at: www.cv19location.com
+(work in progress)
+
+Deployed at: http://www.cv19location.com
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
 information on how COVID-19 is impacting their community in the United States.
@@ -16,7 +18,8 @@ there are a number of redundancies in countries names, associated slugs, and sta
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
 ## Run the app
-Visit the website at: www.cv19location.com
+Visit the website at: http://www.cv19location.com
+
 
 Or if you'd like to run it from your local machine: 
 - Install IntelliJ IDEA. 
@@ -102,10 +105,12 @@ COVID-19 APIs and COVID-19 data used/consulted:
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
 
+
 Spring.io documentation:
 - REST: https://spring.io/guides/gs/rest-service/
 - REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
 - REST: https://spring.io/guides/gs/serving-web-content/
+
 
 Baeldung documentation:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
@@ -114,8 +119,10 @@ Baeldung documentation:
 - GSON Deserialization: https://www.baeldung.com/gson-deserialization-guide
 - URLEncoder: https://www.baeldung.com/java-url-encoding-decoding
 
+
 Bootstrap documentation: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
+
 
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
@@ -127,10 +134,12 @@ Stack Overflow:
 - @PathVariable vs. @RequestParam in Spring: https://stackoverflow.com/questions/30809302/spring-rest-use-of-pathvariable-and-requestparam 
 https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
 
+
 Thymeleaf documentation: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
+
 
 Deployment: 
 - Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
@@ -139,8 +148,10 @@ Deployment:
 - Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
 beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
 
+
 W3 Schools:
 - Dropdown: https://www.w3schools.com/tags/att_option_value.asp
+
 
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
@@ -151,5 +162,6 @@ Other:
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
 - URL Encoding: https://www.urlencoder.io/learn/ https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html 
 https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
+
 
 Code Fellows Java curriculum
