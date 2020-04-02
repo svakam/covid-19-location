@@ -22,20 +22,20 @@ public class MainController {
     }
 
     // post request with user's country name search
-    @PostMapping("/results/country")
-    public RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
+//    @PostMapping("/results/country")
+//    public RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
+//
+//        System.out.println("Dropdown selected = " + searchedCountry);
+//
+//        RedirectView rv;
+//
+//        return rv;
+//    }
 
-        System.out.println("Dropdown selected = " + searchedCountry);
-
-        RedirectView rv;
-
-        return rv;
-    }
-
-    @PostMapping("/results/country/province")
-    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
-        return rv;
-    }
+//    @PostMapping("/results/country/province")
+//    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
+//        return rv;
+//    }
 
 
     @GetMapping("/results/country")

@@ -1,6 +1,7 @@
 package com.vik.covid19vik;
 
 import com.google.gson.Gson;
+import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,10 +11,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class TestJHUCSSEPull {
+    @Test
     void get() {
         URL url = null;
         try {
-            url = new URL("https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv");
+            url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
         } catch (
                 MalformedURLException e) {
             System.out.println(e.getMessage());
@@ -24,11 +26,12 @@ public class TestJHUCSSEPull {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
 
             System.out.println(StatusMessageHeader.getInfo(con));
 
             BufferedReader in;
+            StringBuilder content = null;
 
             int status = con.getResponseCode();
             if (status > 299) {
@@ -37,12 +40,17 @@ public class TestJHUCSSEPull {
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
-                Gson gson = new Gson();
-                countrySummary = gson.fromJson(in, SummaryCasesByCountry.class);
+                content = new StringBuilder();
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
             }
 
             in.close();
             con.disconnect();
+
+            System.out.println(content.toString());
 
         } catch (
                 IOException e) {
