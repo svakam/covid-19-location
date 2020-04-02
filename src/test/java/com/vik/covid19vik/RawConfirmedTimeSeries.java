@@ -1,6 +1,6 @@
 package com.vik.covid19vik;
 
-public class RawConfirmedTime {
+public class RawConfirmedTimeSeries {
     private String provinceOrState;
     private String countryOrRegion;
     private float Lat;

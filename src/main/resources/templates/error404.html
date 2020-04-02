@@ -7,7 +7,7 @@
     <body>
         <h1>Error: 404 Not Found</h1>
         <th:block th:if="${searchedCountry}">
-            <p>Sorry, but the allCountries you were looking for ([[${searchedCountry} could not be found.</p>
+            <p>Sorry, but the country you were looking for ([[${searchedCountry}]]) could not be found.</p>
         </th:block>
         <th:block th:unless="${searchedCountry}">
             <p>Sorry, but that page could not be found.</p>

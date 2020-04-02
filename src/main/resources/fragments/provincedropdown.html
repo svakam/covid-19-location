@@ -8,7 +8,7 @@
         </div>
         <div class="row justify-content-center">
             <select id="provincedropdownbody" name="searchedProvince">
-                <option value="Select country" disabled>Select province/state...</option>
+                <option value="Select province/state..." disabled>Select province/state...</option>
                 <th:block th:each="province : ${provinceNames}">
                     <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
                 </th:block>

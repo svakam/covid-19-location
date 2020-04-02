@@ -9,11 +9,7 @@
             <option value="Canada">Canada</option>
             <option value="Mexico">Mexico</option>
             <th:block th:each="country: ${countryNames}">
-                <option th:if="${country} == 'Viet Nam'">Vietnam</option>
-                <option th:if="${country} == 'occupied Palestinian territory'">Occupied Palestinian Territory</option>
-                <option th:if="${country} == 'Taipei and environs'">Taiwan</option>
-                <option th:unless="${country} == 'Viet Nam' or ${country} == '' or ${country} == 'occupied Palestinian territory'
-                                or ${country} == 'Taipei and environs' or ${country} == 'Macao SAR'" th:value="${country}" th:text="${country}"></option>
+                <option th:value="${country}" th:text="${country}"></option>
             </th:block>
         </select>
         <button type="submit" class="btn btn-primary btn-lg">Search</button>
