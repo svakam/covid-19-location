@@ -116,10 +116,11 @@ public class MainController {
         // dropdown data initialize
         String[] provinceNames = null;
 
-        // if searched country is redundant, get all slugs, get case data for last slug and pass to template
+        // REDUNDANT: if searched country is redundant:
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
             System.out.println("redundant slug = " + slug);
 
+            // Summary data: get all slugs, get case data for last slug and pass to template
             // store last slug from string of slugs in URL and get summary case info by that slug
             Queue<Character> findLastSlugInURL = new LinkedList<>();
             StringBuilder slugWithMostRelevantSummary = new StringBuilder();
@@ -137,10 +138,37 @@ public class MainController {
             }
             caseInfoForCountry = summaryCasesByCountry.get(slugWithMostRelevantSummary.toString());
 
-            // populate province dropdown
+            // Progression data: get all slugs, use all slugs to obtain data in right order
+            // parse out all slugs as strings and add to list
+            ArrayList<String> allSlugs = new ArrayList<>();
+            Queue<Character> slugProcessor = new LinkedList<>();
+            StringBuilder givenSlug;
+            for (int i = 0; i < slug.length(); i++) {
+                if (slug.charAt(i) != ',') {
+                    slugProcessor.add(slug.charAt(i));
+                } else {
+                    givenSlug = new StringBuilder();
+                    while (slugProcessor.peek() != null) {
+                        givenSlug.append(slugProcessor.poll());
+                    }
+                    allSlugs.add(givenSlug.toString());
+                }
+            }
+            givenSlug = new StringBuilder();
+            while (slugProcessor.peek() != null) {
+                givenSlug.append(slugProcessor.poll());
+            }
+            allSlugs.add(givenSlug.toString());
+            Object[] allSlugsArray = allSlugs.toArray();
+            for (int i = 0; i < allSlugsArray.length; i++) {
+                System.out.println(allSlugsArray[i]);
+                System.out.println(allSlugsArray[i].getClass());
+            }
+
+            // populate province dropdown (only for UK)
             for (AllCountries country : countriesArray) {
-                if (slugWithMostRelevantSummary.toString().equals(country.getSlug())) {
-//                    provinceNames = country.getProvinces();
+                if (slugWithMostRelevantSummary.toString().equals(country.getSlug()) && country.getSlug().equals("UK")) {
+                    provinceNames = country.getProvinces();
                 }
             }
         }
@@ -203,7 +231,7 @@ public class MainController {
         if (RedundantCountryMethods.getRedundantCountriesWithSlugs().containsKey(searchedCountry)) {
 
             // parse out all slugs as strings and add to list
-            LinkedList<String> allSlugs = new LinkedList<>();
+            ArrayList<String> allSlugs = new ArrayList<>();
             Queue<Character> slugProcessor = new LinkedList<>();
             StringBuilder givenSlug = null;
             for (int i = 0; i < slug.length(); i++) {
@@ -267,13 +295,13 @@ public class MainController {
             // get list of provinces to pass in dropdown
             for (AllCountries country : countriesArray) {
                 if (slug.equals(country.getSlug())) {
-                    provinceNames = country.getProvinces();
+//                    provinceNames = country.getProvinces();
                 }
             }
         }
 
         model.addAttribute("countryNames", countryNames);
-        model.addAttribute("provinceNames", provinceNames);
+//        model.addAttribute("provinceNames", provinceNames);
         model.addAttribute("searchedProvince", searchedProvince);
 
         // add case data for province to template
