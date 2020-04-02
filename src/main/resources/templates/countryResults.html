@@ -19,11 +19,6 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block th:if="${countryOfProvince}">
-                <h3 th:text="'Sorry, but summary results for ' + ${searchedCountry} + ' is not up to date at the moment. View it as a province of ' + ${countryOfProvince}
-                    + ' instead.'"></h3>
-                <a th:href="'/results/' + ${countryOfProvince} + '/' + ${searchedCountry}"></a>
-            </th:block>
             <th:block th:unless="${countryOfProvince}">
                 <h1 th:text="'Results for ' + ${searchedCountry}"></h1>
                 <h2>Statistics</h2>

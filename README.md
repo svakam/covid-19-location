@@ -133,6 +133,7 @@ Stack Overflow:
 - URL Encoding: https://stackoverflow.com/questions/10786042/java-url-encoding-of-query-string-parameters
 - @PathVariable vs. @RequestParam in Spring: https://stackoverflow.com/questions/30809302/spring-rest-use-of-pathvariable-and-requestparam 
 https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
+- HTTP Content-Type: https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
 
 
 Thymeleaf documentation: 
