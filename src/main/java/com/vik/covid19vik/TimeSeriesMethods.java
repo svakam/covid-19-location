@@ -1,8 +1,5 @@
 package com.vik.covid19vik;
 
-import com.google.gson.Gson;
-import org.junit.jupiter.api.Test;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,8 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestJHUCSSEPull {
-    @Test
+public class TimeSeriesMethods {
     void getReqAndGSON() {
         URL url = null;
         try {
@@ -59,7 +55,4 @@ public class TestJHUCSSEPull {
             e.printStackTrace();
         }
     }
-
-    // 
-
 }
