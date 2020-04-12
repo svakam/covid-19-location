@@ -85,7 +85,6 @@ https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_Di
 - Created test API to parse test data that simulates JHU CSSE CSV format
 
 
-
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
 the /countries endpoint. If successful, it must be decided whether the query was a countries or a state/province. If a countries was entered, the /summary endpoint will be queried
