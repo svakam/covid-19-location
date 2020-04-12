@@ -83,6 +83,7 @@ https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_Di
 
 04/12/2020
 - Created test API to parse test data that simulates JHU CSSE CSV format
+- Created new country class
 
 
 ## Data Flow

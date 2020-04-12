@@ -7,9 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TimeSeriesMethods {
+public class TimeSeriesPullMethods {
     // get JHU info and return as String
-    protected String getTimeSeriesGlobalConf() {
+    protected static String getTimeSeriesGlobalConf() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
@@ -22,7 +22,7 @@ public class TimeSeriesMethods {
         return httpCall(url);
     }
 
-    protected String getTimeSeriesGlobalDeaths() {
+    protected static String getTimeSeriesGlobalDeaths() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv");
@@ -35,7 +35,7 @@ public class TimeSeriesMethods {
         return httpCall(url);
     }
 
-    protected String getTimeSeriesGlobalRecov() {
+    protected static String getTimeSeriesGlobalRecov() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv");
@@ -48,7 +48,7 @@ public class TimeSeriesMethods {
         return httpCall(url);
     }
 
-    private String httpCall(URL url) {
+    private static String httpCall(URL url) {
         String pull = null;
         try {
             assert url != null;
