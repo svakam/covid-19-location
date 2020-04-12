@@ -19,8 +19,8 @@ public class MainController {
     @GetMapping("/")
     public String getIndex(Model model) {
         String globalConfData = TimeSeriesPullMethods.getTimeSeriesGlobalConf();
-        String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
-        String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
+//        String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
+//        String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
 
         CountryGlobalDataMethods.parseData("confirmed", globalConfData);
 

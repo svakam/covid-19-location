@@ -14,10 +14,10 @@ public class CountryGlobalDataMethods {
         // parse data into json array
         LinkedList<Country> countries = new LinkedList<>();
 
-        // create a string of data points delineated by commas; first row are labels, second row and onward are data points
+        // string of data points delineated by commas; first row are labels, second row and onward are data points
         System.out.println(data);
 
-        // create a class that stores province/state, country/region, lat, long, status, dates, cases
+        // class that stores province/state, country/region, lat, long, status, dates, cases
 
         // loop over data until a given string equals "Long"
         Queue<Character> labelMaker = new LinkedList<>();
@@ -62,7 +62,6 @@ public class CountryGlobalDataMethods {
             dates.add(newDate);
             i++;
         }
-        System.out.println(data.charAt(i));
 
         // instantiate data of each country and store in array
         do {
@@ -75,6 +74,9 @@ public class CountryGlobalDataMethods {
             // set province/state
             if (data.charAt(i) == '\n') {
                 i++;
+            }
+            if (i == lengthOfCSV) {
+                break;
             }
             if (data.charAt(i) == ',') {
                 country.setProvinceOrState("");
@@ -144,22 +146,27 @@ public class CountryGlobalDataMethods {
                 while (data.charAt(i) != ',') {
                     noOfCasesB.append(data.charAt(i));
                     i++;
-                    if (i >= lengthOfCSV || data.charAt(i) == '\n') {
+                    if (i == lengthOfCSV || data.charAt(i) == '\n') {
                         break;
                     }
                 }
                 String noOfCasesS = noOfCasesB.toString();
                 int noOfCases = Integer.parseInt(noOfCasesS);
                 confirmedSeries.add(noOfCases);
-                if (i >= lengthOfCSV || data.charAt(i) == '\n') {
+                if (i == lengthOfCSV || data.charAt(i) == '\n') {
                     break;
                 }
                 i++;
             }
             System.out.println(confirmedSeries);
+
+            // add to list of countries
             country.setCases(confirmedSeries);
             countries.add(country);
+
         } while (i < lengthOfCSV);
+
+        // json countries
         for (Country country : countries) {
             Gson gson = new Gson();
             String json = gson.toJson(country);
