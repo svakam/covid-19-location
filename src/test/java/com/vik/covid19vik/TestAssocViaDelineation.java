@@ -16,7 +16,7 @@ public class TestAssocViaDelineation {
         private float lon;
         private String status;
         private LinkedList<String> dates;
-        private int[] cases;
+        private LinkedList<Integer> cases;
 
         public String getProvinceOrState() {
             return provinceOrState;
@@ -36,7 +36,7 @@ public class TestAssocViaDelineation {
         public LinkedList<String> getDates() {
             return dates;
         }
-        public int[] getCases() {
+        public LinkedList<Integer> getCases() {
             return cases;
         }
 
@@ -64,7 +64,7 @@ public class TestAssocViaDelineation {
             this.dates = dates;
         }
 
-        public void setCases(int[] cases) {
+        public void setCases(LinkedList<Integer> cases) {
             this.cases = cases;
         }
     }
@@ -200,6 +200,7 @@ public class TestAssocViaDelineation {
                 i++;
             }
             System.out.println(confirmedSeries);
+            country.setCases(confirmedSeries);
             countries.add(country);
         } while (i < lengthOfCSV);
         for (Country country : countries) {
