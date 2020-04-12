@@ -167,10 +167,8 @@ public class CountryGlobalDataMethods {
         } while (i < lengthOfCSV);
 
         // json countries
-        for (Country country : countries) {
-            Gson gson = new Gson();
-            String json = gson.toJson(country);
-            System.out.println(json);
-        }
+        Gson gson = new Gson();
+        String json = gson.toJson(countries);
+        System.out.println(json);
     }
 }
