@@ -2,7 +2,7 @@
 
 (work in progress)
 
-Deployed at: http://www.cv19location.com
+Deployed at: http://www.cv19location.com (being updated)
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
 information on how COVID-19 is impacting their community in the United States.
@@ -17,9 +17,10 @@ NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
-## Run the app
-Visit the website at: http://www.cv19location.com
+NOTE: As 0f 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
 
+## Run the app
+Visit the website at: http://www.cv19location.com (being updated)
 
 Or if you'd like to run it from your local machine: 
 - Install IntelliJ IDEA. 
@@ -45,7 +46,7 @@ Or if you'd like to run it from your local machine:
 03/22/2020
 - Passing JSON info successfully into template 
 - Refactored HttpURLConnection to work with GSON and API call
-- GSON deserializing JSON from API
+- GSON deserializing JSON from Covid19API
 - Passing JSON and objects appropriately into template
 - Populating countries dropdown menu with countries from API
 - Passing dropdown choice to results page and rendering countries's information (countries, slug, provinces)
@@ -61,13 +62,29 @@ Or if you'd like to run it from your local machine:
 - Deployed to AWS EB
 
 03/25/2020
-- Note: JHU CSSE data contains a number of discrepancies/conflicts on the countries, state, and county level. Created a spreadsheet that accounts for 
-these issues here: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
+- Note: JHU CSSE data contains a number of discrepancies/conflicts on the countries, state, and county level. Results also show in 
+Covid19API. Created a spreadsheet that accounts for these issues here: 
+https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 - Header nav bar for results page to filter by province if available
 
 03/26/2020
 - Refactored countries dropdown methods to filter out redundant countries from data
 - Refactored "/" getmapping route functions out to appropriate class
+
+03/27/2020
+- Refactored routes to be more RESTful
+
+03/28/2020
+- Rough province-level information being populated in dropdown menu
+- Country-level data populating on results/country
+
+04/02/2020
+- Scrapping Covid19API - data is not being updated regularly to match JHU CSSE updates
+
+04/12/2020
+- Created test API to parse test data that simulates JHU CSSE CSV format
+
+
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
@@ -75,14 +92,6 @@ the /countries endpoint. If successful, it must be decided whether the query was
 to obtain the countries, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /countries/
 {countryslug}/status/{status} endpoint. The array of states/provinces from the /countries endpoint will be used to further find the desired state/province and iterate through
 the endpoint for /countries/{countryslug}/status/{status} to get the state/province information. 
-
-Covid19API endpoints (see the [API](https://covid19api.com/#details)):
-- /countries: Country, Slug, Provinces[]
-- /summary: Countries[Country, CountrySlug, NewConfirmed, TotalConfirmed, NewDeaths, TotalDeaths, NewRecovered, TotalRecovered]
-- /total/countries/{countryslug}/status/{status}: Country (same one), Province, Lat/Lon, Date, Cases, Status (same one): relevant data is total # cases per day
-- /countries/{countryslug}/status/{status}: same as above, but relevant data is specific to province level
-- /total/dayone/countries/{countryslug}/status/{status}: for specific countries only: and since day one of case #1 only
-- /dayone/countries/{countryslug}/status/{status}: same as above but specific to province level
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
