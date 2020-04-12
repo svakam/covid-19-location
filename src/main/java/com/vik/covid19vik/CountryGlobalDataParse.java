@@ -5,14 +5,13 @@ import com.google.gson.Gson;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class CountryGlobalDataMethods {
+public class CountryGlobalDataParse {
 
     // use time series pull methods to get data (in controller)
 
     static void parseData(String status, String data) {
 
-        // parse data into json array
-        LinkedList<Country> countries = new LinkedList<>();
+        LinkedList<CountryGlobal> countries = new LinkedList<>();
 
         // string of data points delineated by commas; first row are labels, second row and onward are data points
         System.out.println(data);
@@ -65,7 +64,7 @@ public class CountryGlobalDataMethods {
 
         // instantiate data of each country and store in array
         do {
-            Country country = new Country();
+            CountryGlobal country = new CountryGlobal();
             // set status
             country.setStatus(status);
             // set dates

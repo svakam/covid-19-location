@@ -3,26 +3,22 @@ package com.vik.covid19vik;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.*;
 
 @Controller
 public class MainController {
 
+    // consider adding to database
+    String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
+//    String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
+//    String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
+
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
-        String globalConfData = TimeSeriesPullMethods.getTimeSeriesGlobalConf();
-//        String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
-//        String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
 
-        CountryGlobalDataMethods.parseData("confirmed", globalConfData);
+        CountryGlobalDataParse.parseData("confirmed", globalConfData);
+
+        // create list of countries
 
         return "index";
     }

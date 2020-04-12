@@ -10,9 +10,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestJHUCSSEPull {
+public class TestJHUGlobalPull {
     @Test
-    void getReqAndGSON() {
+    void getRequest() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
