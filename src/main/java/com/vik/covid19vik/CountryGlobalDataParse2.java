@@ -172,18 +172,19 @@ class CountryGlobalDataParse2 {
 
         } while (cursor < lengthOfCSV);
 
+        // add in new case data and parse to json
+        CountryGlobal2 countryWithDatesNewCases = addNewCaseList(countryWithDates);
         Gson gson = new Gson();
-        return gson.toJson(countryWithDates);
 
+        return gson.toJson(countryWithDatesNewCases);
     }
 
     protected static CountryGlobal2 fromJSON(String status, String data) {
         String json = parseDataToJSON(status, data);
         Gson gson = new Gson();
-        CountryGlobal2 withoutNewCases = gson.fromJson(json, CountryGlobal2.class);
+        CountryGlobal2 countryWithDates = gson.fromJson(json, CountryGlobal2.class);
 
-        // add in new case data and return
-        return addNewCaseList(withoutNewCases);
+        return countryWithDates;
     }
 
     private static CountryGlobal2 addNewCaseList(CountryGlobal2 withoutNewCases) {
