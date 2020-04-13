@@ -4,26 +4,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
+// ================ render templates ================= //
 @Controller
-public class MainController {
+class MainController {
 
-    // consider adding to database
+    // consider adding to database:
+    // global data
     String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
-//    String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
-//    String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
+    CountryGlobal[] confirmedJson = CountryGlobalDataParse.fromJSON("confirmed", globalConfData);
+    String globalDeathsData = JHUPullMethods.getTimeSeriesGlobalDeaths();
+    CountryGlobal[] deathsJson = CountryGlobalDataParse.fromJSON("deaths", globalDeathsData);
+    String globalRecovData = JHUPullMethods.getTimeSeriesGlobalRecov();
+    CountryGlobal[] recovJson = CountryGlobalDataParse.fromJSON("recovered", globalRecovData);
+
+    // hashmap of already looked up countries
+    HashMap<String, Integer> lookedUpCountries = new HashMap<>();
+
+    // uiflookup data
     CountryUIFLookup[] countries = CountryUIFLookupParse.fromJSON();
 
-
-    // index
     @GetMapping("/")
     public String getIndex(Model model) {
 
-        CountryGlobalDataParse.fromJSON("confirmed", globalConfData);
 
         // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();
@@ -39,11 +49,11 @@ public class MainController {
 
     // post request with user's country name search
     @PostMapping("/results/country")
-    public RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
+    RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
 
         System.out.println("Dropdown selected = " + searchedCountry);
 
-        return new RedirectView("/results/country");
+        return new RedirectView("/results/country?sc=" + searchedCountry);
     }
 
 //    @PostMapping("/results/country/province")
@@ -51,24 +61,42 @@ public class MainController {
 //        return rv;
 //    }
 
-
     @GetMapping("/results/country")
-    public String resultsForCountry(Model model) {
+    String resultsForCountry(@RequestParam String sc, Model model) {
 
-        // country dropdown of names
+        System.out.println("searched country = " + sc);
+
+        // set up time series data to pass in
+
+        // [
+        // [confirmed new],
+        // [confirmed total],
+        // [deaths new],
+        // [deaths total],
+        // [recov new],
+        // [recov total]
+        // ]
+        Integer[][] caseInfoForCountry = new Integer[6][1];
+
         LinkedList<String> countryDropdown = new LinkedList<>();
         for (CountryUIFLookup country : countries) {
+
+            // country dropdown of names
             if (!countryDropdown.contains(country.getCountryOrRegion())) {
                 countryDropdown.add(country.getCountryOrRegion());
             }
+
+            // find searched country
         }
 
+        model.addAttribute("caseInfoForCountry", caseInfoForCountry);
+        model.addAttribute("searchedCountry", sc);
         model.addAttribute("countryNames", countryDropdown);
         return "countryResults";
     }
 
     @GetMapping("/results/country/province")
-    public String resultsForProvince(Model model) {
+    String resultsForProvince(Model model) {
 
         // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();
@@ -84,14 +112,14 @@ public class MainController {
 
     // error for slug
     @GetMapping("/error/404/{searchedCountry}")
-    public String error404(Model model) {
+    String error404(Model model) {
 
         return "error404";
     }
 
     // fallback
     @GetMapping("*")
-    public String fallback(Model model) {
+    String fallback(Model model) {
         return "error404";
     }
 }

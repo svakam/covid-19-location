@@ -1,21 +1,21 @@
 package com.vik.covid19vik;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.lang.reflect.Type;
+import java.util.*;
 
 class CountryGlobalDataParse {
 
     // use time series pull methods to get data (in controller)
 
-    private static String parseDatatoJSON(String status, String data) {
+    private static String parseDataToJSON(String status, String data) {
 
         LinkedList<CountryGlobal> countries = new LinkedList<>();
 
         // string of data points delineated by commas; first row are labels, second row and onward are data points
-        System.out.println(data);
+//        System.out.println(data);
 
         // loop over data until a given string equals "Long"
         Queue<Character> labelMaker = new LinkedList<>();
@@ -178,7 +178,7 @@ class CountryGlobalDataParse {
     }
 
     protected static CountryGlobal[] fromJSON(String status, String data) {
-        String json = parseDatatoJSON(status, data);
+        String json = parseDataToJSON(status, data);
         Gson gson = new Gson();
         CountryGlobal[] withoutNewCases = gson.fromJson(json, CountryGlobal[].class);
 
