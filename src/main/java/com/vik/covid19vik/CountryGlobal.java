@@ -9,7 +9,8 @@ public class CountryGlobal {
     private float lon;
     private String status;
     private LinkedList<String> dates;
-    private LinkedList<Integer> cases;
+    private LinkedList<Integer> totalCases;
+    private LinkedList<Integer> newCases;
 
     public CountryGlobal() {
         // empty arg constructor
@@ -34,8 +35,11 @@ public class CountryGlobal {
     public LinkedList<String> getDates() {
         return dates;
     }
-    public LinkedList<Integer> getCases() {
-        return cases;
+    public LinkedList<Integer> getTotalCases() {
+        return totalCases;
+    }
+    public LinkedList<Integer> getNewCases() {
+        return newCases;
     }
 
     // setters
@@ -57,7 +61,10 @@ public class CountryGlobal {
     public void setDates(LinkedList<String> dates) {
         this.dates = dates;
     }
-    public void setCases(LinkedList<Integer> cases) {
-        this.cases = cases;
+    public void setTotalCases(LinkedList<Integer> totalCases) {
+        this.totalCases = totalCases;
+    }
+    public void setNewCases(LinkedList<Integer> newCases) {
+        this.newCases = newCases;
     }
 }
