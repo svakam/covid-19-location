@@ -5,10 +5,11 @@ import java.util.LinkedList;
 public class UIFLookupParse {
 
     static void parseData() {
-        LinkedList<CountryUIFLookup> countries = new LinkedList<>();
 
+        // pull data
         String data = JHUPullMethods.getUIFLookup();
-
         System.out.println(data);
+
+
     }
 }

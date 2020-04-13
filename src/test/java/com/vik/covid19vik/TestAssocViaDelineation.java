@@ -69,8 +69,100 @@ public class TestAssocViaDelineation {
         }
     }
 
+    static class CountryLookup {
+        private int uid;
+        private String iso2;
+        private String iso3;
+        private int code3;
+        private String fips;
+        private String county;
+        private String provinceOrState;
+        private String countryOrRegion;
+        private float lat;
+        private float lon;
+        private String combinedKey;
+        private int population;
+        public CountryLookup() {
+            // empty arg constructor
+        }
+        // getters
+        public int getUid() {
+            return uid;
+        }
+        public String getIso2() {
+            return iso2;
+        }
+        public String getIso3() {
+            return iso3;
+        }
+        public int getCode3() {
+            return code3;
+        }
+        public String getFips() {
+            return fips;
+        }
+        public String getCounty() {
+            return county;
+        }
+        public String getProvinceOrState() {
+            return provinceOrState;
+        }
+        public String getCountryOrRegion() {
+            return countryOrRegion;
+        }
+        public float getLat() {
+            return lat;
+        }
+        public float getLon() {
+            return lon;
+        }
+        public String getCombinedKey() {
+            return combinedKey;
+        }
+        public int getPopulation() {
+            return population;
+        }
+        // setters
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
+        public void setIso2(String iso2) {
+            this.iso2 = iso2;
+        }
+        public void setIso3(String iso3) {
+            this.iso3 = iso3;
+        }
+        public void setCode3(int code3) {
+            this.code3 = code3;
+        }
+        public void setFips(String fips) {
+            this.fips = fips;
+        }
+        public void setCounty(String county) {
+            this.county = county;
+        }
+        public void setProvinceOrState(String provinceOrState) {
+            this.provinceOrState = provinceOrState;
+        }
+        public void setCountryOrRegion(String countryOrRegion) {
+            this.countryOrRegion = countryOrRegion;
+        }
+        public void setLat(float lat) {
+            this.lat = lat;
+        }
+        public void setLon(float lon) {
+            this.lon = lon;
+        }
+        public void setCombinedKey(String combinedKey) {
+            this.combinedKey = combinedKey;
+        }
+        public void setPopulation(int population) {
+            this.population = population;
+        }
+    }
+
     @Test
-    void testRead() {
+    void testGlobalParse() {
         LinkedList<Country> countries = new LinkedList<>();
 
         // create a string of data points delineated by commas; first row are labels, second row and onward are data points
@@ -243,5 +335,244 @@ public class TestAssocViaDelineation {
         //          Cases: [0,0]
         //     }
         // ]
+    }
+
+    @Test
+    void testLookupParse() {
+        // pull data
+        String data = "UID,iso2,iso3,code3,FIPS,Admin2,Province_State,Country_Region,Lat,Long_,Combined_Key,Population\n4,AF,AFG,4,,,,Afghanistan,33.93911,67.709953,Afghanistan,38928341\n8,AL,ALB,8,,,,Albania,41.1533,20.1683,Albania,2877800\n12,DZ,DZA,12,,,,Algeria,28.0339,1.6596,Algeria,43851043";
+
+        LinkedList<CountryLookup> countries = new LinkedList<>();
+        int i = 0;
+        int lengthOfCSV = data.length();
+        System.out.println(lengthOfCSV);
+
+        // loop over data until a given string equals "Population"
+        while (true) {
+            StringBuilder labelB = new StringBuilder();
+            while (data.charAt(i) != ',') {
+                labelB.append(data.charAt(i));
+                i++;
+                if (labelB.toString().equals("Population\n")) {
+                    break;
+                }
+            }
+            if (labelB.toString().equals("Population\n")) {
+                break;
+            }
+            i++;
+        }
+
+        // instantiate data of each country and store in array
+        do {
+            CountryLookup country = new CountryLookup();
+
+            // set UID (always available)
+            StringBuilder uid = new StringBuilder();
+            while (data.charAt(i) != ',') {
+                uid.append(data.charAt(i));
+                i++;
+            }
+            country.setUid(Integer.parseInt(uid.toString()));
+            System.out.println("UID = " + uid.toString());
+            i++;
+
+            // set iso2
+            if (data.charAt(i) == ',') {
+                country.setIso2("");
+            } else {
+                StringBuilder iso2 = new StringBuilder();
+                while (data.charAt(i) != ',') {
+                    iso2.append(data.charAt(i));
+                    i++;
+                }
+                country.setIso2(iso2.toString());
+                System.out.println("ISO2 = " + iso2.toString());
+            }
+            i++;
+
+            // set iso3
+            if (data.charAt(i) == ',') {
+                country.setIso3("");
+            } else {
+                StringBuilder iso3 = new StringBuilder();
+                while (data.charAt(i) != ',') {
+                    iso3.append(data.charAt(i));
+                    i++;
+                }
+                country.setIso3(iso3.toString());
+                System.out.println("ISO3 = " + iso3.toString());
+            }
+            i++;
+
+            // set code3
+            if (data.charAt(i) == ',') {
+                country.setCode3(-1);
+                System.out.println("code3 = " + country.getCode3());
+            } else {
+                StringBuilder code3 = new StringBuilder();
+                while (data.charAt(i) != ',') {
+                    code3.append(data.charAt(i));
+                    i++;
+                }
+                country.setCode3(Integer.parseInt(code3.toString()));
+                System.out.println("code3 = " + code3.toString());
+            }
+            i++;
+
+            // set FIPS
+            if (data.charAt(i) == ',') {
+                country.setFips("");
+                System.out.println("fips = empty");
+            } else {
+                StringBuilder fips = new StringBuilder();
+                while (data.charAt(i) != ',') {
+                    fips.append(data.charAt(i));
+                    i++;
+                }
+                country.setFips(fips.toString());
+                System.out.println("fips = " + fips.toString());
+            }
+            i++;
+
+            // set County
+            if (data.charAt(i) == ',') {
+                country.setCounty("");
+                System.out.println("county = empty");
+            } else {
+                StringBuilder county = new StringBuilder();
+                while (data.charAt(i) != ',') {
+                    county.append(data.charAt(i));
+                    i++;
+                }
+                country.setIso3(county.toString());
+                System.out.println(county.toString());
+            }
+            i++;
+
+            // set province/state
+            if (data.charAt(i) == ',') {
+                country.setProvinceOrState("");
+                System.out.println("province/state = empty");
+            } else {
+                StringBuilder provinceOrState = new StringBuilder();
+                if (data.charAt(i) == '\"') {
+                    i++;
+                    provinceOrState.append(data.charAt(i));
+                    while (data.charAt(i) != '\"') {
+                        provinceOrState.append(data.charAt(i));
+                        i++;
+                    }
+                } else {
+                    while (data.charAt(i) != ',') {
+                        provinceOrState.append(data.charAt(i));
+                        i++;
+                    }
+                }
+                country.setIso3(provinceOrState.toString());
+                System.out.println("province/state = " + provinceOrState.toString());
+            }
+            i++;
+
+            // set country/region
+            if (data.charAt(i) == ',') {
+                country.setCountryOrRegion("");
+                System.out.println("country/region = empty");
+            } else {
+                StringBuilder provinceOrState = new StringBuilder();
+                if (data.charAt(i) == '\"') {
+                    i++;
+                    provinceOrState.append(data.charAt(i));
+                    while (data.charAt(i) != '\"') {
+                        provinceOrState.append(data.charAt(i));
+                        i++;
+                    }
+                } else {
+                    while (data.charAt(i) != ',') {
+                        provinceOrState.append(data.charAt(i));
+                        i++;
+                    }
+                }
+                country.setCountryOrRegion(provinceOrState.toString());
+                System.out.println("country/region = " + provinceOrState.toString());
+            }
+            i++;
+
+            // set lat/long
+            StringBuilder lat = new StringBuilder();
+            if (data.charAt(i) == ',') {
+                country.setLat(5555);
+                System.out.println("lat = " + country.getLat());
+            } else {
+                while (data.charAt(i) != ',') {
+                    lat.append(data.charAt(i));
+                    i++;
+                }
+                country.setLat(Float.parseFloat(lat.toString()));
+                System.out.println("lat = " + Float.parseFloat(lat.toString()));
+            }
+            i++;
+            StringBuilder lon = new StringBuilder();
+            if (data.charAt(i) == ',') {
+                country.setLon(5555);
+                System.out.println("lat = " + country.getLon());
+            } else {
+                while (data.charAt(i) != ',') {
+                    lon.append(data.charAt(i));
+                    i++;
+                }
+                country.setLon(Float.parseFloat(lon.toString()));
+                System.out.println("lat = " + Float.parseFloat(lon.toString()));
+            }
+            i++;
+
+            // set combined key
+            if (data.charAt(i) == ',') {
+                country.setCombinedKey("");
+                System.out.println("combined key = empty");
+            } else {
+                StringBuilder combinedKey = new StringBuilder();
+                if (data.charAt(i) == '\"') {
+                    i++;
+                    combinedKey.append(data.charAt(i));
+                    while (data.charAt(i) != '\"') {
+                        combinedKey.append(data.charAt(i));
+                        i++;
+                    }
+                } else {
+                    while (data.charAt(i) != ',') {
+                        combinedKey.append(data.charAt(i));
+                        i++;
+                    }
+                }
+                country.setCountryOrRegion(combinedKey.toString());
+                System.out.println("combined key = " + combinedKey.toString());
+            }
+            i++;
+
+            // set population
+            if (data.charAt(i) == '\n') {
+                country.setPopulation(0);
+                System.out.println("population = " + country.getPopulation());
+            } else {
+                StringBuilder population = new StringBuilder();
+                while (data.charAt(i) != '\n') {
+                    population.append(data.charAt(i));
+                    i++;
+                    if (i >= lengthOfCSV) {
+                        break;
+                    }
+                }
+                country.setPopulation(Integer.parseInt(population.toString()));
+                System.out.println("population = " + Integer.parseInt(population.toString()));
+            }
+            i++;
+            countries.add(country);
+        } while (i < lengthOfCSV);
+        for (CountryLookup country : countries) {
+            Gson gson = new Gson();
+            String json = gson.toJson(country);
+            System.out.println(json);
+        }
     }
 }

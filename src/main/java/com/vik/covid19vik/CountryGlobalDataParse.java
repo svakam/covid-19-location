@@ -16,14 +16,12 @@ public class CountryGlobalDataParse {
         // string of data points delineated by commas; first row are labels, second row and onward are data points
         System.out.println(data);
 
-        // class that stores province/state, country/region, lat, long, status, dates, cases
-
         // loop over data until a given string equals "Long"
         Queue<Character> labelMaker = new LinkedList<>();
         int i = 0;
         // labels delineated by a comma
         // when string equals "Long", skip that string and begin storing dates as strings
-        long lengthOfCSV = data.length();
+        int lengthOfCSV = data.length();
         System.out.println(lengthOfCSV);
         while (true) {
             while (data.charAt(i) != ',') {
@@ -65,18 +63,22 @@ public class CountryGlobalDataParse {
         // instantiate data of each country and store in array
         do {
             CountryGlobal country = new CountryGlobal();
-            // set status
-            country.setStatus(status);
-            // set dates
-            country.setDates(dates);
 
-            // set province/state
+            // adjust counter for new country, or if end of file break
             if (data.charAt(i) == '\n') {
                 i++;
             }
             if (i == lengthOfCSV) {
                 break;
             }
+
+            // set status
+            country.setStatus(status);
+
+            // set dates
+            country.setDates(dates);
+
+            // set province/state
             if (data.charAt(i) == ',') {
                 country.setProvinceOrState("");
             } else {
