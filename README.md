@@ -85,6 +85,8 @@ https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_Di
 - Created test API to parse test data that simulates JHU CSSE CSV format
 - Created new country class
 - Parsing global data to JSON
+- Parsing UID/ISO/FIPS/Country/Province/County names to JSON
+
 
 
 ## Data Flow
@@ -173,7 +175,7 @@ Other:
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
 - URL Encoding: https://www.urlencoder.io/learn/ https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html 
 https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
+- CSV Format: https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
-
 
 Code Fellows Java curriculum

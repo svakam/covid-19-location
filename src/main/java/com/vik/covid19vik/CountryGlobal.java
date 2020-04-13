@@ -2,7 +2,7 @@ package com.vik.covid19vik;
 
 import java.util.LinkedList;
 
-public class Country {
+public class CountryGlobal {
     private String provinceOrState;
     private String countryOrRegion;
     private float lat;
@@ -11,7 +11,7 @@ public class Country {
     private LinkedList<String> dates;
     private LinkedList<Integer> cases;
 
-    public Country() {
+    public CountryGlobal() {
         // empty arg constructor
     }
 

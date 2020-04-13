@@ -3,40 +3,48 @@ package com.vik.covid19vik;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.*;
+import java.util.LinkedList;
 
 @Controller
 public class MainController {
 
+    // consider adding to database
+    String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
+//    String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
+//    String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
+    CountryUIFLookup[] countries = UIFLookupParse.fromJSON();
+
+
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
-        String globalConfData = TimeSeriesPullMethods.getTimeSeriesGlobalConf();
-//        String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
-//        String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
 
-        CountryGlobalDataMethods.parseData("confirmed", globalConfData);
+//        CountryGlobalDataParse.parseData("confirmed", globalConfData);
 
+        // country dropdown of names
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        for (CountryUIFLookup country : countries) {
+            if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                countryDropdown.add(country.getCountryOrRegion());
+            }
+        }
+
+        model.addAttribute("countryNames", countryDropdown);
         return "index";
     }
 
     // post request with user's country name search
-//    @PostMapping("/results/country")
-//    public RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
-//
-//        System.out.println("Dropdown selected = " + searchedCountry);
-//
-//        RedirectView rv;
-//
-//        return rv;
-//    }
+    @PostMapping("/results/country")
+    public RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
+
+        System.out.println("Dropdown selected = " + searchedCountry);
+
+        return new RedirectView("/results/country");
+    }
 
 //    @PostMapping("/results/country/province")
 //    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
@@ -47,13 +55,30 @@ public class MainController {
     @GetMapping("/results/country")
     public String resultsForCountry(Model model) {
 
+        // country dropdown of names
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        for (CountryUIFLookup country : countries) {
+            if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                countryDropdown.add(country.getCountryOrRegion());
+            }
+        }
 
+        model.addAttribute("countryNames", countryDropdown);
         return "countryResults";
     }
 
     @GetMapping("/results/country/province")
     public String resultsForProvince(Model model) {
 
+        // country dropdown of names
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        for (CountryUIFLookup country : countries) {
+            if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                countryDropdown.add(country.getCountryOrRegion());
+            }
+        }
+
+        model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
     }
 
