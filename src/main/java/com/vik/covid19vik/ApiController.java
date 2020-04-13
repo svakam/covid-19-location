@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 // =============== API calls =============== //
 @RestController
 class ApiController {
+    // consider adding to database:
     // --------------- global series data ----------------- //
     @GetMapping("/API/series/global/confirmed")
     CountryGlobal[] globalConfirmed() {
@@ -28,6 +29,13 @@ class ApiController {
         String globalRecovData = JHUPullMethods.getTimeSeriesGlobalRecov();
         CountryGlobal[] recovJson = CountryGlobalDataParse.fromJSON("recovered", globalRecovData);
         return recovJson;
+    }
+
+    @GetMapping("API/series/global/confirmed2")
+    CountryGlobal2 global2Confirmed() {
+        String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
+        CountryGlobal2 confirmedJson = CountryGlobalDataParse2.fromJSON("confirmed", globalConfData);
+        return confirmedJson;
     }
 
 //    // ------------------- US series data ------------------ //
@@ -54,8 +62,10 @@ class ApiController {
 
     // ------------ UID, IOS, FIPS lookup data ------------- //
     @GetMapping("API/uifcountries")
-    CountryUIFLookup[] uifLookup() {
-        CountryUIFLookup[] uifCountries = CountryUIFLookupParse.fromJSON();
-        return uifCountries;
+    String uifLookup() {
+        String json = CountryUIFLookupParse.parseDatatoJSON();
+//        CountryUIFLookup[] uifCountries = CountryUIFLookupParse.fromJSON();
+//        return uifCountries;
+        return json;
     }
 }

@@ -82,12 +82,13 @@ https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_Di
 - Scrapping Covid19API - data is not being updated regularly to match JHU CSSE updates
 
 04/12/2020
-- Created test API to parse test data that simulates JHU CSSE CSV format
+- Created test to parse test data that simulates JHU CSSE CSV format
 - Created new country class
 - Parsing global data to JSON
 - Parsing UID/ISO/FIPS/Country/Province/County names to JSON
 
-
+04/13/2020
+- Created RESTful API routes for calling parsed JSON data
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
@@ -110,7 +111,7 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 - APIs: Covid19API, Postman
 
 ## Acknowledgements
-COVID-19 APIs and COVID-19 data used/consulted:
+COVID-19 APIs and COVID-19 data consulted:
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
@@ -118,13 +119,13 @@ COVID-19 APIs and COVID-19 data used/consulted:
 - Some state/local health department websites
 
 
-Spring.io documentation:
+Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
 - REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
 - REST: https://spring.io/guides/gs/serving-web-content/
 
 
-Baeldung documentation:
+Baeldung:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
 - Thymeleaf: https://www.baeldung.com/thymeleaf-in-spring-mvc
 - Path variables: https://www.baeldung.com/spring-thymeleaf-path-variables
@@ -132,7 +133,7 @@ Baeldung documentation:
 - URLEncoder: https://www.baeldung.com/java-url-encoding-decoding
 
 
-Bootstrap documentation: 
+Bootstrap: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 
@@ -146,9 +147,11 @@ Stack Overflow:
 - @PathVariable vs. @RequestParam in Spring: https://stackoverflow.com/questions/30809302/spring-rest-use-of-pathvariable-and-requestparam 
 https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
 - HTTP Content-Type: https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
+- HTTP Servlet Request: https://stackoverflow.com/questions/9607903/get-domain-name-from-given-url 
+https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
 
 
-Thymeleaf documentation: 
+Thymeleaf: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
@@ -177,5 +180,7 @@ https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en
 https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 - CSV Format: https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
+- Parts of a URL: https://blog.hubspot.com/marketing/parts-url
+- Access inner static class notation: https://www.tutorialspoint.com/What-is-a-static-class-in-Java
 
 Code Fellows Java curriculum

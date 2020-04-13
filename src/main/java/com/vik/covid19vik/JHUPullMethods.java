@@ -64,7 +64,7 @@ public class JHUPullMethods {
 
 
     // http url connection
-    private static String httpCall(URL url) {
+    protected static String httpCall(URL url) {
         String pull = null;
         try {
             assert url != null;

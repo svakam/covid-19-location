@@ -1,5 +1,6 @@
 package com.vik.covid19vik;
 
+import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -17,23 +24,18 @@ import java.util.LinkedList;
 class MainController {
 
     // consider adding to database:
-    // global data
-    String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
-    CountryGlobal[] confirmedJson = CountryGlobalDataParse.fromJSON("confirmed", globalConfData);
-    String globalDeathsData = JHUPullMethods.getTimeSeriesGlobalDeaths();
-    CountryGlobal[] deathsJson = CountryGlobalDataParse.fromJSON("deaths", globalDeathsData);
-    String globalRecovData = JHUPullMethods.getTimeSeriesGlobalRecov();
-    CountryGlobal[] recovJson = CountryGlobalDataParse.fromJSON("recovered", globalRecovData);
-
-    // hashmap of already looked up countries
-    HashMap<String, Integer> lookedUpCountries = new HashMap<>();
+    CountryGlobal[] confirmedJson = CountryGlobalDataParse.fromJSON("confirmed", JHUPullMethods.getTimeSeriesGlobalConf());
+    CountryGlobal[] deathsJson = CountryGlobalDataParse.fromJSON("deaths", JHUPullMethods.getTimeSeriesGlobalDeaths());
+    CountryGlobal[] recovJson = CountryGlobalDataParse.fromJSON("recovered", JHUPullMethods.getTimeSeriesGlobalRecov());
 
     // uiflookup data
     CountryUIFLookup[] countries = CountryUIFLookupParse.fromJSON();
 
-    @GetMapping("/")
-    public String getIndex(Model model) {
+    // hashmap of already looked up countries
+    HashMap<String, Integer> lookedUpCountries = new HashMap<>();
 
+    @GetMapping("/")
+    String getIndex(Model model) {
 
         // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();
@@ -76,7 +78,9 @@ class MainController {
         // [recov new],
         // [recov total]
         // ]
+
         Integer[][] caseInfoForCountry = new Integer[6][1];
+
 
         LinkedList<String> countryDropdown = new LinkedList<>();
         for (CountryUIFLookup country : countries) {
