@@ -18,19 +18,20 @@ public class MainController {
 //    String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
     CountryUIFLookup[] countries = UIFLookupParse.fromJSON();
 
+
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
 
 //        CountryGlobalDataParse.parseData("confirmed", globalConfData);
+
+        // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();
         for (CountryUIFLookup country : countries) {
             if (!countryDropdown.contains(country.getCountryOrRegion())) {
                 countryDropdown.add(country.getCountryOrRegion());
             }
         }
-
-        // create list of countries
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -42,9 +43,7 @@ public class MainController {
 
         System.out.println("Dropdown selected = " + searchedCountry);
 
-        RedirectView rv;
-
-        return rv;
+        return new RedirectView("/results/country");
     }
 
 //    @PostMapping("/results/country/province")
@@ -56,13 +55,30 @@ public class MainController {
     @GetMapping("/results/country")
     public String resultsForCountry(Model model) {
 
+        // country dropdown of names
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        for (CountryUIFLookup country : countries) {
+            if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                countryDropdown.add(country.getCountryOrRegion());
+            }
+        }
 
+        model.addAttribute("countryNames", countryDropdown);
         return "countryResults";
     }
 
     @GetMapping("/results/country/province")
     public String resultsForProvince(Model model) {
 
+        // country dropdown of names
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        for (CountryUIFLookup country : countries) {
+            if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                countryDropdown.add(country.getCountryOrRegion());
+            }
+        }
+
+        model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
     }
 
