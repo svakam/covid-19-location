@@ -2,11 +2,12 @@ package com.vik.covid19vik;
 
 import com.google.gson.Gson;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class UIFLookupParse {
 
-    static void parseData() {
+    static String parseDatatoJSON() {
 
         // pull data
         String data = JHUPullMethods.getUIFLookup();
@@ -242,7 +243,12 @@ public class UIFLookupParse {
 
         // convert to json
         Gson gson = new Gson();
-        String json = gson.toJson(countries);
-        System.out.println(json);
+        return gson.toJson(countries);
+    }
+
+    static CountryUIFLookup[] fromJSON() {
+        String json = parseDatatoJSON();
+        Gson gson = new Gson();
+        return gson.fromJson(json, CountryUIFLookup[].class);
     }
 }
