@@ -16,7 +16,8 @@ public class MainController {
     @GetMapping("/")
     public String getIndex(Model model) {
 
-        CountryGlobalDataParse.parseData("confirmed", globalConfData);
+//        CountryGlobalDataParse.parseData("confirmed", globalConfData);
+        UIFLookupParse.parseData();
 
         // create list of countries
 

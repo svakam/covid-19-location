@@ -4,7 +4,7 @@ public class CountryUIFLookup {
     private int uid;
     private String iso2;
     private String iso3;
-    private String code3;
+    private int code3;
     private String fips;
     private String county;
     private String provinceOrState;
@@ -12,7 +12,7 @@ public class CountryUIFLookup {
     private float lat;
     private float lon;
     private String combinedKey;
-    private String population;
+    private int population;
 
     public CountryUIFLookup() {
         // empty arg constructor
@@ -28,7 +28,7 @@ public class CountryUIFLookup {
     public String getIso3() {
         return iso3;
     }
-    public String getCode3() {
+    public int getCode3() {
         return code3;
     }
     public String getFips() {
@@ -52,7 +52,7 @@ public class CountryUIFLookup {
     public String getCombinedKey() {
         return combinedKey;
     }
-    public String getPopulation() {
+    public int getPopulation() {
         return population;
     }
 
@@ -66,7 +66,7 @@ public class CountryUIFLookup {
     public void setIso3(String iso3) {
         this.iso3 = iso3;
     }
-    public void setCode3(String code3) {
+    public void setCode3(int code3) {
         this.code3 = code3;
     }
     public void setFips(String fips) {
@@ -90,7 +90,7 @@ public class CountryUIFLookup {
     public void setCombinedKey(String combinedKey) {
         this.combinedKey = combinedKey;
     }
-    public void setPopulation(String population) {
+    public void setPopulation(int population) {
         this.population = population;
     }
 }
