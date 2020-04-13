@@ -140,7 +140,7 @@ public class CountryUIFLookupParse {
                         cursor++;
                     }
                 }
-                country.setIso3(provinceOrState.toString());
+                country.setProvinceOrState(provinceOrState.toString());
 //                System.out.println("province/state = " + provinceOrState.toString());
             }
             cursor++;
