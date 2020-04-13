@@ -16,14 +16,14 @@ public class MainController {
     String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
 //    String globalDeathsData = TimeSeriesPullMethods.getTimeSeriesGlobalDeaths();
 //    String globalRecovData = TimeSeriesPullMethods.getTimeSeriesGlobalRecov();
-    CountryUIFLookup[] countries = UIFLookupParse.fromJSON();
+    CountryUIFLookup[] countries = CountryUIFLookupParse.fromJSON();
 
 
     // index
     @GetMapping("/")
     public String getIndex(Model model) {
 
-//        CountryGlobalDataParse.parseData("confirmed", globalConfData);
+        CountryGlobalDataParse.fromJSON("confirmed", globalConfData);
 
         // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();

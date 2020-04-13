@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class UIFLookupParse {
+public class CountryUIFLookupParse {
 
     static String parseDatatoJSON() {
 
