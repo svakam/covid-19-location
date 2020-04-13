@@ -85,6 +85,8 @@ https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_Di
 - Created test API to parse test data that simulates JHU CSSE CSV format
 - Created new country class
 - Parsing global data to JSON
+- Parsing UID/ISO/FIPS/Country/Province/County names to JSON
+
 
 
 ## Data Flow
