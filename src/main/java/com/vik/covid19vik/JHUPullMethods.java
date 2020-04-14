@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class JHUPullMethods {
-    // get time series global info
+    // --------------------- get time series data -------------------- //
     protected static String getTimeSeriesGlobalConf() {
         URL url = null;
         try {
@@ -21,7 +21,6 @@ public class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-
     protected static String getTimeSeriesGlobalDeaths() {
         URL url = null;
         try {
@@ -34,7 +33,6 @@ public class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-
     protected static String getTimeSeriesGlobalRecov() {
         URL url = null;
         try {
@@ -48,7 +46,7 @@ public class JHUPullMethods {
         return httpCall(url);
     }
 
-    // get UID/ISO/FIPS/country/province/county info
+    // -------- get UID/ISO/FIPS and country/province/county name info -------- //
     protected static String getUIFLookup() {
         URL url = null;
         try {
