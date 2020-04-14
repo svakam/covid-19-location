@@ -31,16 +31,9 @@ class MainController {
     HashMap<String, Integer> lookedUpCountries = new HashMap<>();
 
     @GetMapping("/")
-    String getIndex(Model model) {
+    String getIndex(Model model, HttpServletRequest req) {
 
-
-        // country dropdown of names
-        LinkedList<String> countryDropdown = new LinkedList<>();
-        for (CountryUIFLookup country : countries) {
-            if (!countryDropdown.contains(country.getCountryOrRegion())) {
-                countryDropdown.add(country.getCountryOrRegion());
-            }
-        }
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -48,7 +41,7 @@ class MainController {
 
     // post request with user's country name search
     @PostMapping("/results/country")
-    RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
+    RedirectView submitCountrySearch(String searchedCountry) throws NullPointerException {
 
         System.out.println("Dropdown selected = " + searchedCountry);
 
@@ -61,7 +54,7 @@ class MainController {
 //    }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam String sc, Model model) {
+    String resultsForCountry(@RequestParam String sc, Model model, HttpServletRequest req) throws IOException {
 
         System.out.println("searched country = " + sc);
 
@@ -78,18 +71,7 @@ class MainController {
 
         Integer[][] caseInfoForCountry = new Integer[6][1];
 
-
-        LinkedList<String> countryDropdown = new LinkedList<>();
-        CountryUIFLookup
-        for (CountryUIFLookup country : countries) {
-
-            // country dropdown of names
-            if (!countryDropdown.contains(country.getCountryOrRegion())) {
-                countryDropdown.add(country.getCountryOrRegion());
-            }
-
-            // find searched country
-        }
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
         model.addAttribute("searchedCountry", sc);
@@ -98,15 +80,9 @@ class MainController {
     }
 
     @GetMapping("/results/country/province")
-    String resultsForProvince(Model model) {
+    String resultsForProvince(Model model, HttpServletRequest req) {
 
-        // country dropdown of names
-        LinkedList<String> countryDropdown = new LinkedList<>();
-        for (CountryUIFLookup country : countries) {
-            if (!countryDropdown.contains(country.getCountryOrRegion())) {
-                countryDropdown.add(country.getCountryOrRegion());
-            }
-        }
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
@@ -114,14 +90,17 @@ class MainController {
 
     // error for slug
     @GetMapping("/error/404/{searchedCountry}")
-    String error404(Model model) {
+    String error404(Model model, HttpServletRequest req) {
+
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         return "error404";
     }
 
     // fallback
     @GetMapping("*")
-    String fallback(Model model) {
-        return "error404";
+    String fallback(Model model, HttpServletRequest req) {
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        return "error";
     }
 }
