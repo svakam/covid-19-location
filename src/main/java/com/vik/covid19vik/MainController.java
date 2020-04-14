@@ -24,18 +24,15 @@ import java.util.LinkedList;
 class MainController {
 
     // consider adding to database:
-    CountryGlobal[] confirmedJson = CountryGlobalDataParse.fromJSON("confirmed", JHUPullMethods.getTimeSeriesGlobalConf());
-    CountryGlobal[] deathsJson = CountryGlobalDataParse.fromJSON("deaths", JHUPullMethods.getTimeSeriesGlobalDeaths());
-    CountryGlobal[] recovJson = CountryGlobalDataParse.fromJSON("recovered", JHUPullMethods.getTimeSeriesGlobalRecov());
-
+    // country global data
     // uiflookup data
-    CountryUIFLookup[] countries = CountryUIFLookupParse.fromJSON();
 
     // hashmap of already looked up countries
     HashMap<String, Integer> lookedUpCountries = new HashMap<>();
 
     @GetMapping("/")
     String getIndex(Model model) {
+
 
         // country dropdown of names
         LinkedList<String> countryDropdown = new LinkedList<>();

@@ -1,18 +1,21 @@
 package com.vik.covid19vik;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class CountryGlobalDataParse {
 
     // use time series pull methods to get data (in controller)
 
-    private static String parseDataToJSON(String status, String data) {
+    protected static String parseDataToJSON(String status, String data) {
 
-        LinkedList<CountryGlobal> countries = new LinkedList<>();
+        CountryGlobal countryWithDates = new CountryGlobal();
+        LinkedList<CountryGlobal.Country> countries = new LinkedList<>();
+
+        // set status
+        countryWithDates.setStatus(status);
 
         // string of data points delineated by commas; first row are labels, second row and onward are data points
 //        System.out.println(data);
@@ -39,7 +42,7 @@ class CountryGlobalDataParse {
             }
         }
 
-        // store dates as array of strings
+        // store dates as array of strings and set dates
         LinkedList<String> dates = new LinkedList<>();
         while (true) {
             while (data.charAt(cursor) != ',') {
@@ -50,7 +53,7 @@ class CountryGlobalDataParse {
             while (labelMaker.peek() != null) {
                 date.append(labelMaker.poll());
             }
-            java.lang.String newDate = date.toString();
+            String newDate = date.toString();
             if (newDate.contains("\n")) {
                 newDate = newDate.replace("\n", "");
                 dates.add(newDate);
@@ -60,10 +63,12 @@ class CountryGlobalDataParse {
             dates.add(newDate);
             cursor++;
         }
+        // set dates
+        countryWithDates.setDates(dates);
 
         // instantiate data of each country and store in array
         do {
-            CountryGlobal country = new CountryGlobal();
+            CountryGlobal.Country countryInfo = new CountryGlobal.Country();
 
             // adjust counter for new country, or if end of file break
             if (data.charAt(cursor) == '\n') {
@@ -73,15 +78,9 @@ class CountryGlobalDataParse {
                 break;
             }
 
-            // set status
-            country.setStatus(status);
-
-            // set dates
-            country.setDates(dates);
-
             // set province/state
             if (data.charAt(cursor) == ',') {
-                country.setProvinceOrState("");
+                countryInfo.setProvinceOrState("");
             } else {
                 StringBuilder provinceState = new StringBuilder();
                 while (data.charAt(cursor) != ',') {
@@ -96,7 +95,7 @@ class CountryGlobalDataParse {
                         cursor++;
                     }
                 }
-                country.setProvinceOrState(provinceState.toString());
+                countryInfo.setProvinceOrState(provinceState.toString());
 //                System.out.println(provinceState.toString());
             }
             cursor++;
@@ -116,7 +115,7 @@ class CountryGlobalDataParse {
                     cursor++;
                 }
             }
-            country.setCountryOrRegion(countryRegion.toString());
+            countryInfo.setCountryOrRegion(countryRegion.toString());
 //            System.out.println(countryRegion.toString());
             cursor++;
 
@@ -127,7 +126,7 @@ class CountryGlobalDataParse {
                 cursor++;
             }
             float l = Float.parseFloat(lat.toString());
-            country.setLat(l);
+            countryInfo.setLat(l);
 //            System.out.println(l);
             cursor++;
             StringBuilder lon = new StringBuilder();
@@ -137,7 +136,7 @@ class CountryGlobalDataParse {
             }
             l = Float.parseFloat(lon.toString());
 //            System.out.println(l);
-            country.setLon(l);
+            countryInfo.setLon(l);
             cursor++;
 
             // set case data
@@ -161,34 +160,32 @@ class CountryGlobalDataParse {
                 cursor++;
             }
 //            System.out.println(timeSeriesCases);
+            countryInfo.setTotalCases(timeSeriesCases);
 
             // set empty list for new cases; being added later
             LinkedList<Integer> timeSeriesNewCases = new LinkedList<>();
-            country.setNewCases(timeSeriesNewCases);
+            countryInfo.setNewCases(timeSeriesNewCases);
 
             // add to list of countries
-            country.setTotalCases(timeSeriesCases);
-            countries.add(country);
+            countries.add(countryInfo);
+            countryWithDates.setCountries(countries);
 
         } while (cursor < lengthOfCSV);
 
+        // add in new case data and parse to json
+        CountryGlobal countryWithDatesNewCases = addNewCaseList(countryWithDates);
         Gson gson = new Gson();
-        return gson.toJson(countries);
-
+        return gson.toJson(countryWithDatesNewCases);
     }
 
-    protected static CountryGlobal[] fromJSON(String status, String data) {
+    protected static CountryGlobal fromJSON(String status, String data) {
         String json = parseDataToJSON(status, data);
         Gson gson = new Gson();
-        CountryGlobal[] withoutNewCases = gson.fromJson(json, CountryGlobal[].class);
-
-        // add in new case data and return
-        return addNewCaseList(withoutNewCases);
+        return gson.fromJson(json, CountryGlobal.class);
     }
 
-    private static CountryGlobal[] addNewCaseList(CountryGlobal[] withoutNewCases) {
-        Gson gson = new Gson();
-        for (CountryGlobal country : withoutNewCases) {
+    private static CountryGlobal addNewCaseList(CountryGlobal withoutNewCases) {
+        for (CountryGlobal.Country country : withoutNewCases.getCountries()) {
 
             // for every country, get total case data, iterate through each, and subtract the difference between the current day's cases and cases from previous day
             // to get new cases for current day
