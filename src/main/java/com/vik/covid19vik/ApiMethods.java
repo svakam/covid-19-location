@@ -9,13 +9,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.lang.String;
+import java.util.regex.Pattern;
 
 class ApiMethods {
     // -------------- time series data -------------- //
     protected static CountryGlobal getTimeSeriesConf(HttpServletRequest req) {
         try {
-            URL url = null;
             String baseURL = req.getRequestURL().toString();
+            URL url = null;
             String fullURL = baseURL + "API/series/global/confirmed";
             url = new URL(fullURL);
             return timeSeriesHttpCall(url);
@@ -88,9 +90,10 @@ class ApiMethods {
 
     // -------------- UIF data ------------- //
     protected static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
+        String requestURL = req.getRequestURL().toString();
+        String baseURL = "h";
         try {
             URL url = null;
-            String baseURL = req.getRequestURL().toString();
             String fullURL = baseURL + "API/uifcountries";
             url = new URL(fullURL);
             return UIFHttpCall(url);
@@ -107,7 +110,7 @@ class ApiMethods {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
 
             System.out.println(StatusMessageHeader.getInfo(con));
 
@@ -132,4 +135,9 @@ class ApiMethods {
         }
         return null;
     }
+
+//    private static String extractSecondDomainURL(String url) {
+//        StringBuilder makeBaseURL = new StringBuilder();
+//        Pattern.compile("/http:\\/\\/(www.)?\\w+(:|.)(5000|com)\\//gm");
+//    }
 }

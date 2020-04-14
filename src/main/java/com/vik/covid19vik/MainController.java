@@ -41,7 +41,7 @@ class MainController {
 
     // post request with user's country name search
     @PostMapping("/results/country")
-    RedirectView submitCountrySearch(String searchedCountry) throws NullPointerException {
+    RedirectView submitCountrySearch(String searchedCountry) {
 
         System.out.println("Dropdown selected = " + searchedCountry);
 
@@ -54,7 +54,7 @@ class MainController {
 //    }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam String sc, Model model, HttpServletRequest req) throws IOException {
+    String resultsForCountry(@RequestParam(name = "sc") String sc, Model model, HttpServletRequest req) throws IOException {
 
         System.out.println("searched country = " + sc);
 
@@ -71,6 +71,7 @@ class MainController {
 
         Integer[][] caseInfoForCountry = new Integer[6][1];
 
+        System.out.println("getmapping = " + req.getRequestURL().toString());
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
@@ -93,6 +94,7 @@ class MainController {
     String error404(Model model, HttpServletRequest req) {
 
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        model.addAttribute("countryNames", countryDropdown);
 
         return "error404";
     }
@@ -100,7 +102,10 @@ class MainController {
     // fallback
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
+
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        model.addAttribute("countryNames", countryDropdown);
+
         return "error";
     }
 }
