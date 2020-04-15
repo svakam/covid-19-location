@@ -5,9 +5,9 @@ import com.google.gson.Gson;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class CountryUIFLookupParse {
+class CountryUIFLookupParse {
 
-    static String parseDatatoJSON() {
+    protected static String parseDatatoJSON() {
 
         // pull data
         String data = JHUPullMethods.getUIFLookup();
@@ -246,7 +246,7 @@ public class CountryUIFLookupParse {
         return gson.toJson(countries);
     }
 
-    static CountryUIFLookup[] fromJSON() {
+    protected static CountryUIFLookup[] fromJSON() {
         String json = parseDatatoJSON();
         Gson gson = new Gson();
         return gson.fromJson(json, CountryUIFLookup[].class);

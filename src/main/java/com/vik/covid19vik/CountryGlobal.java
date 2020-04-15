@@ -20,13 +20,13 @@ public class CountryGlobal {
     }
 
     // setters
-    public void setStatus(String status) {
+    protected void setStatus(String status) {
         this.status = status;
     }
-    public void setDates(LinkedList<String> dates) {
+    protected void setDates(LinkedList<String> dates) {
         this.dates = dates;
     }
-    public void setCountries(LinkedList<Country> countries) {
+    protected void setCountries(LinkedList<Country> countries) {
         this.countries = countries;
     }
 
@@ -43,42 +43,42 @@ public class CountryGlobal {
         }
 
         // getters
-        public String getProvinceOrState() {
+        protected String getProvinceOrState() {
             return provinceOrState;
         }
-        public String getCountryOrRegion() {
+        protected String getCountryOrRegion() {
             return countryOrRegion;
         }
-        public float getLat() {
+        protected float getLat() {
             return lat;
         }
-        public float getLon() {
+        protected float getLon() {
             return lon;
         }
-        public LinkedList<Integer> getTotalCases() {
+        protected LinkedList<Integer> getTotalCases() {
             return totalCases;
         }
-        public LinkedList<Integer> getNewCases() {
+        protected LinkedList<Integer> getNewCases() {
             return newCases;
         }
 
         // setters
-        public void setProvinceOrState(String provinceOrState) {
+        protected void setProvinceOrState(String provinceOrState) {
             this.provinceOrState = provinceOrState;
         }
-        public void setCountryOrRegion(String countryOrRegion) {
+        protected void setCountryOrRegion(String countryOrRegion) {
             this.countryOrRegion = countryOrRegion;
         }
-        public void setLat(float lat) {
+        protected void setLat(float lat) {
             this.lat = lat;
         }
-        public void setLon(float lon) {
+        protected void setLon(float lon) {
             this.lon = lon;
         }
-        public void setTotalCases(LinkedList<Integer> totalCases) {
+        protected void setTotalCases(LinkedList<Integer> totalCases) {
             this.totalCases = totalCases;
         }
-        public void setNewCases(LinkedList<Integer> newCases) {
+        protected void setNewCases(LinkedList<Integer> newCases) {
             this.newCases = newCases;
         }
     }

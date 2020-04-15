@@ -35,7 +35,7 @@ class MainController {
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -110,7 +110,7 @@ class MainController {
         }
 
         // country dropdown
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
 
         if (dates != null) {
             model.addAttribute("dates", dates);
@@ -124,7 +124,7 @@ class MainController {
     @GetMapping("/results/country/province")
     String resultsForProvince(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
@@ -134,7 +134,7 @@ class MainController {
     @GetMapping("/error/404/{searchedCountry}")
     String error404(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
         model.addAttribute("countryNames", countryDropdown);
 
         return "error404";
@@ -144,7 +144,7 @@ class MainController {
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
         model.addAttribute("countryNames", countryDropdown);
 
         return "error";

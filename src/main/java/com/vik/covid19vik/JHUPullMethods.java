@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class JHUPullMethods {
+class JHUPullMethods {
     // --------------------- get time series data -------------------- //
     protected static String getTimeSeriesGlobalConf() {
         URL url = null;
