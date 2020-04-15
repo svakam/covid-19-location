@@ -17,7 +17,7 @@ public class TestRegex {
         Matcher matcher = compiled.matcher(url);
         assertTrue(matcher.lookingAt());
         assertEquals(0, matcher.start());
-        assertTrue(matcher.end() > 0);
+        assertEquals(22, matcher.end());
         String expected = "http://localhost:5000/";
         String baseURL = url.substring(0, 22);
         assertEquals(expected, baseURL);

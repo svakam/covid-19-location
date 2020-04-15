@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.lang.String;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ApiMethods {
@@ -91,7 +92,7 @@ class ApiMethods {
     // -------------- UIF data ------------- //
     protected static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
         String requestURL = req.getRequestURL().toString();
-        String baseURL = "h";
+        String baseURL = extractSecondDomainURL(requestURL);
         try {
             URL url = null;
             String fullURL = baseURL + "API/uifcountries";
@@ -136,8 +137,16 @@ class ApiMethods {
         return null;
     }
 
-//    private static String extractSecondDomainURL(String url) {
-//        StringBuilder makeBaseURL = new StringBuilder();
-//        Pattern.compile("/http:\\/\\/(www.)?\\w+(:|.)(5000|com)\\//gm");
-//    }
+    private static String extractSecondDomainURL(String url) {
+        String regex = "(http:\\/\\/(www.)?\\w+(:|.)(5000|com)\\/)";
+        Pattern compiled = Pattern.compile(regex);
+        Matcher matcher = compiled.matcher(url);
+        if (matcher.lookingAt()) {
+            int beginning = matcher.start();
+            int end = matcher.end();
+            return url.substring(beginning, end);
+        } else {
+            return null;
+        }
+    }
 }
