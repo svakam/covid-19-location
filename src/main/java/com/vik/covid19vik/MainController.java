@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+import sun.awt.image.ImageWatched;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +60,7 @@ class MainController {
         System.out.println("searched country = " + sc);
 
         // set up time series data to pass in
-
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6];
         // [
         // [confirmed new],
         // [confirmed total],
@@ -69,11 +70,62 @@ class MainController {
         // [recov total]
         // ]
 
-        Integer[][] caseInfoForCountry = new Integer[6][1];
+        // get confirmed cases for searched country
+        CountryGlobal confData = ApiMethods.getTimeSeriesConf(req);
+        // initialize dates
+        LinkedList<String> dates = null;
+        if (confData != null) {
+            dates = confData.getDates();
+            LinkedList<CountryGlobal.Country> countries = confData.getCountries();
+            for (CountryGlobal.Country country : countries) {
+                if (country.getCountryOrRegion().equals(sc)) {
+                    LinkedList<Integer> newConfCases = country.getNewCases();
+                    caseInfoForCountry[0] = newConfCases;
+                    LinkedList<Integer> totalConfCases = country.getTotalCases();
+                    caseInfoForCountry[1] = totalConfCases;
+                }
+            }
+        } else {
+            System.out.println("Could not get confirmed series data");
+        }
 
-        System.out.println("getmapping = " + req.getRequestURL().toString());
+        // get deaths cases for searched country
+        CountryGlobal deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        if (deathsData != null) {
+            LinkedList<CountryGlobal.Country> countries = deathsData.getCountries();
+            for (CountryGlobal.Country country : countries) {
+                if (country.getCountryOrRegion().equals(sc)) {
+                    LinkedList<Integer> newDeathsCases = country.getNewCases();
+                    caseInfoForCountry[2] = newDeathsCases;
+                    LinkedList<Integer> totalDeathsCases = country.getTotalCases();
+                    caseInfoForCountry[3] = totalDeathsCases;
+                }
+            }
+        }
+        else {
+            System.out.println("could not get deaths series data");
+        }
+
+        // get recovered cases for searched country
+        CountryGlobal recovData = ApiMethods.getTimeSeriesRecov(req);
+        if (recovData != null) {
+            LinkedList<CountryGlobal.Country> countries = recovData.getCountries();
+            for (CountryGlobal.Country country : countries) {
+                if (country.getCountryOrRegion().equals(sc)) {
+                    LinkedList<Integer> newRecovCases = country.getNewCases();
+                    caseInfoForCountry[4] = newRecovCases;
+                    LinkedList<Integer> totalRecovCases = country.getTotalCases();
+                    caseInfoForCountry[5] = totalRecovCases;
+                }
+            }
+        }
+
+        // country dropdown
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
+        if (dates != null) {
+            model.addAttribute("dates", dates);
+        }
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
         model.addAttribute("searchedCountry", sc);
         model.addAttribute("countryNames", countryDropdown);

@@ -17,8 +17,9 @@ class ApiMethods {
     // -------------- time series data -------------- //
     protected static CountryGlobal getTimeSeriesConf(HttpServletRequest req) {
         try {
-            String baseURL = req.getRequestURL().toString();
-            URL url = null;
+            URL url;
+            String requestURL = req.getRequestURL().toString();
+            String baseURL = extractSecondDomainURL(requestURL);
             String fullURL = baseURL + "API/series/global/confirmed";
             url = new URL(fullURL);
             return timeSeriesHttpCall(url);
@@ -31,8 +32,9 @@ class ApiMethods {
     }
     protected static CountryGlobal getTimeSeriesDeaths(HttpServletRequest req) {
         try {
-            URL url = null;
-            String baseURL = req.getRequestURL().toString();
+            URL url;
+            String requestURL = req.getRequestURL().toString();
+            String baseURL = extractSecondDomainURL(requestURL);
             String fullURL = baseURL + "API/series/global/deaths";
             url = new URL(fullURL);
             return timeSeriesHttpCall(url);
@@ -45,8 +47,9 @@ class ApiMethods {
     }
     protected static CountryGlobal getTimeSeriesRecov(HttpServletRequest req) {
         try {
-            URL url = null;
-            String baseURL = req.getRequestURL().toString();
+            URL url;
+            String requestURL = req.getRequestURL().toString();
+            String baseURL = extractSecondDomainURL(requestURL);
             String fullURL = baseURL + "API/series/global/recovered";
             url = new URL(fullURL);
             return timeSeriesHttpCall(url);
@@ -94,7 +97,7 @@ class ApiMethods {
         String requestURL = req.getRequestURL().toString();
         String baseURL = extractSecondDomainURL(requestURL);
         try {
-            URL url = null;
+            URL url;
             String fullURL = baseURL + "API/uifcountries";
             url = new URL(fullURL);
             return UIFHttpCall(url);
