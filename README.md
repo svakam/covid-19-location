@@ -17,7 +17,7 @@ NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
-NOTE: As 0f 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
+NOTE: As of 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
 
 ## Run the app
 Visit the website at: http://www.cv19location.com (being updated)
@@ -30,64 +30,6 @@ Or if you'd like to run it from your local machine:
 - Wait for the project to build. 
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
-
-## Change log/Commit History
-03/20/2020
-- Initialized app
-- Set up Spring Boot, SpringMVC
-- Initialized Firebase
-
-03/21/2020
-- Initialized Bootstrap
-- Set up templates
-- Rendering templates through Thymeleaf
-- Called Covid19API successfully with HttpURLConnection class
-
-03/22/2020
-- Passing JSON info successfully into template 
-- Refactored HttpURLConnection to work with GSON and API call
-- GSON deserializing JSON from Covid19API
-- Passing JSON and objects appropriately into template
-- Populating countries dropdown menu with countries from API
-- Passing dropdown choice to results page and rendering countries's information (countries, slug, provinces)
-
-03/23/2020
-- Refactored postmapping to be more RESTful with dropdown choice and /results
-- Successfully accessing endpoint with case information for countries
-- Rendering confirmed/death/recovered cases of user's choice of countries on /results
-- Began Bootstrap work on index - jumbotron implemented and sized
-
-03/24/2020
-- Added JHU CSSE dashboard to front page
-- Deployed to AWS EB
-
-03/25/2020
-- Note: JHU CSSE data contains a number of discrepancies/conflicts on the countries, state, and county level. Results also show in 
-Covid19API. Created a spreadsheet that accounts for these issues here: 
-https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
-- Header nav bar for results page to filter by province if available
-
-03/26/2020
-- Refactored countries dropdown methods to filter out redundant countries from data
-- Refactored "/" getmapping route functions out to appropriate class
-
-03/27/2020
-- Refactored routes to be more RESTful
-
-03/28/2020
-- Rough province-level information being populated in dropdown menu
-- Country-level data populating on results/country
-
-04/02/2020
-- Scrapping Covid19API - data is not being updated regularly to match JHU CSSE updates
-
-04/12/2020
-- Created test API to parse test data that simulates JHU CSSE CSV format
-- Created new country class
-- Parsing global data to JSON
-- Parsing UID/ISO/FIPS/Country/Province/County names to JSON
-
-
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
@@ -110,7 +52,7 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 - APIs: Covid19API, Postman
 
 ## Acknowledgements
-COVID-19 APIs and COVID-19 data used/consulted:
+COVID-19 APIs and COVID-19 data consulted:
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
@@ -118,13 +60,13 @@ COVID-19 APIs and COVID-19 data used/consulted:
 - Some state/local health department websites
 
 
-Spring.io documentation:
+Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
 - REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
 - REST: https://spring.io/guides/gs/serving-web-content/
 
 
-Baeldung documentation:
+Baeldung:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
 - Thymeleaf: https://www.baeldung.com/thymeleaf-in-spring-mvc
 - Path variables: https://www.baeldung.com/spring-thymeleaf-path-variables
@@ -132,7 +74,7 @@ Baeldung documentation:
 - URLEncoder: https://www.baeldung.com/java-url-encoding-decoding
 
 
-Bootstrap documentation: 
+Bootstrap: 
 - Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
 
 
@@ -146,9 +88,12 @@ Stack Overflow:
 - @PathVariable vs. @RequestParam in Spring: https://stackoverflow.com/questions/30809302/spring-rest-use-of-pathvariable-and-requestparam 
 https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values-for-same-parameter-name-in-get-request
 - HTTP Content-Type: https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
+- HTTP Servlet Request: https://stackoverflow.com/questions/9607903/get-domain-name-from-given-url 
+https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
+- LinkedList array: https://stackoverflow.com/questions/20202889/how-can-i-create-an-array-of-linked-lists-in-java
 
 
-Thymeleaf documentation: 
+Thymeleaf: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
@@ -177,5 +122,10 @@ https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en
 https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 - CSV Format: https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
+- Parts of a URL: https://blog.hubspot.com/marketing/parts-url
+- Access inner static class notation: https://www.tutorialspoint.com/What-is-a-static-class-in-Java
+- Regex: https://www.freeformatter.com/java-regex-tester.html#ad-output 
+https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
+
 
 Code Fellows Java curriculum
