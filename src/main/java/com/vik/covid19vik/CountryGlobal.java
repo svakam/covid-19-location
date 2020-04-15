@@ -3,8 +3,8 @@ package com.vik.covid19vik;
 import java.util.LinkedList;
 
 public class CountryGlobal {
-    private LinkedList<String> dates;
     private String status;
+    private LinkedList<String> dates;
     private LinkedList<Country> countries;
 
     // getters
@@ -19,11 +19,11 @@ public class CountryGlobal {
     }
 
     // setters
-    public void setDates(LinkedList<String> dates) {
-        this.dates = dates;
-    }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public void setDates(LinkedList<String> dates) {
+        this.dates = dates;
     }
     public void setCountries(LinkedList<Country> countries) {
         this.countries = countries;

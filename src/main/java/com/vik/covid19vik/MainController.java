@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 // ================ render templates ================= //
@@ -55,12 +56,12 @@ class MainController {
 //    }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(name = "sc") String sc, Model model, HttpServletRequest req) throws IOException {
+    String resultsForCountry(@RequestParam(required = true, name = "sc") String sc, Model model, HttpServletRequest req) throws IOException {
 
         System.out.println("searched country = " + sc);
 
         // set up time series data to pass in
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6];
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
         // [
         // [confirmed new],
         // [confirmed total],
@@ -75,14 +76,66 @@ class MainController {
         // initialize dates
         LinkedList<String> dates = null;
         if (confData != null) {
+            // store countries already looked at to avoid duplicating data
+            HashSet<String> countriesSeen = new HashSet<>();
+
             dates = confData.getDates();
             LinkedList<CountryGlobal.Country> countries = confData.getCountries();
-            for (CountryGlobal.Country country : countries) {
-                if (country.getCountryOrRegion().equals(sc)) {
-                    LinkedList<Integer> newConfCases = country.getNewCases();
-                    caseInfoForCountry[0] = newConfCases;
-                    LinkedList<Integer> totalConfCases = country.getTotalCases();
-                    caseInfoForCountry[1] = totalConfCases;
+            for (int i = 0; i < countries.size(); i++) {
+                CountryGlobal.Country country = countries.get(i);
+                if (!countriesSeen.contains(country.getCountryOrRegion())) {
+                    // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
+                    if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
+                        LinkedList<Integer> newConfCases = country.getNewCases();
+                        caseInfoForCountry[0] = newConfCases;
+                        LinkedList<Integer> totalConfCases = country.getTotalCases();
+                        caseInfoForCountry[1] = totalConfCases;
+                        countriesSeen.add(country.getCountryOrRegion());
+                    }
+                    // if a country has provinces associated with it, add up each province data date by date to get country's total
+                    else if (country.getCountryOrRegion().equals(sc) && !country.getProvinceOrState().equals("")) {
+                        // make sure there isn't an object associated with the country further downstream that doesn't have a province
+                        // as long as the country is still the current country, do this check
+                        LinkedList<Integer> allNewConfCases = new LinkedList<>();
+                        LinkedList<Integer> allTotalConfCases = new LinkedList<>();
+                        int j = 0;
+                        int restOfCountries = countries.size() - i;
+                        while (j < restOfCountries) {
+                            if (countries.get(j).getCountryOrRegion().equals(country.getCountryOrRegion()) && countries.get(j).getProvinceOrState().equals("")) {
+                                LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
+                                caseInfoForCountry[0] = newConfCases;
+                                LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();
+                                caseInfoForCountry[1] = totalConfCases;
+                                break;
+                            } else {
+                                // if province exists, add case data to final array and go to next country
+                                LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
+                                if (allNewConfCases.size() == 0) {
+                                    allNewConfCases.addAll(newConfCases);
+                                } else {
+                                    // iterate through total list and add current province's cases
+                                    for (int caseIndex = 0; caseIndex < allNewConfCases.size(); caseIndex++) {
+                                        // get cases at index of total cases, add province cases to those cases, and update at index of total cases
+                                        allNewConfCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewConfCases.get(caseIndex)));
+                                    }
+                                }
+                                LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();
+                                if (allTotalConfCases.size() == 0) {
+                                    allTotalConfCases.addAll(totalConfCases);
+                                } else {
+                                    // iterate through total list and add current province's cases
+                                    for (int caseIndex = 0; caseIndex < allTotalConfCases.size(); caseIndex++) {
+                                        // get cases at index of total cases, add province cases to those cases, and update at index of total cases
+                                        allTotalConfCases.set(caseIndex, (totalConfCases.get(caseIndex) + allTotalConfCases.get(caseIndex)));
+                                    }
+                                }
+                                j++;
+                            }
+                        }
+                        caseInfoForCountry[0] = allNewConfCases;
+                        caseInfoForCountry[1] = allTotalConfCases;
+                        countriesSeen.add(country.getCountryOrRegion());
+                    }
                 }
             }
         } else {
@@ -94,7 +147,7 @@ class MainController {
         if (deathsData != null) {
             LinkedList<CountryGlobal.Country> countries = deathsData.getCountries();
             for (CountryGlobal.Country country : countries) {
-                if (country.getCountryOrRegion().equals(sc)) {
+                if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
                     LinkedList<Integer> newDeathsCases = country.getNewCases();
                     caseInfoForCountry[2] = newDeathsCases;
                     LinkedList<Integer> totalDeathsCases = country.getTotalCases();
@@ -111,7 +164,7 @@ class MainController {
         if (recovData != null) {
             LinkedList<CountryGlobal.Country> countries = recovData.getCountries();
             for (CountryGlobal.Country country : countries) {
-                if (country.getCountryOrRegion().equals(sc)) {
+                if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
                     LinkedList<Integer> newRecovCases = country.getNewCases();
                     caseInfoForCountry[4] = newRecovCases;
                     LinkedList<Integer> totalRecovCases = country.getTotalCases();
