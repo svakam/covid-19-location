@@ -1,22 +1,14 @@
 package com.vik.covid19vik;
 
-import com.google.gson.Gson;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
-import sun.awt.image.ImageWatched;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -72,7 +64,7 @@ class MainController {
         // ]
 
         // get confirmed cases for searched country
-        CountryGlobal confData = ApiMethods.getTimeSeriesConf(req);
+        CountriesGlobal confData = ApiMethods.getTimeSeriesConf(req);
         // initialize dates
         LinkedList<String> dates = null;
         if (confData != null) {
@@ -80,7 +72,7 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
 
             dates = confData.getDates();
-            LinkedList<Integer>[] caseInfo = CountryGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, confData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, confData);
             caseInfoForCountry[0] = caseInfo[0];
             caseInfoForCountry[1] = caseInfo[1];
         } else {
@@ -88,11 +80,11 @@ class MainController {
         }
 
         // get deaths cases for searched country
-        CountryGlobal deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        CountriesGlobal deathsData = ApiMethods.getTimeSeriesDeaths(req);
         if (deathsData != null) {
             // store countries already looked at to avoid duplicating data
             HashSet<String> countriesSeen = new HashSet<>();
-            LinkedList<Integer>[] caseInfo = CountryGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, deathsData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, deathsData);
             caseInfoForCountry[2] = caseInfo[0];
             caseInfoForCountry[3] = caseInfo[1];
         } else {
@@ -100,11 +92,11 @@ class MainController {
         }
 
         // get recovered cases for searched country
-        CountryGlobal recovData = ApiMethods.getTimeSeriesRecov(req);
+        CountriesGlobal recovData = ApiMethods.getTimeSeriesRecov(req);
         if (recovData != null) {
             // store countries already looked at to avoid duplicating data
             HashSet<String> countriesSeen = new HashSet<>();
-            LinkedList<Integer>[] caseInfo = CountryGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, recovData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, recovData);
             caseInfoForCountry[4] = caseInfo[0];
             caseInfoForCountry[5] = caseInfo[1];
         }
@@ -112,6 +104,7 @@ class MainController {
         // country dropdown
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
 
+        // add to template
         if (dates != null) {
             model.addAttribute("dates", dates);
         }

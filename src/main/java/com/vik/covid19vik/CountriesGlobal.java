@@ -3,7 +3,7 @@ package com.vik.covid19vik;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class CountryGlobal {
+public class CountriesGlobal {
     private String status;
     private LinkedList<String> dates;
     private LinkedList<Country> countries;
@@ -83,13 +83,13 @@ public class CountryGlobal {
         }
     }
 
-    protected static LinkedList<Integer>[] retrieveTSCaseInfoAPICall(HashSet<String> countriesSeen, String sc, CountryGlobal data) {
+    protected static LinkedList<Integer>[] retrieveTSCaseInfoAPICall(HashSet<String> countriesSeen, String sc, CountriesGlobal data) {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[2];
 
-        LinkedList<CountryGlobal.Country> countries = data.getCountries();
+        LinkedList<CountriesGlobal.Country> countries = data.getCountries();
         int i = 0;
         while (true) {
-            CountryGlobal.Country country = countries.get(i);
+            CountriesGlobal.Country country = countries.get(i);
             if (!countriesSeen.contains(country.getCountryOrRegion())) {
                 // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
                 if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {

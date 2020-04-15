@@ -21,4 +21,18 @@ class ParameterStringBuilder {
                 ? resultString.substring(0, resultString.length() - 1)
                 : resultString;
     }
+
+    // timeout methods if needed
+    // con.setConnectTimeout(5000);
+    // con.setReadTimeout(5000);
+
+    // add parameters to request if needed
+//        Map<String, String> parameters = new HashMap<>();
+//        parameters.put("param1", "val");
+
+//        con.setDoOutput(true);
+//        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+//        out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+//        out.flush();
+//        out.close();
 }

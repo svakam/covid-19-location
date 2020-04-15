@@ -16,6 +16,7 @@ class Dropdowns {
                 if (!countryDropdown.contains(country.getCountryOrRegion())) {
                     countryDropdown.add(country.getCountryOrRegion());
                 }
+                // since 80% of ApiMethods.getUIFLoop(req) is US data, stop as soon as country dropdown contains US with the assumption that the rest of data is US
                 if (countryDropdown.contains("US") && lastCountry.getCountryOrRegion().equals("US")) {
                     break;
                 }

@@ -5,14 +5,14 @@ import com.google.gson.Gson;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class CountryGlobalDataParse {
+class CountriesGlobalDataParse {
 
     // use time series pull methods to get data (in controller)
 
     protected static String parseDataToJSON(String status, String data) {
 
-        CountryGlobal countryWithDates = new CountryGlobal();
-        LinkedList<CountryGlobal.Country> countries = new LinkedList<>();
+        CountriesGlobal countryWithDates = new CountriesGlobal();
+        LinkedList<CountriesGlobal.Country> countries = new LinkedList<>();
 
         // set status
         countryWithDates.setStatus(status);
@@ -68,7 +68,7 @@ class CountryGlobalDataParse {
 
         // instantiate data of each country and store in array
         do {
-            CountryGlobal.Country countryInfo = new CountryGlobal.Country();
+            CountriesGlobal.Country countryInfo = new CountriesGlobal.Country();
 
             // adjust counter for new country, or if end of file break
             if (data.charAt(cursor) == '\n') {
@@ -81,42 +81,49 @@ class CountryGlobalDataParse {
             // set province/state
             if (data.charAt(cursor) == ',') {
                 countryInfo.setProvinceOrState("");
+//                System.out.println("province/state = empty");
             } else {
-                StringBuilder provinceState = new StringBuilder();
-                while (data.charAt(cursor) != ',') {
-                    provinceState.append(data.charAt(cursor));
+                StringBuilder provinceOrState = new StringBuilder();
+                if (data.charAt(cursor) == '\"') {
                     cursor++;
-                }
-                if (provinceState.toString().equals("\"Bonaire")) {
-                    provinceState.append(',');
+                    while (data.charAt(cursor) != '\"') {
+                        provinceOrState.append(data.charAt(cursor));
+                        cursor++;
+                    }
                     cursor++;
+                } else {
                     while (data.charAt(cursor) != ',') {
-                        provinceState.append(data.charAt(cursor));
+                        provinceOrState.append(data.charAt(cursor));
                         cursor++;
                     }
                 }
-                countryInfo.setProvinceOrState(provinceState.toString());
-//                System.out.println(provinceState.toString());
+                countryInfo.setProvinceOrState(provinceOrState.toString());
+//                System.out.println("province/state = " + provinceOrState.toString());
             }
             cursor++;
 
             // set country/region
-            StringBuilder countryRegion = new StringBuilder();
-            while (data.charAt(cursor) != ',') {
-                countryRegion.append(data.charAt(cursor));
-                cursor++;
-            }
-            if (countryRegion.toString().equals("\"Korea")) {
-//                System.out.println(data.charAt(cursor));
-                countryRegion.append(',');
-                cursor++;
-                while (data.charAt(cursor) != ',') {
-                    countryRegion.append(data.charAt(cursor));
+            if (data.charAt(cursor) == ',') {
+                countryInfo.setCountryOrRegion("");
+//                System.out.println("country/region = empty");
+            } else {
+                StringBuilder countryRegion = new StringBuilder();
+                if (data.charAt(cursor) == '\"') {
                     cursor++;
+                    while (data.charAt(cursor) != '\"') {
+                        countryRegion.append(data.charAt(cursor));
+                        cursor++;
+                    }
+                    cursor++;
+                } else {
+                    while (data.charAt(cursor) != ',') {
+                        countryRegion.append(data.charAt(cursor));
+                        cursor++;
+                    }
                 }
+                countryInfo.setCountryOrRegion(countryRegion.toString());
+//                System.out.println("country/region = " + countryRegion.toString());
             }
-            countryInfo.setCountryOrRegion(countryRegion.toString());
-//            System.out.println(countryRegion.toString());
             cursor++;
 
             // set lat/long
@@ -173,19 +180,19 @@ class CountryGlobalDataParse {
         } while (cursor < lengthOfCSV);
 
         // add in new case data and parse to json
-        CountryGlobal countryWithDatesNewCases = addNewCaseList(countryWithDates);
+        CountriesGlobal countryWithDatesNewCases = addNewCaseList(countryWithDates);
         Gson gson = new Gson();
         return gson.toJson(countryWithDatesNewCases);
     }
 
-    protected static CountryGlobal fromJSON(String status, String data) {
+    protected static CountriesGlobal fromJSON(String status, String data) {
         String json = parseDataToJSON(status, data);
         Gson gson = new Gson();
-        return gson.fromJson(json, CountryGlobal.class);
+        return gson.fromJson(json, CountriesGlobal.class);
     }
 
-    private static CountryGlobal addNewCaseList(CountryGlobal withoutNewCases) {
-        for (CountryGlobal.Country country : withoutNewCases.getCountries()) {
+    private static CountriesGlobal addNewCaseList(CountriesGlobal withoutNewCases) {
+        for (CountriesGlobal.Country country : withoutNewCases.getCountries()) {
 
             // for every country, get total case data, iterate through each, and subtract the difference between the current day's cases and cases from previous day
             // to get new cases for current day

@@ -11,19 +11,19 @@ class ApiController {
     @GetMapping("API/series/global/confirmed")
     String global2Confirmed() {
         String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
-        return CountryGlobalDataParse.parseDataToJSON("confirmed", globalConfData);
+        return CountriesGlobalDataParse.parseDataToJSON("confirmed", globalConfData);
     }
 
     @GetMapping("/API/series/global/deaths")
     String global2Deaths() {
         String globalDeathsData = JHUPullMethods.getTimeSeriesGlobalDeaths();
-        return CountryGlobalDataParse.parseDataToJSON("deaths", globalDeathsData);
+        return CountriesGlobalDataParse.parseDataToJSON("deaths", globalDeathsData);
     }
 
     @GetMapping("API/series/global/recovered")
     String global2Recovered() {
         String globalRecovData = JHUPullMethods.getTimeSeriesGlobalRecov();
-        return CountryGlobalDataParse.parseDataToJSON("recovered", globalRecovData);
+        return CountriesGlobalDataParse.parseDataToJSON("recovered", globalRecovData);
     }
 
 //    // ------------------- US series data ------------------ //

@@ -31,6 +31,8 @@ Or if you'd like to run it from your local machine:
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
+## Screenshots
+
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
 the /countries endpoint. If successful, it must be decided whether the query was a countries or a state/province. If a countries was entered, the /summary endpoint will be queried
