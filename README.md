@@ -17,7 +17,7 @@ NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
-NOTE: As 0f 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
+NOTE: As of 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
 
 ## Run the app
 Visit the website at: http://www.cv19location.com (being updated)
@@ -30,65 +30,6 @@ Or if you'd like to run it from your local machine:
 - Wait for the project to build. 
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
-
-## Change log/Commit History
-03/20/2020
-- Initialized app
-- Set up Spring Boot, SpringMVC
-- Initialized Firebase
-
-03/21/2020
-- Initialized Bootstrap
-- Set up templates
-- Rendering templates through Thymeleaf
-- Called Covid19API successfully with HttpURLConnection class
-
-03/22/2020
-- Passing JSON info successfully into template 
-- Refactored HttpURLConnection to work with GSON and API call
-- GSON deserializing JSON from Covid19API
-- Passing JSON and objects appropriately into template
-- Populating countries dropdown menu with countries from API
-- Passing dropdown choice to results page and rendering countries's information (countries, slug, provinces)
-
-03/23/2020
-- Refactored postmapping to be more RESTful with dropdown choice and /results
-- Successfully accessing endpoint with case information for countries
-- Rendering confirmed/death/recovered cases of user's choice of countries on /results
-- Began Bootstrap work on index - jumbotron implemented and sized
-
-03/24/2020
-- Added JHU CSSE dashboard to front page
-- Deployed to AWS EB
-
-03/25/2020
-- Note: JHU CSSE data contains a number of discrepancies/conflicts on the countries, state, and county level. Results also show in 
-Covid19API. Created a spreadsheet that accounts for these issues here: 
-https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
-- Header nav bar for results page to filter by province if available
-
-03/26/2020
-- Refactored countries dropdown methods to filter out redundant countries from data
-- Refactored "/" getmapping route functions out to appropriate class
-
-03/27/2020
-- Refactored routes to be more RESTful
-
-03/28/2020
-- Rough province-level information being populated in dropdown menu
-- Country-level data populating on results/country
-
-04/02/2020
-- Scrapping Covid19API - data is not being updated regularly to match JHU CSSE updates
-
-04/12/2020
-- Created test to parse test data that simulates JHU CSSE CSV format
-- Created new country class
-- Parsing global data to JSON
-- Parsing UID/ISO/FIPS/Country/Province/County names to JSON
-
-04/13/2020
-- Created RESTful API routes for calling parsed JSON data
 
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
