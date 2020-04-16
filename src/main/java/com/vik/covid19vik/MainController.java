@@ -27,8 +27,7 @@ class MainController {
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -42,11 +41,6 @@ class MainController {
 
         return new RedirectView("/results/country?sc=" + searchedCountry);
     }
-
-//    @PostMapping("/results/country/province")
-//    public RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
-//        return rv;
-//    }
 
     @GetMapping("/results/country")
     String resultsForCountry(@RequestParam(required = true, name = "sc") String sc, Model model, HttpServletRequest req) throws IOException {
@@ -116,6 +110,11 @@ class MainController {
         return "countryResults";
     }
 
+//    @PostMapping("/results/country/province")
+//    RedirectView submitProvinceSearch(String searchedProvince, String countryForProvince) {
+//        return rv;
+//    }
+
     @GetMapping("/results/country/province")
     String resultsForProvince(Model model, HttpServletRequest req) {
 
@@ -124,6 +123,28 @@ class MainController {
 
         model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
+    }
+
+//    @PostMapping("results/country/province/county")
+//    RedirectView submitCountySearch(String searchedCounty) {
+//        return rv;
+//    }
+
+    @GetMapping("/results/country/province/county")
+    String resultsForCounty(Model model, HttpServletRequest req) {
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+
+        model.addAttribute("countryNames", countryDropdown);
+        return "countyResults";
+    }
+
+    @GetMapping("/API")
+    String APIroutes(Model model, HttpServletRequest req) {
+        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+
+        model.addAttribute("countryNames", countryDropdown);
+        return "viewApiRoutes";
     }
 
     // error for slug

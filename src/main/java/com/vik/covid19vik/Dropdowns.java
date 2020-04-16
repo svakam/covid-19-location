@@ -90,4 +90,28 @@ class Dropdowns {
             throw new NullPointerException("Unable to make API call to get UIF info.");
         }
     }
+
+    protected static LinkedList<String> createCountryDropdown(HttpServletRequest req) {
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
+        if (countries != null) {
+            UIFPopData uifPopData = new UIFPopData();
+            System.out.println("API successfully pulled UIFLookup Info");
+            CountryUIFLookup lastCountry = countries[countries.length - 1];
+            for (CountryUIFLookup country : countries) {
+                if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                    // country dropdown of names
+                    countryDropdown.add(country.getCountryOrRegion());
+                }
+                // since 80% of ApiMethods.getUIFLoop(req) is US data, stop as soon as country dropdown contains US with the assumption that the rest of data is US
+                if (countryDropdown.contains("US") && lastCountry.getCountryOrRegion().equals("US")) {
+                    break;
+                }
+            }
+            uifPopData.setDropdown(countryDropdown);
+            return countryDropdown;
+        } else {
+            throw new NullPointerException("Unable to make API call to get UIF info.");
+        }
+    }
 }

@@ -93,4 +93,6 @@ public class CountryUIFLookup {
     protected void setPopulation(int population) {
         this.population = population;
     }
+
+
 }
