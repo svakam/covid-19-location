@@ -13,43 +13,43 @@
         <link rel="stylesheet" href="../../css/baseindex.css" type="text/css">
         <link rel="stylesheet" href="../../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../../css/state.css" type="text/css">
-        <title>Title</title>
+
+        <title>COVID-19 Locator</title>
     </head>
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <h1 th:text="'Results for ' + ${searchedProvince}"></h1>
-            <table>
-                <tr>
-                    <th>Confirmed</th>
-                    <td th:each="date : ${confirmedDates}" th:text="${date}"></td>
-                </tr>
-                <tr>
-                    <td>Cases</td>
-                    <td th:each="case : ${confirmedCases}" th:text="${case}"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>Deaths</th>
-                    <td th:each="date : ${deathsDates}" th:text="${date}"></td>
-                </tr>
-                <tr>
-                    <td>Cases</td>
-                    <td th:each="case : ${deathsCases}" th:text="${case}"></td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <th>Recovered</th>
-                    <td th:each="date : ${recoveredDates}" th:text="${date}"></td>
-                </tr>
-                <tr>
-                    <td>Cases</td>
-                    <td th:each="case : ${recoveredCases}" th:text="${case}"></td>
-                </tr>
-            </table>
+            <h1>Statistics</h1>
+            <h2 th:text="${combinedKey}"></h2>
+            <h3>Cases confirmed</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New confirmed: ' + ${caseInfoForProvince[0]}"></p>
+            <p th:text="'Total confirmed: ' + ${caseInfoForProvince[1]}"></p>
+            <h3>Deaths</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New deaths: ' + ${caseInfoForProvince[2]}"></p>
+            <p th:text="'Total deaths: ' + ${caseInfoForProvince[3]}"></p>
+            <h3>Recovered</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New recoveries: ' + ${caseInfoForProvince[4]}"></p>
+            <p th:text="'Total recoveries: ' + ${caseInfoForProvince[5]}"></p>
+            <br>
+            <th:block th:if="${provinceNames}">
+                <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
+            </th:block>
+            <p th:text="'Iso2: ' + ${iso2}"></p>
+            <p th:text="'Iso3: ' + ${iso3}"></p>
+            <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+            <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+            <p th:text="'Population: ' + ${population}"></p>
         </main>
+        <a href="/tips">Ways to stay safe</a>
         <footer>
 
         </footer>

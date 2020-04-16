@@ -94,9 +94,9 @@ public class CountriesGlobal {
 
                 // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
                 if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
-                    System.out.println("match on country, province empty");
-                    System.out.println(country.countryOrRegion);
-                    System.out.println(country.provinceOrState);
+//                    System.out.println("match on country, province empty");
+//                    System.out.println(country.countryOrRegion);
+//                    System.out.println(country.provinceOrState);
                     LinkedList<Integer> newConfCases = country.getNewCases();
                     caseInfoForCountry[0] = newConfCases;
                     LinkedList<Integer> totalConfCases = country.getTotalCases();
@@ -115,7 +115,7 @@ public class CountriesGlobal {
                     int j = i;
                     int restOfCountries = countries.size() - i;
                     while (j < restOfCountries) {
-                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
+//                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
                         if (countries.get(j).getCountryOrRegion().equals(sc) && countries.get(j).getProvinceOrState().equals("")) {
                             System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
@@ -125,7 +125,7 @@ public class CountriesGlobal {
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
                         } else if (countries.get(j).getCountryOrRegion().equals(sc) && !countries.get(j).getProvinceOrState().equals("")) {
-                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+//                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
 
                             // if province exists, add case data to final array and go to next country
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();

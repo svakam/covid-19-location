@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../css/state.css" type="text/css">
 
-        <title th:text="'Results for ' + ${searchedCountry}"></title>
+        <title>COVID-19 Locator</title>
     </head>
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
@@ -51,7 +51,7 @@
 
             <h2>County/State in the news</h2>
 
-            <h2>Ways to stay safe</h2>
+            <a href="/tips">Ways to stay safe</a>
 
             <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
             <div th:replace="../fragments/firebase :: firebase"></div>
