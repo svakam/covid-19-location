@@ -90,8 +90,8 @@ class MainController {
             caseInfoForCountry[5] = caseInfo[1];
         }
 
-        // country dropdown
-        // uif/population data based on searched country
+        // ------------ country dropdown -------------- //
+        // uif/population data based on searched country //
         UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, sc);
         LinkedList<String> countryDropdown = uifPopData.getDropdown();
         int uid = uifPopData.getUID();
@@ -100,6 +100,9 @@ class MainController {
         int code3 = uifPopData.getCode3();
         int fips = uifPopData.getFips();
         int population = uifPopData.getPopulation();
+
+        // -- get province dropdown based on searched country -- //
+        LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(sc, req);
 
         // add to template
         if (dates != null) {
@@ -111,6 +114,9 @@ class MainController {
         model.addAttribute("uid", uid);
         model.addAttribute("iso2", iso2);
         model.addAttribute("iso3", iso3);
+        if (provinceDropdown != null) {
+            model.addAttribute("provinceNames", provinceDropdown);
+        }
         if (code3 != -1) {
             model.addAttribute("code3", code3);
         }
@@ -118,6 +124,7 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
+
         return "countryResults";
     }
 

@@ -83,4 +83,14 @@ class CountryWithProvinces {
             throw new NullPointerException("Could not pull UIF Lookup information");
         }
     }
+
+    protected static LinkedList<String> getProvincesForCountry(String searchedCountry, HttpServletRequest req) {
+        LinkedList<CountryWithProvinces> countriesWithProvinces = createCountriesWithProvinces(req);
+        for (CountryWithProvinces country : countriesWithProvinces) {
+            if (country.getCountry().equals(searchedCountry)) {
+                return country.getAllProvinces();
+            }
+        }
+        return null;
+    }
 }
