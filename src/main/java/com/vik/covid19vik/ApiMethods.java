@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 class ApiMethods {
     // -------------- time series data -------------- //
-    protected static CountryGlobal getTimeSeriesConf(HttpServletRequest req) {
+    protected static CountriesGlobal getTimeSeriesConf(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -30,7 +30,7 @@ class ApiMethods {
         }
         return null;
     }
-    protected static CountryGlobal getTimeSeriesDeaths(HttpServletRequest req) {
+    protected static CountriesGlobal getTimeSeriesDeaths(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -45,7 +45,7 @@ class ApiMethods {
         }
         return null;
     }
-    protected static CountryGlobal getTimeSeriesRecov(HttpServletRequest req) {
+    protected static CountriesGlobal getTimeSeriesRecov(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -60,9 +60,9 @@ class ApiMethods {
         }
         return null;
     }
-    private static CountryGlobal timeSeriesHttpCall(URL url) {
+    private static CountriesGlobal timeSeriesHttpCall(URL url) {
         try {
-            CountryGlobal timeSeries;
+            CountriesGlobal timeSeries;
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
@@ -74,15 +74,21 @@ class ApiMethods {
 
             int status = con.getResponseCode();
             if (status > 299) {
+                StringBuilder content = new StringBuilder();
                 in = new BufferedReader(
                         new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
 
                 // convert json to desired output and return
                 Gson gson = new Gson();
-                timeSeries = gson.fromJson(in, CountryGlobal.class);
+                timeSeries = gson.fromJson(in, CountriesGlobal.class);
                 return timeSeries;
             }
         } catch (IOException e) {
@@ -122,8 +128,14 @@ class ApiMethods {
 
             int status = con.getResponseCode();
             if (status > 299) {
+                StringBuilder content = new StringBuilder();
                 in = new BufferedReader(
                         new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));

@@ -5,7 +5,7 @@ public class CountryUIFLookup {
     private String iso2;
     private String iso3;
     private int code3;
-    private String fips;
+    private int fips;
     private String county;
     private String provinceOrState;
     private String countryOrRegion;
@@ -14,83 +14,85 @@ public class CountryUIFLookup {
     private String combinedKey;
     private int population;
 
-    public CountryUIFLookup() {
+    protected CountryUIFLookup() {
         // empty arg constructor
     }
 
     // getters
-    public int getUid() {
+    protected int getUid() {
         return uid;
     }
-    public String getIso2() {
+    protected String getIso2() {
         return iso2;
     }
-    public String getIso3() {
+    protected String getIso3() {
         return iso3;
     }
-    public int getCode3() {
+    protected int getCode3() {
         return code3;
     }
-    public String getFips() {
+    protected int getFips() {
         return fips;
     }
-    public String getCounty() {
+    protected String getCounty() {
         return county;
     }
-    public String getProvinceOrState() {
+    protected String getProvinceOrState() {
         return provinceOrState;
     }
-    public String getCountryOrRegion() {
+    protected String getCountryOrRegion() {
         return countryOrRegion;
     }
-    public float getLat() {
+    protected float getLat() {
         return lat;
     }
-    public float getLon() {
+    protected float getLon() {
         return lon;
     }
-    public String getCombinedKey() {
+    protected String getCombinedKey() {
         return combinedKey;
     }
-    public int getPopulation() {
+    protected int getPopulation() {
         return population;
     }
 
     // setters
-    public void setUid(int uid) {
+    protected void setUid(int uid) {
         this.uid = uid;
     }
-    public void setIso2(String iso2) {
+    protected void setIso2(String iso2) {
         this.iso2 = iso2;
     }
-    public void setIso3(String iso3) {
+    protected void setIso3(String iso3) {
         this.iso3 = iso3;
     }
-    public void setCode3(int code3) {
+    protected void setCode3(int code3) {
         this.code3 = code3;
     }
-    public void setFips(String fips) {
+    protected void setFips(int fips) {
         this.fips = fips;
     }
-    public void setCounty(String county) {
+    protected void setCounty(String county) {
         this.county = county;
     }
-    public void setProvinceOrState(String provinceOrState) {
+    protected void setProvinceOrState(String provinceOrState) {
         this.provinceOrState = provinceOrState;
     }
-    public void setCountryOrRegion(String countryOrRegion) {
+    protected void setCountryOrRegion(String countryOrRegion) {
         this.countryOrRegion = countryOrRegion;
     }
-    public void setLat(float lat) {
+    protected void setLat(float lat) {
         this.lat = lat;
     }
-    public void setLon(float lon) {
+    protected void setLon(float lon) {
         this.lon = lon;
     }
-    public void setCombinedKey(String combinedKey) {
+    protected void setCombinedKey(String combinedKey) {
         this.combinedKey = combinedKey;
     }
-    public void setPopulation(int population) {
+    protected void setPopulation(int population) {
         this.population = population;
     }
+
+
 }

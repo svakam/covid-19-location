@@ -3,7 +3,7 @@ package com.vik.covid19vik;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-public class CountryGlobal {
+public class CountriesGlobal {
     private String status;
     private LinkedList<String> dates;
     private LinkedList<Country> countries;
@@ -20,13 +20,13 @@ public class CountryGlobal {
     }
 
     // setters
-    public void setStatus(String status) {
+    protected void setStatus(String status) {
         this.status = status;
     }
-    public void setDates(LinkedList<String> dates) {
+    protected void setDates(LinkedList<String> dates) {
         this.dates = dates;
     }
-    public void setCountries(LinkedList<Country> countries) {
+    protected void setCountries(LinkedList<Country> countries) {
         this.countries = countries;
     }
 
@@ -43,54 +43,55 @@ public class CountryGlobal {
         }
 
         // getters
-        public String getProvinceOrState() {
+        protected String getProvinceOrState() {
             return provinceOrState;
         }
-        public String getCountryOrRegion() {
+        protected String getCountryOrRegion() {
             return countryOrRegion;
         }
-        public float getLat() {
+        protected float getLat() {
             return lat;
         }
-        public float getLon() {
+        protected float getLon() {
             return lon;
         }
-        public LinkedList<Integer> getTotalCases() {
+        protected LinkedList<Integer> getTotalCases() {
             return totalCases;
         }
-        public LinkedList<Integer> getNewCases() {
+        protected LinkedList<Integer> getNewCases() {
             return newCases;
         }
 
         // setters
-        public void setProvinceOrState(String provinceOrState) {
+        protected void setProvinceOrState(String provinceOrState) {
             this.provinceOrState = provinceOrState;
         }
-        public void setCountryOrRegion(String countryOrRegion) {
+        protected void setCountryOrRegion(String countryOrRegion) {
             this.countryOrRegion = countryOrRegion;
         }
-        public void setLat(float lat) {
+        protected void setLat(float lat) {
             this.lat = lat;
         }
-        public void setLon(float lon) {
+        protected void setLon(float lon) {
             this.lon = lon;
         }
-        public void setTotalCases(LinkedList<Integer> totalCases) {
+        protected void setTotalCases(LinkedList<Integer> totalCases) {
             this.totalCases = totalCases;
         }
-        public void setNewCases(LinkedList<Integer> newCases) {
+        protected void setNewCases(LinkedList<Integer> newCases) {
             this.newCases = newCases;
         }
     }
 
-    protected static LinkedList<Integer>[] retrieveTSCaseInfoAPICall(HashSet<String> countriesSeen, String sc, CountryGlobal data) {
+    protected static LinkedList<Integer>[] retrieveTSCaseInfoAPICall(HashSet<String> countriesSeen, String sc, CountriesGlobal data) {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[2];
 
-        LinkedList<CountryGlobal.Country> countries = data.getCountries();
+        LinkedList<CountriesGlobal.Country> countries = data.getCountries();
         int i = 0;
         while (true) {
-            CountryGlobal.Country country = countries.get(i);
+            CountriesGlobal.Country country = countries.get(i);
             if (!countriesSeen.contains(country.getCountryOrRegion())) {
+
                 // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
                 if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
                     System.out.println("match on country, province empty");
@@ -103,9 +104,10 @@ public class CountryGlobal {
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }
+
                 // if a country has provinces associated with it, add up each province data date by date to get country's total
                 else if (country.getCountryOrRegion().equals(sc) && !country.getProvinceOrState().equals("")) {
-                    System.out.println("province exists: " + country.countryOrRegion + " " + country.provinceOrState);
+
                     // make sure there isn't an object associated with the country further downstream that doesn't have a province
                     // as long as the country is still the current country, do this check
                     LinkedList<Integer> allNewCases = new LinkedList<>();
@@ -124,12 +126,14 @@ public class CountryGlobal {
                             return caseInfoForCountry;
                         } else if (countries.get(j).getCountryOrRegion().equals(sc) && !countries.get(j).getProvinceOrState().equals("")) {
                             System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+
                             // if province exists, add case data to final array and go to next country
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
                             if (allNewCases.size() == 0) {
                                 allNewCases.addAll(newConfCases);
-                            } else {
-                                // iterate through total list and add current province's cases
+                            }
+                            // else iterate through total list and add current province's cases
+                            else {
                                 for (int caseIndex = 0; caseIndex < allNewCases.size(); caseIndex++) {
                                     // get cases at index of total cases, add province cases to those cases, and update at index of total cases
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));

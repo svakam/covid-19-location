@@ -5,9 +5,9 @@ import com.google.gson.Gson;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class CountryUIFLookupParse {
+class CountryUIFLookupParse {
 
-    static String parseDatatoJSON() {
+    protected static String parseDatatoJSON() {
 
         // pull data
         String data = JHUPullMethods.getUIFLookup();
@@ -93,7 +93,7 @@ public class CountryUIFLookupParse {
 
             // set FIPS
             if (data.charAt(cursor) == ',') {
-                country.setFips("");
+                country.setFips(-1);
 //                System.out.println("fips = empty");
             } else {
                 StringBuilder fips = new StringBuilder();
@@ -101,7 +101,7 @@ public class CountryUIFLookupParse {
                     fips.append(data.charAt(cursor));
                     cursor++;
                 }
-                country.setFips(fips.toString());
+                country.setFips(Integer.parseInt(fips.toString()));
 //                System.out.println("fips = " + fips.toString());
             }
             cursor++;
@@ -116,7 +116,7 @@ public class CountryUIFLookupParse {
                     county.append(data.charAt(cursor));
                     cursor++;
                 }
-                country.setIso3(county.toString());
+                country.setCounty(county.toString());
 //                System.out.println(county.toString());
             }
             cursor++;
@@ -246,7 +246,7 @@ public class CountryUIFLookupParse {
         return gson.toJson(countries);
     }
 
-    static CountryUIFLookup[] fromJSON() {
+    protected static CountryUIFLookup[] fromJSON() {
         String json = parseDatatoJSON();
         Gson gson = new Gson();
         return gson.fromJson(json, CountryUIFLookup[].class);

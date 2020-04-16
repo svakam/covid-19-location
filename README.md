@@ -31,6 +31,8 @@ Or if you'd like to run it from your local machine:
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
+## Screenshots
+
 ## Data Flow
 Search bar entry that ideally contains the state or province, but also countries, will be used to query 
 the /countries endpoint. If successful, it must be decided whether the query was a countries or a state/province. If a countries was entered, the /summary endpoint will be queried
@@ -41,21 +43,20 @@ the endpoint for /countries/{countryslug}/status/{status} to get the state/provi
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
-## Languages Used
-- Java
-- HTML/CSS
-
-## Tools, Libraries, Frameworks, IDEs, APIs used
-- IDE: IntelliJ IDEA
-- Spring: SpringMVC, Boot, Thymeleaf
-- AWS: Route 53, Elastic Beanstalk
-- APIs: Covid19API, Postman
+## Languages and Technologies Used
+- Languages
+  - Java, HTML/CSS
+- Technologies
+  - IDE: IntelliJ IDEA
+  - Spring: SpringMVC, Boot, Thymeleaf
+  - AWS: Route 53, Elastic Beanstalk
+  - APIs: CV19Location API, Postman
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data consulted:
-- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
+- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
 

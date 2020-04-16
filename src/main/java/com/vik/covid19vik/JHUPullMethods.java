@@ -7,7 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class JHUPullMethods {
+class JHUPullMethods {
     // --------------------- get time series data -------------------- //
     protected static String getTimeSeriesGlobalConf() {
         URL url = null;
@@ -60,7 +60,6 @@ public class JHUPullMethods {
         return httpCall(url);
     }
 
-
     // http url connection
     protected static String httpCall(URL url) {
         String pull = null;
@@ -74,12 +73,19 @@ public class JHUPullMethods {
             System.out.println(StatusMessageHeader.getInfo(con));
 
             BufferedReader in;
-            StringBuilder content = null;
+            StringBuilder content;
 
             int status = con.getResponseCode();
             if (status > 299) {
                 in = new BufferedReader(
                         new InputStreamReader(con.getErrorStream()));
+                content = new StringBuilder();
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
+                throw new NullPointerException("Error: not able to GET from " + url);
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
@@ -88,17 +94,11 @@ public class JHUPullMethods {
                 while ((inputLine = in.readLine()) != null) {
                     content.append(inputLine).append("\n");
                 }
-
+                pull = content.toString();
             }
 
             in.close();
             con.disconnect();
-
-            if (content == null) {
-                throw new NullPointerException("Error: not able to GET from " + url);
-            } else {
-                pull = content.toString();
-            }
         } catch (
                 IOException e) {
             System.out.println(e.getMessage());

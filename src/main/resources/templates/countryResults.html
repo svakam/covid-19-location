@@ -19,25 +19,39 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block>
-                <h1 th:text="'Results for ' + ${searchedCountry}"></h1>
-                <h2>Statistics</h2>
-                <h3>Cases confirmed</h3>
-                <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
-                <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
-                <h3>Deaths</h3>
-                <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
-                <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
-                <h3>Recovered</h3>
-                <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
-                <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+            <h1>Statistics</h1>
+            <h2 th:text="${searchedCountry}"></h2>
+            <h3>Cases confirmed</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
+            <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
+            <h3>Deaths</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
+            <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
+            <h3>Recovered</h3>
+            <h4>Total</h4>
+            <h4>Time Series</h4>
+            <p th:text="'Dates: ' + ${dates}"></p>
+            <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
+            <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+            <br>
+            <th:block th:if="${provinceNames}">
+                <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
             </th:block>
+            <p th:text="'Iso2: ' + ${iso2}"></p>
+            <p th:text="'Iso3: ' + ${iso3}"></p>
+            <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+            <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+            <p th:text="'Population: ' + ${population}"></p>
 
             <h2>County/State in the news</h2>
 
             <h2>Ways to stay safe</h2>
-
-<!--            <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>-->
 
             <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
             <div th:replace="../fragments/firebase :: firebase"></div>
