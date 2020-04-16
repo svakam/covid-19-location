@@ -54,9 +54,9 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data consulted:
-- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
+- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
 

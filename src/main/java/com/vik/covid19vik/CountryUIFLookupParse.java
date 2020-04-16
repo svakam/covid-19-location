@@ -116,7 +116,7 @@ class CountryUIFLookupParse {
                     county.append(data.charAt(cursor));
                     cursor++;
                 }
-                country.setIso3(county.toString());
+                country.setCounty(county.toString());
 //                System.out.println(county.toString());
             }
             cursor++;

@@ -91,6 +91,7 @@ public class CountriesGlobal {
         while (true) {
             CountriesGlobal.Country country = countries.get(i);
             if (!countriesSeen.contains(country.getCountryOrRegion())) {
+
                 // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
                 if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
                     System.out.println("match on country, province empty");
@@ -103,9 +104,10 @@ public class CountriesGlobal {
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }
+
                 // if a country has provinces associated with it, add up each province data date by date to get country's total
                 else if (country.getCountryOrRegion().equals(sc) && !country.getProvinceOrState().equals("")) {
-                    System.out.println("province exists: " + country.countryOrRegion + " " + country.provinceOrState);
+
                     // make sure there isn't an object associated with the country further downstream that doesn't have a province
                     // as long as the country is still the current country, do this check
                     LinkedList<Integer> allNewCases = new LinkedList<>();
@@ -124,12 +126,14 @@ public class CountriesGlobal {
                             return caseInfoForCountry;
                         } else if (countries.get(j).getCountryOrRegion().equals(sc) && !countries.get(j).getProvinceOrState().equals("")) {
                             System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+
                             // if province exists, add case data to final array and go to next country
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
                             if (allNewCases.size() == 0) {
                                 allNewCases.addAll(newConfCases);
-                            } else {
-                                // iterate through total list and add current province's cases
+                            }
+                            // else iterate through total list and add current province's cases
+                            else {
                                 for (int caseIndex = 0; caseIndex < allNewCases.size(); caseIndex++) {
                                     // get cases at index of total cases, add province cases to those cases, and update at index of total cases
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));

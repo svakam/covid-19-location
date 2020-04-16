@@ -28,6 +28,11 @@ class MainController {
     String getIndex(Model model, HttpServletRequest req) {
 
         LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+        LinkedList<CountryWithProvinces> a = CountryWithProvinces.createCountriesWithProvinces(req);
+        for (CountryWithProvinces b : a) {
+            System.out.println("country = " + b.getCountry());
+            System.out.println("provinces = " + b.getAllProvinces());
+        }
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
