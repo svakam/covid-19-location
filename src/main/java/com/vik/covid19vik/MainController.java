@@ -155,12 +155,15 @@ class MainController {
         System.out.println("getmapping searched province = " + searchedProvince);
         System.out.println("getmapping searched country = " + countryOfProvince);
 
+        LinkedList<String> dates = null;
+
         // ------- get time series data ---------- //
         CountriesGlobal.ProvinceData provinceData = new CountriesGlobal.ProvinceData();
         if (confData == null) {
             confData = ApiMethods.getTimeSeriesConf(req);
         }
         if (confData != null) {
+            dates = confData.getDates();
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confData);
             provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
             provinceData.setTotalConfProvCases(caseInfo.getTotalProvCases());
@@ -186,6 +189,7 @@ class MainController {
         LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, req);
 
+        model.addAttribute("dates", dates);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("provinceNames", provinceDropdown);
         model.addAttribute("caseInfoForProvince", provinceData);
