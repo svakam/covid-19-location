@@ -21,28 +21,36 @@
         <main>
             <h1>Statistics</h1>
             <h2 th:text="${searchedCountry}"></h2>
+
             <h3>Cases confirmed</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
             <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
             <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
+
             <h3>Deaths</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
             <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
             <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
+
             <h3>Recovered</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
             <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
             <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+
             <br>
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
             </th:block>
+
             <p th:text="'Iso2: ' + ${iso2}"></p>
             <p th:text="'Iso3: ' + ${iso3}"></p>
             <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
@@ -52,9 +60,11 @@
             <h2>County/State in the news</h2>
 
             <a href="/tips">Ways to stay safe</a>
+            <footer>
 
-            <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
-            <div th:replace="../fragments/firebase :: firebase"></div>
+            </footer>
         </main>
+        <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

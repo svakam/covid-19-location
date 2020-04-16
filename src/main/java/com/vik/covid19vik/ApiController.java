@@ -9,19 +9,19 @@ class ApiController {
     // consider adding to database:
     // --------------- global series data ----------------- //
     @GetMapping("API/series/global/confirmed")
-    String global2Confirmed() {
+    String globalConfirmed() {
         String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
         return CountriesGlobalDataParse.parseDataToJSON("confirmed", globalConfData);
     }
 
     @GetMapping("/API/series/global/deaths")
-    String global2Deaths() {
+    String globalDeaths() {
         String globalDeathsData = JHUPullMethods.getTimeSeriesGlobalDeaths();
         return CountriesGlobalDataParse.parseDataToJSON("deaths", globalDeathsData);
     }
 
     @GetMapping("API/series/global/recovered")
-    String global2Recovered() {
+    String globalRecovered() {
         String globalRecovData = JHUPullMethods.getTimeSeriesGlobalRecov();
         return CountriesGlobalDataParse.parseDataToJSON("recovered", globalRecovData);
     }

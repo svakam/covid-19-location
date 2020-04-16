@@ -9,16 +9,15 @@ public class CountriesGlobal {
     private LinkedList<Country> countries;
 
     // getters
-    public LinkedList<String> getDates() {
+    protected LinkedList<String> getDates() {
         return dates;
     }
-    public String getStatus() {
+    protected String getStatus() {
         return status;
     }
-    public LinkedList<Country> getCountries() {
+    protected LinkedList<Country> getCountries() {
         return countries;
     }
-
     // setters
     protected void setStatus(String status) {
         this.status = status;
@@ -61,7 +60,6 @@ public class CountriesGlobal {
         protected LinkedList<Integer> getNewCases() {
             return newCases;
         }
-
         // setters
         protected void setProvinceOrState(String provinceOrState) {
             this.provinceOrState = provinceOrState;
@@ -83,7 +81,75 @@ public class CountriesGlobal {
         }
     }
 
-    protected static LinkedList<Integer>[] retrieveTSCaseInfoAPICall(HashSet<String> countriesSeen, String sc, CountriesGlobal data) {
+    protected static class NewAndConf {
+        private LinkedList<Integer> newProvCases;
+        private LinkedList<Integer> totalProvCases;
+
+        // getters
+        protected LinkedList<Integer> getNewProvCases() {
+            return newProvCases;
+        }
+        protected LinkedList<Integer> getTotalProvCases() {
+            return totalProvCases;
+        }
+        // setters
+        protected void setNewProvCases(LinkedList<Integer> newProvCases) {
+            this.newProvCases = newProvCases;
+        }
+        protected void setTotalProvCases(LinkedList<Integer> totalProvCases) {
+            this.totalProvCases = totalProvCases;
+        }
+    }
+
+    protected static class ProvinceData {
+        public LinkedList<Integer> newConfProvCases;
+        public LinkedList<Integer> totalConfProvCases;
+        public LinkedList<Integer> newDeathsProvCases;
+        public LinkedList<Integer> totalDeathsProvCases;
+        public LinkedList<Integer> newRecovProvCases;
+        public LinkedList<Integer> totalRecovProvCases;
+
+        // getters
+        protected LinkedList<Integer> getNewConfProvCases() {
+            return newConfProvCases;
+        }
+        protected LinkedList<Integer> getTotalConfProvCases() {
+            return totalConfProvCases;
+        }
+        protected LinkedList<Integer> getNewDeathsProvCases() {
+            return newDeathsProvCases;
+        }
+        protected LinkedList<Integer> getTotalDeathsProvCases() {
+            return totalDeathsProvCases;
+        }
+        protected LinkedList<Integer> getNewRecovProvCases() {
+            return newRecovProvCases;
+        }
+        protected LinkedList<Integer> getTotalRecovProvCases() {
+            return totalRecovProvCases;
+        }
+        // setters
+        protected void setNewConfProvCases(LinkedList<Integer> newConfProvCases) {
+            this.newConfProvCases = newConfProvCases;
+        }
+        protected void setTotalConfProvCases(LinkedList<Integer> totalConfProvCases) {
+            this.totalConfProvCases = totalConfProvCases;
+        }
+        protected void setNewDeathsProvCases(LinkedList<Integer> newDeathsProvCases) {
+            this.newDeathsProvCases = newDeathsProvCases;
+        }
+        protected void setTotalDeathsProvCases(LinkedList<Integer> totalDeathsProvCases) {
+            this.totalDeathsProvCases = totalDeathsProvCases;
+        }
+        protected void setNewRecovProvCases(LinkedList<Integer> newRecovProvCases) {
+            this.newRecovProvCases = newRecovProvCases;
+        }
+        protected void setTotalRecovProvCases(LinkedList<Integer> totalRecovProvCases) {
+            this.totalRecovProvCases = totalRecovProvCases;
+        }
+    }
+
+    protected static LinkedList<Integer>[] retrieveCountryTSInfoAPICall(HashSet<String> countriesSeen, String searchedCountry, CountriesGlobal data) {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[2];
 
         LinkedList<CountriesGlobal.Country> countries = data.getCountries();
@@ -93,7 +159,7 @@ public class CountriesGlobal {
             if (!countriesSeen.contains(country.getCountryOrRegion())) {
 
                 // if a country has no provinces associated with it, it has the full time series data associated with it; just retrieve data normally
-                if (country.getCountryOrRegion().equals(sc) && country.getProvinceOrState().equals("")) {
+                if (country.getCountryOrRegion().equals(searchedCountry) && country.getProvinceOrState().equals("")) {
 //                    System.out.println("match on country, province empty");
 //                    System.out.println(country.countryOrRegion);
 //                    System.out.println(country.provinceOrState);
@@ -106,7 +172,7 @@ public class CountriesGlobal {
                 }
 
                 // if a country has provinces associated with it, add up each province data date by date to get country's total
-                else if (country.getCountryOrRegion().equals(sc) && !country.getProvinceOrState().equals("")) {
+                else if (country.getCountryOrRegion().equals(searchedCountry) && !country.getProvinceOrState().equals("")) {
 
                     // make sure there isn't an object associated with the country further downstream that doesn't have a province
                     // as long as the country is still the current country, do this check
@@ -116,7 +182,7 @@ public class CountriesGlobal {
                     int restOfCountries = countries.size() - i;
                     while (j < restOfCountries) {
 //                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
-                        if (countries.get(j).getCountryOrRegion().equals(sc) && countries.get(j).getProvinceOrState().equals("")) {
+                        if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && countries.get(j).getProvinceOrState().equals("")) {
                             System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
                             caseInfoForCountry[0] = newConfCases;
@@ -124,7 +190,7 @@ public class CountriesGlobal {
                             caseInfoForCountry[1] = totalConfCases;
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
-                        } else if (countries.get(j).getCountryOrRegion().equals(sc) && !countries.get(j).getProvinceOrState().equals("")) {
+                        } else if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && !countries.get(j).getProvinceOrState().equals("")) {
 //                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
 
                             // if province exists, add case data to final array and go to next country
@@ -135,7 +201,6 @@ public class CountriesGlobal {
                             // else iterate through total list and add current province's cases
                             else {
                                 for (int caseIndex = 0; caseIndex < allNewCases.size(); caseIndex++) {
-                                    // get cases at index of total cases, add province cases to those cases, and update at index of total cases
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));
                                 }
                             }
@@ -145,7 +210,6 @@ public class CountriesGlobal {
                             } else {
                                 // iterate through total list and add current province's cases
                                 for (int caseIndex = 0; caseIndex < allTotalCases.size(); caseIndex++) {
-                                    // get cases at index of total cases, add province cases to those cases, and update at index of total cases
                                     allTotalCases.set(caseIndex, (totalConfCases.get(caseIndex) + allTotalCases.get(caseIndex)));
                                 }
                             }
@@ -160,5 +224,17 @@ public class CountriesGlobal {
             }
             i++;
         }
+    }
+
+    protected static NewAndConf retrieveProvinceTSInfoAPICall(String searchedProvince, CountriesGlobal data) {
+        NewAndConf caseInfoForCountry = new NewAndConf();
+        LinkedList<CountriesGlobal.Country> countries = data.getCountries();
+        short i = 0;
+        while (!countries.get(i).getProvinceOrState().equals(searchedProvince)) {
+            i++;
+        }
+        caseInfoForCountry.setNewProvCases(countries.get(i).newCases);
+        caseInfoForCountry.setTotalProvCases(countries.get(i).totalCases);
+        return caseInfoForCountry;
     }
 }

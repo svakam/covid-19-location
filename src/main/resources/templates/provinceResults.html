@@ -21,35 +21,44 @@
         <main>
             <h1>Statistics</h1>
             <h2 th:text="${combinedKey}"></h2>
+
             <h3>Cases confirmed</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New confirmed: ' + ${caseInfoForProvince[0]}"></p>
-            <p th:text="'Total confirmed: ' + ${caseInfoForProvince[1]}"></p>
+            <p th:text="'New confirmed: ' + ${caseInfoForProvince.newConfProvCases}"></p>
+            <p th:text="'Total confirmed: ' + ${caseInfoForProvince.totalConfProvCases}"></p>
+
             <h3>Deaths</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New deaths: ' + ${caseInfoForProvince[2]}"></p>
-            <p th:text="'Total deaths: ' + ${caseInfoForProvince[3]}"></p>
+            <p th:text="'New deaths: ' + ${caseInfoForProvince.newDeathsProvCases}"></p>
+            <p th:text="'Total deaths: ' + ${caseInfoForProvince.totalDeathsProvCases}"></p>
+
             <h3>Recovered</h3>
             <h4>Total</h4>
+
             <h4>Time Series</h4>
             <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New recoveries: ' + ${caseInfoForProvince[4]}"></p>
-            <p th:text="'Total recoveries: ' + ${caseInfoForProvince[5]}"></p>
+            <p th:text="'New recoveries: ' + ${caseInfoForProvince.newRecovProvCases}"></p>
+            <p th:text="'Total recoveries: ' + ${caseInfoForProvince.totalRecovProvCases}"></p>
+
             <br>
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
             </th:block>
+
             <p th:text="'Iso2: ' + ${iso2}"></p>
             <p th:text="'Iso3: ' + ${iso3}"></p>
             <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
+
+            <a href="/tips">Ways to stay safe</a>
         </main>
-        <a href="/tips">Ways to stay safe</a>
         <footer>
 
         </footer>

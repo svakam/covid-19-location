@@ -1,5 +1,6 @@
 package com.vik.covid19vik;
 
+import com.sun.tools.javac.util.DefinedBy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,10 @@ class MainController {
 
     // consider adding to database:
     // country global data
+    CountriesGlobal confData;
+    CountriesGlobal deathsData;
+    CountriesGlobal recovData;
+
     // uiflookup data
 
     // hashmap of already looked up countries
@@ -59,33 +64,39 @@ class MainController {
         // ]
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
         // get confirmed cases for searched country
-        CountriesGlobal confData = ApiMethods.getTimeSeriesConf(req);
+        if (confData == null) {
+            confData = ApiMethods.getTimeSeriesConf(req);
+        }
         // initialize dates
         LinkedList<String> dates = null;
         if (confData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
             dates = confData.getDates();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, searchedCountry, confData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confData);
             caseInfoForCountry[0] = caseInfo[0];
             caseInfoForCountry[1] = caseInfo[1];
         } else {
             System.out.println("Could not get confirmed series data");
         }
         // get deaths cases for searched country
-        CountriesGlobal deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        if (deathsData == null) {
+            deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        }
         if (deathsData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, searchedCountry, deathsData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsData);
             caseInfoForCountry[2] = caseInfo[0];
             caseInfoForCountry[3] = caseInfo[1];
         } else {
             System.out.println("Could not get confirmed series data");
         }
         // get recovered cases for searched country
-        CountriesGlobal recovData = ApiMethods.getTimeSeriesRecov(req);
+        if (recovData == null) {
+            recovData = ApiMethods.getTimeSeriesRecov(req);
+        }
         if (recovData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, searchedCountry, recovData);
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovData);
             caseInfoForCountry[4] = caseInfo[0];
             caseInfoForCountry[5] = caseInfo[1];
         }
@@ -144,9 +155,40 @@ class MainController {
         System.out.println("getmapping searched province = " + searchedProvince);
         System.out.println("getmapping searched country = " + countryOfProvince);
 
+        // ------- get time series data ---------- //
+        CountriesGlobal.ProvinceData provinceData = new CountriesGlobal.ProvinceData();
+        if (confData == null) {
+            confData = ApiMethods.getTimeSeriesConf(req);
+        }
+        if (confData != null) {
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confData);
+            provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
+            provinceData.setTotalConfProvCases(caseInfo.getTotalProvCases());
+        }
+        if (deathsData == null) {
+            deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        }
+        if (deathsData != null) {
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsData);
+            provinceData.setNewDeathsProvCases(caseInfo.getNewProvCases());
+            provinceData.setTotalDeathsProvCases(caseInfo.getTotalProvCases());
+        }
+        if (recovData == null) {
+            recovData = ApiMethods.getTimeSeriesRecov(req);
+        }
+        if (recovData != null) {
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovData);
+            provinceData.setNewRecovProvCases(caseInfo.getNewProvCases());
+            provinceData.setTotalRecovProvCases(caseInfo.getTotalProvCases());
+        }
+
+        // dropdowns
         LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
+        LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, req);
 
         model.addAttribute("countryNames", countryDropdown);
+        model.addAttribute("provinceNames", provinceDropdown);
+        model.addAttribute("caseInfoForProvince", provinceData);
         return "provinceResults";
     }
 
