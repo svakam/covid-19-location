@@ -36,7 +36,7 @@ class CountryWithProvinces {
                 k++;
             }
             // get index of end of state US data
-            int l = 0;
+            int l = k;
             for (CountryUIFLookup country : countries) {
                 if (country.getCountryOrRegion().equals("US") && !country.getCounty().equals("")) {
                     break;

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+import sun.awt.image.ImageWatched;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -27,12 +28,7 @@ class MainController {
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
-        LinkedList<CountryWithProvinces> a = CountryWithProvinces.createCountriesWithProvinces(req);
-        for (CountryWithProvinces b : a) {
-            System.out.println("country = " + b.getCountry());
-            System.out.println("provinces = " + b.getAllProvinces());
-        }
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -52,8 +48,7 @@ class MainController {
 
         System.out.println("searched country = " + sc);
 
-        // set up time series data to pass in
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
+        // --------------- set up time series data to pass into template ------------------- //
         // [
         // [confirmed new],
         // [confirmed total],
@@ -62,15 +57,13 @@ class MainController {
         // [recov new],
         // [recov total]
         // ]
-
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
         // get confirmed cases for searched country
         CountriesGlobal confData = ApiMethods.getTimeSeriesConf(req);
         // initialize dates
         LinkedList<String> dates = null;
         if (confData != null) {
-            // store countries already looked at to avoid duplicating data
             HashSet<String> countriesSeen = new HashSet<>();
-
             dates = confData.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, confData);
             caseInfoForCountry[0] = caseInfo[0];
@@ -78,11 +71,9 @@ class MainController {
         } else {
             System.out.println("Could not get confirmed series data");
         }
-
         // get deaths cases for searched country
         CountriesGlobal deathsData = ApiMethods.getTimeSeriesDeaths(req);
         if (deathsData != null) {
-            // store countries already looked at to avoid duplicating data
             HashSet<String> countriesSeen = new HashSet<>();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, deathsData);
             caseInfoForCountry[2] = caseInfo[0];
@@ -90,11 +81,9 @@ class MainController {
         } else {
             System.out.println("Could not get confirmed series data");
         }
-
         // get recovered cases for searched country
         CountriesGlobal recovData = ApiMethods.getTimeSeriesRecov(req);
         if (recovData != null) {
-            // store countries already looked at to avoid duplicating data
             HashSet<String> countriesSeen = new HashSet<>();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveTSCaseInfoAPICall(countriesSeen, sc, recovData);
             caseInfoForCountry[4] = caseInfo[0];
@@ -102,8 +91,15 @@ class MainController {
         }
 
         // country dropdown
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        // uif/population data based on searched country
+        UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, sc);
         LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        int uid = uifPopData.getUID();
+        String iso2 = uifPopData.getIso2();
+        String iso3 = uifPopData.getIso3();
+        int code3 = uifPopData.getCode3();
+        int fips = uifPopData.getFips();
+        int population = uifPopData.getPopulation();
 
         // add to template
         if (dates != null) {
@@ -112,6 +108,16 @@ class MainController {
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
         model.addAttribute("searchedCountry", sc);
         model.addAttribute("countryNames", countryDropdown);
+        model.addAttribute("uid", uid);
+        model.addAttribute("iso2", iso2);
+        model.addAttribute("iso3", iso3);
+        if (code3 != -1) {
+            model.addAttribute("code3", code3);
+        }
+        if (fips != -1) {
+            model.addAttribute("fips", fips);
+        }
+        model.addAttribute("population", population);
         return "countryResults";
     }
 
@@ -123,8 +129,7 @@ class MainController {
     @GetMapping("/results/country/province")
     String resultsForProvince(Model model, HttpServletRequest req) {
 
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
@@ -137,8 +142,8 @@ class MainController {
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(Model model, HttpServletRequest req) {
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "countyResults";
@@ -146,7 +151,8 @@ class MainController {
 
     @GetMapping("/API")
     String APIroutes(Model model, HttpServletRequest req) {
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdown(req);
+
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
         return "viewApiRoutes";
@@ -156,8 +162,7 @@ class MainController {
     @GetMapping("/error/404/{searchedCountry}")
     String error404(Model model, HttpServletRequest req) {
 
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
 
@@ -168,8 +173,7 @@ class MainController {
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
 
-        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
 
         model.addAttribute("countryNames", countryDropdown);
 

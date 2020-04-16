@@ -74,8 +74,14 @@ class ApiMethods {
 
             int status = con.getResponseCode();
             if (status > 299) {
+                StringBuilder content = new StringBuilder();
                 in = new BufferedReader(
                         new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
@@ -122,8 +128,14 @@ class ApiMethods {
 
             int status = con.getResponseCode();
             if (status > 299) {
+                StringBuilder content = new StringBuilder();
                 in = new BufferedReader(
                         new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
             } else {
                 in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));

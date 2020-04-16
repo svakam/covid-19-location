@@ -40,6 +40,12 @@
                 <p th:text="'Dates: ' + ${dates}"></p>
                 <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
                 <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+                <br>
+                <p th:text="'Iso2: ' + ${iso2}"></p>
+                <p th:text="'Iso3: ' + ${iso3}"></p>
+                <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+                <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+                <p th:text="'Population: ' + ${population}"></p>
             </th:block>
 
             <h2>County/State in the news</h2>

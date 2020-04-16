@@ -2,9 +2,10 @@ package com.vik.covid19vik;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
-class Dropdowns {
+class UIFMethods {
     static class UIFPopData {
         private int UID;
         private String iso2;
@@ -59,7 +60,7 @@ class Dropdowns {
         }
     }
 
-    protected static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req) {
+    protected static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req, String searchedCountry) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
         if (countries != null) {
@@ -67,18 +68,21 @@ class Dropdowns {
             System.out.println("API successfully pulled UIFLookup Info");
             CountryUIFLookup lastCountry = countries[countries.length - 1];
             for (CountryUIFLookup country : countries) {
-                if (!countryDropdown.contains(country.getCountryOrRegion())) {
+                if (!countryDropdown.contains(country.getCountryOrRegion())) { // consider refactoring to use hashset to check if country name is contained in there
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());
 
-                    // add u/i/f and population data to object
-                    uifPopData.setUID(country.getUid());
-                    uifPopData.setIso2(country.getIso2());
-                    uifPopData.setIso3(country.getIso3());
-                    uifPopData.setCode3(country.getCode3());
-                    uifPopData.setFips(country.getFips());
-                    uifPopData.setPopulation(country.getPopulation());
+                    if (country.getCountryOrRegion().equals(searchedCountry)) {
+                        // add u/i/f and population data to object
+                        uifPopData.setUID(country.getUid());
+                        uifPopData.setIso2(country.getIso2());
+                        uifPopData.setIso3(country.getIso3());
+                        uifPopData.setCode3(country.getCode3());
+                        uifPopData.setFips(country.getFips());
+                        uifPopData.setPopulation(country.getPopulation());
+                    }
                 }
+
                 // since 80% of ApiMethods.getUIFLoop(req) is US data, stop as soon as country dropdown contains US with the assumption that the rest of data is US
                 if (countryDropdown.contains("US") && lastCountry.getCountryOrRegion().equals("US")) {
                     break;
@@ -92,11 +96,12 @@ class Dropdowns {
     }
 
     protected static LinkedList<String> createCountryDropdown(HttpServletRequest req) {
-        LinkedList<String> countryDropdown = new LinkedList<>();
         CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
         if (countries != null) {
-            UIFPopData uifPopData = new UIFPopData();
+            LinkedList<String> countryDropdown = new LinkedList<>();
             System.out.println("API successfully pulled UIFLookup Info");
+
+            // ------------- create dropdown ----------------//
             CountryUIFLookup lastCountry = countries[countries.length - 1];
             for (CountryUIFLookup country : countries) {
                 if (!countryDropdown.contains(country.getCountryOrRegion())) {
@@ -108,7 +113,6 @@ class Dropdowns {
                     break;
                 }
             }
-            uifPopData.setDropdown(countryDropdown);
             return countryDropdown;
         } else {
             throw new NullPointerException("Unable to make API call to get UIF info.");

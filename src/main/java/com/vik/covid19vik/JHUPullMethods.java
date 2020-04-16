@@ -73,7 +73,7 @@ class JHUPullMethods {
             System.out.println(StatusMessageHeader.getInfo(con));
 
             BufferedReader in;
-            StringBuilder content = null;
+            StringBuilder content;
 
             int status = con.getResponseCode();
             if (status > 299) {
