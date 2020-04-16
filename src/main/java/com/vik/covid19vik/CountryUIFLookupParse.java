@@ -93,7 +93,7 @@ class CountryUIFLookupParse {
 
             // set FIPS
             if (data.charAt(cursor) == ',') {
-                country.setFips("");
+                country.setFips(-1);
 //                System.out.println("fips = empty");
             } else {
                 StringBuilder fips = new StringBuilder();
@@ -101,7 +101,7 @@ class CountryUIFLookupParse {
                     fips.append(data.charAt(cursor));
                     cursor++;
                 }
-                country.setFips(fips.toString());
+                country.setFips(Integer.parseInt(fips.toString()));
 //                System.out.println("fips = " + fips.toString());
             }
             cursor++;

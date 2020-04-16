@@ -27,7 +27,8 @@ class MainController {
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
 
         model.addAttribute("countryNames", countryDropdown);
         return "index";
@@ -102,7 +103,8 @@ class MainController {
         }
 
         // country dropdown
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
 
         // add to template
         if (dates != null) {
@@ -117,7 +119,8 @@ class MainController {
     @GetMapping("/results/country/province")
     String resultsForProvince(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
 
         model.addAttribute("countryNames", countryDropdown);
         return "provinceResults";
@@ -127,7 +130,9 @@ class MainController {
     @GetMapping("/error/404/{searchedCountry}")
     String error404(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+
         model.addAttribute("countryNames", countryDropdown);
 
         return "error404";
@@ -137,7 +142,9 @@ class MainController {
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
 
-        LinkedList<String> countryDropdown = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        Dropdowns.UIFPopData uifPopData = Dropdowns.createCountryDropdownAndUIFPopData(req);
+        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+
         model.addAttribute("countryNames", countryDropdown);
 
         return "error";

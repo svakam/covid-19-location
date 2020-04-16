@@ -43,15 +43,14 @@ the endpoint for /countries/{countryslug}/status/{status} to get the state/provi
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
 
-## Languages Used
-- Java
-- HTML/CSS
-
-## Tools, Libraries, Frameworks, IDEs, APIs used
-- IDE: IntelliJ IDEA
-- Spring: SpringMVC, Boot, Thymeleaf
-- AWS: Route 53, Elastic Beanstalk
-- APIs: Covid19API, Postman
+## Languages and Technologies Used
+- Languages
+  - Java, HTML/CSS
+- Technologies
+  - IDE: IntelliJ IDEA
+  - Spring: SpringMVC, Boot, Thymeleaf
+  - AWS: Route 53, Elastic Beanstalk
+  - APIs: CV19Location API, Postman
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data consulted:

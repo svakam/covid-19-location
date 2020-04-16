@@ -5,7 +5,7 @@ public class CountryUIFLookup {
     private String iso2;
     private String iso3;
     private int code3;
-    private String fips;
+    private int fips;
     private String county;
     private String provinceOrState;
     private String countryOrRegion;
@@ -31,7 +31,7 @@ public class CountryUIFLookup {
     protected int getCode3() {
         return code3;
     }
-    protected String getFips() {
+    protected int getFips() {
         return fips;
     }
     protected String getCounty() {
@@ -69,7 +69,7 @@ public class CountryUIFLookup {
     protected void setCode3(int code3) {
         this.code3 = code3;
     }
-    protected void setFips(String fips) {
+    protected void setFips(int fips) {
         this.fips = fips;
     }
     protected void setCounty(String county) {
