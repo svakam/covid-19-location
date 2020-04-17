@@ -119,4 +119,56 @@ class UIFMethods {
             throw new NullPointerException("Unable to make API call to get UIF info.");
         }
     }
+
+    protected static UIFPopData createCountryDropdownAndUIFPopDataProvince(HttpServletRequest req, String searchedProvince) {
+        LinkedList<String> countryDropdown = new LinkedList<>();
+        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
+        if (countries != null) {
+            UIFPopData uifPopData = new UIFPopData();
+            System.out.println("API successfully pulled UIFLookup Info");
+            CountryUIFLookup lastCountry = countries[countries.length - 1];
+            int i = 0;
+            for (i = 0; i < countries.length; i++) {
+                CountryUIFLookup country = countries[i];
+                if (!countryDropdown.contains(country.getCountryOrRegion())) { // consider refactoring to use hashset to check if country name is contained in there
+                    // country dropdown of names
+                    countryDropdown.add(country.getCountryOrRegion());
+                }
+                if (country.getProvinceOrState().equals(searchedProvince)) {
+                    // add u/i/f and population data to object
+                    uifPopData.setUID(country.getUid());
+                    uifPopData.setIso2(country.getIso2());
+                    uifPopData.setIso3(country.getIso3());
+                    uifPopData.setCode3(country.getCode3());
+                    uifPopData.setFips(country.getFips());
+                    uifPopData.setPopulation(country.getPopulation());
+                }
+                // since 80% of ApiMethods.getUIFLoop(req) is US data, stop as soon as country dropdown contains US with the assumption that the rest of data is US
+                if (countryDropdown.contains("US") && lastCountry.getCountryOrRegion().equals("US")) {
+                    break;
+                }
+            }
+            if (uifPopData.getCode3() == -1) {
+                int j = i;
+                CountryUIFLookup country = countries[j];
+                for (j = i; j < countries.length; j++) {
+                    if (country.getProvinceOrState().equals(searchedProvince)) {
+                        // add u/i/f and population data to object
+                        uifPopData.setUID(country.getUid());
+                        uifPopData.setIso2(country.getIso2());
+                        uifPopData.setIso3(country.getIso3());
+                        uifPopData.setCode3(country.getCode3());
+                        uifPopData.setFips(country.getFips());
+                        uifPopData.setPopulation(country.getPopulation());
+                        break;
+                    }
+                }
+            }
+            uifPopData.setDropdown(countryDropdown);
+            return uifPopData;
+        } else {
+            System.out.println("Unable to make API call to get UIF info.");
+            return null;
+        }
+    }
 }

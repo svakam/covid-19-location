@@ -105,22 +105,27 @@ class MainController {
             caseInfoForCountry[5] = caseInfo[1];
         }
 
-        // ------------ country dropdown -------------- //
-        // uif/population data based on searched country //
+        // ------------ country dropdown and uif pop data -------------- //
+        // ------- uif/population data based on searched country ------- //
         UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, searchedCountry);
         LinkedList<String> countryDropdown;
+        int uid = -1;
+        String iso2 = null;
+        String iso3 = null;
+        int code3 = -1;
+        int fips = -1;
+        int population = -1;
         if (uifPopData == null) {
             countryDropdown = UIFMethods.createCountryDropdown(req);
         } else {
             countryDropdown = uifPopData.getDropdown();
+            uid = uifPopData.getUID();
+            iso2 = uifPopData.getIso2();
+            iso3 = uifPopData.getIso3();
+            code3 = uifPopData.getCode3();
+            fips = uifPopData.getFips();
+            population = uifPopData.getPopulation();
         }
-
-        int uid = uifPopData.getUID();
-        String iso2 = uifPopData.getIso2();
-        String iso3 = uifPopData.getIso3();
-        int code3 = uifPopData.getCode3();
-        int fips = uifPopData.getFips();
-        int population = uifPopData.getPopulation();
 
         // -- get province dropdown based on searched country -- //
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, req);
@@ -171,7 +176,9 @@ class MainController {
         System.out.println("getmapping searched province = " + searchedProvince);
         System.out.println("getmapping searched country = " + countryOfProvince);
 
-        LinkedList<String> dates = null;
+        LinkedList<String> confDates = null;
+        LinkedList<String> deathsDates = null;
+        LinkedList<String> recovDates = null;
 
         // ------- get time series data ---------- //
         CountriesGlobal.ProvinceData provinceData = new CountriesGlobal.ProvinceData();
@@ -179,7 +186,7 @@ class MainController {
             confData = ApiMethods.getTimeSeriesConf(req);
         }
         if (confData != null) {
-            dates = confData.getDates();
+            confDates = confData.getDates();
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confData);
             if (caseInfo != null) {
                 provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
@@ -190,6 +197,7 @@ class MainController {
             deathsData = ApiMethods.getTimeSeriesDeaths(req);
         }
         if (deathsData != null) {
+            deathsDates = deathsData.getDates();
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsData);
             if (caseInfo != null) {
                 provinceData.setNewDeathsProvCases(caseInfo.getNewProvCases());
@@ -200,6 +208,7 @@ class MainController {
             recovData = ApiMethods.getTimeSeriesRecov(req);
         }
         if (recovData != null) {
+            recovDates = recovData.getDates();
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovData);
             if (caseInfo != null) {
                 provinceData.setNewRecovProvCases(caseInfo.getNewProvCases());
@@ -208,13 +217,52 @@ class MainController {
         }
 
         // dropdowns
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
+        UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopDataProvince(req, searchedProvince);
+        LinkedList<String> countryDropdown;
+        int uid = -1;
+        String iso2 = null;
+        String iso3 = null;
+        int code3 = -1;
+        int fips = -1;
+        int population = -1;
+        if (uifPopData == null) {
+            countryDropdown = UIFMethods.createCountryDropdown(req);
+        } else {
+            countryDropdown = uifPopData.getDropdown();
+            uid = uifPopData.getUID();
+            iso2 = uifPopData.getIso2();
+            iso3 = uifPopData.getIso3();
+            code3 = uifPopData.getCode3();
+            fips = uifPopData.getFips();
+            population = uifPopData.getPopulation();
+        }
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, req);
 
-        model.addAttribute("dates", dates);
+        // add to template
+        if (confDates != null) {
+            model.addAttribute("confDates", confDates);
+        }
+        if (deathsDates != null) {
+            model.addAttribute("deathsDates", deathsDates);
+        }
+        if (recovDates != null) {
+            model.addAttribute("recovDates", recovDates);
+        }
         model.addAttribute("countryNames", countryDropdown);
-        model.addAttribute("provinceNames", provinceDropdown);
         model.addAttribute("caseInfoForProvince", provinceData);
+        model.addAttribute("uid", uid);
+        model.addAttribute("iso2", iso2);
+        model.addAttribute("iso3", iso3);
+        if (provinceDropdown != null) {
+            model.addAttribute("provinceNames", provinceDropdown);
+        }
+        if (code3 != -1) {
+            model.addAttribute("code3", code3);
+        }
+        if (fips != -1) {
+            model.addAttribute("fips", fips);
+        }
+        model.addAttribute("population", population);
         return "provinceResults";
     }
 
@@ -248,17 +296,6 @@ class MainController {
 
         model.addAttribute("countryNames", countryDropdown);
         return "staySafe";
-    }
-
-    // error for slug
-    @GetMapping("/error/404/{searchedCountry}")
-    String error404(Model model, HttpServletRequest req) {
-
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(req);
-
-        model.addAttribute("countryNames", countryDropdown);
-
-        return "error404";
     }
 
     // fallback

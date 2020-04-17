@@ -228,7 +228,7 @@ public class CountriesGlobal {
 
     protected static NewAndConf retrieveProvinceTSInfoAPICall(String searchedProvince, CountriesGlobal data) {
         NewAndConf caseInfoForCountry = new NewAndConf();
-        LinkedList<CountriesGlobal.Country> countries = data.getCountries();
+        LinkedList<Country> countries = data.getCountries();
         int i = 0;
         while (!countries.get(i).getProvinceOrState().equals(searchedProvince)) {
             i++;
