@@ -232,9 +232,17 @@ public class CountriesGlobal {
         int i = 0;
         while (!countries.get(i).getProvinceOrState().equals(searchedProvince)) {
             i++;
+            if (i == countries.size()) {
+                break;
+            }
         }
-        caseInfoForCountry.setNewProvCases(countries.get(i).newCases);
-        caseInfoForCountry.setTotalProvCases(countries.get(i).totalCases);
-        return caseInfoForCountry;
+        if (i == countries.size()) {
+            System.out.println("Unable to pull province data for status: " + data.status);
+            return null;
+        } else {
+            caseInfoForCountry.setNewProvCases(countries.get(i).newCases);
+            caseInfoForCountry.setTotalProvCases(countries.get(i).totalCases);
+            return caseInfoForCountry;
+        }
     }
 }

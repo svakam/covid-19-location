@@ -165,24 +165,30 @@ class MainController {
         if (confData != null) {
             dates = confData.getDates();
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confData);
-            provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
-            provinceData.setTotalConfProvCases(caseInfo.getTotalProvCases());
+            if (caseInfo != null) {
+                provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
+                provinceData.setTotalConfProvCases(caseInfo.getTotalProvCases());
+            }
         }
         if (deathsData == null) {
             deathsData = ApiMethods.getTimeSeriesDeaths(req);
         }
         if (deathsData != null) {
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsData);
-            provinceData.setNewDeathsProvCases(caseInfo.getNewProvCases());
-            provinceData.setTotalDeathsProvCases(caseInfo.getTotalProvCases());
+            if (caseInfo != null) {
+                provinceData.setNewDeathsProvCases(caseInfo.getNewProvCases());
+                provinceData.setTotalDeathsProvCases(caseInfo.getTotalProvCases());
+            }
         }
         if (recovData == null) {
             recovData = ApiMethods.getTimeSeriesRecov(req);
         }
         if (recovData != null) {
             CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovData);
-            provinceData.setNewRecovProvCases(caseInfo.getNewProvCases());
-            provinceData.setTotalRecovProvCases(caseInfo.getTotalProvCases());
+            if (caseInfo != null) {
+                provinceData.setNewRecovProvCases(caseInfo.getNewProvCases());
+                provinceData.setTotalRecovProvCases(caseInfo.getTotalProvCases());
+            }
         }
 
         // dropdowns
