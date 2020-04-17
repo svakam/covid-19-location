@@ -27,16 +27,18 @@ class ApiController {
     }
 
 //    // ------------------- US series data ------------------ //
-//    @GetMapping("API/series/US/confirmed")
-//    void USConfirmed() {
-//
-//    }
-//
-//    @GetMapping("API/series/US/confirmed")
-//    void USDeaths() {
-//
-//    }
-//
+    @GetMapping("API/series/US/confirmed")
+    void USConfirmed() {
+        String USConfData = JHUPullMethods.getTimeSeriesUSConf();
+
+    }
+
+    @GetMapping("API/series/US/deaths")
+    void USDeaths() {
+        String USDeathsData = JHUPullMethods.getTimeSeriesUSDeaths();
+
+    }
+
 //    // ---------------- daily report data ------------------ //
 //    @PostMapping("API/daily")
 //    void userDateReport(String date) {
