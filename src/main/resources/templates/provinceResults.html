@@ -26,31 +26,38 @@
             <h4>Total</h4>
 
             <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New confirmed: ' + ${caseInfoForProvince.newConfProvCases}"></p>
-            <p th:text="'Total confirmed: ' + ${caseInfoForProvince.totalConfProvCases}"></p>
+            <p th:text="'Dates: ' + ${confDates}"></p>
+            <p th:if="${caseInfoForProvince.newConfProvCases} " th:text="'New confirmed: ' + ${caseInfoForProvince.newConfProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but confirmed new cases data is unavailable for this province.</p>
+            <p th:if="${caseInfoForProvince.totalConfProvCases}" th:text="'Total confirmed: ' + ${caseInfoForProvince.totalConfProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but confirmed total cases data is unavailable for this province.</p>
 
             <h3>Deaths</h3>
             <h4>Total</h4>
 
             <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New deaths: ' + ${caseInfoForProvince.newDeathsProvCases}"></p>
-            <p th:text="'Total deaths: ' + ${caseInfoForProvince.totalDeathsProvCases}"></p>
+            <p th:text="'Dates: ' + ${deathsDates}"></p>
+            <p th:if="${caseInfoForProvince.newDeathsProvCases}" th:text="'New deaths: ' + ${caseInfoForProvince.newDeathsProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but data on new deaths is unavailable for this province.</p>
+            <p th:if="${caseInfoForProvince.totalDeathsProvCases}" th:text="'Total deaths: ' + ${caseInfoForProvince.totalDeathsProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but data on total deaths is unavailable for this province.</p>
 
             <h3>Recovered</h3>
             <h4>Total</h4>
 
             <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${dates}"></p>
-            <p th:text="'New recoveries: ' + ${caseInfoForProvince.newRecovProvCases}"></p>
-            <p th:text="'Total recoveries: ' + ${caseInfoForProvince.totalRecovProvCases}"></p>
+            <p th:text="'Dates: ' + ${recovDates}"></p>
+            <p th:if="${caseInfoForProvince.newRecovProvCases}" th:text="'New recoveries: ' + ${caseInfoForProvince.newRecovProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but recovery new cases data is unavailable for this province.</p>
+            <p th:if="${caseInfoForProvince.totalRecovProvCases}" th:text="'Total recoveries: ' + ${caseInfoForProvince.totalRecovProvCases}"></p>
+            <p th:unless="${caseInfoForProvince.totalRecovProvCases}">Sorry, but recovery total cases data is unavailable for this province.</p>
 
             <br>
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
             </th:block>
 
+            <p th:text="'UID: ' + ${uid}"></p>
             <p th:text="'Iso2: ' + ${iso2}"></p>
             <p th:text="'Iso3: ' + ${iso3}"></p>
             <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
