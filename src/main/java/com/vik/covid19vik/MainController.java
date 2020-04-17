@@ -68,10 +68,12 @@ class MainController {
             confData = ApiMethods.getTimeSeriesConf(req);
         }
         // initialize dates
-        LinkedList<String> dates = null;
+        LinkedList<String> confDates = null;
+        LinkedList<String> deathsDates = null;
+        LinkedList<String> recovDates = null;
         if (confData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            dates = confData.getDates();
+            confDates = confData.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confData);
             caseInfoForCountry[0] = caseInfo[0];
             caseInfoForCountry[1] = caseInfo[1];
@@ -84,6 +86,7 @@ class MainController {
         }
         if (deathsData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
+            deathsDates = deathsData.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsData);
             caseInfoForCountry[2] = caseInfo[0];
             caseInfoForCountry[3] = caseInfo[1];
@@ -96,6 +99,7 @@ class MainController {
         }
         if (recovData != null) {
             HashSet<String> countriesSeen = new HashSet<>();
+            recovDates = recovData.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovData);
             caseInfoForCountry[4] = caseInfo[0];
             caseInfoForCountry[5] = caseInfo[1];
@@ -122,8 +126,14 @@ class MainController {
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, req);
 
         // add to template
-        if (dates != null) {
-            model.addAttribute("dates", dates);
+        if (confDates != null) {
+            model.addAttribute("confDates", confDates);
+        }
+        if (deathsDates != null) {
+            model.addAttribute("deathsDates", deathsDates);
+        }
+        if (recovDates != null) {
+            model.addAttribute("recovDates", recovDates);
         }
         model.addAttribute("caseInfoForCountry", caseInfoForCountry);
         model.addAttribute("searchedCountry", searchedCountry);
