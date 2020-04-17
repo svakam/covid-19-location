@@ -91,7 +91,8 @@ class UIFMethods {
             uifPopData.setDropdown(countryDropdown);
             return uifPopData;
         } else {
-            throw new NullPointerException("Unable to make API call to get UIF info.");
+            System.out.println("Unable to make API call to get UIF info.");
+            return null;
         }
     }
 

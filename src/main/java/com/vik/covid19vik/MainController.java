@@ -104,7 +104,13 @@ class MainController {
         // ------------ country dropdown -------------- //
         // uif/population data based on searched country //
         UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, searchedCountry);
-        LinkedList<String> countryDropdown = uifPopData.getDropdown();
+        LinkedList<String> countryDropdown;
+        if (uifPopData == null) {
+            countryDropdown = UIFMethods.createCountryDropdown(req);
+        } else {
+            countryDropdown = uifPopData.getDropdown();
+        }
+
         int uid = uifPopData.getUID();
         String iso2 = uifPopData.getIso2();
         String iso3 = uifPopData.getIso3();
