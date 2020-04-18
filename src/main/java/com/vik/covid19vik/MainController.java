@@ -1,13 +1,11 @@
 package com.vik.covid19vik;
 
-import com.sun.tools.javac.util.DefinedBy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import sun.awt.image.ImageWatched;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -21,9 +19,9 @@ class MainController {
 
     // consider adding to database:
     // country global data
-    CountriesGlobal confData;
-    CountriesGlobal deathsData;
-    CountriesGlobal recovData;
+    CountriesGlobal confDataGlobal;
+    CountriesGlobal deathsDataGlobal;
+    CountriesGlobal recovDataGlobal;
 
     // uiflookup data
 
@@ -64,43 +62,43 @@ class MainController {
         // ]
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
         // get confirmed cases for searched country
-        if (confData == null) {
-            confData = ApiMethods.getTimeSeriesConf(req);
+        if (confDataGlobal == null) {
+            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
         }
         // initialize dates
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
         LinkedList<String> recovDates = null;
-        if (confData != null) {
+        if (confDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            confDates = confData.getDates();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confData);
+            confDates = confDataGlobal.getDates();
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
             caseInfoForCountry[0] = caseInfo[0];
             caseInfoForCountry[1] = caseInfo[1];
         } else {
             System.out.println("Could not get confirmed series data");
         }
         // get deaths cases for searched country
-        if (deathsData == null) {
-            deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        if (deathsDataGlobal == null) {
+            deathsDataGlobal = ApiMethods.getTimeSeriesDeaths(req);
         }
-        if (deathsData != null) {
+        if (deathsDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            deathsDates = deathsData.getDates();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsData);
+            deathsDates = deathsDataGlobal.getDates();
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsDataGlobal);
             caseInfoForCountry[2] = caseInfo[0];
             caseInfoForCountry[3] = caseInfo[1];
         } else {
             System.out.println("Could not get confirmed series data");
         }
         // get recovered cases for searched country
-        if (recovData == null) {
-            recovData = ApiMethods.getTimeSeriesRecov(req);
+        if (recovDataGlobal == null) {
+            recovDataGlobal = ApiMethods.getTimeSeriesRecov(req);
         }
-        if (recovData != null) {
+        if (recovDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
-            recovDates = recovData.getDates();
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovData);
+            recovDates = recovDataGlobal.getDates();
+            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovDataGlobal);
             caseInfoForCountry[4] = caseInfo[0];
             caseInfoForCountry[5] = caseInfo[1];
         }
@@ -182,34 +180,34 @@ class MainController {
 
         // ------- get time series data ---------- //
         CountriesGlobal.ProvinceData provinceData = new CountriesGlobal.ProvinceData();
-        if (confData == null) {
-            confData = ApiMethods.getTimeSeriesConf(req);
+        if (confDataGlobal == null) {
+            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
         }
-        if (confData != null) {
-            confDates = confData.getDates();
-            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confData);
+        if (confDataGlobal != null) {
+            confDates = confDataGlobal.getDates();
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confDataGlobal);
             if (caseInfo != null) {
                 provinceData.setNewConfProvCases(caseInfo.getNewProvCases());
                 provinceData.setTotalConfProvCases(caseInfo.getTotalProvCases());
             }
         }
-        if (deathsData == null) {
-            deathsData = ApiMethods.getTimeSeriesDeaths(req);
+        if (deathsDataGlobal == null) {
+            deathsDataGlobal = ApiMethods.getTimeSeriesDeaths(req);
         }
-        if (deathsData != null) {
-            deathsDates = deathsData.getDates();
-            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsData);
+        if (deathsDataGlobal != null) {
+            deathsDates = deathsDataGlobal.getDates();
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsDataGlobal);
             if (caseInfo != null) {
                 provinceData.setNewDeathsProvCases(caseInfo.getNewProvCases());
                 provinceData.setTotalDeathsProvCases(caseInfo.getTotalProvCases());
             }
         }
-        if (recovData == null) {
-            recovData = ApiMethods.getTimeSeriesRecov(req);
+        if (recovDataGlobal == null) {
+            recovDataGlobal = ApiMethods.getTimeSeriesRecov(req);
         }
-        if (recovData != null) {
-            recovDates = recovData.getDates();
-            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovData);
+        if (recovDataGlobal != null) {
+            recovDates = recovDataGlobal.getDates();
+            CountriesGlobal.NewAndConf caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovDataGlobal);
             if (caseInfo != null) {
                 provinceData.setNewRecovProvCases(caseInfo.getNewProvCases());
                 provinceData.setTotalRecovProvCases(caseInfo.getTotalProvCases());

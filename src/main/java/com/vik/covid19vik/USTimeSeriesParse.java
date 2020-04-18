@@ -332,7 +332,7 @@ public class USTimeSeriesParse {
             LinkedList<Integer> timeSeriesNewCases = addNewCaseList(timeSeriesTotalCases);
             newCounty.setNewCases(timeSeriesNewCases);
 
-            // if state already exists, add new county as a new county to that state object
+            // if state already exists, add county as a new county to that state object's hashmap
             if (statesWithCountyData.containsKey(newState.getProvinceOrState())) {
                 USTimeSeries.State existingState = statesWithCountyData.get(newState.getProvinceOrState());
                 HashMap<String, USTimeSeries.County> existingCountyAndCases = existingState.getCountyAndCases();
