@@ -176,17 +176,41 @@ class USTimeSeries {
         }
     }
 
-    CountyCaseAndUIF retrieveProvinceInfoTSApiCall(String searchedProvince, USTimeSeries data) {
-        HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
-        State state = statesWithCountyData.get(searchedProvince);
-        HashMap<String, State.County> allCounties = state.getCountyAndCases();
+    static LinkedList<Integer>[] retrieveProvinceTSInfoAPICall(String searchedProvince, USTimeSeries data) {
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] newTotalCasesAcrossCounties = new LinkedList[2];
         LinkedList<Integer> sumTotalCasesAcrossCounty = new LinkedList<>();
         LinkedList<Integer> sumNewCasesAcrossCounty = new LinkedList<>();
 
         // get each county's new and total cases
+        HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
+        State state = statesWithCountyData.get(searchedProvince);
+        HashMap<String, State.County> allCounties = state.getCountyAndCases();
         for (Map.Entry<String, State.County> aCounty : allCounties.entrySet()) {
             State.County county = aCounty.getValue();
-            county.g
+            LinkedList<Integer> newCases = county.getNewCases();
+            LinkedList<Integer> totalCases = county.getTotalCases();
+
+            // iterate new cases
+            if (sumNewCasesAcrossCounty.size() == 0) {
+                sumNewCasesAcrossCounty.addAll(newCases);
+            } else {
+                for (int caseIndex = 0; caseIndex < sumNewCasesAcrossCounty.size(); caseIndex++) {
+                    sumNewCasesAcrossCounty.set(caseIndex, sumNewCasesAcrossCounty.get(caseIndex) + newCases.get(caseIndex));
+                }
+            }
+
+            // iterate total cases
+            if (sumTotalCasesAcrossCounty.size() == 0) {
+                sumTotalCasesAcrossCounty.addAll(totalCases);
+            } else {
+                for (int caseIndex = 0; caseIndex < sumTotalCasesAcrossCounty.size(); caseIndex++) {
+                    sumTotalCasesAcrossCounty.set(caseIndex, sumTotalCasesAcrossCounty.get(caseIndex) + totalCases.get(caseIndex));
+                }
+            }
         }
+
+        newTotalCasesAcrossCounties[0] = sumNewCasesAcrossCounty;
+        newTotalCasesAcrossCounties[1] = sumTotalCasesAcrossCounty;
+        return newTotalCasesAcrossCounties;
     }
 }

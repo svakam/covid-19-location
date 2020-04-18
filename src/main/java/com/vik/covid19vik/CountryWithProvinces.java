@@ -22,9 +22,8 @@ class CountryWithProvinces {
         this.allProvinces = allProvinces;
     }
 
-    static LinkedList<CountryWithProvinces> createCountriesWithProvinces(HttpServletRequest req) {
+    static LinkedList<CountryWithProvinces> createCountriesWithProvinces(CountryUIFLookup[] countries) {
         HashSet<String> countriesSeen = new HashSet<>();
-        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
         if (countries != null) {
 
             // get index of start of US data
@@ -84,8 +83,8 @@ class CountryWithProvinces {
         }
     }
 
-    static LinkedList<String> getProvincesForCountry(String searchedCountry, HttpServletRequest req) {
-        LinkedList<CountryWithProvinces> countriesWithProvinces = createCountriesWithProvinces(req);
+    static LinkedList<String> getProvincesForCountry(String searchedCountry, CountryUIFLookup[] countries) {
+        LinkedList<CountryWithProvinces> countriesWithProvinces = createCountriesWithProvinces(countries);
         for (CountryWithProvinces country : countriesWithProvinces) {
             if (country.getCountry().equals(searchedCountry)) {
                 return country.getAllProvinces();

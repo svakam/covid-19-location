@@ -140,7 +140,7 @@ class MainController {
         }
 
         // -- get province dropdown based on searched country -- //
-        LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, req);
+        LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
         // add to template
         if (confDates != null) {
@@ -194,6 +194,7 @@ class MainController {
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
         LinkedList<String> recovDates = null;
+        LinkedList<String> provinceDropdown;
         @SuppressWarnings("unchecked") LinkedList<Integer>[] provinceData;
         int uid = -1;
         String iso2 = null;
@@ -207,6 +208,7 @@ class MainController {
         LinkedList<String> countryDropdown;
 
         // ---------- get province data and store in province data object ----------- //
+        // non-US data
         if (!countryOfProvince.equals("US")) {
             // ------- get time series data ---------- //
             provinceData = new LinkedList[6];
@@ -240,23 +242,9 @@ class MainController {
                     provinceData[5] = caseInfo[1];
                 }
             }
-
-            // dropdown
-            uifPopData = UIFMethods.createCountryDropdownAndUIFPopDataProvince(req, searchedProvince, countries);
-            countryDropdown = uifPopData.getDropdown();
-
-            if (uifPopData == null) {
-                countryDropdown = UIFMethods.createCountryDropdown(req, countries);
-            } else {
-                countryDropdown = uifPopData.getDropdown();
-                uid = uifPopData.getUID();
-                iso2 = uifPopData.getIso2();
-                iso3 = uifPopData.getIso3();
-                code3 = uifPopData.getCode3();
-                fips = uifPopData.getFips();
-                population = uifPopData.getPopulation();
-            }
-        } else {
+        }
+        // US data
+        else {
             // add all county data up for searched state for each confirmed and deaths data and add to list of state data
             // use searched state to retrieve data from API call results
             provinceData = new LinkedList[4];
@@ -286,11 +274,22 @@ class MainController {
         if (countries == null) {
             countries = ApiMethods.getUIFLookup(req);
         }
+        uifPopData = UIFMethods.createCountryDropdownAndUIFPopDataProvince(searchedProvince, countries);
+        if (uifPopData != null) {
+            countryDropdown = uifPopData.getDropdown();
+            uid = uifPopData.getUID();
+            iso2 = uifPopData.getIso2();
+            iso3 = uifPopData.getIso3();
+            code3 = uifPopData.getCode3();
+            fips = uifPopData.getFips();
+            population = uifPopData.getPopulation();
+        }
+        else {
+            countryDropdown = UIFMethods.createCountryDropdown(req, countries);
+        }
+        // province dropdown
+        provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, countries);
 
-
-
-
-        LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, req);
 
         // add to template
         if (confDates != null) {

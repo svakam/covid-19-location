@@ -163,7 +163,7 @@ public class CountriesGlobal {
                     while (j < restOfCountries) {
 //                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
                         if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && countries.get(j).getProvinceOrState().equals("")) {
-                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+//                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
                             caseInfoForCountry[0] = newConfCases;
                             LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();

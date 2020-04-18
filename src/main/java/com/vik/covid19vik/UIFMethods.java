@@ -118,7 +118,7 @@ class UIFMethods {
         }
     }
 
-    static UIFPopData createCountryDropdownAndUIFPopDataProvince(HttpServletRequest req, String searchedProvince, CountryUIFLookup[] countries) {
+    static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, CountryUIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         if (countries != null) {
             UIFPopData uifPopData = new UIFPopData();
