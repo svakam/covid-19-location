@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class USTimeSeriesParse {
-    protected static String parseDataToJSON(String status, String data) {
+    static String parseDataToJSON(String status, String data) {
 
         USTimeSeries USData = new USTimeSeries();
         HashMap<String, USTimeSeries.State> statesWithCountyData = new HashMap<>();
@@ -85,10 +85,10 @@ public class USTimeSeriesParse {
             USTimeSeries.State newState = new USTimeSeries.State();
 
             // each state will contain state name, country name and hashmap<county name, county object>
-            HashMap<String, USTimeSeries.County> countyAndCases = new HashMap<>();
+            HashMap<String, USTimeSeries.State.County> countyAndCases = new HashMap<>();
 
             // county instance to be stored in hashmap as a value of key county name
-            USTimeSeries.County newCounty = new USTimeSeries.County();
+            USTimeSeries.State.County newCounty = new USTimeSeries.State.County();
 
             // set UID
             if (data.charAt(cursor) == ',') {
@@ -335,7 +335,7 @@ public class USTimeSeriesParse {
             // if state already exists, add county as a new county to that state object's hashmap
             if (statesWithCountyData.containsKey(newState.getProvinceOrState())) {
                 USTimeSeries.State existingState = statesWithCountyData.get(newState.getProvinceOrState());
-                HashMap<String, USTimeSeries.County> existingCountyAndCases = existingState.getCountyAndCases();
+                HashMap<String, USTimeSeries.State.County> existingCountyAndCases = existingState.getCountyAndCases();
                 existingCountyAndCases.put(newCounty.getCounty(), newCounty);
                 statesWithCountyData.put(newState.getProvinceOrState(), existingState);
             }

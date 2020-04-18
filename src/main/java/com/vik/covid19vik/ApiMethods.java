@@ -14,8 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ApiMethods {
-    // -------------- time series global data -------------- //
-    protected static CountriesGlobal getTimeSeriesConf(HttpServletRequest req) {
+    // ========================= time series global data ========================= //
+    static CountriesGlobal getTimeSeriesConf(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -30,7 +30,7 @@ class ApiMethods {
         }
         return null;
     }
-    protected static CountriesGlobal getTimeSeriesDeaths(HttpServletRequest req) {
+    static CountriesGlobal getTimeSeriesDeaths(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -45,7 +45,7 @@ class ApiMethods {
         }
         return null;
     }
-    protected static CountriesGlobal getTimeSeriesRecov(HttpServletRequest req) {
+    static CountriesGlobal getTimeSeriesRecov(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
@@ -98,15 +98,17 @@ class ApiMethods {
         return null;
     }
 
-    // -------- time series US data -------- //
-    protected static CountriesGlobal getTimeSeriesUSConf(HttpServletRequest req) {
+
+
+    // ========================= time series US data ========================= //
+    static USTimeSeries getTimeSeriesUSConf(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
             String baseURL = extractSecondDomainURL(requestURL);
             String fullURL = baseURL + "API/series/US/confirmed";
             url = new URL(fullURL);
-            return timeSeriesHttpCall(url);
+            return timeSeriesUSHttpCall(url);
         } catch (
                 MalformedURLException e) {
             System.out.println(e.getMessage());
@@ -114,14 +116,14 @@ class ApiMethods {
         }
         return null;
     }
-    protected static CountriesGlobal getTimeSeriesUSDeaths(HttpServletRequest req) {
+    static USTimeSeries getTimeSeriesUSDeaths(HttpServletRequest req) {
         try {
             URL url;
             String requestURL = req.getRequestURL().toString();
             String baseURL = extractSecondDomainURL(requestURL);
             String fullURL = baseURL + "API/series/US/deaths";
             url = new URL(fullURL);
-            return timeSeriesHttpCall(url);
+            return timeSeriesUSHttpCall(url);
         } catch (
                 MalformedURLException e) {
             System.out.println(e.getMessage());
@@ -167,8 +169,11 @@ class ApiMethods {
         return null;
     }
 
-    // -------------- UIF data ------------- //
-    protected static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
+
+
+
+    // ========================= UIF data ========================= //
+    static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
         String requestURL = req.getRequestURL().toString();
         String baseURL = extractSecondDomainURL(requestURL);
         try {
@@ -221,6 +226,8 @@ class ApiMethods {
         return null;
     }
 
+
+    // ========================= parse second domain from URL ========================= //
     private static String extractSecondDomainURL(String url) {
         String regex = "(http:\\/\\/(www.)?\\w+(:|.)(5000|com)\\/)";
         Pattern compiled = Pattern.compile(regex);

@@ -9,7 +9,7 @@ import java.net.URL;
 
 class JHUPullMethods {
     // --------------------- get time series data -------------------- //
-    protected static String getTimeSeriesGlobalConf() {
+    static String getTimeSeriesGlobalConf() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv");
@@ -21,7 +21,7 @@ class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-    protected static String getTimeSeriesGlobalDeaths() {
+    static String getTimeSeriesGlobalDeaths() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv");
@@ -33,7 +33,7 @@ class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-    protected static String getTimeSeriesGlobalRecov() {
+    static String getTimeSeriesGlobalRecov() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv");
@@ -45,7 +45,7 @@ class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-    protected static String getTimeSeriesUSConf() {
+    static String getTimeSeriesUSConf() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv");
@@ -56,7 +56,7 @@ class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
-    protected static String getTimeSeriesUSDeaths() {
+    static String getTimeSeriesUSDeaths() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv");
@@ -69,7 +69,7 @@ class JHUPullMethods {
     }
 
     // -------- get UID/ISO/FIPS and country/province/county name info -------- //
-    protected static String getUIFLookup() {
+    static String getUIFLookup() {
         URL url = null;
         try {
             url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv");
@@ -83,7 +83,7 @@ class JHUPullMethods {
     }
 
     // http url connection
-    protected static String httpCall(URL url) {
+    static String httpCall(URL url) {
         String pull = null;
         try {
             assert url != null;

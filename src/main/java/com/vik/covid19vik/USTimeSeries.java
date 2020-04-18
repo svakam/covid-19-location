@@ -2,144 +2,191 @@ package com.vik.covid19vik;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 class USTimeSeries {
     private String status;
     private LinkedList<String> dates;
     private HashMap<String, State> statesWithCountyData;
 
-    protected static class State {
+    USTimeSeries() {
+        // default empty-arg constructor
+    }
+
+    // getters and setters for USTimeSeries
+    String getStatus() {
+        return status;
+    }
+    void setStatus(String status) {
+        this.status = status;
+    }
+    LinkedList<String> getDates() {
+        return dates;
+    }
+    void setDates(LinkedList<String> dates) {
+        this.dates = dates;
+    }
+    HashMap<String, State> getStatesWithCountyData() {
+        return statesWithCountyData;
+    }
+    void setStatesWithCountyData(HashMap<String, State> statesWithCountyData) {
+        this.statesWithCountyData = statesWithCountyData;
+    }
+
+    static class State {
         private String provinceOrState;
         private String countryOrRegion;
         HashMap<String, County> countyAndCases; // first linked list is total cases, second is new cases
 
+        State() {
+            // default empty-arg constructor
+        }
+
         // getters and setters
-        protected String getProvinceOrState() {
+        String getProvinceOrState() {
             return provinceOrState;
         }
-        public void setProvinceOrState(String provinceOrState) {
+        void setProvinceOrState(String provinceOrState) {
             this.provinceOrState = provinceOrState;
         }
-        public String getCountryOrRegion() {
+        String getCountryOrRegion() {
             return countryOrRegion;
         }
-        public void setCountryOrRegion(String countryOrRegion) {
+        void setCountryOrRegion(String countryOrRegion) {
             this.countryOrRegion = countryOrRegion;
         }
-        public HashMap<String, County> getCountyAndCases() {
+        HashMap<String, County> getCountyAndCases() {
             return countyAndCases;
         }
-        public void setCountyAndCases(HashMap<String, County> countyAndCases) {
+        void setCountyAndCases(HashMap<String, County> countyAndCases) {
             this.countyAndCases = countyAndCases;
         }
+
+        static class County {
+            private String county;
+            private int population;
+            private String combinedKey;
+            private float lat;
+            private float lon;
+            private int uid;
+            private String iso2;
+            private String iso3;
+            private int code3;
+            private float fips;
+            private LinkedList<Integer> newCases;
+            private LinkedList<Integer> totalCases;
+
+            County() {
+                // default empty-arg constructor
+            }
+
+            String getCounty() {
+                return county;
+            }
+            void setCounty(String county) {
+                this.county = county;
+            }
+            int getPopulation() {
+                return population;
+            }
+            void setPopulation(int population) {
+                this.population = population;
+            }
+            String getCombinedKey() {
+                return combinedKey;
+            }
+            void setCombinedKey(String combinedKey) {
+                this.combinedKey = combinedKey;
+            }
+            float getLat() {
+                return lat;
+            }
+            void setLat(float lat) {
+                this.lat = lat;
+            }
+            float getLon() {
+                return lon;
+            }
+            void setLon(float lon) {
+                this.lon = lon;
+            }
+            protected int getUid() {
+                return uid;
+            }
+            protected void setUid(int uid) {
+                this.uid = uid;
+            }
+
+            String getIso2() {
+                return iso2;
+            }
+            void setIso2(String iso2) {
+                this.iso2 = iso2;
+            }
+            String getIso3() {
+                return iso3;
+            }
+            void setIso3(String iso3) {
+                this.iso3 = iso3;
+            }
+            int getCode3() {
+                return code3;
+            }
+            void setCode3(int code3) {
+                this.code3 = code3;
+            }
+            float getFips() {
+                return fips;
+            }
+            void setFips(float fips) {
+                this.fips = fips;
+            }
+            LinkedList<Integer> getNewCases() {
+                return newCases;
+            }
+            void setNewCases(LinkedList<Integer> newCases) {
+                this.newCases = newCases;
+            }
+            LinkedList<Integer> getTotalCases() {
+                return totalCases;
+            }
+            void setTotalCases(LinkedList<Integer> totalCases) {
+                this.totalCases = totalCases;
+            }
+        }
     }
 
-    protected static class County {
-        private String county;
-        private int population;
-        private String combinedKey;
-        private float lat;
-        private float lon;
-        private int uid;
-        private String iso2;
-        private String iso3;
-        private int code3;
-        private float fips;
-        private LinkedList<Integer> newCases;
-        private LinkedList<Integer> totalCases;
+    static class CountyCaseAndUIF extends CountryUIFLookup {
+        LinkedList<Integer> sumTotalCasesAcrossCounty;
+        LinkedList<Integer> sumNewCasesAcrossCounty;
 
-        public String getCounty() {
-            return county;
+        LinkedList<Integer> getSumTotalCasesAcrossCounty() {
+            return sumTotalCasesAcrossCounty;
         }
-        public void setCounty(String county) {
-            this.county = county;
-        }
-        public int getPopulation() {
-            return population;
-        }
-        public void setPopulation(int population) {
-            this.population = population;
-        }
-        public String getCombinedKey() {
-            return combinedKey;
-        }
-        public void setCombinedKey(String combinedKey) {
-            this.combinedKey = combinedKey;
-        }
-        public float getLat() {
-            return lat;
-        }
-        public void setLat(float lat) {
-            this.lat = lat;
-        }
-        public float getLon() {
-            return lon;
-        }
-        public void setLon(float lon) {
-            this.lon = lon;
-        }
-        protected int getUid() {
-            return uid;
-        }
-        protected void setUid(int uid) {
-            this.uid = uid;
+        void setSumTotalCasesAcrossCounty(LinkedList<Integer> sumTotalCasesAcrossCounty) {
+            this.sumTotalCasesAcrossCounty = sumTotalCasesAcrossCounty;
         }
 
-        public String getIso2() {
-            return iso2;
+        public LinkedList<Integer> getSumNewCasesAcrossCounty() {
+            return sumNewCasesAcrossCounty;
         }
-        public void setIso2(String iso2) {
-            this.iso2 = iso2;
-        }
-        public String getIso3() {
-            return iso3;
-        }
-        public void setIso3(String iso3) {
-            this.iso3 = iso3;
-        }
-        public int getCode3() {
-            return code3;
-        }
-        public void setCode3(int code3) {
-            this.code3 = code3;
-        }
-        public float getFips() {
-            return fips;
-        }
-        public void setFips(float fips) {
-            this.fips = fips;
-        }
-        public LinkedList<Integer> getNewCases() {
-            return newCases;
-        }
-        public void setNewCases(LinkedList<Integer> newCases) {
-            this.newCases = newCases;
-        }
-        public LinkedList<Integer> getTotalCases() {
-            return totalCases;
-        }
-        public void setTotalCases(LinkedList<Integer> totalCases) {
-            this.totalCases = totalCases;
+
+        public void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
+            this.sumNewCasesAcrossCounty = sumNewCasesAcrossCounty;
         }
     }
 
-    // getters and setters for USTimeSeries
-    public String getStatus() {
-        return status;
-    }
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    public LinkedList<String> getDates() {
-        return dates;
-    }
-    public void setDates(LinkedList<String> dates) {
-        this.dates = dates;
-    }
-    public HashMap<String, State> getStatesWithCountyData() {
-        return statesWithCountyData;
-    }
-    public void setStatesWithCountyData(HashMap<String, State> statesWithCountyData) {
-        this.statesWithCountyData = statesWithCountyData;
+    CountyCaseAndUIF retrieveProvinceInfoTSApiCall(String searchedProvince, USTimeSeries data) {
+        HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
+        State state = statesWithCountyData.get(searchedProvince);
+        HashMap<String, State.County> allCounties = state.getCountyAndCases();
+        LinkedList<Integer> sumTotalCasesAcrossCounty = new LinkedList<>();
+        LinkedList<Integer> sumNewCasesAcrossCounty = new LinkedList<>();
+
+        // get each county's new and total cases
+        for (Map.Entry<String, State.County> aCounty : allCounties.entrySet()) {
+            State.County county = aCounty.getValue();
+            county.g
+        }
     }
 }
