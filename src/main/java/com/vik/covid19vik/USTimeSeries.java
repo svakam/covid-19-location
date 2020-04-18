@@ -8,7 +8,7 @@ class USTimeSeries {
     private LinkedList<String> dates;
     private HashMap<String, State> statesWithCountyData;
 
-    static class State {
+    protected static class State {
         private String provinceOrState;
         private String countryOrRegion;
         HashMap<String, County> countyAndCases; // first linked list is total cases, second is new cases
@@ -34,14 +34,13 @@ class USTimeSeries {
         }
     }
 
-
-    static class County {
+    protected static class County {
         private String county;
         private int population;
         private String combinedKey;
         private float lat;
         private float lon;
-        private float uid;
+        private int uid;
         private String iso2;
         private String iso3;
         private int code3;
@@ -49,7 +48,6 @@ class USTimeSeries {
         private LinkedList<Integer> newCases;
         private LinkedList<Integer> totalCases;
 
-        // getters and setters
         public String getCounty() {
             return county;
         }
@@ -80,12 +78,13 @@ class USTimeSeries {
         public void setLon(float lon) {
             this.lon = lon;
         }
-        public float getUid() {
+        protected int getUid() {
             return uid;
         }
-        public void setUid(float uid) {
+        protected void setUid(int uid) {
             this.uid = uid;
         }
+
         public String getIso2() {
             return iso2;
         }

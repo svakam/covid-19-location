@@ -30,11 +30,10 @@ public class USTimeSeriesParse {
                         break;
                     }
                 }
-                System.out.println(labelB.toString());
+                cursor++;
                 if (labelB.toString().equals("Combined_Key")) {
                     break;
                 }
-                cursor++;
             }
         } else if (status.equals("deaths")) {
             // loop over data until a given string equals "Population"
@@ -47,24 +46,25 @@ public class USTimeSeriesParse {
                         break;
                     }
                 }
+                cursor++;
                 if (labelB.toString().equals("Population")) {
                     break;
                 }
-                cursor++;
             }
         }
+
+        System.out.println("after combined key = " + data.charAt(cursor));
 
         // store dates as list of strings and set dates
         LinkedList<String> dates = new LinkedList<>();
         while (true) {
-            Queue<Character> labelMaker = new LinkedList<>();
-            while (data.charAt(cursor) != ',') {
-                labelMaker.add(data.charAt(cursor));
-                cursor++;
-            }
             StringBuilder date = new StringBuilder();
-            while (labelMaker.peek() != null) {
-                date.append(labelMaker.poll());
+            while (data.charAt(cursor) != ',') {
+                date.append(data.charAt(cursor));
+                cursor++;
+                if (date.toString().contains("\n")) {
+                    break;
+                }
             }
             String newDate = date.toString();
             if (newDate.contains("\n")) {
@@ -79,7 +79,7 @@ public class USTimeSeriesParse {
         // set dates
         USData.setDates(dates);
 
-        // instantiate data of each state and store in array
+        // instantiate data of each state and store in hashmap
         do {
             // being added to list of states, later optimizing to an array
             USTimeSeries.State newState = new USTimeSeries.State();
@@ -87,6 +87,7 @@ public class USTimeSeriesParse {
             // each state will contain state name, country name and hashmap<county name, county object>
             HashMap<String, USTimeSeries.County> countyAndCases = new HashMap<>();
 
+            // county instance to be stored in hashmap as a value of key county name
             USTimeSeries.County newCounty = new USTimeSeries.County();
 
             // set UID
@@ -279,12 +280,12 @@ public class USTimeSeriesParse {
             // deaths data doesn't contain population; if deaths, skip this section
             if (status.equals("deaths")) {
                 // if population available, set population
-                if (data.charAt(cursor) == '\n') {
+                if (data.charAt(cursor) == ',') {
                     newCounty.setPopulation(-1);
-                System.out.println("population = " + newCounty.getPopulation());
+                    System.out.println("population = " + newCounty.getPopulation());
                 } else {
                     StringBuilder population = new StringBuilder();
-                    while (data.charAt(cursor) != '\n') {
+                    while (data.charAt(cursor) != ',') {
                         population.append(data.charAt(cursor));
                         cursor++;
                         if (cursor >= lengthOfCSV) {
@@ -315,7 +316,16 @@ public class USTimeSeriesParse {
                 if (cursor == lengthOfCSV || data.charAt(cursor) == '\n') {
                     break;
                 }
+                cursor ++;
+            }
+            newCounty.setTotalCases(timeSeriesTotalCases);
+
+            // adjust cursor
+            if (data.charAt(cursor) == '\n') {
                 cursor++;
+            }
+            if (cursor == lengthOfCSV) {
+                break;
             }
 
             // set list of new cases to county
@@ -337,6 +347,8 @@ public class USTimeSeriesParse {
             }
 
         } while (cursor < lengthOfCSV);
+
+        USData.setStatesWithCountyData(statesWithCountyData);
 
         Gson gson = new Gson();
         String json = gson.toJson(USData);
