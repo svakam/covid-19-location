@@ -6,12 +6,12 @@ import java.util.LinkedList;
 class USTimeSeries {
     private String status;
     private LinkedList<String> dates;
-    private State[] statesWithCountyData;
+    private HashMap<String, State> statesWithCountyData;
 
     static class State {
         private String provinceOrState;
         private String countryOrRegion;
-        HashMap<County, LinkedList<LinkedList<Integer>>> countyAndCases;
+        HashMap<String, County> countyAndCases; // first linked list is total cases, second is new cases
 
         // getters and setters
         protected String getProvinceOrState() {
@@ -26,13 +26,14 @@ class USTimeSeries {
         public void setCountryOrRegion(String countryOrRegion) {
             this.countryOrRegion = countryOrRegion;
         }
-        public HashMap<County, LinkedList<LinkedList<Integer>>> getCountyAndCases() {
+        public HashMap<String, County> getCountyAndCases() {
             return countyAndCases;
         }
-        public void setCountyAndCases(HashMap<County, LinkedList<LinkedList<Integer>>> countyAndCases) {
+        public void setCountyAndCases(HashMap<String, County> countyAndCases) {
             this.countyAndCases = countyAndCases;
         }
     }
+
 
     static class County {
         private String county;
@@ -44,7 +45,9 @@ class USTimeSeries {
         private String iso2;
         private String iso3;
         private int code3;
-        private int fips;
+        private float fips;
+        private LinkedList<Integer> newCases;
+        private LinkedList<Integer> totalCases;
 
         // getters and setters
         public String getCounty() {
@@ -101,11 +104,23 @@ class USTimeSeries {
         public void setCode3(int code3) {
             this.code3 = code3;
         }
-        public int getFips() {
+        public float getFips() {
             return fips;
         }
-        public void setFips(int fips) {
+        public void setFips(float fips) {
             this.fips = fips;
+        }
+        public LinkedList<Integer> getNewCases() {
+            return newCases;
+        }
+        public void setNewCases(LinkedList<Integer> newCases) {
+            this.newCases = newCases;
+        }
+        public LinkedList<Integer> getTotalCases() {
+            return totalCases;
+        }
+        public void setTotalCases(LinkedList<Integer> totalCases) {
+            this.totalCases = totalCases;
         }
     }
 
@@ -122,10 +137,10 @@ class USTimeSeries {
     public void setDates(LinkedList<String> dates) {
         this.dates = dates;
     }
-    public State[] getStatesWithCountyData() {
+    public HashMap<String, State> getStatesWithCountyData() {
         return statesWithCountyData;
     }
-    public void setStatesWithCountyData(State[] statesWithCountyData) {
+    public void setStatesWithCountyData(HashMap<String, State> statesWithCountyData) {
         this.statesWithCountyData = statesWithCountyData;
     }
 }

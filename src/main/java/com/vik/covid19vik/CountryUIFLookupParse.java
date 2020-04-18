@@ -223,7 +223,7 @@ class CountryUIFLookupParse {
 
             // set population
             if (data.charAt(cursor) == '\n') {
-                country.setPopulation(0);
+                country.setPopulation(-1);
 //                System.out.println("population = " + country.getPopulation());
             } else {
                 StringBuilder population = new StringBuilder();

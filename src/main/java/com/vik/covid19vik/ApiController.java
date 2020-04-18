@@ -28,15 +28,15 @@ class ApiController {
 
 //    // ------------------- US series data ------------------ //
     @GetMapping("API/series/US/confirmed")
-    void USConfirmed() {
+    String USConfirmed() {
         String USConfData = JHUPullMethods.getTimeSeriesUSConf();
-
+        return USTimeSeriesParse.parseDataToJSON("confirmed", USConfData);
     }
 
     @GetMapping("API/series/US/deaths")
-    void USDeaths() {
+    String USDeaths() {
         String USDeathsData = JHUPullMethods.getTimeSeriesUSDeaths();
-
+        return USTimeSeriesParse.parseDataToJSON("deaths", USDeathsData);
     }
 
 //    // ---------------- daily report data ------------------ //
