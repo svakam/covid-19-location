@@ -45,6 +45,28 @@ class JHUPullMethods {
         assert url != null;
         return httpCall(url);
     }
+    protected static String getTimeSeriesUSConf() {
+        URL url = null;
+        try {
+            url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv");
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        assert url != null;
+        return httpCall(url);
+    }
+    protected static String getTimeSeriesUSDeaths() {
+        URL url = null;
+        try {
+            url = new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv");
+        } catch (MalformedURLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        assert url != null;
+        return httpCall(url);
+    }
 
     // -------- get UID/ISO/FIPS and country/province/county name info -------- //
     protected static String getUIFLookup() {

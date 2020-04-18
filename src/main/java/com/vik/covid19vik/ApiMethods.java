@@ -14,7 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class ApiMethods {
-    // -------------- time series data -------------- //
+    // -------------- time series global data -------------- //
     protected static CountriesGlobal getTimeSeriesConf(HttpServletRequest req) {
         try {
             URL url;
@@ -89,6 +89,75 @@ class ApiMethods {
                 // convert json to desired output and return
                 Gson gson = new Gson();
                 timeSeries = gson.fromJson(in, CountriesGlobal.class);
+                return timeSeries;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // -------- time series US data -------- //
+    protected static CountriesGlobal getTimeSeriesUSConf(HttpServletRequest req) {
+        try {
+            URL url;
+            String requestURL = req.getRequestURL().toString();
+            String baseURL = extractSecondDomainURL(requestURL);
+            String fullURL = baseURL + "API/series/US/confirmed";
+            url = new URL(fullURL);
+            return timeSeriesHttpCall(url);
+        } catch (
+                MalformedURLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+    protected static CountriesGlobal getTimeSeriesUSDeaths(HttpServletRequest req) {
+        try {
+            URL url;
+            String requestURL = req.getRequestURL().toString();
+            String baseURL = extractSecondDomainURL(requestURL);
+            String fullURL = baseURL + "API/series/US/deaths";
+            url = new URL(fullURL);
+            return timeSeriesHttpCall(url);
+        } catch (
+                MalformedURLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static USTimeSeries timeSeriesUSHttpCall(URL url) {
+        try {
+            USTimeSeries timeSeries;
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "application/json");
+
+            System.out.println(StatusMessageHeader.getInfo(con));
+
+            BufferedReader in;
+
+            int status = con.getResponseCode();
+            if (status > 299) {
+                StringBuilder content = new StringBuilder();
+                in = new BufferedReader(
+                        new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
+            } else {
+                in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+
+                // convert json to desired output and return
+                Gson gson = new Gson();
+                timeSeries = gson.fromJson(in, USTimeSeries.class);
                 return timeSeries;
             }
         } catch (IOException e) {
