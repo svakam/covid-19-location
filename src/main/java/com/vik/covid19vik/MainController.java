@@ -183,7 +183,7 @@ class MainController {
     }
 
     @GetMapping("/results/country/province")
-    String resultsForProvince(@RequestParam(required = true, name = "sp") String searchedProvince, @RequestParam(required = true, name = "cop") String countryOfProvince,
+    String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(name = "cop") String countryOfProvince,
                               Model model, HttpServletRequest req) {
 
         System.out.println("getmapping searched province = " + searchedProvince);
@@ -301,6 +301,7 @@ class MainController {
         if (recovDates != null) {
             model.addAttribute("recovDates", recovDates);
         }
+        model.addAttribute("countryOfProvince", countryOfProvince);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("caseInfoForProvince", provinceData);
         model.addAttribute("uid", uid);
