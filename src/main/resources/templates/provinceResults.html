@@ -26,31 +26,36 @@
             <h4>Total</h4>
 
             <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${confDates}"></p>
-            <p th:if="${caseInfoForProvince.newConfProvCases} " th:text="'New confirmed: ' + ${caseInfoForProvince.newConfProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but confirmed new cases data is unavailable for this province.</p>
-            <p th:if="${caseInfoForProvince.totalConfProvCases}" th:text="'Total confirmed: ' + ${caseInfoForProvince.totalConfProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but confirmed total cases data is unavailable for this province.</p>
+            <p th:if="${confDates}" th:text="'Dates: ' + ${confDates}"></p>
+            <p th:if="${caseInfoForProvince[0]}" th:text="'New confirmed: ' + ${caseInfoForProvince[0]}"></p>
+            <p th:unless="${caseInfoForProvince[0]}">Sorry, but confirmed new cases data is unavailable for this province.</p>
+            <p th:if="${caseInfoForProvince[1]}" th:text="'Total confirmed: ' + ${caseInfoForProvince[1]}"></p>
+            <p th:unless="${caseInfoForProvince[1]}">Sorry, but confirmed total cases data is unavailable for this province.</p>
 
             <h3>Deaths</h3>
             <h4>Total</h4>
 
             <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${deathsDates}"></p>
-            <p th:if="${caseInfoForProvince.newDeathsProvCases}" th:text="'New deaths: ' + ${caseInfoForProvince.newDeathsProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but data on new deaths is unavailable for this province.</p>
-            <p th:if="${caseInfoForProvince.totalDeathsProvCases}" th:text="'Total deaths: ' + ${caseInfoForProvince.totalDeathsProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but data on total deaths is unavailable for this province.</p>
+            <p th:if="${deathsDates}" th:text="'Dates: ' + ${deathsDates}"></p>
+            <p th:if="${caseInfoForProvince[2]}" th:text="'New deaths: ' + ${caseInfoForProvince[2]}"></p>
+            <p th:unless="${caseInfoForProvince[2]}">Sorry, but data on new deaths is unavailable for this province.</p>
+            <p th:if="${caseInfoForProvince[3]}" th:text="'Total deaths: ' + ${caseInfoForProvince[3]}"></p>
+            <p th:unless="${caseInfoForProvince[3]}">Sorry, but data on total deaths is unavailable for this province.</p>
 
             <h3>Recovered</h3>
-            <h4>Total</h4>
+            <th:block th:if="${countryOfProvince != 'US'}">
+                <h4>Total</h4>
 
-            <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${recovDates}"></p>
-            <p th:if="${caseInfoForProvince.newRecovProvCases}" th:text="'New recoveries: ' + ${caseInfoForProvince.newRecovProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.newRecovProvCases}">Sorry, but recovery new cases data is unavailable for this province.</p>
-            <p th:if="${caseInfoForProvince.totalRecovProvCases}" th:text="'Total recoveries: ' + ${caseInfoForProvince.totalRecovProvCases}"></p>
-            <p th:unless="${caseInfoForProvince.totalRecovProvCases}">Sorry, but recovery total cases data is unavailable for this province.</p>
+                <h4>Time Series</h4>
+                <p th:if="${recovDates}" th:text="'Dates: ' + ${recovDates}"></p>
+                <p th:if="${caseInfoForProvince[4]}" th:text="'New recoveries: ' + ${caseInfoForProvince[4]}"></p>
+                <p th:unless="${caseInfoForProvince[4]}">Sorry, but recovery new cases data is unavailable for this search.</p>
+                <p th:if="${caseInfoForProvince[5]}" th:text="'Total recoveries: ' + ${caseInfoForProvince[5]}"></p>
+                <p th:unless="${caseInfoForProvince[5]}">Sorry, but recovery total cases data is unavailable for this search.</p>
+            </th:block>
+            <th:block th:if="${countryOfProvince == 'US'}">
+                <p>Sorry, but recovery data for the United States is not available.</p>
+            </th:block>
 
             <br>
             <th:block th:if="${provinceNames}">
@@ -64,7 +69,7 @@
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
 
-            <a href="/tips">Ways to stay safe</a>
+            <h1><a href="/tips">Ways to stay safe</a></h1>
         </main>
         <footer>
 

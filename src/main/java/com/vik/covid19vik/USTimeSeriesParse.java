@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class USTimeSeriesParse {
-    protected static String parseDataToJSON(String status, String data) {
+    static String parseDataToJSON(String status, String data) {
 
         USTimeSeries USData = new USTimeSeries();
         HashMap<String, USTimeSeries.State> statesWithCountyData = new HashMap<>();
@@ -53,7 +53,7 @@ public class USTimeSeriesParse {
             }
         }
 
-        System.out.println("after combined key = " + data.charAt(cursor));
+//        System.out.println("after combined key = " + data.charAt(cursor));
 
         // store dates as list of strings and set dates
         LinkedList<String> dates = new LinkedList<>();
@@ -70,7 +70,7 @@ public class USTimeSeriesParse {
             if (newDate.contains("\n")) {
                 newDate = newDate.replace("\n", "");
                 dates.add(newDate);
-                System.out.println(dates);
+////                System.out.println(dates);
                 break;
             }
             dates.add(newDate);
@@ -85,10 +85,10 @@ public class USTimeSeriesParse {
             USTimeSeries.State newState = new USTimeSeries.State();
 
             // each state will contain state name, country name and hashmap<county name, county object>
-            HashMap<String, USTimeSeries.County> countyAndCases = new HashMap<>();
+            HashMap<String, USTimeSeries.State.County> countyAndCases = new HashMap<>();
 
             // county instance to be stored in hashmap as a value of key county name
-            USTimeSeries.County newCounty = new USTimeSeries.County();
+            USTimeSeries.State.County newCounty = new USTimeSeries.State.County();
 
             // set UID
             if (data.charAt(cursor) == ',') {
@@ -100,7 +100,7 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setUid(Integer.parseInt(uid.toString()));
-                System.out.println("UID = " + uid.toString());
+////                System.out.println("UID = " + uid.toString());
             }
             cursor++;
 
@@ -114,7 +114,7 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setIso2(iso2.toString());
-                System.out.println("ISO2 = " + iso2.toString());
+////                System.out.println("ISO2 = " + iso2.toString());
             }
             cursor++;
 
@@ -128,14 +128,14 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setIso3(iso3.toString());
-                System.out.println("ISO3 = " + iso3.toString());
+////                System.out.println("ISO3 = " + iso3.toString());
             }
             cursor++;
 
             // set code3
             if (data.charAt(cursor) == ',') {
                 newCounty.setCode3(-1);
-                System.out.println("code3 = " + newCounty.getCode3());
+////                System.out.println("code3 = " + newCounty.getCode3());
             } else {
                 StringBuilder code3 = new StringBuilder();
                 while (data.charAt(cursor) != ',') {
@@ -143,14 +143,14 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setCode3(Integer.parseInt(code3.toString()));
-                System.out.println("code3 = " + code3.toString());
+////                System.out.println("code3 = " + code3.toString());
             }
             cursor++;
 
             // set fips
             if (data.charAt(cursor) == ',') {
                 newCounty.setFips(-1);
-                System.out.println("fips = empty");
+//                System.out.println("fips = empty");
             } else {
                 StringBuilder fips = new StringBuilder();
                 while (data.charAt(cursor) != ',') {
@@ -158,14 +158,14 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setFips(Float.parseFloat(fips.toString()));
-                System.out.println("fips = " + fips.toString());
+//                System.out.println("fips = " + fips.toString());
             }
             cursor++;
 
             // set county
             if (data.charAt(cursor) == ',') {
                 newCounty.setCounty("");
-                System.out.println("county = empty");
+//                System.out.println("county = empty");
             } else {
                 StringBuilder county = new StringBuilder();
                 while (data.charAt(cursor) != ',') {
@@ -173,14 +173,14 @@ public class USTimeSeriesParse {
                     cursor++;
                 }
                 newCounty.setCounty(county.toString());
-                System.out.println(county.toString());
+//                System.out.println(county.toString());
             }
             cursor++;
 
             // set province/state
             if (data.charAt(cursor) == ',') {
                 newState.setProvinceOrState("");
-                System.out.println("province/state = empty");
+//                System.out.println("province/state = empty");
             } else {
                 StringBuilder provinceOrState = new StringBuilder();
                 if (data.charAt(cursor) == '\"') {
@@ -197,14 +197,14 @@ public class USTimeSeriesParse {
                     }
                 }
                 newState.setProvinceOrState(provinceOrState.toString());
-                System.out.println("province/state = " + provinceOrState.toString());
+//                System.out.println("province/state = " + provinceOrState.toString());
             }
             cursor++;
 
             // set country/region
             if (data.charAt(cursor) == ',') {
                 newState.setCountryOrRegion("");
-                System.out.println("country/region = empty");
+//                System.out.println("country/region = empty");
             } else {
                 StringBuilder countryRegion = new StringBuilder();
                 if (data.charAt(cursor) == '\"') {
@@ -221,7 +221,7 @@ public class USTimeSeriesParse {
                     }
                 }
                 newState.setCountryOrRegion(countryRegion.toString());
-                System.out.println("country/region = " + countryRegion.toString());
+//                System.out.println("country/region = " + countryRegion.toString());
             }
             cursor++;
 
@@ -229,34 +229,34 @@ public class USTimeSeriesParse {
             StringBuilder lat = new StringBuilder();
             if (data.charAt(cursor) == ',') {
                 newCounty.setLat(5555);
-                System.out.println("lat = " + newCounty.getLat());
+//                System.out.println("lat = " + newCounty.getLat());
             } else {
                 while (data.charAt(cursor) != ',') {
                     lat.append(data.charAt(cursor));
                     cursor++;
                 }
                 newCounty.setLat(Float.parseFloat(lat.toString()));
-                System.out.println("lat = " + Float.parseFloat(lat.toString()));
+//                System.out.println("lat = " + Float.parseFloat(lat.toString()));
             }
             cursor++;
             StringBuilder lon = new StringBuilder();
             if (data.charAt(cursor) == ',') {
                 newCounty.setLon(5555);
-                System.out.println("lat = " + newCounty.getLon());
+//                System.out.println("lat = " + newCounty.getLon());
             } else {
                 while (data.charAt(cursor) != ',') {
                     lon.append(data.charAt(cursor));
                     cursor++;
                 }
                 newCounty.setLon(Float.parseFloat(lon.toString()));
-                System.out.println("lon = " + Float.parseFloat(lon.toString()));
+//                System.out.println("lon = " + Float.parseFloat(lon.toString()));
             }
             cursor++;
 
             // set combined key
             if (data.charAt(cursor) == ',') {
                 newCounty.setCombinedKey("");
-                System.out.println("combined key = empty");
+//                System.out.println("combined key = empty");
             } else {
                 StringBuilder combinedKey = new StringBuilder();
                 if (data.charAt(cursor) == '\"') {
@@ -273,7 +273,7 @@ public class USTimeSeriesParse {
                     }
                 }
                 newCounty.setCombinedKey(combinedKey.toString());
-                System.out.println("combined key = " + combinedKey.toString());
+//                System.out.println("combined key = " + combinedKey.toString());
             }
             cursor++;
 
@@ -282,7 +282,7 @@ public class USTimeSeriesParse {
                 // if population available, set population
                 if (data.charAt(cursor) == ',') {
                     newCounty.setPopulation(-1);
-                    System.out.println("population = " + newCounty.getPopulation());
+//                    System.out.println("population = " + newCounty.getPopulation());
                 } else {
                     StringBuilder population = new StringBuilder();
                     while (data.charAt(cursor) != ',') {
@@ -293,7 +293,7 @@ public class USTimeSeriesParse {
                         }
                     }
                     newCounty.setPopulation(Integer.parseInt(population.toString()));
-                System.out.println("population = " + Integer.parseInt(population.toString()));
+//                System.out.println("population = " + Integer.parseInt(population.toString()));
                 }
                 cursor++;
             }
@@ -335,7 +335,7 @@ public class USTimeSeriesParse {
             // if state already exists, add county as a new county to that state object's hashmap
             if (statesWithCountyData.containsKey(newState.getProvinceOrState())) {
                 USTimeSeries.State existingState = statesWithCountyData.get(newState.getProvinceOrState());
-                HashMap<String, USTimeSeries.County> existingCountyAndCases = existingState.getCountyAndCases();
+                HashMap<String, USTimeSeries.State.County> existingCountyAndCases = existingState.getCountyAndCases();
                 existingCountyAndCases.put(newCounty.getCounty(), newCounty);
                 statesWithCountyData.put(newState.getProvinceOrState(), existingState);
             }
@@ -351,9 +351,9 @@ public class USTimeSeriesParse {
         USData.setStatesWithCountyData(statesWithCountyData);
 
         Gson gson = new Gson();
-        String json = gson.toJson(USData);
-        System.out.println(json);
-        return json;
+//        String json = gson.toJson(USData);
+//        System.out.println(json);
+        return gson.toJson(USData);
     }
 
     private static LinkedList<Integer> addNewCaseList(LinkedList<Integer> totalCases) {

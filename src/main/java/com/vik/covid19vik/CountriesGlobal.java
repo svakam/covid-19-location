@@ -9,23 +9,23 @@ public class CountriesGlobal {
     private LinkedList<Country> countries;
 
     // getters
-    protected LinkedList<String> getDates() {
+    LinkedList<String> getDates() {
         return dates;
     }
-    protected String getStatus() {
+    String getStatus() {
         return status;
     }
-    protected LinkedList<Country> getCountries() {
+    LinkedList<Country> getCountries() {
         return countries;
     }
     // setters
-    protected void setStatus(String status) {
+    void setStatus(String status) {
         this.status = status;
     }
-    protected void setDates(LinkedList<String> dates) {
+    void setDates(LinkedList<String> dates) {
         this.dates = dates;
     }
-    protected void setCountries(LinkedList<Country> countries) {
+    void setCountries(LinkedList<Country> countries) {
         this.countries = countries;
     }
 
@@ -37,71 +37,51 @@ public class CountriesGlobal {
         private LinkedList<Integer> totalCases;
         private LinkedList<Integer> newCases;
 
-        public Country() {
+        Country() {
             // empty arg constructor
         }
 
         // getters
-        protected String getProvinceOrState() {
+        String getProvinceOrState() {
             return provinceOrState;
         }
-        protected String getCountryOrRegion() {
+        String getCountryOrRegion() {
             return countryOrRegion;
         }
-        protected float getLat() {
+        float getLat() {
             return lat;
         }
-        protected float getLon() {
+        float getLon() {
             return lon;
         }
-        protected LinkedList<Integer> getTotalCases() {
+        LinkedList<Integer> getTotalCases() {
             return totalCases;
         }
-        protected LinkedList<Integer> getNewCases() {
+        LinkedList<Integer> getNewCases() {
             return newCases;
         }
         // setters
-        protected void setProvinceOrState(String provinceOrState) {
+        void setProvinceOrState(String provinceOrState) {
             this.provinceOrState = provinceOrState;
         }
-        protected void setCountryOrRegion(String countryOrRegion) {
+        void setCountryOrRegion(String countryOrRegion) {
             this.countryOrRegion = countryOrRegion;
         }
-        protected void setLat(float lat) {
+        void setLat(float lat) {
             this.lat = lat;
         }
-        protected void setLon(float lon) {
+        void setLon(float lon) {
             this.lon = lon;
         }
-        protected void setTotalCases(LinkedList<Integer> totalCases) {
+        void setTotalCases(LinkedList<Integer> totalCases) {
             this.totalCases = totalCases;
         }
-        protected void setNewCases(LinkedList<Integer> newCases) {
+        void setNewCases(LinkedList<Integer> newCases) {
             this.newCases = newCases;
         }
     }
 
-    protected static class NewAndConf {
-        private LinkedList<Integer> newProvCases;
-        private LinkedList<Integer> totalProvCases;
-
-        // getters
-        protected LinkedList<Integer> getNewProvCases() {
-            return newProvCases;
-        }
-        protected LinkedList<Integer> getTotalProvCases() {
-            return totalProvCases;
-        }
-        // setters
-        protected void setNewProvCases(LinkedList<Integer> newProvCases) {
-            this.newProvCases = newProvCases;
-        }
-        protected void setTotalProvCases(LinkedList<Integer> totalProvCases) {
-            this.totalProvCases = totalProvCases;
-        }
-    }
-
-    protected static class ProvinceData {
+    static class ProvinceData {
         public LinkedList<Integer> newConfProvCases;
         public LinkedList<Integer> totalConfProvCases;
         public LinkedList<Integer> newDeathsProvCases;
@@ -110,46 +90,46 @@ public class CountriesGlobal {
         public LinkedList<Integer> totalRecovProvCases;
 
         // getters
-        protected LinkedList<Integer> getNewConfProvCases() {
+        LinkedList<Integer> getNewConfProvCases() {
             return newConfProvCases;
         }
-        protected LinkedList<Integer> getTotalConfProvCases() {
+        LinkedList<Integer> getTotalConfProvCases() {
             return totalConfProvCases;
         }
-        protected LinkedList<Integer> getNewDeathsProvCases() {
+        LinkedList<Integer> getNewDeathsProvCases() {
             return newDeathsProvCases;
         }
-        protected LinkedList<Integer> getTotalDeathsProvCases() {
+        LinkedList<Integer> getTotalDeathsProvCases() {
             return totalDeathsProvCases;
         }
-        protected LinkedList<Integer> getNewRecovProvCases() {
+        LinkedList<Integer> getNewRecovProvCases() {
             return newRecovProvCases;
         }
-        protected LinkedList<Integer> getTotalRecovProvCases() {
+        LinkedList<Integer> getTotalRecovProvCases() {
             return totalRecovProvCases;
         }
         // setters
-        protected void setNewConfProvCases(LinkedList<Integer> newConfProvCases) {
+        void setNewConfProvCases(LinkedList<Integer> newConfProvCases) {
             this.newConfProvCases = newConfProvCases;
         }
-        protected void setTotalConfProvCases(LinkedList<Integer> totalConfProvCases) {
+        void setTotalConfProvCases(LinkedList<Integer> totalConfProvCases) {
             this.totalConfProvCases = totalConfProvCases;
         }
-        protected void setNewDeathsProvCases(LinkedList<Integer> newDeathsProvCases) {
+        void setNewDeathsProvCases(LinkedList<Integer> newDeathsProvCases) {
             this.newDeathsProvCases = newDeathsProvCases;
         }
-        protected void setTotalDeathsProvCases(LinkedList<Integer> totalDeathsProvCases) {
+        void setTotalDeathsProvCases(LinkedList<Integer> totalDeathsProvCases) {
             this.totalDeathsProvCases = totalDeathsProvCases;
         }
-        protected void setNewRecovProvCases(LinkedList<Integer> newRecovProvCases) {
+        void setNewRecovProvCases(LinkedList<Integer> newRecovProvCases) {
             this.newRecovProvCases = newRecovProvCases;
         }
-        protected void setTotalRecovProvCases(LinkedList<Integer> totalRecovProvCases) {
+        void setTotalRecovProvCases(LinkedList<Integer> totalRecovProvCases) {
             this.totalRecovProvCases = totalRecovProvCases;
         }
     }
 
-    protected static LinkedList<Integer>[] retrieveCountryTSInfoAPICall(HashSet<String> countriesSeen, String searchedCountry, CountriesGlobal data) {
+    static LinkedList<Integer>[] retrieveCountryTSInfoAPICall(HashSet<String> countriesSeen, String searchedCountry, CountriesGlobal data) {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[2];
 
         LinkedList<CountriesGlobal.Country> countries = data.getCountries();
@@ -183,7 +163,7 @@ public class CountriesGlobal {
                     while (j < restOfCountries) {
 //                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
                         if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && countries.get(j).getProvinceOrState().equals("")) {
-                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+//                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
                             LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
                             caseInfoForCountry[0] = newConfCases;
                             LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();
@@ -226,8 +206,8 @@ public class CountriesGlobal {
         }
     }
 
-    protected static NewAndConf retrieveProvinceTSInfoAPICall(String searchedProvince, CountriesGlobal data) {
-        NewAndConf caseInfoForCountry = new NewAndConf();
+    static LinkedList<Integer>[] retrieveProvinceTSInfoAPICall(String searchedProvince, CountriesGlobal data) {
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForProvince = new LinkedList[2];
         LinkedList<Country> countries = data.getCountries();
         int i = 0;
         while (!countries.get(i).getProvinceOrState().equals(searchedProvince)) {
@@ -240,9 +220,9 @@ public class CountriesGlobal {
             System.out.println("Unable to pull province data for status: " + data.status);
             return null;
         } else {
-            caseInfoForCountry.setNewProvCases(countries.get(i).newCases);
-            caseInfoForCountry.setTotalProvCases(countries.get(i).totalCases);
-            return caseInfoForCountry;
+             caseInfoForProvince[0] = countries.get(i).newCases;
+             caseInfoForProvince[1] = countries.get(i).totalCases;
+             return caseInfoForProvince;
         }
     }
 }

@@ -16,53 +16,52 @@ class UIFMethods {
         private LinkedList<String> dropdown;
 
         // getters and setters
-        public int getUID() {
+        int getUID() {
             return UID;
         }
-        public void setUID(int UID) {
+        void setUID(int UID) {
             this.UID = UID;
         }
-        public String getIso2() {
+        String getIso2() {
             return iso2;
         }
-        public void setIso2(String iso2) {
+        void setIso2(String iso2) {
             this.iso2 = iso2;
         }
-        public String getIso3() {
+        String getIso3() {
             return iso3;
         }
-        public void setIso3(String iso3) {
+        void setIso3(String iso3) {
             this.iso3 = iso3;
         }
-        public int getCode3() {
+        int getCode3() {
             return code3;
         }
-        public void setCode3(int code3) {
+        void setCode3(int code3) {
             this.code3 = code3;
         }
-        public int getFips() {
+        int getFips() {
             return fips;
         }
-        public void setFips(int fips) {
+        void setFips(int fips) {
             this.fips = fips;
         }
-        public int getPopulation() {
+        int getPopulation() {
             return population;
         }
-        public void setPopulation(int population) {
+        void setPopulation(int population) {
             this.population = population;
         }
-        public LinkedList<String> getDropdown() {
+        LinkedList<String> getDropdown() {
             return dropdown;
         }
-        public void setDropdown(LinkedList<String> dropdown) {
+        void setDropdown(LinkedList<String> dropdown) {
             this.dropdown = dropdown;
         }
     }
 
-    protected static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req, String searchedCountry) {
+    static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req, String searchedCountry, CountryUIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
-        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
         if (countries != null) {
             UIFPopData uifPopData = new UIFPopData();
             System.out.println("API successfully pulled UIFLookup Info");
@@ -96,8 +95,7 @@ class UIFMethods {
         }
     }
 
-    protected static LinkedList<String> createCountryDropdown(HttpServletRequest req) {
-        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
+    static LinkedList<String> createCountryDropdown(HttpServletRequest req, CountryUIFLookup[] countries) {
         if (countries != null) {
             LinkedList<String> countryDropdown = new LinkedList<>();
             System.out.println("API successfully pulled UIFLookup Info");
@@ -120,9 +118,8 @@ class UIFMethods {
         }
     }
 
-    protected static UIFPopData createCountryDropdownAndUIFPopDataProvince(HttpServletRequest req, String searchedProvince) {
+    static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, CountryUIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
-        CountryUIFLookup[] countries = ApiMethods.getUIFLookup(req);
         if (countries != null) {
             UIFPopData uifPopData = new UIFPopData();
             System.out.println("API successfully pulled UIFLookup Info");

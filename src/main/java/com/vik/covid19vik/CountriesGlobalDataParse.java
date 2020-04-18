@@ -9,7 +9,7 @@ class CountriesGlobalDataParse {
 
     // use time series pull methods to get data (in controller)
 
-    protected static String parseDataToJSON(String status, String data) {
+    static String parseDataToJSON(String status, String data) {
 
         CountriesGlobal countryWithDates = new CountriesGlobal();
         LinkedList<CountriesGlobal.Country> countries = new LinkedList<>();
@@ -185,7 +185,7 @@ class CountriesGlobalDataParse {
         return gson.toJson(countryWithDatesNewCases);
     }
 
-    protected static CountriesGlobal fromJSON(String status, String data) {
+    static CountriesGlobal fromJSON(String status, String data) {
         String json = parseDataToJSON(status, data);
         Gson gson = new Gson();
         return gson.fromJson(json, CountriesGlobal.class);

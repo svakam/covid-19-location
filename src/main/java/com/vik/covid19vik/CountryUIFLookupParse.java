@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 class CountryUIFLookupParse {
 
-    protected static String parseDatatoJSON() {
+    static String parseDatatoJSON() {
 
         // pull data
         String data = JHUPullMethods.getUIFLookup();
@@ -246,7 +246,7 @@ class CountryUIFLookupParse {
         return gson.toJson(countries);
     }
 
-    protected static CountryUIFLookup[] fromJSON() {
+    static CountryUIFLookup[] fromJSON() {
         String json = parseDatatoJSON();
         Gson gson = new Gson();
         return gson.fromJson(json, CountryUIFLookup[].class);
