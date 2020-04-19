@@ -24,13 +24,13 @@
             <h2 th:text="${searchedCountry}"></h2>
 
             <h3>All cases</h3>
-            <div class="chartContainer" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
             <h3>Cases confirmed</h3>
             <h4>Total</h4>
 
             <p th:text="'Dates: ' + ${confDates}"></p>
-            <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
+            <p>New confirmed: [[${caseInfoForCountry[0]}]]</p>
             <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
 
             <h3>Deaths</h3>

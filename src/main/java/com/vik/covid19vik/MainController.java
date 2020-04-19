@@ -114,6 +114,9 @@ class MainController {
             caseInfoForCountry[5] = caseInfo[1];
         }
 
+
+
+
         // ------------ country dropdown and uif pop data -------------- //
         // ------- uif/population data based on searched country ------- //
         if (countries == null) {
