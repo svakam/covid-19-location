@@ -1,6 +1,8 @@
 <div th:fragment="plotpoints">
         <script th:inline="javascript">
         var z = [[${population}]];
+        var dps = [[${dataPoints}]];
+        console.log(dps);
         window.onload = function () {
             var options = {
                 animationEnabled: true,
@@ -8,32 +10,17 @@
                     text: "Time Series Data"
                 },
                 axisX: {
-                    valueFormatString: "YYYY"
+                    valueFormatString: "#,##0.##"
                 },
                 axisY: {
                     title: "Cases",
                     includeZero: false
                 },
                 data: [{
-                    yValueFormatString: "##,###",
-                    xValueFormatString: "YYYY",
+                    yValueFormatString: "###,###,###",
+                    xValueFormatString: "#,##0.##",
                     type: "spline",
-                    dataPoints: [
-                    /* format: { x: insert date, y: insert case } */
-                        { x: new Date(2017, 0), y: 25060 },
-                        { x: new Date(2017, 1), y: 27980 },
-                        { x: new Date(2017, 2), y: 33800 },
-                        { x: new Date(2017, 3), y: 49400 },
-                        { x: new Date(2017, 4), y: 40260 },
-                        { x: new Date(2017, 5), y: 33900 },
-                        { x: new Date(2017, 6), y: 48000 },
-                        { x: new Date(2017, 7), y: 31500 },
-                        { x: new Date(2017, 8), y: 32300 },
-                        { x: new Date(2017, 9), y: 42000 },
-                        { x: new Date(2017, 10), y: 52160 },
-                        { x: new Date(2017, 11), y: 49400 },
-                        { x: new Date(2017, 11), y: z}
-                    ]
+                    dataPoints: dps
                 }]
             };
             $("#chartContainer").CanvasJSChart(options);

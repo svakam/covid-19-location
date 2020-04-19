@@ -45,12 +45,11 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Languages and Technologies Used
 - Languages
-  - Java, JavaScript, HTML/CSS
+  - Java, JavaScript, HTML/CSS, JSP
 - Technologies
   - IDE: IntelliJ IDEA
-  - Spring: SpringMVC, Boot, Thymeleaf
+  - Frameworks/APIs: CV19Location API, SpringMVC, Spring Boot, Thymeleaf, Bootstrap, CanvasJS, Postman
   - AWS: Route 53, Elastic Beanstalk
-  - APIs: CV19Location API, Postman
 
 ## Acknowledgements
 COVID-19 APIs and COVID-19 data consulted:

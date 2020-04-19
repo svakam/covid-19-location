@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 
 // ================ render templates ================= //
 @Controller
@@ -34,7 +35,9 @@ class MainController {
     // hashmap of already looked up countries
     HashMap<String, Integer> lookedUpCountries = new HashMap<>();
 
-    // ======================================= home ======================================= //
+    // ============================================================================== //
+    // =================================  home ====================================== //
+    // ============================================================================== //
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
@@ -47,7 +50,10 @@ class MainController {
         return "index";
     }
 
-    // ======================================= country results ======================================= //
+    // ============================================================================== //
+    // ============================  country results ================================ //
+    // ============================================================================== //
+
     // post request with user's country name search
     @PostMapping("/results/country")
     RedirectView submitCountrySearch(String searchedCountry) {
@@ -113,7 +119,8 @@ class MainController {
             caseInfoForCountry[4] = caseInfo[0];
             caseInfoForCountry[5] = caseInfo[1];
         }
-
+        Map<Object, Object>[] dataPointsArray = CanvasJSChartData.convertToXYPoints(confDates, caseInfoForCountry[0]);
+        model.addAttribute("dataPoints", dataPointsArray);
 
 
 
@@ -145,6 +152,8 @@ class MainController {
         // -- get province dropdown based on searched country -- //
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
+
+
         // add to template
         if (confDates != null) {
             model.addAttribute("confDates", confDates);
@@ -171,11 +180,15 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
-
         return "countryResults";
     }
 
-    // ======================================= province results ======================================= //
+
+
+    // ============================================================================== //
+    // ===========================  province results ================================ //
+    // ============================================================================== //
+
     @PostMapping("/results/country/province")
     RedirectView submitProvinceSearch(String searchedProvince, String countryOfProvince) {
         String rvURL = "/results/country/province?";
@@ -323,7 +336,10 @@ class MainController {
         return "provinceResults";
     }
 
-    // ======================================= county results ======================================= //
+    // ============================================================================== //
+    // ============================  county results ================================ //
+    // ============================================================================== //
+
 //    @PostMapping("results/country/province/county")
 //    RedirectView submitCountySearch(String searchedCounty, String provinceOfCounty, String countryOfProvince, Model model, HttpServletRequest req) {
 //        return rv;
@@ -342,7 +358,9 @@ class MainController {
     }
 
 
-    // ======================================= show API routes ======================================= //
+    // ============================================================================== //
+    // ============================= show API routes ================================ //
+    // ============================================================================== //
     @GetMapping("/API")
     String APIroutes(Model model, HttpServletRequest req) {
 
@@ -355,7 +373,9 @@ class MainController {
         return "viewApiRoutes";
     }
 
-    // ======================================= safety tips ======================================= //
+    // ============================================================================== //
+    // ==============================  safety tips ================================== //
+    // ============================================================================== //
     @GetMapping("/tips")
     String getStaySafe(Model model, HttpServletRequest req) {
 
@@ -368,7 +388,7 @@ class MainController {
         return "staySafe";
     }
 
-    // ======================================= fallback ======================================= //
+    // =================================== fallback ================================== //
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
 
