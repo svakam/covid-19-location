@@ -45,7 +45,7 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Languages and Technologies Used
 - Languages
-  - Java, HTML/CSS
+  - Java, JavaScript, HTML/CSS
 - Technologies
   - IDE: IntelliJ IDEA
   - Spring: SpringMVC, Boot, Thymeleaf
@@ -108,8 +108,9 @@ Deployment:
 beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
 
 
-W3 Schools:
-- Dropdown: https://www.w3schools.com/tags/att_option_value.asp
+CanvasJS:
+- Docs: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/
+- https://canvasjs.com/jquery-charts/spline-chart/
 
 
 Other:
@@ -117,6 +118,7 @@ Other:
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
 - GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
 - GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
+- Dropdown: https://www.w3schools.com/tags/att_option_value.asp
 - RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
 - URL Encoding: https://www.urlencoder.io/learn/ https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html 
@@ -129,5 +131,6 @@ https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
+
 
 Code Fellows Java curriculum
