@@ -10,6 +10,7 @@
             searchedName = [[${searchedCounty}]];
         }
         console.log(searchedName);
+
         /* case info */
         let newConf = [[${graphNewConf}]];
         console.log(newConf);
@@ -42,7 +43,9 @@
                 axisY: {
                     includeZero: true,
                     title: "Cases",
-                    logarithmic: false
+                    logarithmic: false,
+                    minimum: 0,
+                    interlacedColor: "#F0F8FF"
                 },
                 toolTip: {
                     shared: true
@@ -57,6 +60,7 @@
                 data: [{
                     name: "New Confirmed Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
@@ -67,6 +71,7 @@
                 {
                     name: "Total Confirmed Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
@@ -76,6 +81,7 @@
                 {
                     name: "New Fatal Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
@@ -86,6 +92,7 @@
                 {
                     name: "Total Fatal Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
@@ -95,6 +102,7 @@
                 {
                     name: "New Recovered Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
@@ -105,6 +113,7 @@
                 {
                     name: "Total Recovered Cases",
                     showInLegend: true,
+                    connectNullData: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
