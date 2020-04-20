@@ -10,15 +10,17 @@
                     text: "Time Series Data"
                 },
                 axisX: {
-                    valueFormatString: "#,##0.##"
+                    valueFormatString: "MM-DD-YY",
+                    intervalType: "day"
                 },
                 axisY: {
                     title: "Cases",
-                    includeZero: false
+                    includeZero: true
                 },
                 data: [{
                     yValueFormatString: "###,###,###",
-                    xValueFormatString: "#,##0.##",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
                     type: "spline",
                     dataPoints: dps
                 }]
