@@ -79,10 +79,6 @@ class MainController {
         // [recov total]
         // ]
 
-        // get confirmed cases for searched country
-        if (confDataGlobal == null) {
-            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
-        }
         // initialize dates
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
@@ -108,6 +104,9 @@ class MainController {
         int population = -1;
 
         // retrieve data
+        if (confDataGlobal == null) {
+            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
+        }
         if (confDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
@@ -204,20 +203,20 @@ class MainController {
     // ============================================================================== //
 
     @PostMapping("/results/country/province")
-    RedirectView submitProvinceSearch(String searchedProvince, String countryOfProvince) {
+    RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
         String rvURL = "/results/country/province?";
         System.out.println("sp = " + searchedProvince);
-        System.out.println("cop = " + countryOfProvince);
-        rvURL = rvURL + "sp=" + searchedProvince + "&cop=" + countryOfProvince;
+        System.out.println("sc = " + searchedCountry);
+        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
         return new RedirectView(rvURL);
     }
 
     @GetMapping("/results/country/province")
-    String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(name = "cop") String countryOfProvince,
-                              Model model, HttpServletRequest req) throws ParseException {
+    String resultsForProvince( @RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
+                               Model model, HttpServletRequest req) throws ParseException {
 
         System.out.println("getmapping searched province = " + searchedProvince);
-        System.out.println("getmapping searched country = " + countryOfProvince);
+        System.out.println("getmapping searched country = " + searchedCountry);
 
         // initializers:
         // both US and non-US
@@ -247,12 +246,13 @@ class MainController {
 
         // ---------- get province data and store in province data object ----------- //
         // non-US data
-        if (!countryOfProvince.equals("US")) {
+        if (!searchedCountry.equals("US")) {
             // ------- get time series data ---------- //
             provinceData = new LinkedList[6];
             if (confDataGlobal == null) {
                 confDataGlobal = ApiMethods.getTimeSeriesConf(req);
-            } else {
+            }
+            if (confDataGlobal != null) {
                 confDates = confDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confDataGlobal);
                 if (caseInfo != null) {
@@ -266,7 +266,8 @@ class MainController {
             }
             if (deathsDataGlobal == null) {
                 deathsDataGlobal = ApiMethods.getTimeSeriesDeaths(req);
-            } else {
+            }
+            if (deathsDataGlobal != null) {
                 deathsDates = deathsDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsDataGlobal);
                 if (caseInfo != null) {
@@ -280,7 +281,8 @@ class MainController {
             }
             if (recovDataGlobal == null) {
                 recovDataGlobal = ApiMethods.getTimeSeriesRecov(req);
-            } else {
+            }
+            if (recovDataGlobal != null){
                 recovDates = recovDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovDataGlobal);
                 if (caseInfo != null) {
@@ -300,7 +302,8 @@ class MainController {
             provinceData = new LinkedList[4];
             if (confDataUS == null) {
                 confDataUS = ApiMethods.getTimeSeriesUSConf(req);
-            } else {
+            }
+            if (confDataUS != null) {
                 confDates = confDataUS.getDates();
                 LinkedList<Integer>[] caseInfo = USTimeSeries.retrieveProvinceTSInfoAPICall(searchedProvince, confDataUS);
                 if (caseInfo != null) {
@@ -314,7 +317,8 @@ class MainController {
             }
             if (deathsDataUS == null) {
                 deathsDataUS = ApiMethods.getTimeSeriesUSDeaths(req);
-            } else {
+            }
+            if (deathsDataUS != null) {
                 deathsDates = deathsDataUS.getDates();
                 LinkedList<Integer>[] caseInfo = USTimeSeries.retrieveProvinceTSInfoAPICall(searchedProvince, deathsDataUS);
                 if (caseInfo != null) {
@@ -346,7 +350,7 @@ class MainController {
             countryDropdown = UIFMethods.createCountryDropdown(req, countries);
         }
         // province dropdown
-        provinceDropdown = CountryWithProvinces.getProvincesForCountry(countryOfProvince, countries);
+        provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
 
         // add to template
@@ -360,7 +364,7 @@ class MainController {
             model.addAttribute("recovDates", recovDates);
         }
         model.addAttribute("searchedProvince", searchedProvince);
-        model.addAttribute("countryOfProvince", countryOfProvince);
+        model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("caseInfoForProvince", provinceData);
         model.addAttribute("uid", uid);

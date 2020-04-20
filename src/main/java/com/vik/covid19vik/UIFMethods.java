@@ -121,15 +121,17 @@ class UIFMethods {
     static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, CountryUIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         if (countries != null) {
+            System.out.println("createCountryDropdownAndUIFPopDataProvince: API successfully pulled UIFLookup Info");
             UIFPopData uifPopData = new UIFPopData();
-            System.out.println("API successfully pulled UIFLookup Info");
+            HashSet<String> countriesSeen = new HashSet<>();
             CountryUIFLookup lastCountry = countries[countries.length - 1];
-            int i = 0;
+            int i;
             for (i = 0; i < countries.length; i++) {
                 CountryUIFLookup country = countries[i];
-                if (!countryDropdown.contains(country.getCountryOrRegion())) { // consider refactoring to use hashset to check if country name is contained in there
+                if (!countriesSeen.contains(country.getCountryOrRegion())) {
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());
+                    countriesSeen.add(country.getCountryOrRegion());
                 }
                 if (country.getProvinceOrState().equals(searchedProvince)) {
                     // add u/i/f and population data to object
@@ -145,18 +147,17 @@ class UIFMethods {
                     break;
                 }
             }
-            if (uifPopData.getCode3() == -1) {
-                int j = i;
-                CountryUIFLookup country = countries[j];
-                for (j = i; j < countries.length; j++) {
-                    if (country.getProvinceOrState().equals(searchedProvince)) {
+            if (uifPopData.getCode3() == 0) {
+                int j;
+                for (j = i; j < countries.length - i; j++) {
+                    if (countries[j].getProvinceOrState().equals(searchedProvince)) {
                         // add u/i/f and population data to object
-                        uifPopData.setUID(country.getUid());
-                        uifPopData.setIso2(country.getIso2());
-                        uifPopData.setIso3(country.getIso3());
-                        uifPopData.setCode3(country.getCode3());
-                        uifPopData.setFips(country.getFips());
-                        uifPopData.setPopulation(country.getPopulation());
+                        uifPopData.setUID(countries[j].getUid());
+                        uifPopData.setIso2(countries[j].getIso2());
+                        uifPopData.setIso3(countries[j].getIso3());
+                        uifPopData.setCode3(countries[j].getCode3());
+                        uifPopData.setFips(countries[j].getFips());
+                        uifPopData.setPopulation(countries[j].getPopulation());
                         break;
                     }
                 }
