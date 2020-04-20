@@ -45,7 +45,7 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 
 ## Languages and Technologies Used
 - Languages
-  - Java, JavaScript, HTML/CSS, JSP
+  - Java, JavaScript, HTML/CSS
 - Technologies
   - IDE: IntelliJ IDEA
   - Frameworks/APIs: CV19Location API, SpringMVC, Spring Boot, Thymeleaf, Bootstrap, CanvasJS, Postman

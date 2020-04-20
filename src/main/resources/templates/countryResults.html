@@ -23,8 +23,7 @@
             <h1>Statistics</h1>
             <h2 th:text="${searchedCountry}"></h2>
 
-            <h3>All cases</h3>
-            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <div id="chartContainer" style="height: 370px; width: 90%;"></div>
 
             <br>
             <th:block th:if="${provinceNames}">
@@ -38,9 +37,8 @@
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
 
-            <h2>County/State in the news</h2>
+            <h2>Country in the news</h2>
 
-            <a href="/tips">Ways to stay safe</a>
             <footer>
 
             </footer>
