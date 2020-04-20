@@ -1,8 +1,17 @@
 <div th:fragment="plotpoints">
         <script th:inline="javascript">
-        var z = [[${population}]];
-        var dps = [[${dataPoints}]];
-        console.log(dps);
+        var newConf = [[${graphNewConf}]];
+        console.log(newConf);
+        var totalConf = [[${graphTotalConf}]];
+        console.log(totalConf);
+        var newDeaths = [[${graphNewDeaths}]];
+        console.log(newDeaths);
+        var totalDeaths = [[${graphTotalDeaths}]];
+        console.log(totalDeaths);
+        var newRecovs = [[${graphNewRecovs}]];
+        console.log(newRecovs);
+        var totalRecovs = [[${graphTotalRecovs}]];
+        console.log(totalRecovs);
         window.onload = function () {
             var options = {
                 animationEnabled: true,
@@ -10,20 +19,78 @@
                     text: "Time Series Data"
                 },
                 axisX: {
+                    title: "Dates",
                     valueFormatString: "MM-DD-YY",
                     intervalType: "day"
                 },
                 axisY: {
                     title: "Cases",
-                    includeZero: true
+                    includeZero: true,
+                    minimum: -250
                 },
+                /* legend: {
+		                cursor:"pointer",
+		                verticalAlign: "top",
+		                horizontalAlign: "left",
+		                dockInsidePlotArea: true,
+		                itemclick: toogleDataSeries
+	            }, */
                 data: [{
+                    name: "New Confirmed Cases",
+                    showInLegend: true,
                     yValueFormatString: "###,###,###",
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
-                    type: "spline",
-                    dataPoints: dps
-                }]
+                    type: "line",
+                    dataPoints: newConf
+                },
+                {
+                    name: "Total Confirmed Cases",
+                    showInLegend: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalConf
+                },
+                {
+                    name: "New Fatal Cases",
+                    showInLegend: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: newDeaths
+                },
+                {
+                    name: "Total Fatal Cases",
+                    showInLegend: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalDeaths
+                },
+                {
+                    name: "New Recovered Cases",
+                    showInLegend: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    lineDashType: "dash",
+                    dataPoints: newRecovs
+                },
+                {
+                    name: "Total Recovered Cases",
+                    showInLegend: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalRecovs
+                }
+                ]
             };
             $("#chartContainer").CanvasJSChart(options);
         }

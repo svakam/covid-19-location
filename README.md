@@ -75,7 +75,13 @@ Baeldung:
 
 
 Bootstrap: 
-- Implementation: https://getbootstrap.com/docs/4.4/getting-started/introduction/
+- Docs: https://getbootstrap.com/docs/4.4/getting-started/introduction/
+
+
+CanvasJS:
+- Docs: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/
+- Date/time: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/formatting-date-time/ https://canvasjs.com/forums/topic/date-time-formatting-issues/ 
+https://jsfiddle.net/canvasjs/6ftyg155/
 
 
 Stack Overflow:

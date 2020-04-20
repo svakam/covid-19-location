@@ -78,7 +78,7 @@ class MainController {
         // [recov new],
         // [recov total]
         // ]
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
+
         // get confirmed cases for searched country
         if (confDataGlobal == null) {
             confDataGlobal = ApiMethods.getTimeSeriesConf(req);
@@ -87,12 +87,31 @@ class MainController {
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
         LinkedList<String> recovDates = null;
+
+        // initialize graph data
+        Map<Object, Object>[] graphNewConf;
+        Map<Object, Object>[] graphTotalConf;
+        Map<Object, Object>[] graphNewDeaths;
+        Map<Object, Object>[] graphTotalDeaths;
+        Map<Object, Object>[] graphNewRecovs;
+        Map<Object, Object>[] graphTotalRecovs;
+
+        // initialize other
+        int uid = -1;
+        String iso2 = null;
+        String iso3 = null;
+        int code3 = -1;
+        int fips = -1;
+        int population = -1;
+
         if (confDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
-            caseInfoForCountry[0] = caseInfo[0];
-            caseInfoForCountry[1] = caseInfo[1];
+            graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
+            graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
+            model.addAttribute("graphNewConf", graphNewConf);
+            model.addAttribute("graphTotalConf", graphTotalConf);
         } else {
             System.out.println("Could not get confirmed series data");
         }
@@ -104,8 +123,10 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             deathsDates = deathsDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsDataGlobal);
-            caseInfoForCountry[2] = caseInfo[0];
-            caseInfoForCountry[3] = caseInfo[1];
+            graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
+            graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
+            model.addAttribute("graphNewDeaths", graphNewDeaths);
+            model.addAttribute("graphTotalDeaths", graphTotalDeaths);
         } else {
             System.out.println("Could not get confirmed series data");
         }
@@ -117,12 +138,11 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             recovDates = recovDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovDataGlobal);
-            caseInfoForCountry[4] = caseInfo[0];
-            caseInfoForCountry[5] = caseInfo[1];
+            graphNewRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[0]);
+            graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
+            model.addAttribute("graphNewRecovs", graphNewRecovs);
+            model.addAttribute("graphTotalRecovs", graphTotalRecovs);
         }
-        Map<Object, Object>[] dataPointsArray = CanvasJSChartData.convertToXYPoints(confDates, caseInfoForCountry[0]);
-        model.addAttribute("dataPoints", dataPointsArray);
-
 
 
         // ------------ country dropdown and uif pop data -------------- //
@@ -132,12 +152,6 @@ class MainController {
         }
         UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, searchedCountry, countries);
         LinkedList<String> countryDropdown;
-        int uid = -1;
-        String iso2 = null;
-        String iso3 = null;
-        int code3 = -1;
-        int fips = -1;
-        int population = -1;
         if (uifPopData == null) {
             countryDropdown = UIFMethods.createCountryDropdown(req, countries);
         } else {
@@ -153,19 +167,7 @@ class MainController {
         // -- get province dropdown based on searched country -- //
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
-
-
         // add to template
-        if (confDates != null) {
-            model.addAttribute("confDates", confDates);
-        }
-        if (deathsDates != null) {
-            model.addAttribute("deathsDates", deathsDates);
-        }
-        if (recovDates != null) {
-            model.addAttribute("recovDates", recovDates);
-        }
-        model.addAttribute("caseInfoForCountry", caseInfoForCountry);
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("uid", uid);
