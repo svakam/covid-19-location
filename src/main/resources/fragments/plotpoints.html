@@ -1,0 +1,151 @@
+<div th:fragment="plotpoints">
+        <script th:inline="javascript">
+        /* country/province/county name */
+        let searchedName;
+        if ([[${searchedCountry}]]) {
+            searchedName = [[${searchedCountry}]];
+        } else if ([[${searchedProvince}]]) {
+            searchedName = [[${searchedProvince}]];
+        } else if ([[${searchedCounty}]]) {
+            searchedName = [[${searchedCounty}]];
+        }
+        console.log(searchedName);
+
+        /* case info */
+        if ([[${graphNewConf}]]) {
+            var newConf = [[${graphNewConf}]];
+            console.log(newConf);
+        }
+        if ([[${graphTotalConf}]]) {
+            var totalConf = [[${graphTotalConf}]];
+            console.log(totalConf);
+        }
+        if ([[${graphNewDeaths}]]) {
+            var newDeaths = [[${graphNewDeaths}]];
+            console.log(newDeaths);
+        }
+        if ([[${graphTotalDeaths}]]) {
+            var totalDeaths = [[${graphTotalDeaths}]];
+            console.log(totalDeaths);
+        }
+        if ([[${graphNewRecovs}]]) {
+            var newRecovs = [[${graphNewRecovs}]];
+            console.log(newRecovs);
+        }
+        if ([[${graphTotalRecovs}]]) {
+            var totalRecovs = [[${graphTotalRecovs}]];
+            console.log(totalRecovs);
+        }
+
+        /* render data */
+        window.onload = function () {
+            var options = {
+                animationEnabled: true,
+                zoomEnabled: true,
+                title: {
+                    text: "Time Series Data"
+                },
+                subtitles: [{
+                    text: searchedName
+                }],
+                axisX: {
+                    title: "Dates",
+                    valueFormatString: "MM/DD/YY",
+                    intervalType: "day",
+                    includeZero: true
+                },
+                axisY: {
+                    includeZero: true,
+                    title: "Cases",
+                    logarithmic: false,
+                    minimum: 0,
+                    interlacedColor: "#F0F8FF"
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+		                cursor:"pointer",
+		                verticalAlign: "bottom",
+		                horizontalAlign: "center",
+		                dockInsidePlotArea: false,
+		                itemclick: toggleDataVisible
+	            },
+                data: [{
+                    name: "New Confirmed Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    lineDashType: "dash",
+                    dataPoints: newConf
+                },
+                {
+                    name: "Total Confirmed Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalConf
+                },
+                {
+                    name: "New Fatal Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    lineDashType: "dash",
+                    dataPoints: newDeaths
+                },
+                {
+                    name: "Total Fatal Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalDeaths
+                },
+                {
+                    name: "New Recovered Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    lineDashType: "dash",
+                    dataPoints: newRecovs
+                },
+                {
+                    name: "Total Recovered Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalRecovs
+                }
+                ]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+            function toggleDataVisible (e) {
+	             if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+		             e.dataSeries.visible = false;
+	             } else {
+		             e.dataSeries.visible = true;
+	             }
+	             $("#chartContainer").CanvasJSChart(options);
+            }
+        }
+        </script>
+</div>

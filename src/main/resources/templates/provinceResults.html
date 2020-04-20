@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="../../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../../css/state.css" type="text/css">
 
+        <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+
         <title>COVID-19 Locator</title>
     </head>
     <body>
@@ -22,39 +24,11 @@
             <h1>Statistics</h1>
             <h2 th:text="${combinedKey}"></h2>
 
-            <h3>Cases confirmed</h3>
-            <h4>Total</h4>
+            <!-- line graph -->
+            <div id="chartContainer" style="height: 370px; width: 90%;"></div>
 
-            <h4>Time Series</h4>
-            <p th:if="${confDates}" th:text="'Dates: ' + ${confDates}"></p>
-            <p th:if="${caseInfoForProvince[0]}" th:text="'New confirmed: ' + ${caseInfoForProvince[0]}"></p>
-            <p th:unless="${caseInfoForProvince[0]}">Sorry, but confirmed new cases data is unavailable for this province.</p>
-            <p th:if="${caseInfoForProvince[1]}" th:text="'Total confirmed: ' + ${caseInfoForProvince[1]}"></p>
-            <p th:unless="${caseInfoForProvince[1]}">Sorry, but confirmed total cases data is unavailable for this province.</p>
-
-            <h3>Deaths</h3>
-            <h4>Total</h4>
-
-            <h4>Time Series</h4>
-            <p th:if="${deathsDates}" th:text="'Dates: ' + ${deathsDates}"></p>
-            <p th:if="${caseInfoForProvince[2]}" th:text="'New deaths: ' + ${caseInfoForProvince[2]}"></p>
-            <p th:unless="${caseInfoForProvince[2]}">Sorry, but data on new deaths is unavailable for this province.</p>
-            <p th:if="${caseInfoForProvince[3]}" th:text="'Total deaths: ' + ${caseInfoForProvince[3]}"></p>
-            <p th:unless="${caseInfoForProvince[3]}">Sorry, but data on total deaths is unavailable for this province.</p>
-
-            <h3>Recovered</h3>
-            <th:block th:if="${countryOfProvince != 'US'}">
-                <h4>Total</h4>
-
-                <h4>Time Series</h4>
-                <p th:if="${recovDates}" th:text="'Dates: ' + ${recovDates}"></p>
-                <p th:if="${caseInfoForProvince[4]}" th:text="'New recoveries: ' + ${caseInfoForProvince[4]}"></p>
-                <p th:unless="${caseInfoForProvince[4]}">Sorry, but recovery new cases data is unavailable for this search.</p>
-                <p th:if="${caseInfoForProvince[5]}" th:text="'Total recoveries: ' + ${caseInfoForProvince[5]}"></p>
-                <p th:unless="${caseInfoForProvince[5]}">Sorry, but recovery total cases data is unavailable for this search.</p>
-            </th:block>
             <th:block th:if="${countryOfProvince == 'US'}">
-                <p>Sorry, but recovery data for the United States is not available.</p>
+                <p>(Sorry, but recovery data for the United States is not available.)</p>
             </th:block>
 
             <br>
@@ -69,12 +43,13 @@
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
 
-            <h1><a href="/tips">Ways to stay safe</a></h1>
+
         </main>
         <footer>
 
         </footer>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/canvasjs :: canvasjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

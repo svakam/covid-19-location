@@ -14,6 +14,8 @@
         <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../css/state.css" type="text/css">
 
+        <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+
         <title>COVID-19 Locator</title>
     </head>
     <body>
@@ -22,29 +24,10 @@
             <h1>Statistics</h1>
             <h2 th:text="${searchedCountry}"></h2>
 
-            <h3>Cases confirmed</h3>
-            <h4>Total</h4>
+            <!-- line graph -->
+            <div id="chartContainer" style="height: 370px; width: 90%;"></div>
 
-            <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${confDates}"></p>
-            <p th:text="'New confirmed: ' + ${caseInfoForCountry[0]}"></p>
-            <p th:text="'Total confirmed: ' + ${caseInfoForCountry[1]}"></p>
-
-            <h3>Deaths</h3>
-            <h4>Total</h4>
-
-            <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${deathsDates}"></p>
-            <p th:text="'New deaths: ' + ${caseInfoForCountry[2]}"></p>
-            <p th:text="'Total deaths: ' + ${caseInfoForCountry[3]}"></p>
-
-            <h3>Recovered</h3>
-            <h4>Total</h4>
-
-            <h4>Time Series</h4>
-            <p th:text="'Dates: ' + ${recovDates}"></p>
-            <p th:text="'New recoveries: ' + ${caseInfoForCountry[4]}"></p>
-            <p th:text="'Total recoveries: ' + ${caseInfoForCountry[5]}"></p>
+            <!-- table -->
 
             <br>
             <th:block th:if="${provinceNames}">
@@ -58,14 +41,14 @@
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
 
-            <h2>County/State in the news</h2>
+            <h2>Country in the news</h2>
 
-            <a href="/tips">Ways to stay safe</a>
             <footer>
 
             </footer>
         </main>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/canvasjs :: canvasjs"></div>
         <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

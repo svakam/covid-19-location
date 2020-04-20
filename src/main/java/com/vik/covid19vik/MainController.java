@@ -10,9 +10,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
 
 // ================ render templates ================= //
 @Controller
@@ -34,7 +36,9 @@ class MainController {
     // hashmap of already looked up countries
     HashMap<String, Integer> lookedUpCountries = new HashMap<>();
 
-    // ======================================= home ======================================= //
+    // ============================================================================== //
+    // =================================  home ====================================== //
+    // ============================================================================== //
     @GetMapping("/")
     String getIndex(Model model, HttpServletRequest req) {
 
@@ -47,7 +51,10 @@ class MainController {
         return "index";
     }
 
-    // ======================================= country results ======================================= //
+    // ============================================================================== //
+    // ============================  country results ================================ //
+    // ============================================================================== //
+
     // post request with user's country name search
     @PostMapping("/results/country")
     RedirectView submitCountrySearch(String searchedCountry) {
@@ -58,7 +65,7 @@ class MainController {
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, Model model, HttpServletRequest req) throws IOException {
+    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         System.out.println("searched country = " + searchedCountry);
 
@@ -71,7 +78,7 @@ class MainController {
         // [recov new],
         // [recov total]
         // ]
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[6]; // for countries without provinces
+
         // get confirmed cases for searched country
         if (confDataGlobal == null) {
             confDataGlobal = ApiMethods.getTimeSeriesConf(req);
@@ -80,12 +87,37 @@ class MainController {
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
         LinkedList<String> recovDates = null;
+
+        // initialize graph data
+        Map<Object, Object>[] graphNewConf;
+        Map<Object, Object>[] graphTotalConf;
+        Map<Object, Object>[] graphNewDeaths;
+        Map<Object, Object>[] graphTotalDeaths;
+        Map<Object, Object>[] graphNewRecovs;
+        Map<Object, Object>[] graphTotalRecovs;
+
+        // initialize table data
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] countryData = new LinkedList[6];
+
+        // initialize other
+        int uid = -1;
+        String iso2 = null;
+        String iso3 = null;
+        int code3 = -1;
+        int fips = -1;
+        int population = -1;
+
+        // retrieve data
         if (confDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
-            caseInfoForCountry[0] = caseInfo[0];
-            caseInfoForCountry[1] = caseInfo[1];
+            graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
+            graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
+            countryData[0] = caseInfo[0];
+            countryData[1] = caseInfo[1];
+            model.addAttribute("graphNewConf", graphNewConf);
+            model.addAttribute("graphTotalConf", graphTotalConf);
         } else {
             System.out.println("Could not get confirmed series data");
         }
@@ -97,8 +129,12 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             deathsDates = deathsDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsDataGlobal);
-            caseInfoForCountry[2] = caseInfo[0];
-            caseInfoForCountry[3] = caseInfo[1];
+            graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
+            graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
+            countryData[2] = caseInfo[0];
+            countryData[3] = caseInfo[1];
+            model.addAttribute("graphNewDeaths", graphNewDeaths);
+            model.addAttribute("graphTotalDeaths", graphTotalDeaths);
         } else {
             System.out.println("Could not get confirmed series data");
         }
@@ -110,9 +146,14 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             recovDates = recovDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovDataGlobal);
-            caseInfoForCountry[4] = caseInfo[0];
-            caseInfoForCountry[5] = caseInfo[1];
+            graphNewRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[0]);
+            graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
+            countryData[4] = caseInfo[0];
+            countryData[5] = caseInfo[1];
+            model.addAttribute("graphNewRecovs", graphNewRecovs);
+            model.addAttribute("graphTotalRecovs", graphTotalRecovs);
         }
+
 
         // ------------ country dropdown and uif pop data -------------- //
         // ------- uif/population data based on searched country ------- //
@@ -121,12 +162,6 @@ class MainController {
         }
         UIFMethods.UIFPopData uifPopData = UIFMethods.createCountryDropdownAndUIFPopData(req, searchedCountry, countries);
         LinkedList<String> countryDropdown;
-        int uid = -1;
-        String iso2 = null;
-        String iso3 = null;
-        int code3 = -1;
-        int fips = -1;
-        int population = -1;
         if (uifPopData == null) {
             countryDropdown = UIFMethods.createCountryDropdown(req, countries);
         } else {
@@ -143,16 +178,7 @@ class MainController {
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
         // add to template
-        if (confDates != null) {
-            model.addAttribute("confDates", confDates);
-        }
-        if (deathsDates != null) {
-            model.addAttribute("deathsDates", deathsDates);
-        }
-        if (recovDates != null) {
-            model.addAttribute("recovDates", recovDates);
-        }
-        model.addAttribute("caseInfoForCountry", caseInfoForCountry);
+        model.addAttribute("countryData", countryData);
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("uid", uid);
@@ -168,11 +194,15 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
-
         return "countryResults";
     }
 
-    // ======================================= province results ======================================= //
+
+
+    // ============================================================================== //
+    // ===========================  province results ================================ //
+    // ============================================================================== //
+
     @PostMapping("/results/country/province")
     RedirectView submitProvinceSearch(String searchedProvince, String countryOfProvince) {
         String rvURL = "/results/country/province?";
@@ -184,7 +214,7 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sp") String searchedProvince, @RequestParam(name = "cop") String countryOfProvince,
-                              Model model, HttpServletRequest req) {
+                              Model model, HttpServletRequest req) throws ParseException {
 
         System.out.println("getmapping searched province = " + searchedProvince);
         System.out.println("getmapping searched country = " + countryOfProvince);
@@ -207,6 +237,14 @@ class MainController {
         UIFMethods.UIFPopData uifPopData;
         LinkedList<String> countryDropdown;
 
+        // initialize graph data
+        Map<Object, Object>[] graphNewConf;
+        Map<Object, Object>[] graphTotalConf;
+        Map<Object, Object>[] graphNewDeaths;
+        Map<Object, Object>[] graphTotalDeaths;
+        Map<Object, Object>[] graphNewRecovs;
+        Map<Object, Object>[] graphTotalRecovs;
+
         // ---------- get province data and store in province data object ----------- //
         // non-US data
         if (!countryOfProvince.equals("US")) {
@@ -220,6 +258,10 @@ class MainController {
                 if (caseInfo != null) {
                     provinceData[0] = caseInfo[0];
                     provinceData[1] = caseInfo[1];
+                    graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
+                    graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
+                    model.addAttribute("graphNewConf", graphNewConf);
+                    model.addAttribute("graphTotalConf", graphNewConf);
                 }
             }
             if (deathsDataGlobal == null) {
@@ -230,6 +272,10 @@ class MainController {
                 if (caseInfo != null) {
                     provinceData[2] = caseInfo[0];
                     provinceData[3] = caseInfo[1];
+                    graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
+                    graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
+                    model.addAttribute("graphNewDeaths", graphNewDeaths);
+                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
                 }
             }
             if (recovDataGlobal == null) {
@@ -240,6 +286,10 @@ class MainController {
                 if (caseInfo != null) {
                     provinceData[4] = caseInfo[0];
                     provinceData[5] = caseInfo[1];
+                    graphNewRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[0]);
+                    graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
+                    model.addAttribute("graphNewRecovs", graphNewRecovs);
+                    model.addAttribute("graphTotalRecovs", graphTotalRecovs);
                 }
             }
         }
@@ -256,6 +306,10 @@ class MainController {
                 if (caseInfo != null) {
                     provinceData[0] = caseInfo[0];
                     provinceData[1] = caseInfo[1];
+                    graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
+                    graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
+                    model.addAttribute("graphNewConf", graphNewConf);
+                    model.addAttribute("graphTotalConf", graphTotalConf);
                 }
             }
             if (deathsDataUS == null) {
@@ -266,6 +320,10 @@ class MainController {
                 if (caseInfo != null) {
                     provinceData[2] = caseInfo[0];
                     provinceData[3] = caseInfo[1];
+                    graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
+                    graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
+                    model.addAttribute("graphNewDeaths", graphNewDeaths);
+                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
                 }
             }
         }
@@ -301,6 +359,7 @@ class MainController {
         if (recovDates != null) {
             model.addAttribute("recovDates", recovDates);
         }
+        model.addAttribute("searchedProvince", searchedProvince);
         model.addAttribute("countryOfProvince", countryOfProvince);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("caseInfoForProvince", provinceData);
@@ -320,7 +379,10 @@ class MainController {
         return "provinceResults";
     }
 
-    // ======================================= county results ======================================= //
+    // ============================================================================== //
+    // ============================  county results ================================ //
+    // ============================================================================== //
+
 //    @PostMapping("results/country/province/county")
 //    RedirectView submitCountySearch(String searchedCounty, String provinceOfCounty, String countryOfProvince, Model model, HttpServletRequest req) {
 //        return rv;
@@ -339,7 +401,9 @@ class MainController {
     }
 
 
-    // ======================================= show API routes ======================================= //
+    // ============================================================================== //
+    // ============================= show API routes ================================ //
+    // ============================================================================== //
     @GetMapping("/API")
     String APIroutes(Model model, HttpServletRequest req) {
 
@@ -352,7 +416,9 @@ class MainController {
         return "viewApiRoutes";
     }
 
-    // ======================================= safety tips ======================================= //
+    // ============================================================================== //
+    // ==============================  safety tips ================================== //
+    // ============================================================================== //
     @GetMapping("/tips")
     String getStaySafe(Model model, HttpServletRequest req) {
 
@@ -365,7 +431,7 @@ class MainController {
         return "staySafe";
     }
 
-    // ======================================= fallback ======================================= //
+    // =================================== fallback ================================== //
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
 
