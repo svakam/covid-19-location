@@ -12,18 +12,32 @@
         console.log(searchedName);
 
         /* case info */
-        let newConf = [[${graphNewConf}]];
-        console.log(newConf);
-        let totalConf = [[${graphTotalConf}]];
-        console.log(totalConf);
-        let newDeaths = [[${graphNewDeaths}]];
-        console.log(newDeaths);
-        let totalDeaths = [[${graphTotalDeaths}]];
-        console.log(totalDeaths);
-        let newRecovs = [[${graphNewRecovs}]];
-        console.log(newRecovs);
-        let totalRecovs = [[${graphTotalRecovs}]];
-        console.log(totalRecovs);
+        if ([[${graphNewConf}]]) {
+            var newConf = [[${graphNewConf}]];
+            console.log(newConf);
+        }
+        if ([[${graphTotalConf}]]) {
+            var totalConf = [[${graphTotalConf}]];
+            console.log(totalConf);
+        }
+        if ([[${graphNewDeaths}]]) {
+            var newDeaths = [[${graphNewDeaths}]];
+            console.log(newDeaths);
+        }
+        if ([[${graphTotalDeaths}]]) {
+            var totalDeaths = [[${graphTotalDeaths}]];
+            console.log(totalDeaths);
+        }
+        if ([[${graphNewRecovs}]]) {
+            var newRecovs = [[${graphNewRecovs}]];
+            console.log(newRecovs);
+        }
+        if ([[${graphTotalRecovs}]]) {
+            var totalRecovs = [[${graphTotalRecovs}]];
+            console.log(totalRecovs);
+        }
+
+        /* render data */
         window.onload = function () {
             var options = {
                 animationEnabled: true,

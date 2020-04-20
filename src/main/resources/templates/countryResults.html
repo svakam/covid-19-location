@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="../css/state.css" type="text/css">
 
         <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+
         <title>COVID-19 Locator</title>
     </head>
     <body>
@@ -23,7 +24,10 @@
             <h1>Statistics</h1>
             <h2 th:text="${searchedCountry}"></h2>
 
+            <!-- line graph -->
             <div id="chartContainer" style="height: 370px; width: 90%;"></div>
+
+            <!-- table -->
 
             <br>
             <th:block th:if="${provinceNames}">
