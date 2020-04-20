@@ -52,17 +52,22 @@
                     title: "Dates",
                     valueFormatString: "MM/DD/YY",
                     intervalType: "day",
-                    includeZero: true
                 },
                 axisY: {
-                    includeZero: true,
                     title: "Cases",
                     logarithmic: false,
-                    minimum: 0,
-                    interlacedColor: "#F0F8FF"
+                    interlacedColor: "#F0F8FF",
                 },
                 toolTip: {
-                    shared: true
+                    shared: true,
+                    /* contentFormatter: function (e) {
+				        var content = " ";
+				        for (var i = 0; i < e.entries.length; i++) {
+					            content += e.entries[i].dataSeries.name + ": " + "<strong>" + e.entries[i].dataPoint.y + "</strong>";
+					            content += "<br/>";
+				        }
+				        return content;
+			         } */
                 },
                 legend: {
 		                cursor:"pointer",

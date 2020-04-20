@@ -79,10 +79,6 @@ class MainController {
         // [recov total]
         // ]
 
-        // get confirmed cases for searched country
-        if (confDataGlobal == null) {
-            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
-        }
         // initialize dates
         LinkedList<String> confDates = null;
         LinkedList<String> deathsDates = null;
@@ -108,6 +104,9 @@ class MainController {
         int population = -1;
 
         // retrieve data
+        if (confDataGlobal == null) {
+            confDataGlobal = ApiMethods.getTimeSeriesConf(req);
+        }
         if (confDataGlobal != null) {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
@@ -207,8 +206,8 @@ class MainController {
     RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
         String rvURL = "/results/country/province?";
         System.out.println("sp = " + searchedProvince);
-        System.out.println("cop = " + searchedCountry);
-        rvURL = rvURL + "sc=" + searchedProvince + "&sp=" + searchedProvince;
+        System.out.println("sc = " + searchedCountry);
+        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
         return new RedirectView(rvURL);
     }
 
@@ -252,7 +251,8 @@ class MainController {
             provinceData = new LinkedList[6];
             if (confDataGlobal == null) {
                 confDataGlobal = ApiMethods.getTimeSeriesConf(req);
-            } else {
+            }
+            if (confDataGlobal != null) {
                 confDates = confDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, confDataGlobal);
                 if (caseInfo != null) {
@@ -266,7 +266,8 @@ class MainController {
             }
             if (deathsDataGlobal == null) {
                 deathsDataGlobal = ApiMethods.getTimeSeriesDeaths(req);
-            } else {
+            }
+            if (deathsDataGlobal != null) {
                 deathsDates = deathsDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, deathsDataGlobal);
                 if (caseInfo != null) {
@@ -280,7 +281,8 @@ class MainController {
             }
             if (recovDataGlobal == null) {
                 recovDataGlobal = ApiMethods.getTimeSeriesRecov(req);
-            } else {
+            }
+            if (recovDataGlobal != null){
                 recovDates = recovDataGlobal.getDates();
                 LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveProvinceTSInfoAPICall(searchedProvince, recovDataGlobal);
                 if (caseInfo != null) {
@@ -300,7 +302,8 @@ class MainController {
             provinceData = new LinkedList[4];
             if (confDataUS == null) {
                 confDataUS = ApiMethods.getTimeSeriesUSConf(req);
-            } else {
+            }
+            if (confDataUS != null) {
                 confDates = confDataUS.getDates();
                 LinkedList<Integer>[] caseInfo = USTimeSeries.retrieveProvinceTSInfoAPICall(searchedProvince, confDataUS);
                 if (caseInfo != null) {
@@ -314,7 +317,8 @@ class MainController {
             }
             if (deathsDataUS == null) {
                 deathsDataUS = ApiMethods.getTimeSeriesUSDeaths(req);
-            } else {
+            }
+            if (deathsDataUS != null) {
                 deathsDates = deathsDataUS.getDates();
                 LinkedList<Integer>[] caseInfo = USTimeSeries.retrieveProvinceTSInfoAPICall(searchedProvince, deathsDataUS);
                 if (caseInfo != null) {
