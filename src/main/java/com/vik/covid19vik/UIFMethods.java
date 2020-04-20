@@ -121,15 +121,17 @@ class UIFMethods {
     static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, CountryUIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         if (countries != null) {
+            System.out.println("createCountryDropdownAndUIFPopDataProvince: API successfully pulled UIFLookup Info");
             UIFPopData uifPopData = new UIFPopData();
-            System.out.println("API successfully pulled UIFLookup Info");
+            HashSet<String> countriesSeen = new HashSet<>();
             CountryUIFLookup lastCountry = countries[countries.length - 1];
-            int i = 0;
+            int i;
             for (i = 0; i < countries.length; i++) {
                 CountryUIFLookup country = countries[i];
-                if (!countryDropdown.contains(country.getCountryOrRegion())) { // consider refactoring to use hashset to check if country name is contained in there
+                if (!countriesSeen.contains(country.getCountryOrRegion())) {
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());
+                    countriesSeen.add(country.getCountryOrRegion());
                 }
                 if (country.getProvinceOrState().equals(searchedProvince)) {
                     // add u/i/f and population data to object
