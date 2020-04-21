@@ -1,5 +1,7 @@
 package com.vik.covid19vik;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -156,26 +158,6 @@ class USTimeSeries {
         }
     }
 
-    static class CountyCaseAndUIF extends CountryUIFLookup {
-        LinkedList<Integer> sumTotalCasesAcrossCounty;
-        LinkedList<Integer> sumNewCasesAcrossCounty;
-
-        LinkedList<Integer> getSumTotalCasesAcrossCounty() {
-            return sumTotalCasesAcrossCounty;
-        }
-        void setSumTotalCasesAcrossCounty(LinkedList<Integer> sumTotalCasesAcrossCounty) {
-            this.sumTotalCasesAcrossCounty = sumTotalCasesAcrossCounty;
-        }
-
-        public LinkedList<Integer> getSumNewCasesAcrossCounty() {
-            return sumNewCasesAcrossCounty;
-        }
-
-        public void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
-            this.sumNewCasesAcrossCounty = sumNewCasesAcrossCounty;
-        }
-    }
-
     static LinkedList<Integer>[] retrieveProvinceTSInfoAPICall(String searchedProvince, USTimeSeries data) {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] newTotalCasesAcrossCounties = new LinkedList[2];
         LinkedList<Integer> sumTotalCasesAcrossCounty = new LinkedList<>();
@@ -212,5 +194,62 @@ class USTimeSeries {
         newTotalCasesAcrossCounties[0] = sumNewCasesAcrossCounty;
         newTotalCasesAcrossCounties[1] = sumTotalCasesAcrossCounty;
         return newTotalCasesAcrossCounties;
+    }
+
+    static class CountyCaseAndUIF extends CountryUIFLookup {
+        LinkedList<Integer> sumTotalCasesAcrossCounty;
+        LinkedList<Integer> sumNewCasesAcrossCounty;
+
+        LinkedList<Integer> getSumTotalCasesAcrossCounty() {
+            return sumTotalCasesAcrossCounty;
+        }
+        void setSumTotalCasesAcrossCounty(LinkedList<Integer> sumTotalCasesAcrossCounty) {
+            this.sumTotalCasesAcrossCounty = sumTotalCasesAcrossCounty;
+        }
+
+        public LinkedList<Integer> getSumNewCasesAcrossCounty() {
+            return sumNewCasesAcrossCounty;
+        }
+
+        public void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
+            this.sumNewCasesAcrossCounty = sumNewCasesAcrossCounty;
+        }
+    }
+
+    static CountyCaseAndUIF retrieveCountyTSInfoAPICall(String searchedCounty, String searchedProvince, USTimeSeries data) {
+        HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
+        CountyCaseAndUIF countyCaseAndUIF = new CountyCaseAndUIF();
+        if (statesWithCountyData.get(searchedProvince) != null) {
+            State stateWithCountyData = statesWithCountyData.get(searchedProvince);
+            HashMap<String, State.County> countiesData = stateWithCountyData.getCountyAndCases();
+            State.County countyData = countiesData.get(searchedCounty);
+            countyCaseAndUIF.setSumNewCasesAcrossCounty(countyData.getNewCases());
+            countyCaseAndUIF.setSumTotalCasesAcrossCounty(countyData.getTotalCases());
+            countyCaseAndUIF.setUid(countyData.getUid());
+            countyCaseAndUIF.setIso2(countyData.getIso2());
+            countyCaseAndUIF.setIso3(countyData.getIso3());
+            countyCaseAndUIF.setCode3(countyData.getCode3());
+            countyCaseAndUIF.setFips((int) countyData.getFips());
+            countyCaseAndUIF.setCombinedKey(countyData.getCombinedKey());
+            System.out.println("Successfully pulled county data");
+            return countyCaseAndUIF;
+        }
+        System.out.println("Could not pull county data");
+        return null;
+    }
+
+    static LinkedList<String> createCountyDropdown(String searchedProvince, USTimeSeries data) {
+        LinkedList<String> countyDropdown = new LinkedList<>();
+        HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
+        if (statesWithCountyData.get(searchedProvince) != null) {
+            State stateWithCountyData = statesWithCountyData.get(searchedProvince);
+            HashMap<String, State.County> countiesData = stateWithCountyData.getCountyAndCases();
+            for (Map.Entry<String, State.County> entry : countiesData.entrySet()) {
+                countyDropdown.add(entry.getKey());
+            }
+            return countyDropdown;
+        }
+        System.out.println("Could not access statesWithCountyData");
+        return null;
     }
 }

@@ -4,10 +4,9 @@
         let searchedName;
         if ([[${searchedCountry}]]) {
             searchedName = [[${searchedCountry}]];
-        } else if ([[${searchedProvince}]]) {
-            searchedName = [[${searchedProvince}]];
-        } else if ([[${searchedCounty}]]) {
-            searchedName = [[${searchedCounty}]];
+        }
+        if ([[${combinedKey}]]) {
+            searchedName = [[${combinedKey}]];
         }
         console.log(searchedName);
 

@@ -97,6 +97,7 @@ https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values
 - HTTP Servlet Request: https://stackoverflow.com/questions/9607903/get-domain-name-from-given-url 
 https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
 - LinkedList array: https://stackoverflow.com/questions/20202889/how-can-i-create-an-array-of-linked-lists-in-java
+- Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
 
 
 Thymeleaf: 

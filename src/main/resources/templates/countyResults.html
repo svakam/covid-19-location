@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- native CSS -->
+    <link rel="stylesheet" href="../../css/baseindex.css" type="text/css">
+    <link rel="stylesheet" href="../../css/layoutindex.css" type="text/css">
+    <link rel="stylesheet" href="../../css/state.css" type="text/css">
+
+    <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+
+    <title>COVID-19 Locator</title>
+</head>
+<body>
+<header th:replace="../fragments/headernav :: headernav"></header>
+<main>
+    <h1>Statistics</h1>
+    <h2 th:text="${combinedKey}"></h2>
+
+    <!-- line graph -->
+    <div class="container justify-content-center" id="chartContainer" style="height: 400px; width: 95%;"></div>
+
+    <th:block th:if="${searchedCountry == 'US'}">
+        <p>(Sorry, but recovery data for the United States is not available.)</p>
+    </th:block>
+
+    <br>
+    <th:block th:if="${provinceNames}">
+        <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
+    </th:block>
+    <div th:replace="../fragments/countydropdown :: countydropdown"></div>
+
+    <p th:text="'UID: ' + ${uid}"></p>
+    <p th:text="'Iso2: ' + ${iso2}"></p>
+    <p th:text="'Iso3: ' + ${iso3}"></p>
+    <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+    <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+    <p th:text="'Population: ' + ${population}"></p>
+
+</main>
+<footer>
+
+</footer>
+<div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+<div th:replace="../fragments/canvasjs :: canvasjs"></div>
+<div th:replace="../fragments/firebase :: firebase"></div>
+</body>
+</html>
