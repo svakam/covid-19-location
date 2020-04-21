@@ -34,11 +34,9 @@ Or if you'd like to run it from your local machine:
 ## Screenshots
 
 ## Data Flow
-Search bar entry that ideally contains the state or province, but also countries, will be used to query 
-the /countries endpoint. If successful, it must be decided whether the query was a countries or a state/province. If a countries was entered, the /summary endpoint will be queried
-to obtain the countries, countryslug, and case data (confirmed, deaths, recovered). If a state/province was entered, the countryslug will be used to query the /countries/
-{countryslug}/status/{status} endpoint. The array of states/provinces from the /countries endpoint will be used to further find the desired state/province and iterate through
-the endpoint for /countries/{countryslug}/status/{status} to get the state/province information. 
+Users select a country, province, or county through dropdown menus to send a POST request with queries of searched country, province, or county. Depending on the choice 
+chosen, the custom-built API establishes an HTTP URL connection to Johns Hopkins University CSSE's .csv data files on GitHub. After obtaining the .csv data, the API 
+parses it to JSON format. The JSON format is used to formulate the information into a more approachable front-end view with tables and graphs. 
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19

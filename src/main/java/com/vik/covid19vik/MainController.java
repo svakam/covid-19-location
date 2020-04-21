@@ -309,7 +309,9 @@ class MainController {
             if (confDataUS != null) {
                 // create county dropdown
                 countyDropdown = USTimeSeries.createCountyDropdown(searchedProvince, confDataUS);
-                model.addAttribute("countyNames", countyDropdown);
+                if (countyDropdown != null && countyDropdown.size() > 0) {
+                    model.addAttribute("countyNames", countyDropdown);
+                }
 
                 // get data
                 confDates = confDataUS.getDates();
@@ -489,7 +491,7 @@ class MainController {
         provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
         // add to template
-        model.addAttribute("searchedCounty", searchedCountry);
+        model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("searchedProvince", searchedProvince);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("provinceNames", provinceDropdown);
