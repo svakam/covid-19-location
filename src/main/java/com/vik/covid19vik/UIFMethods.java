@@ -13,6 +13,8 @@ class UIFMethods {
         private int code3;
         private int fips;
         private int population;
+        private String combinedKey;
+
         private LinkedList<String> dropdown;
 
         // getters and setters
@@ -52,6 +54,12 @@ class UIFMethods {
         void setPopulation(int population) {
             this.population = population;
         }
+        public String getCombinedKey() {
+            return combinedKey;
+        }
+        public void setCombinedKey(String combinedKey) {
+            this.combinedKey = combinedKey;
+        }
         LinkedList<String> getDropdown() {
             return dropdown;
         }
@@ -79,6 +87,7 @@ class UIFMethods {
                         uifPopData.setCode3(country.getCode3());
                         uifPopData.setFips(country.getFips());
                         uifPopData.setPopulation(country.getPopulation());
+                        uifPopData.setCombinedKey(country.getCombinedKey());
                     }
                 }
 
@@ -95,7 +104,7 @@ class UIFMethods {
         }
     }
 
-    static LinkedList<String> createCountryDropdown(HttpServletRequest req, CountryUIFLookup[] countries) {
+    static LinkedList<String> createCountryDropdown(CountryUIFLookup[] countries) {
         if (countries != null) {
             LinkedList<String> countryDropdown = new LinkedList<>();
             System.out.println("API successfully pulled UIFLookup Info");
@@ -141,6 +150,7 @@ class UIFMethods {
                     uifPopData.setCode3(country.getCode3());
                     uifPopData.setFips(country.getFips());
                     uifPopData.setPopulation(country.getPopulation());
+                    uifPopData.setCombinedKey(country.getCombinedKey());
                 }
                 // since 80% of ApiMethods.getUIFLoop(req) is US data, stop as soon as country dropdown contains US with the assumption that the rest of data is US
                 if (countryDropdown.contains("US") && lastCountry.getCountryOrRegion().equals("US")) {
@@ -158,6 +168,7 @@ class UIFMethods {
                         uifPopData.setCode3(countries[j].getCode3());
                         uifPopData.setFips(countries[j].getFips());
                         uifPopData.setPopulation(countries[j].getPopulation());
+                        uifPopData.setCombinedKey(countries[j].getCombinedKey());
                         break;
                     }
                 }

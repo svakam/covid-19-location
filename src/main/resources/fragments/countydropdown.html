@@ -1,18 +1,19 @@
-<div th:fragment="provincedropdown">
+<div th:fragment="countydropdown">
     <!-- populate province dropdown based on what the current country is -->
-    <form action="/results/country/province" method="POST">
+    <form action="/results/country/province/county" method="POST">
         <div class="row justify-content-center">
-            <label for="provincedropdownbody">Search by Province/State</label>
+            <label for="countydropdownbody">Search by County</label>
         </div>
         <div class="row justify-content-center">
-            <select id="provincedropdownbody" name="searchedProvince">
+            <select id="countydropdownbody" name="searchedCounty">
                 <option value="Select province/state..." disabled>Select province/state...</option>
-                <th:block th:each="province : ${provinceNames}">
-                    <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
+                <th:block th:each="county : ${countyNames}">
+                    <option th:value="${county}" th:id="${county}" th:text="${county}"></option>
                 </th:block>
             </select>
             <button type="submit" class="btn btn-primary btn-lg">Search</button>
         </div>
+        <input type="hidden" th:name="searchedProvince" th:value="${searchedProvince}" />
         <input type="hidden" th:name="searchedCountry" th:value="${searchedCountry}" />
     </form>
 </div>
