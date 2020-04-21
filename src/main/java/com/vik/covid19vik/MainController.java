@@ -493,6 +493,7 @@ class MainController {
         // add to template
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("searchedProvince", searchedProvince);
+        model.addAttribute("searchedCounty", searchedCounty);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("provinceNames", provinceDropdown);
         model.addAttribute("countyNames", countyDropdown);

@@ -9,6 +9,7 @@
             <option value="Canada">Canada</option>
             <option value="Mexico">Mexico</option>
             <th:block th:each="country: ${countryNames}">
+                <option th:value="${searchedCountry}" th:id="${searchedCountry}" th:text="${searchedCountry}"></option>
                 <option th:value="${country}" th:text="${country}"></option>
             </th:block>
         </select>
