@@ -4,14 +4,10 @@
 
 Deployed at: http://www.cv19location.com (being updated)
 
-This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
-information on how COVID-19 is impacting their community in the United States.
-
-Upon entering the website, the user will be greeted by a splash page. Here, the user will be provided a search box to enter their countries, state, or county. 
-The user will then be taken to a results page that renders information from Covid19API regarding the total number of cases of COVID-19 in their countries, 
-total number of cases in their province/state, and total number of cases in their county. 
-
-The number of cases of COVID-19 will contain numbers for confirmed cases, recovered cases, and death cases. 
+This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current case 
+information on how COVID-19 is impacting their community in the United States. Raw case information (total confirmed/deaths/recovered cases) 
+is rendered directly from Johns Hopkins University CSSE .csv files sourced on GitHub. Users can browse for a location to see case data visualized in graphs and tables. Users
+may also subscribe to SMS to receive daily updates on new case information for their selected location. 
 
 NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
@@ -33,10 +29,6 @@ Or if you'd like to run it from your local machine:
 
 ## Screenshots
 
-## Data Flow
-Users select a country, province, or county through dropdown menus to send a POST request with queries of searched country, province, or county. Depending on the choice 
-chosen, the custom-built API establishes an HTTP URL connection to Johns Hopkins University CSSE's .csv data files on GitHub. After obtaining the .csv data, the API 
-parses it to JSON format. The JSON format is used to formulate the information into a more approachable front-end view with tables and graphs. 
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
@@ -46,8 +38,11 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - Java, JavaScript, HTML/CSS
 - Technologies
   - IDE: IntelliJ IDEA
-  - Frameworks/APIs: CV19Location API, SpringMVC, Spring Boot, Thymeleaf, Bootstrap, CanvasJS, Postman
-  - AWS: Route 53, Elastic Beanstalk
+  - Frameworks/APIs: CV19Locator API, SpringMVC, Spring Boot, Thymeleaf, GSON, Bootstrap, CanvasJS, Postman
+  - AWS: Route 53, Elastic Beanstalk, SNS
+  
+## Contact
+If you're interested in contributing, or have questions regarding the CV19Locator API, email me at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
 
 ## Acknowledgements
 AWS:
@@ -58,7 +53,7 @@ AWS:
   - Publish message to topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-publish-message-to-topic.html
 - Credentials: https://github.com/aws/aws-toolkit-jetbrains/issues/718 https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html
 - Elastic Beanstalk
-  - Credentials in EC2: https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_environment.html https://alexdisler.com/2016/03/26/nodejs-environment-variables-elastic-beanstalk-aws/
+- Credentials in EC2: https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_environment.html https://alexdisler.com/2016/03/26/nodejs-environment-variables-elastic-beanstalk-aws/
 - Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
 - Logging AWS SDK for Java Calls: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-logging.html
 
@@ -97,6 +92,11 @@ Deployment:
 beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
 
 
+GSON: 
+- GitHub: https://github.com/google/gson/blob/master/UserGuide.md 
+- BEGIN_ARRAY vs. BEGIN_OBJECT: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
+
+
 Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
 - REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
@@ -129,8 +129,6 @@ Thymeleaf:
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
-- GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
-- GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
 - Dropdown: https://www.w3schools.com/tags/att_option_value.asp
 - RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html

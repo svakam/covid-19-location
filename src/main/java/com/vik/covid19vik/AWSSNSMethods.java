@@ -5,7 +5,7 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 import software.amazon.awssdk.services.sns.model.SubscribeRequest;
 
-public class AWSSNS {
+public class AWSSNSMethods {
     // subscribe and publish
     static void subscribeAndPublish(String arn, String snsAdd, SnsClient client) {
         // subscribe request
@@ -29,12 +29,12 @@ public class AWSSNS {
 
     // check URL for redundant parameters
     static String checkURLRedundant(String currentURL) {
-        if (currentURL.contains("&no=invalid")) {
-            int index = currentURL.indexOf("&no=invalid");
+        if (currentURL.contains("&valid=true")) {
+            int index = currentURL.indexOf("&valid=true");
             currentURL = currentURL.substring(0, index);
         }
-        if (currentURL.contains("&no=valid")) {
-            int index = currentURL.indexOf("&no=valid");
+        if (currentURL.contains("&valid=false")) {
+            int index = currentURL.indexOf("&valid=false");
             currentURL = currentURL.substring(0, index);
         }
         return currentURL;

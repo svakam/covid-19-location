@@ -1,6 +1,5 @@
 package com.vik.covid19vik;
 
-import com.sun.tools.javac.util.DefinedBy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -217,14 +216,11 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "no", required = false) String invalid,
-                              @RequestParam(name = "no", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "valid", required = false) boolean valid, Model model, HttpServletRequest req) throws ParseException {
 
-        if (invalid != null) {
-            model.addAttribute("invalidNo", invalid);
-        }
-        if (valid != null) {
-            model.addAttribute("validNo", valid);
+        // if number valid, show success message, else failure message
+        if (valid) {
+            model.addAttribute("valid", valid);
         }
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
@@ -523,6 +519,8 @@ class MainController {
         return "countyResults";
     }
 
+
+
     // ============================================================================== //
     // ==================================== SNS ===================================== //
     // ============================================================================== //
@@ -555,25 +553,27 @@ class MainController {
         Matcher matcherComplete = compiledComplete.matcher(snsAdd);
         Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
 
+        boolean valid;
+
+        // if valid number, subscribe and publish
         if (matcherComplete.matches()) {
-            AWSSNS.subscribeAndPublish(arn, snsAdd, client);
+            AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
+            valid = true;
         } else if (matcherNoCC.matches()) {
             String snsAddAndCC = "+1" + snsAdd;
-            AWSSNS.subscribeAndPublish(arn, snsAddAndCC, client);
-        } else {
-            client.close();
-            String invalid = "invalid";
-            // accounts for redundant requestparam
-            currentURL = AWSSNS.checkURLRedundant(currentURL);
-
-            return new RedirectView(currentURL + "&no=" + invalid);
+            AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
+            valid = true;
+        }
+        // else don't subscribe/publish
+        else {
+            valid = false;
         }
 
-        String valid = "valid";
         // accounts for redundant requestparam
-        currentURL = AWSSNS.checkURLRedundant(currentURL);
+        currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
+        client.close();
 
-        return new RedirectView(currentURL + "&no=" + valid);
+        return new RedirectView(currentURL + "&valid=" + valid);
     }
 
     @PostMapping("/sms/unsubscribe")

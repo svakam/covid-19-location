@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.sns.model.*;
 
 import java.util.List;
 
-public class AWSSNSTest {
+public class AWSSNSMethodsTest {
 
     // ensure client is being instantiated with credentials
     @Test

@@ -21,7 +21,10 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block th:if="${invalidNo}">
+            <th:block th:if="${valid}">
+                <div th:replace="../fragments/validNo :: validNo"></div>
+            </th:block>
+            <th:block th:unless="${valid}">
                 <div th:replace="../fragments/invalidNo :: invalidNo"></div>
             </th:block>
             <h1>Statistics</h1>
