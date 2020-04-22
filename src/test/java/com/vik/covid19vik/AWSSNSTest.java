@@ -65,6 +65,8 @@ public class AWSSNSTest {
         assertEquals("sms", sr.protocol());
         assertEquals(arn, sr.topicArn());
 
+        // run function to get latest update on information
+        // need combined key, latest date and all case data for latest date
         final String msg = "For King County, Washington, USA on 04/21/20:\nNew confirmed cases: 100\nTotal confirmed cases: 4000\nNew fatalities: 50\nTotal fatalities: 100\nNew recoveries: N/A\nTotal recoveries: N/A";
         final PublishRequest pr = PublishRequest.builder()
                 .topicArn(arn)

@@ -50,13 +50,6 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - AWS: Route 53, Elastic Beanstalk
 
 ## Acknowledgements
-COVID-19 APIs and COVID-19 data consulted:
-- Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
-- CDC: https://open.cdc.gov/apis.html
-- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
-- USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
-- Some state/local health department websites
-
 AWS:
 - SNS
   - Java setup: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
@@ -64,12 +57,18 @@ AWS:
   - Subscription to endpoint: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-subscribe-endpoint-to-topic.html
   - Publish message to topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-publish-message-to-topic.html
 - Credentials: https://github.com/aws/aws-toolkit-jetbrains/issues/718 https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html
+- Elastic Beanstalk
+  - Credentials in EC2: https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_environment.html https://alexdisler.com/2016/03/26/nodejs-environment-variables-elastic-beanstalk-aws/
+- Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
 - Logging AWS SDK for Java Calls: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-logging.html
 
-Spring.io:
-- REST: https://spring.io/guides/gs/rest-service/
-- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
-- REST: https://spring.io/guides/gs/serving-web-content/
+
+COVID-19 APIs and COVID-19 data consulted:
+- Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
+- CDC: https://open.cdc.gov/apis.html
+- Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
+- USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
+- Some state/local health department websites
 
 
 Baeldung:
@@ -96,6 +95,12 @@ Deployment:
 - AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
 - Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
 beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
+
+
+Spring.io:
+- REST: https://spring.io/guides/gs/rest-service/
+- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
+- REST: https://spring.io/guides/gs/serving-web-content/
 
 
 Stack Overflow:
@@ -139,6 +144,4 @@ https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
-
-
-Code Fellows Java curriculum
+- Code Fellows Java curriculum

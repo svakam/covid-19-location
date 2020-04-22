@@ -22,4 +22,23 @@ public class RegexTest {
         String baseURL = url.substring(0, 22);
         assertEquals(expected, baseURL);
     }
+
+    @Test
+    void testPhoneNum() {
+        String completeNum = "+12345678901";
+        String regex = "\\+1\\d{10}";
+        Pattern compiled = Pattern.compile(regex);
+        assertEquals("\\+1\\d{10}", compiled.toString());
+        Matcher matcher = compiled.matcher(completeNum);
+        assertTrue(matcher.matches());
+
+        String noCountryCode = "1234567890";
+        String regex2 = "\\d{10}";
+        Pattern compiled2 = Pattern.compile(regex2);
+        assertEquals("\\d{10}", compiled2.toString());
+        Matcher matcher2 = compiled2.matcher(noCountryCode);
+        assertTrue(matcher2.matches());
+        Matcher matcher3 = compiled2.matcher(completeNum);
+        assertFalse(matcher3.matches());
+    }
 }

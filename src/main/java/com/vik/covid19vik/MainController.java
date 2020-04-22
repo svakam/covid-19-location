@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // ================ render templates ================= //
 @Controller
@@ -81,9 +83,9 @@ class MainController {
         // ]
 
         // initialize dates
-        LinkedList<String> confDates = null;
-        LinkedList<String> deathsDates = null;
-        LinkedList<String> recovDates = null;
+        LinkedList<String> confDates;
+        LinkedList<String> deathsDates;
+        LinkedList<String> recovDates;
 
         // initialize graph data
         Map<Object, Object>[] graphNewConf;
@@ -215,7 +217,15 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "no", required = false) String invalid,
+                              @RequestParam(name = "no", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
+
+        if (invalid != null) {
+            model.addAttribute("invalidNo", invalid);
+        }
+        if (valid != null) {
+            model.addAttribute("validNo", valid);
+        }
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
@@ -514,7 +524,7 @@ class MainController {
     }
 
     // ============================================================================== //
-    // ============================ SNS notifications =============================== //
+    // ==================================== SNS ===================================== //
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
     RedirectView subscribeSNS(String snsAdd, String currentURL) {
@@ -537,30 +547,33 @@ class MainController {
             throw new NullPointerException("Could not find topic ARN");
         }
 
-        // subscribe request
-        final SubscribeRequest sr = SubscribeRequest.builder()
-                .topicArn(arn)
-                .protocol("sms")
-                .endpoint("4252096602")
-                .build();
-        client.subscribe(sr);
+        // validate endpoint
+        String regexComplete = "\\+1\\d{10}";
+        String regexNoCountryCode = "\\d{10}";
+        Pattern compiledComplete = Pattern.compile(regexComplete);
+        Pattern compiledNoCountrycode = Pattern.compile(regexNoCountryCode);
+        Matcher matcherComplete = compiledComplete.matcher(snsAdd);
+        Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
 
-        // publish request
-        // run function to get latest update on information
-        // need combined key, latest date and all case data for latest date
-        final String msg = "For " + combinedKey + " on " + date  + ":\nNew confirmed cases: "
-                + newConf + "\nTotal confirmed cases: " + totalConf + "\nNew deaths: " + newDeaths "\nTotal deaths: " + totalDeaths + "\nNew recoveries: " + newRecovs
-                + "\nTotal recoveries: " + totalRecovs;
-        final PublishRequest pr = PublishRequest.builder()
-                .topicArn(arn)
-                .message(msg)
-                .build();
-        final PublishResponse publishResponse = client.publish(pr);
-        System.out.println("Published response = " + publishResponse.messageId());
+        if (matcherComplete.matches()) {
+            AWSSNS.subscribeAndPublish(arn, snsAdd, client);
+        } else if (matcherNoCC.matches()) {
+            String snsAddAndCC = "+1" + snsAdd;
+            AWSSNS.subscribeAndPublish(arn, snsAddAndCC, client);
+        } else {
+            client.close();
+            String invalid = "invalid";
+            // accounts for redundant requestparam
+            currentURL = AWSSNS.checkURLRedundant(currentURL);
 
-        client.close();
+            return new RedirectView(currentURL + "&no=" + invalid);
+        }
 
-        return new RedirectView(currentURL);
+        String valid = "valid";
+        // accounts for redundant requestparam
+        currentURL = AWSSNS.checkURLRedundant(currentURL);
+
+        return new RedirectView(currentURL + "&no=" + valid);
     }
 
     @PostMapping("/sms/unsubscribe")

@@ -21,6 +21,9 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
+            <th:block th:if="${invalidNo}">
+                <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+            </th:block>
             <h1>Statistics</h1>
             <h2 th:text="${combinedKey}"></h2>
 
@@ -48,7 +51,7 @@
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
 
-            <div th:replace="../fragments/sms :: sms"></div>
+            <div th:replace="../fragments/snsAdd :: snsAdd"></div>
 
         </main>
         <footer>
