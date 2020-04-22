@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 // ================ render templates ================= //
 @Controller
@@ -193,6 +194,7 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "countryResults";
     }
 
@@ -395,6 +397,7 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "provinceResults";
     }
 
@@ -506,14 +509,70 @@ class MainController {
         model.addAttribute("population", population);
         model.addAttribute("combinedKey", combinedKey);
         model.addAttribute("countyDataTable", countyDataTable);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "countyResults";
     }
 
+    // ============================================================================== //
+    // ============================ SNS notifications =============================== //
+    // ============================================================================== //
+    @PostMapping("/sms/subscribe")
+    RedirectView subscribeSNS(String snsAdd, String currentURL) {
+        // instantiate SNS client
+        SnsClient client = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        // get topic
+        ListTopicsResponse ltr = client.listTopics();
+        List<Topic> topics = ltr.topics();
+        String arn = null;
+        for (Topic topic : topics) {
+            if (topic.topicArn().contains("CovidLocatorSNS")) {
+                arn = topic.topicArn();
+            }
+        }
+        if (arn == null) {
+            throw new NullPointerException("Could not find topic ARN");
+        }
+
+        // subscribe request
+        final SubscribeRequest sr = SubscribeRequest.builder()
+                .topicArn(arn)
+                .protocol("sms")
+                .endpoint("4252096602")
+                .build();
+        client.subscribe(sr);
+
+        // publish request
+        // run function to get latest update on information
+        // need combined key, latest date and all case data for latest date
+        final String msg = "For " + combinedKey + " on " + date  + ":\nNew confirmed cases: "
+                + newConf + "\nTotal confirmed cases: " + totalConf + "\nNew deaths: " + newDeaths "\nTotal deaths: " + totalDeaths + "\nNew recoveries: " + newRecovs
+                + "\nTotal recoveries: " + totalRecovs;
+        final PublishRequest pr = PublishRequest.builder()
+                .topicArn(arn)
+                .message(msg)
+                .build();
+        final PublishResponse publishResponse = client.publish(pr);
+        System.out.println("Published response = " + publishResponse.messageId());
+
+        client.close();
+
+        return new RedirectView(currentURL);
+    }
+
+    @PostMapping("/sms/unsubscribe")
+    RedirectView unsubscribeSNS(String snsRemove, String currentURL) {
+
+        return new RedirectView(currentURL);
+    }
 
     // ============================================================================== //
     // ============================= show API routes ================================ //
     // ============================================================================== //
-    @GetMapping("/API")
+    @GetMapping("/api")
     String APIroutes(Model model, HttpServletRequest req) {
 
         if (countries == null) {

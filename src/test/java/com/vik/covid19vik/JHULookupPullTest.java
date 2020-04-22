@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestJHULookupPull {
+public class JHULookupPullTest {
     @Test
     void getRequest() {
         String pull = null;

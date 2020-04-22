@@ -30,6 +30,21 @@ public class AWSSNSTest {
         System.out.println(client);
     }
 
+    @Test
+    void testGetTopics() {
+        SnsClient client = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+        System.out.println(client);
+        ListTopicsResponse ltr = client.listTopics();
+        List<Topic> topics = ltr.topics();
+        for (Topic topic : topics) {
+            System.out.println(topic);
+            System.out.println(topic.topicArn());
+        }
+    }
+
     // client builder
     @Test
     void testClientBuilder() {

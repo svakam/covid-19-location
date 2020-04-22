@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestJHUGlobalPull {
+public class JHUGlobalPullTest {
     @Test
     void getRequest() {
         URL url = null;

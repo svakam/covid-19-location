@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TestRegex {
+public class RegexTest {
     @Test
     void extractSecondDomainURL() {
         String url = "http://localhost:5000/results/country";
