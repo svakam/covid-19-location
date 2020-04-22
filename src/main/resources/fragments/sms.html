@@ -1,9 +1,10 @@
 <div th:fragment="sms">
     <h5>Get notified on a daily basis for case information on this location.</h5>
     <span>
-        <p>Phone:</p>
         <form action="/sms" method="POST">
-            <input type="text" name="sms" aria-placeholder="Enter phone number..." />
+            <label>Phone: <input type="text" name="sms" placeholder="Enter phone number..." aria-placeholder="Enter phone number..." /></label>
+            <input type="submit" disabled="true" />
         </form>
+        <p><i>Sorry, but this feature is currently down.</i></p>
     </span>
 </div>
