@@ -59,6 +59,7 @@ COVID-19 APIs and COVID-19 data consulted:
 
 AWS:
 - SNS: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
+- Credentials: https://github.com/aws/aws-toolkit-jetbrains/issues/718 https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html
 
 
 Spring.io:
