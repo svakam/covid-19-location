@@ -44,6 +44,8 @@
     <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
     <p th:text="'Population: ' + ${population}"></p>
 
+    <div th:replace="../fragments/sms :: sms"></div>
+
 </main>
 <footer>
 

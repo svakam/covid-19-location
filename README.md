@@ -57,6 +57,9 @@ COVID-19 APIs and COVID-19 data consulted:
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
 
+AWS:
+- SNS: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
+
 
 Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
@@ -82,6 +85,14 @@ CanvasJS:
 https://jsfiddle.net/canvasjs/6ftyg155/
 
 
+Deployment: 
+- Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
+- CNAME and Domain Names: https://www.freecodecamp.org/news/why-cant-a-domain-s-root-be-a-cname-8cbab38e5f5c/
+- AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
+- Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
+beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
+
+
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
@@ -102,19 +113,6 @@ Thymeleaf:
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
-
-
-Deployment: 
-- Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
-- CNAME and Domain Names: https://www.freecodecamp.org/news/why-cant-a-domain-s-root-be-a-cname-8cbab38e5f5c/
-- AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
-- Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
-beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
-
-
-CanvasJS:
-- Docs: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/
-- https://canvasjs.com/jquery-charts/spline-chart/
 
 
 Other:
