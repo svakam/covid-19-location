@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.PublishRequest;
-import software.amazon.awssdk.services.sns.model.PublishResponse;
-import software.amazon.awssdk.services.sns.model.SubscribeRequest;
+import software.amazon.awssdk.services.sns.model.*;
+
+import java.util.List;
 
 public class AWSSNSTest {
 
@@ -43,10 +43,10 @@ public class AWSSNSTest {
         final SubscribeRequest sr = SubscribeRequest.builder()
                 .topicArn(arn)
                 .protocol("sms")
-//                .endpoint("enter phone # here")
+                .endpoint("4252096602")
                 .build();
         client.subscribe(sr);
-//        assertEquals("enter phone # here", sr.endpoint());
+        assertEquals("4252096602", sr.endpoint());
         assertEquals("sms", sr.protocol());
         assertEquals(arn, sr.topicArn());
 
@@ -56,6 +56,32 @@ public class AWSSNSTest {
                 .message(msg)
                 .build();
         final PublishResponse publishResponse = client.publish(pr);
+        System.out.println("Published response = " + publishResponse.messageId());
+
+        client.close();
+    }
+
+    @Test
+    void testDeleteEndpoint() {
+        SnsClient client = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        String endpointToDelete = "+4258923077";
+        String unsubArn = null;
+
+        ListSubscriptionsResponse lsr = client.listSubscriptions();
+        List<Subscription> subscriptions = lsr.subscriptions();
+        for (Subscription sub : subscriptions) {
+            System.out.println(sub);
+            if (sub.endpoint().equals(endpointToDelete)) {
+                unsubArn = sub.subscriptionArn();
+            }
+        }
+
+        UnsubscribeRequest usr = UnsubscribeRequest.builder().subscriptionArn(unsubArn).build();
+        client.unsubscribe(usr);
 
         client.close();
     }
