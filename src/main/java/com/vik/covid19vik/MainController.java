@@ -59,7 +59,7 @@ class MainController {
     @PostMapping("/results/country")
     RedirectView submitCountrySearch(String searchedCountry) {
 
-        System.out.println("Dropdown selected = " + searchedCountry);
+//        System.out.println("Dropdown selected = " + searchedCountry);
 
         return new RedirectView("/results/country?sc=" + searchedCountry);
     }
@@ -67,7 +67,7 @@ class MainController {
     @GetMapping("/results/country")
     String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, Model model, HttpServletRequest req) throws IOException, ParseException {
 
-        System.out.println("searched country = " + searchedCountry);
+//        System.out.println("searched country = " + searchedCountry);
 
         // --------------- set up time series data to pass into template ------------------- //
         // [
@@ -204,8 +204,8 @@ class MainController {
 
     @PostMapping("/results/country/province")
     RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
-        System.out.println("sp = " + searchedProvince);
-        System.out.println("sc = " + searchedCountry);
+//        System.out.println("sp = " + searchedProvince);
+//        System.out.println("sc = " + searchedCountry);
         String rvURL = "/results/country/province?";
         rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
         return new RedirectView(rvURL);
@@ -215,8 +215,8 @@ class MainController {
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
                                Model model, HttpServletRequest req) throws ParseException {
 
-        System.out.println("getmapping searched province = " + searchedProvince);
-        System.out.println("getmapping searched country = " + searchedCountry);
+//        System.out.println("getmapping searched province = " + searchedProvince);
+//        System.out.println("getmapping searched country = " + searchedCountry);
 
         // initializers:
         // both US and non-US
@@ -404,9 +404,9 @@ class MainController {
 
     @PostMapping("results/country/province/county")
     RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) {
-        System.out.println("searched country = " + searchedCountry);
-        System.out.println("searched province = " + searchedProvince);
-        System.out.println("searched county = " + searchedCounty);
+//        System.out.println("searched country = " + searchedCountry);
+//        System.out.println("searched province = " + searchedProvince);
+//        System.out.println("searched county = " + searchedCounty);
         String rvURL = "/results/country/province/county?";
         rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince + "&sco=" + searchedCounty;
         return new RedirectView(rvURL);
@@ -416,9 +416,9 @@ class MainController {
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
                             @RequestParam(name = "sco") String searchedCounty, HttpServletRequest req, Model model) throws ParseException {
 
-        System.out.println("getmapping searched province = " + searchedProvince);
-        System.out.println("getmapping searched country = " + searchedCountry);
-        System.out.println("getmapping searched county = " + searchedCounty);
+//        System.out.println("getmapping searched province = " + searchedProvince);
+//        System.out.println("getmapping searched country = " + searchedCountry);
+//        System.out.println("getmapping searched county = " + searchedCounty);
 
         // initializers
         LinkedList<String> confDates = null;
@@ -441,7 +441,6 @@ class MainController {
         if (confDataUS != null) {
             // create county dropdown
             countyDropdown = USTimeSeries.createCountyDropdown(searchedProvince, confDataUS);
-            model.addAttribute("countyNames", countyDropdown);
 
             // get data
             confDates = confDataUS.getDates();
@@ -496,7 +495,9 @@ class MainController {
         model.addAttribute("searchedCounty", searchedCounty);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("provinceNames", provinceDropdown);
-        model.addAttribute("countyNames", countyDropdown);
+        if (countyDropdown != null && countyDropdown.size() > 0) {
+            model.addAttribute("countyNames", countyDropdown);
+        }
         model.addAttribute("uid", uid);
         model.addAttribute("iso2", iso2);
         model.addAttribute("iso3", iso3);

@@ -28,6 +28,9 @@
             <!-- table -->
 
             <br>
+
+            <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
+
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
             </th:block>

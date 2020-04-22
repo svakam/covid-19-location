@@ -58,9 +58,13 @@ COVID-19 APIs and COVID-19 data consulted:
 - Some state/local health department websites
 
 AWS:
-- SNS: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
+- SNS
+  - Java setup: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
+  - Topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html
+  - Subscription to endpoint: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-subscribe-endpoint-to-topic.html
+  - Publish message to topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-publish-message-to-topic.html
 - Credentials: https://github.com/aws/aws-toolkit-jetbrains/issues/718 https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html
-
+- Logging AWS SDK for Java Calls: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-logging.html
 
 Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
@@ -108,6 +112,7 @@ https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values
 https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
 - LinkedList array: https://stackoverflow.com/questions/20202889/how-can-i-create-an-array-of-linked-lists-in-java
 - Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
+- AWS Builder vs. Class Instances and Private Access: https://stackoverflow.com/questions/60102950/maven-project-amazons3clientbuilder-has-private-access-in-com-amazonaws-servi
 
 
 Thymeleaf: 

@@ -5,12 +5,28 @@
     <div class="row justify-content-center">
         <select id="countrydropdownbody" name="searchedCountry">
             <option value="Select country" disabled>Select country...</option>
-            <option value="US">United States</option>
-            <option value="Canada">Canada</option>
-            <option value="Mexico">Mexico</option>
-            <th:block th:each="country: ${countryNames}">
+            <th:block th:if="${searchedCountry}">
                 <option th:value="${searchedCountry}" th:id="${searchedCountry}" th:text="${searchedCountry}"></option>
-                <option th:value="${country}" th:text="${country}"></option>
+            </th:block>
+            <th:block th:unless="${searchedCountry == 'US'}">
+                <option value="US">United States</option>
+            </th:block>
+            <th:block th:unless="${searchedCountry == 'Australia'}">
+                <option value="Australia">Australia</option>
+            </th:block>
+            <th:block th:unless="${searchedCountry == 'Canada'}">
+                <option value="Canada">Canada</option>
+            </th:block>
+            <th:block th:unless="${searchedCountry == 'China'}">
+                <option value="China">China</option>
+            </th:block>
+            <th:block th:unless="${searchedCountry == 'Mexico'}">
+                <option value="Mexico">Mexico</option>
+            </th:block>
+            <th:block th:each="country: ${countryNames}">
+                <th:block th:unless="${searchedCountry == country}">
+                    <option th:value="${country}" th:text="${country}"></option>
+                </th:block>
             </th:block>
         </select>
         <button type="submit" class="btn btn-primary btn-lg">Search</button>

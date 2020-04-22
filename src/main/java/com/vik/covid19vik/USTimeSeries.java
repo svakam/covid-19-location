@@ -245,7 +245,9 @@ class USTimeSeries {
             State stateWithCountyData = statesWithCountyData.get(searchedProvince);
             HashMap<String, State.County> countiesData = stateWithCountyData.getCountyAndCases();
             for (Map.Entry<String, State.County> entry : countiesData.entrySet()) {
-                countyDropdown.add(entry.getKey());
+                if (!entry.getKey().equals("")) {
+                    countyDropdown.add(entry.getKey());
+                }
             }
             return countyDropdown;
         }

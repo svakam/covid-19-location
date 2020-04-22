@@ -31,10 +31,12 @@
                 <p>(Sorry, but recovery data for the United States is not available.)</p>
             </th:block>
 
+            <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
+
             <br>
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
-                <th:block th:if="${searchedCountry == 'US'}">
+                <th:block th:if="${searchedCountry == 'US'} and ${countyNames}">
                     <div th:replace="../fragments/countydropdown :: countydropdown"></div>
                 </th:block>
             </th:block>
