@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 class UIFMethods {
     static class UIFPopData {
-        private int UID;
+        private float UID;
         private String iso2;
         private String iso3;
         private int code3;
@@ -18,10 +18,10 @@ class UIFMethods {
         private LinkedList<String> dropdown;
 
         // getters and setters
-        int getUID() {
+        float getUID() {
             return UID;
         }
-        void setUID(int UID) {
+        void setUID(float UID) {
             this.UID = UID;
         }
         String getIso2() {

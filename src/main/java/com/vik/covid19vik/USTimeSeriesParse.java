@@ -70,7 +70,7 @@ public class USTimeSeriesParse {
             if (newDate.contains("\n")) {
                 newDate = newDate.replace("\n", "");
                 dates.add(newDate);
-////                System.out.println(dates);
+//                System.out.println("dates = " + dates);
                 break;
             }
             dates.add(newDate);
@@ -99,7 +99,7 @@ public class USTimeSeriesParse {
                     uid.append(data.charAt(cursor));
                     cursor++;
                 }
-                newCounty.setUid(Integer.parseInt(uid.toString()));
+                newCounty.setUid(Float.parseFloat(uid.toString()));
 ////                System.out.println("UID = " + uid.toString());
             }
             cursor++;

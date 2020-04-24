@@ -104,7 +104,7 @@ class MainController {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] countryData = new LinkedList[6];
 
         // initialize other
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
@@ -119,9 +119,6 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
-            if (caseInfo[0] == null || caseInfo[1] == null) {
-                throw new NullPointerException("Could not retrieve country TS info");
-            }
             graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
             graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
             countryData[0] = caseInfo[0];
@@ -243,7 +240,7 @@ class MainController {
         LinkedList<String> provinceDropdown;
         LinkedList<String> countyDropdown;
         @SuppressWarnings("unchecked") LinkedList<Integer>[] provinceDataTable;
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
@@ -450,7 +447,7 @@ class MainController {
         LinkedList<String> countyDropdown = null;
         USTimeSeries.CountyCaseAndUIF countyPull = null;
         @SuppressWarnings("unchecked") LinkedList<Integer>[] countyDataTable = new LinkedList[4];
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
