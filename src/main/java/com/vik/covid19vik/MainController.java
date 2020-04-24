@@ -119,6 +119,9 @@ class MainController {
             HashSet<String> countriesSeen = new HashSet<>();
             confDates = confDataGlobal.getDates();
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
+            if (caseInfo[0] == null || caseInfo[1] == null) {
+                throw new NullPointerException("Could not retrieve country TS info");
+            }
             graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
             graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
             countryData[0] = caseInfo[0];

@@ -139,8 +139,9 @@ https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
 - Parts of a URL: https://blog.hubspot.com/marketing/parts-url
 - Access inner static class notation: https://www.tutorialspoint.com/What-is-a-static-class-in-Java
-- Regex: https://www.freeformatter.com/java-regex-tester.html#ad-output 
+- Regex & Java: https://www.freeformatter.com/java-regex-tester.html#ad-output 
 https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
+- Validating JSON schema: https://www.youtube.com/watch?v=X072eKtOIio
 - Code Fellows Java curriculum

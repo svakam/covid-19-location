@@ -50,7 +50,7 @@ class ApiController {
 //
 //    }
 
-    // ------------ UID, IOS, FIPS lookup data ------------- //
+    // ------------ UID, ISO, FIPS lookup data ------------- //
     @GetMapping("API/uifcountries")
     String uifLookup() {
         return CountryUIFLookupParse.parseDatatoJSON();
