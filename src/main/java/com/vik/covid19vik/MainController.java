@@ -596,7 +596,7 @@ class MainController {
     // ============================================================================== //
     // ============================= show API routes ================================ //
     // ============================================================================== //
-    @GetMapping("/api")
+    @GetMapping("/API")
     String APIroutes(Model model, HttpServletRequest req) {
 
         if (countries == null) {
