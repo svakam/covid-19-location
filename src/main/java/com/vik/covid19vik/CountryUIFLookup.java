@@ -1,7 +1,7 @@
 package com.vik.covid19vik;
 
 public class CountryUIFLookup {
-    private int uid;
+    private float uid;
     private String iso2;
     private String iso3;
     private int code3;
@@ -19,7 +19,7 @@ public class CountryUIFLookup {
     }
 
     // getters
-    int getUid() {
+    float getUid() {
         return uid;
     }
     String getIso2() {
@@ -57,7 +57,7 @@ public class CountryUIFLookup {
     }
 
     // setters
-    void setUid(int uid) {
+    void setUid(float uid) {
         this.uid = uid;
     }
     void setIso2(String iso2) {

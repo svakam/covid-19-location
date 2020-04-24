@@ -158,23 +158,21 @@ public class CountriesGlobal {
                     // as long as the country is still the current country, do this check
                     LinkedList<Integer> allNewCases = new LinkedList<>();
                     LinkedList<Integer> allTotalCases = new LinkedList<>();
-                    int j = i;
-                    int restOfCountries = countries.size() - i;
-                    while (j < restOfCountries) {
-//                        System.out.println("looping rest of countries " + countries.get(j).getCountryOrRegion());
-                        if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && countries.get(j).getProvinceOrState().equals("")) {
-//                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
-                            LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
+                    while (i < countries.size()) {
+//                        System.out.println("looping rest of countries " + countries.get(i).getCountryOrRegion());
+                        if (countries.get(i).getCountryOrRegion().equals(searchedCountry) && countries.get(i).getProvinceOrState().equals("")) {
+//                            System.out.println("country = " + countries.get(i).getCountryOrRegion() + ", province = " + countries.get(i).getProvinceOrState());
+                            LinkedList<Integer> newConfCases = countries.get(i).getNewCases();
                             caseInfoForCountry[0] = newConfCases;
-                            LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();
+                            LinkedList<Integer> totalConfCases = countries.get(i).getTotalCases();
                             caseInfoForCountry[1] = totalConfCases;
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
-                        } else if (countries.get(j).getCountryOrRegion().equals(searchedCountry) && !countries.get(j).getProvinceOrState().equals("")) {
-//                            System.out.println("country = " + countries.get(j).getCountryOrRegion() + ", province = " + countries.get(j).getProvinceOrState());
+                        } else if (countries.get(i).getCountryOrRegion().equals(searchedCountry) && !countries.get(i).getProvinceOrState().equals("")) {
+//                            System.out.println("country = " + countries.get(i).getCountryOrRegion() + ", province = " + countries.get(i).getProvinceOrState());
 
                             // if province exists, add case data to final array and go to next country
-                            LinkedList<Integer> newConfCases = countries.get(j).getNewCases();
+                            LinkedList<Integer> newConfCases = countries.get(i).getNewCases();
                             if (allNewCases.size() == 0) {
                                 allNewCases.addAll(newConfCases);
                             }
@@ -184,7 +182,7 @@ public class CountriesGlobal {
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));
                                 }
                             }
-                            LinkedList<Integer> totalConfCases = countries.get(j).getTotalCases();
+                            LinkedList<Integer> totalConfCases = countries.get(i).getTotalCases();
                             if (allTotalCases.size() == 0) {
                                 allTotalCases.addAll(totalConfCases);
                             } else {
@@ -194,7 +192,7 @@ public class CountriesGlobal {
                                 }
                             }
                         }
-                        j++;
+                        i++;
                     }
                     caseInfoForCountry[0] = allNewCases;
                     caseInfoForCountry[1] = allTotalCases;

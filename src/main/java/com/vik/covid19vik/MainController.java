@@ -1,20 +1,22 @@
 package com.vik.covid19vik;
 
-import com.sun.tools.javac.util.DefinedBy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // ================ render templates ================= //
 @Controller
@@ -59,15 +61,19 @@ class MainController {
     @PostMapping("/results/country")
     RedirectView submitCountrySearch(String searchedCountry) {
 
-        System.out.println("Dropdown selected = " + searchedCountry);
+//        System.out.println("Dropdown selected = " + searchedCountry);
 
         return new RedirectView("/results/country?sc=" + searchedCountry);
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, Model model, HttpServletRequest req) throws IOException, ParseException {
+    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "valid") String valid, Model model, HttpServletRequest req) throws IOException, ParseException {
 
-        System.out.println("searched country = " + searchedCountry);
+        // if number valid, show success message, else failure message
+        if (valid != null) {
+            model.addAttribute("valid", valid);
+        }
+//        System.out.println("searched country = " + searchedCountry);
 
         // --------------- set up time series data to pass into template ------------------- //
         // [
@@ -79,10 +85,12 @@ class MainController {
         // [recov total]
         // ]
 
+
+
         // initialize dates
-        LinkedList<String> confDates = null;
-        LinkedList<String> deathsDates = null;
-        LinkedList<String> recovDates = null;
+        LinkedList<String> confDates;
+        LinkedList<String> deathsDates;
+        LinkedList<String> recovDates;
 
         // initialize graph data
         Map<Object, Object>[] graphNewConf;
@@ -96,7 +104,7 @@ class MainController {
         @SuppressWarnings("unchecked") LinkedList<Integer>[] countryData = new LinkedList[6];
 
         // initialize other
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
@@ -193,6 +201,7 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "countryResults";
     }
 
@@ -204,8 +213,8 @@ class MainController {
 
     @PostMapping("/results/country/province")
     RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
-        System.out.println("sp = " + searchedProvince);
-        System.out.println("sc = " + searchedCountry);
+//        System.out.println("sp = " + searchedProvince);
+//        System.out.println("sc = " + searchedCountry);
         String rvURL = "/results/country/province?";
         rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
         return new RedirectView(rvURL);
@@ -213,10 +222,15 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "valid", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
 
-        System.out.println("getmapping searched province = " + searchedProvince);
-        System.out.println("getmapping searched country = " + searchedCountry);
+        // if number valid, show success message, else failure message
+        if (valid != null) {
+            model.addAttribute("valid", valid);
+        }
+
+//        System.out.println("getmapping searched province = " + searchedProvince);
+//        System.out.println("getmapping searched country = " + searchedCountry);
 
         // initializers:
         // both US and non-US
@@ -226,7 +240,7 @@ class MainController {
         LinkedList<String> provinceDropdown;
         LinkedList<String> countyDropdown;
         @SuppressWarnings("unchecked") LinkedList<Integer>[] provinceDataTable;
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
@@ -395,6 +409,7 @@ class MainController {
             model.addAttribute("fips", fips);
         }
         model.addAttribute("population", population);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "provinceResults";
     }
 
@@ -404,9 +419,9 @@ class MainController {
 
     @PostMapping("results/country/province/county")
     RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) {
-        System.out.println("searched country = " + searchedCountry);
-        System.out.println("searched province = " + searchedProvince);
-        System.out.println("searched county = " + searchedCounty);
+//        System.out.println("searched country = " + searchedCountry);
+//        System.out.println("searched province = " + searchedProvince);
+//        System.out.println("searched county = " + searchedCounty);
         String rvURL = "/results/country/province/county?";
         rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince + "&sco=" + searchedCounty;
         return new RedirectView(rvURL);
@@ -414,11 +429,16 @@ class MainController {
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                            @RequestParam(name = "sco") String searchedCounty, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "valid") String valid, HttpServletRequest req, Model model) throws ParseException {
 
-        System.out.println("getmapping searched province = " + searchedProvince);
-        System.out.println("getmapping searched country = " + searchedCountry);
-        System.out.println("getmapping searched county = " + searchedCounty);
+//        System.out.println("getmapping searched province = " + searchedProvince);
+//        System.out.println("getmapping searched country = " + searchedCountry);
+//        System.out.println("getmapping searched county = " + searchedCounty);
+
+        // if number valid, show success message, else failure message
+        if (valid != null) {
+            model.addAttribute("valid", valid);
+        }
 
         // initializers
         LinkedList<String> confDates = null;
@@ -427,7 +447,7 @@ class MainController {
         LinkedList<String> countyDropdown = null;
         USTimeSeries.CountyCaseAndUIF countyPull = null;
         @SuppressWarnings("unchecked") LinkedList<Integer>[] countyDataTable = new LinkedList[4];
-        int uid = -1;
+        float uid = -1;
         String iso2 = null;
         String iso3 = null;
         int code3 = -1;
@@ -441,7 +461,6 @@ class MainController {
         if (confDataUS != null) {
             // create county dropdown
             countyDropdown = USTimeSeries.createCountyDropdown(searchedProvince, confDataUS);
-            model.addAttribute("countyNames", countyDropdown);
 
             // get data
             confDates = confDataUS.getDates();
@@ -493,9 +512,12 @@ class MainController {
         // add to template
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("searchedProvince", searchedProvince);
+        model.addAttribute("searchedCounty", searchedCounty);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("provinceNames", provinceDropdown);
-        model.addAttribute("countyNames", countyDropdown);
+        if (countyDropdown != null && countyDropdown.size() > 0) {
+            model.addAttribute("countyNames", countyDropdown);
+        }
         model.addAttribute("uid", uid);
         model.addAttribute("iso2", iso2);
         model.addAttribute("iso3", iso3);
@@ -504,9 +526,72 @@ class MainController {
         model.addAttribute("population", population);
         model.addAttribute("combinedKey", combinedKey);
         model.addAttribute("countyDataTable", countyDataTable);
+        model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "countyResults";
     }
 
+
+
+    // ============================================================================== //
+    // ==================================== SNS ===================================== //
+    // ============================================================================== //
+    @PostMapping("/sms/subscribe")
+    RedirectView subscribeSNS(String snsAdd, String currentURL) {
+        // instantiate SNS client
+        SnsClient client = SnsClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        // get topic
+        ListTopicsResponse ltr = client.listTopics();
+        List<Topic> topics = ltr.topics();
+        String arn = null;
+        for (Topic topic : topics) {
+            if (topic.topicArn().contains("CovidLocatorSNS")) {
+                arn = topic.topicArn();
+            }
+        }
+        if (arn == null) {
+            throw new NullPointerException("Could not find topic ARN");
+        }
+
+        // validate endpoint
+        String regexComplete = "\\+1\\d{10}";
+        String regexNoCountryCode = "\\d{10}";
+        Pattern compiledComplete = Pattern.compile(regexComplete);
+        Pattern compiledNoCountrycode = Pattern.compile(regexNoCountryCode);
+        Matcher matcherComplete = compiledComplete.matcher(snsAdd);
+        Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
+
+        String valid;
+
+        // if valid number, subscribe and publish
+        if (matcherComplete.matches()) {
+            AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
+            valid = "true";
+        } else if (matcherNoCC.matches()) {
+            String snsAddAndCC = "+1" + snsAdd;
+            AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
+            valid = "true";
+        }
+        // else don't subscribe/publish
+        else {
+            valid = "false";
+        }
+
+        // accounts for redundant requestparam
+        currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
+        client.close();
+
+        return new RedirectView(currentURL + "&valid=" + valid);
+    }
+
+    @PostMapping("/sms/unsubscribe")
+    RedirectView unsubscribeSNS(String snsRemove, String currentURL) {
+
+        return new RedirectView(currentURL);
+    }
 
     // ============================================================================== //
     // ============================= show API routes ================================ //

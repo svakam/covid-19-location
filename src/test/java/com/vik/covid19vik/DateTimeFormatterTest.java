@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class TestDateTimeFormatter {
+public class DateTimeFormatterTest {
     @Test
     void simpleDateFormat() throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yy");

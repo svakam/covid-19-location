@@ -1,0 +1,12 @@
+<div th:fragment="snsRemove">
+    <p>Unsubscribe from SMS messages</p>
+    <span>
+        <form action="/sms/unsubscribe" method="POST">
+            <div class="row">
+                <label>Phone (US): <input type="tel" name="snsRemove" placeholder="+12334567890" aria-placeholder="+1234567890" pattern="+1[0-9]{3}[0-9]{3}[0-9]{4}"/></label>
+                <button type="submit" class="btn btn-secondary btn-md">Unsubscribe</button>
+                <input type="hidden" th:name="currentURL" th:value="${currentURL}" />
+            </div>
+        </form>
+    </span>
+</div>

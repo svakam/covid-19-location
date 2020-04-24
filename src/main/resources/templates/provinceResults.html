@@ -21,20 +21,30 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
+            <th:block th:if="${valid}">
+                <th:block th:if="${valid == true}">
+                    <div th:replace="../fragments/validNo :: validNo"></div>
+                </th:block>
+                <th:block th:if="${valid == false}">
+                    <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+                </th:block>
+            </th:block>
             <h1>Statistics</h1>
             <h2 th:text="${combinedKey}"></h2>
 
             <!-- line graph -->
-            <div class="container justify-content-center" id="chartContainer" style="position: relative; right: 50px; height: 450px; width: 95%;"></div>
+            <div class="container justify-content-center" id="chartContainer" style="position: relative; height: 450px; width: 95%;"></div>
 
             <th:block th:if="${searchedCountry == 'US'}">
                 <p>(Sorry, but recovery data for the United States is not available.)</p>
             </th:block>
 
+            <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
+
             <br>
             <th:block th:if="${provinceNames}">
                 <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
-                <th:block th:if="${searchedCountry == 'US'}">
+                <th:block th:if="${searchedCountry == 'US'} and ${countyNames}">
                     <div th:replace="../fragments/countydropdown :: countydropdown"></div>
                 </th:block>
             </th:block>
@@ -45,6 +55,8 @@
             <p th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
             <p th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
             <p th:text="'Population: ' + ${population}"></p>
+
+            <div th:replace="../fragments/snsAdd :: snsAdd"></div>
 
         </main>
         <footer>

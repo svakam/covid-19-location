@@ -7,8 +7,13 @@
         <div class="row justify-content-center">
             <select id="provincedropdownbody" name="searchedProvince">
                 <option value="Select province/state..." disabled>Select province/state...</option>
+                <th:block th:if="${searchedProvince}">
+                    <option th:value="${searchedProvince}" th:id="${searchedProvince}" th:text="${searchedProvince}"></option>
+                </th:block>
                 <th:block th:each="province : ${provinceNames}">
-                    <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
+                    <th:block th:unless="${searchedProvince == province}">
+                        <option th:value="${province}" th:id="${province}" th:text="${province}"></option>
+                    </th:block>
                 </th:block>
             </select>
             <button type="submit" class="btn btn-primary btn-lg">Search</button>

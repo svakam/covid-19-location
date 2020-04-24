@@ -3,14 +3,20 @@ package com.vik.covid19vik;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 // =============== API calls =============== //
 @RestController
 class ApiController {
     // consider adding to database:
     // --------------- global series data ----------------- //
     @GetMapping("API/series/global/confirmed")
-    String globalConfirmed() {
+    String globalConfirmed() throws IOException {
         String globalConfData = JHUPullMethods.getTimeSeriesGlobalConf();
+        if (globalConfData == null) {
+            System.out.println("Could not pull from JHU CSSE");
+            throw new IOException("Error 500");
+        }
         return CountriesGlobalDataParse.parseDataToJSON("confirmed", globalConfData);
     }
 
@@ -50,7 +56,7 @@ class ApiController {
 //
 //    }
 
-    // ------------ UID, IOS, FIPS lookup data ------------- //
+    // ------------ UID, ISO, FIPS lookup data ------------- //
     @GetMapping("API/uifcountries")
     String uifLookup() {
         return CountryUIFLookupParse.parseDatatoJSON();

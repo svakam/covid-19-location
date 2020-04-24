@@ -4,14 +4,10 @@
 
 Deployed at: http://www.cv19location.com (being updated)
 
-This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current 
-information on how COVID-19 is impacting their community in the United States.
-
-Upon entering the website, the user will be greeted by a splash page. Here, the user will be provided a search box to enter their countries, state, or county. 
-The user will then be taken to a results page that renders information from Covid19API regarding the total number of cases of COVID-19 in their countries, 
-total number of cases in their province/state, and total number of cases in their county. 
-
-The number of cases of COVID-19 will contain numbers for confirmed cases, recovered cases, and death cases. 
+This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current case 
+information on how COVID-19 is impacting their community in the United States. Raw case information (total confirmed/deaths/recovered cases) 
+is rendered directly from Johns Hopkins University CSSE .csv files sourced on GitHub. Users can browse for a location to see case data visualized in graphs and tables. Users
+may also subscribe to SMS to receive daily updates on new case information for their selected location. 
 
 NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
@@ -33,10 +29,6 @@ Or if you'd like to run it from your local machine:
 
 ## Screenshots
 
-## Data Flow
-Users select a country, province, or county through dropdown menus to send a POST request with queries of searched country, province, or county. Depending on the choice 
-chosen, the custom-built API establishes an HTTP URL connection to Johns Hopkins University CSSE's .csv data files on GitHub. After obtaining the .csv data, the API 
-parses it to JSON format. The JSON format is used to formulate the information into a more approachable front-end view with tables and graphs. 
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
@@ -46,22 +38,33 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - Java, JavaScript, HTML/CSS
 - Technologies
   - IDE: IntelliJ IDEA
-  - Frameworks/APIs: CV19Location API, SpringMVC, Spring Boot, Thymeleaf, Bootstrap, CanvasJS, Postman
-  - AWS: Route 53, Elastic Beanstalk
+  - Frameworks/APIs: CV19Locator API, SpringMVC, Spring Boot, Thymeleaf, GSON, Bootstrap, CanvasJS, Postman
+  - AWS: Route 53, Elastic Beanstalk, SNS
+  
+## Contact
+If you're interested in contributing, or have questions regarding the CV19Locator API, email me at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
 
 ## Acknowledgements
+AWS:
+- SNS
+  - Java setup: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
+  - Topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-topic.html
+  - Subscription to endpoint: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-create-subscribe-endpoint-to-topic.html
+  - Publish message to topic: https://docs.aws.amazon.com/sns/latest/dg/sns-tutorial-publish-message-to-topic.html
+  - PublishRequest: https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/sns/model/PublishRequest.html
+- Credentials: https://github.com/aws/aws-toolkit-jetbrains/issues/718 https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/credentials.html
+- Elastic Beanstalk
+- Credentials in EC2: https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_environment.html https://alexdisler.com/2016/03/26/nodejs-environment-variables-elastic-beanstalk-aws/
+- Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
+- Logging AWS SDK for Java Calls: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-logging.html
+
+
 COVID-19 APIs and COVID-19 data consulted:
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
-
-
-Spring.io:
-- REST: https://spring.io/guides/gs/rest-service/
-- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
-- REST: https://spring.io/guides/gs/serving-web-content/
 
 
 Baeldung:
@@ -82,6 +85,25 @@ CanvasJS:
 https://jsfiddle.net/canvasjs/6ftyg155/
 
 
+Deployment: 
+- Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
+- CNAME and Domain Names: https://www.freecodecamp.org/news/why-cant-a-domain-s-root-be-a-cname-8cbab38e5f5c/
+- AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
+- Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
+beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
+
+
+GSON: 
+- GitHub: https://github.com/google/gson/blob/master/UserGuide.md 
+- BEGIN_ARRAY vs. BEGIN_OBJECT: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
+
+
+Spring.io:
+- REST: https://spring.io/guides/gs/rest-service/
+- REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
+- REST: https://spring.io/guides/gs/serving-web-content/
+
+
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
 - IOException: https://stackoverflow.com/questions/22900477/java-io-exception-stream-closed
@@ -96,6 +118,7 @@ https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values
 https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
 - LinkedList array: https://stackoverflow.com/questions/20202889/how-can-i-create-an-array-of-linked-lists-in-java
 - Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
+- AWS Builder vs. Class Instances and Private Access: https://stackoverflow.com/questions/60102950/maven-project-amazons3clientbuilder-has-private-access-in-com-amazonaws-servi
 
 
 Thymeleaf: 
@@ -104,24 +127,9 @@ Thymeleaf:
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
 
-Deployment: 
-- Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
-- CNAME and Domain Names: https://www.freecodecamp.org/news/why-cant-a-domain-s-root-be-a-cname-8cbab38e5f5c/
-- AWS Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-configuring.html
-- Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
-beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
-
-
-CanvasJS:
-- Docs: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/
-- https://canvasjs.com/jquery-charts/spline-chart/
-
-
 Other:
 - HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
-- GSON: https://www.baeldung.com/java-http-request https://github.com/google/gson/blob/master/UserGuide.md
-- GSON: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
 - Dropdown: https://www.w3schools.com/tags/att_option_value.asp
 - RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
@@ -131,10 +139,9 @@ https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
 - Parts of a URL: https://blog.hubspot.com/marketing/parts-url
 - Access inner static class notation: https://www.tutorialspoint.com/What-is-a-static-class-in-Java
-- Regex: https://www.freeformatter.com/java-regex-tester.html#ad-output 
+- Regex & Java: https://www.freeformatter.com/java-regex-tester.html#ad-output 
 https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
-
-
-Code Fellows Java curriculum
+- Validating JSON schema: https://www.youtube.com/watch?v=X072eKtOIio
+- Code Fellows Java curriculum

@@ -8,7 +8,7 @@ import java.lang.String;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class TestAssocViaDelineation {
+public class AssocViaDelineationTest {
     static class Country {
         private String provinceOrState;
         private String countryOrRegion;

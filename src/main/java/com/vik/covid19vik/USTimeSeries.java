@@ -70,7 +70,7 @@ class USTimeSeries {
             private String combinedKey;
             private float lat;
             private float lon;
-            private int uid;
+            private float uid;
             private String iso2;
             private String iso3;
             private int code3;
@@ -112,10 +112,10 @@ class USTimeSeries {
             void setLon(float lon) {
                 this.lon = lon;
             }
-            protected int getUid() {
+            protected float getUid() {
                 return uid;
             }
-            protected void setUid(int uid) {
+            protected void setUid(float uid) {
                 this.uid = uid;
             }
 
@@ -245,7 +245,9 @@ class USTimeSeries {
             State stateWithCountyData = statesWithCountyData.get(searchedProvince);
             HashMap<String, State.County> countiesData = stateWithCountyData.getCountyAndCases();
             for (Map.Entry<String, State.County> entry : countiesData.entrySet()) {
-                countyDropdown.add(entry.getKey());
+                if (!entry.getKey().equals("")) {
+                    countyDropdown.add(entry.getKey());
+                }
             }
             return countyDropdown;
         }
