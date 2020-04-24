@@ -67,8 +67,12 @@ class MainController {
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, Model model, HttpServletRequest req) throws IOException, ParseException {
+    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "valid") String valid, Model model, HttpServletRequest req) throws IOException, ParseException {
 
+        // if number valid, show success message, else failure message
+        if (valid != null) {
+            model.addAttribute("valid", valid);
+        }
 //        System.out.println("searched country = " + searchedCountry);
 
         // --------------- set up time series data to pass into template ------------------- //
@@ -80,6 +84,8 @@ class MainController {
         // [recov new],
         // [recov total]
         // ]
+
+
 
         // initialize dates
         LinkedList<String> confDates;
@@ -216,10 +222,10 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "valid", required = false) boolean valid, Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "valid", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
 
         // if number valid, show success message, else failure message
-        if (valid) {
+        if (valid != null) {
             model.addAttribute("valid", valid);
         }
 
@@ -423,11 +429,16 @@ class MainController {
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                            @RequestParam(name = "sco") String searchedCounty, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "valid") String valid, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
 //        System.out.println("getmapping searched county = " + searchedCounty);
+
+        // if number valid, show success message, else failure message
+        if (valid != null) {
+            model.addAttribute("valid", valid);
+        }
 
         // initializers
         LinkedList<String> confDates = null;
@@ -553,20 +564,20 @@ class MainController {
         Matcher matcherComplete = compiledComplete.matcher(snsAdd);
         Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
 
-        boolean valid;
+        String valid;
 
         // if valid number, subscribe and publish
         if (matcherComplete.matches()) {
             AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
-            valid = true;
+            valid = "true";
         } else if (matcherNoCC.matches()) {
             String snsAddAndCC = "+1" + snsAdd;
             AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
-            valid = true;
+            valid = "true";
         }
         // else don't subscribe/publish
         else {
-            valid = false;
+            valid = "false";
         }
 
         // accounts for redundant requestparam

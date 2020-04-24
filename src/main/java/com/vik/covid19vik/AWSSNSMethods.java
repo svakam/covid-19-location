@@ -1,9 +1,9 @@
 package com.vik.covid19vik;
 
 import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.PublishRequest;
-import software.amazon.awssdk.services.sns.model.PublishResponse;
-import software.amazon.awssdk.services.sns.model.SubscribeRequest;
+import software.amazon.awssdk.services.sns.model.*;
+
+import java.util.List;
 
 public class AWSSNSMethods {
     // subscribe and publish
@@ -18,8 +18,20 @@ public class AWSSNSMethods {
 
         // publish request
         final String msg = "Thank you for subscribing to COVID-19 Locator. To unsubscribe, please reply STOP";
+        // get subscription id
+        String subscriptionArn = null;
+        ListSubscriptionsResponse lsr = client.listSubscriptions();
+        List<Subscription> subscriptions = lsr.subscriptions();
+        for (Subscription subscription : subscriptions) {
+            if (subscription.endpoint().equals(snsAdd)) {
+                subscriptionArn = subscription.subscriptionArn();
+            }
+        }
+        if (subscriptionArn == null) {
+            throw new NullPointerException("Could not retrieve subscription arn for this endpoint");
+        }
         final PublishRequest pr = PublishRequest.builder()
-                .topicArn(arn)
+                .phoneNumber(snsAdd)
                 .message(msg)
                 .build();
         final PublishResponse publishResponse = client.publish(pr);

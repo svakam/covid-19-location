@@ -58,10 +58,10 @@ public class AWSSNSMethodsTest {
         final SubscribeRequest sr = SubscribeRequest.builder()
                 .topicArn(arn)
                 .protocol("sms")
-                .endpoint("4252096602")
+                .endpoint("insertnumber")
                 .build();
         client.subscribe(sr);
-        assertEquals("4252096602", sr.endpoint());
+        assertEquals("insertnumber", sr.endpoint());
         assertEquals("sms", sr.protocol());
         assertEquals(arn, sr.topicArn());
 
@@ -85,7 +85,7 @@ public class AWSSNSMethodsTest {
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
-        String endpointToDelete = "+4258923077";
+        String endpointToDelete = "insertnumber";
         String unsubArn = null;
 
         ListSubscriptionsResponse lsr = client.listSubscriptions();
