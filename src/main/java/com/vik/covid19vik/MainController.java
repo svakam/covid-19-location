@@ -536,53 +536,18 @@ class MainController {
     // ==================================== SNS ===================================== //
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
-    RedirectView subscribeSNS(String snsAdd, String currentURL) {
-        // instantiate SNS client
-        SnsClient client = SnsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+    RedirectView subscribeSNS(String snsAdd, String currentURL, String searchedCountry, String searchedProvince, String searchedCounty) {
 
-        // get topic
-        ListTopicsResponse ltr = client.listTopics();
-        List<Topic> topics = ltr.topics();
-        String arn = null;
-        for (Topic topic : topics) {
-            if (topic.topicArn().contains("CovidLocatorSNS")) {
-                arn = topic.topicArn();
-            }
+        // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
+        String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
+        currentURL = parameters[0];
+        String valid = parameters[1];
+        snsAdd = parameters[2];
+
+        // AWS DynamoDB: get requested items to subscribe to and add to DB
+        if (valid.equals("true")) {
+            AWSDynamoDBMethods.addRequestToDB(snsAdd);
         }
-        if (arn == null) {
-            throw new NullPointerException("Could not find topic ARN");
-        }
-
-        // validate endpoint
-        String regexComplete = "\\+1\\d{10}";
-        String regexNoCountryCode = "\\d{10}";
-        Pattern compiledComplete = Pattern.compile(regexComplete);
-        Pattern compiledNoCountrycode = Pattern.compile(regexNoCountryCode);
-        Matcher matcherComplete = compiledComplete.matcher(snsAdd);
-        Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
-
-        String valid;
-
-        // if valid number, subscribe and publish
-        if (matcherComplete.matches()) {
-            AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
-            valid = "true";
-        } else if (matcherNoCC.matches()) {
-            String snsAddAndCC = "+1" + snsAdd;
-            AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
-            valid = "true";
-        }
-        // else don't subscribe/publish
-        else {
-            valid = "false";
-        }
-
-        // accounts for redundant requestparam
-        currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
-        client.close();
 
         return new RedirectView(currentURL + "&valid=" + valid);
     }

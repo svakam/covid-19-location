@@ -59,7 +59,7 @@ public class AWSDynamoDBTest {
 
         // each item is a collection of attributes: primary key is always required, others are not
         HashMap<String, AttributeValue> itemValues = new HashMap<>();
-        itemValues.put("endpoint", AttributeValue.builder().s("4258923077").build());
+        itemValues.put("endpoint", AttributeValue.builder().s("enter number here").build());
         itemValues.put("countries", AttributeValue.builder().s("US").build());
         itemValues.put("provinces", AttributeValue.builder().s("Washington").build());
         itemValues.put("counties", AttributeValue.builder().s("King").build());
@@ -88,7 +88,7 @@ public class AWSDynamoDBTest {
 
         // getting an item by its primary key and the desired value
         HashMap<String, AttributeValue> keyToGet = new HashMap<>();
-        keyToGet.put("endpoint", AttributeValue.builder().s("4258923077").build());
+        keyToGet.put("endpoint", AttributeValue.builder().s("enter number here").build());
 
         GetItemRequest request = GetItemRequest.builder()
                 .key(keyToGet)
@@ -112,7 +112,4 @@ public class AWSDynamoDBTest {
             System.out.println(e.getMessage());
         }
     }
-
-
-
 }
