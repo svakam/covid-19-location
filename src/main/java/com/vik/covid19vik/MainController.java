@@ -536,7 +536,7 @@ class MainController {
     // ==================================== SNS ===================================== //
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
-    RedirectView subscribeSNS(String snsAdd, String currentURL, String searchedCountry, String searchedProvince, String searchedCounty) {
+    RedirectView subscribeSNS(String snsAdd, String currentURL, String countryCheck, String provinceCheck, String countyCheck) {
 
         // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
         String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
@@ -546,7 +546,7 @@ class MainController {
 
         // AWS DynamoDB: get requested items to subscribe to and add to DB
         if (valid.equals("true")) {
-            AWSDynamoDBMethods.addRequestToDB(snsAdd);
+            AWSDynamoDBMethods.addRequestToDB(snsAdd, countryCheck, provinceCheck, countyCheck);
         }
 
         return new RedirectView(currentURL + "&valid=" + valid);

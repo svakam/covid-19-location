@@ -1,21 +1,31 @@
 <div th:fragment="snsAdd">
-    <h5>Get notified on a daily basis for case information on this location.</h5>
+    <h5>Get daily text notifications for case updates on this location.</h5>
     <span>
-        <form action="/sms/subscribe" method="POST">
+        <form class="container" action="/sms/subscribe" method="POST">
             <div class="row">
                 <label>Phone (US): <input type="tel" name="snsAdd" placeholder="+12223334444" aria-placeholder="+12223334444" pattern="+1[0-9]{3}[0-9]{3}[0-9]{4}"/></label>
-                <button type="submit" class="btn btn-secondary btn-md">Subscribe</button>
-                <input type="hidden" th:name="currentURL" th:value="${currentURL}" />
+            </div>
+            <div class="row">
                 <th:block th:if="${searchedCountry}">
-                    <input type="hidden" th:name="searchedCountry" th:value="${searchedCountry}" />
+                    <input type="checkbox" id="countryCheck" name="countryCheck" th:value="${searchedCountry}" />
+                    <label for="countryCheck">Subscribe to this country</label>
                 </th:block>
                 <th:block th:if="${searchedProvince}">
-                    <input type="hidden" th:name="searchedProvince" th:value="${searchedProvince}" />
+                    <input type="checkbox" id="provinceCheck" name="provinceCheck" th:value="${searchedProvince}" />
+                    <th:block th:if="${searchedCountry == 'US'}">
+                        <label for="provinceCheck">Subscribe to this state</label>
+                    </th:block>
+                    <th:block th:unless="${searchedCountry == 'US'}">
+                        <label for="provinceCheck">Subscribe to this province</label>
+                    </th:block>
                 </th:block>
                 <th:block th:if="${searchedCounty}">
-                    <input type="hidden" th:name="searchedCounty" th:value="${searchedCounty}" />
+                    <input type="checkbox" id="countyCheck" name="countyCheck" th:value="${searchedCounty}" />
+                    <label for="countyCheck">Subscribe to this county</label>
                 </th:block>
             </div>
+                <input type="hidden" th:name="currentURL" th:value="${currentURL}" />
+            <button type="submit" class="btn btn-secondary btn-md">Subscribe</button>
         </form>
     </span>
 </div>
