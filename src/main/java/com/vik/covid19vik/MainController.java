@@ -13,6 +13,9 @@ import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -59,15 +62,15 @@ class MainController {
 
     // post request with user's country name search
     @PostMapping("/results/country")
-    RedirectView submitCountrySearch(String searchedCountry) {
+    RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
 
 //        System.out.println("Dropdown selected = " + searchedCountry);
 
-        return new RedirectView("/results/country?sc=" + searchedCountry);
+        return new RedirectView("/results/country?sc=" + URLEncoder.encode(searchedCountry, "UTF-8"));
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
+    String resultsForCountry(@RequestParam(name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
                              @RequestParam(required = false, name = "checks") String checks, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         // if number valid, show success message, else failure message
@@ -216,11 +219,11 @@ class MainController {
     // ============================================================================== //
 
     @PostMapping("/results/country/province")
-    RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
+    RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) throws UnsupportedEncodingException {
 //        System.out.println("sp = " + searchedProvince);
 //        System.out.println("sc = " + searchedCountry);
         String rvURL = "/results/country/province?";
-        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
+        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedProvince, "UTF-8");
         return new RedirectView(rvURL);
     }
 
@@ -231,7 +234,7 @@ class MainController {
 
         // if number valid, show success message, else failure message
         if (endpoint != null) {
-            model.addAttribute("valid", endpoint);
+            model.addAttribute("endpoint", endpoint);
         }
         if (checks != null) {
             model.addAttribute("checks", checks);
@@ -434,12 +437,12 @@ class MainController {
     // ============================================================================== //
 
     @PostMapping("results/country/province/county")
-    RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) {
+    RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) throws UnsupportedEncodingException {
 //        System.out.println("searched country = " + searchedCountry);
 //        System.out.println("searched province = " + searchedProvince);
 //        System.out.println("searched county = " + searchedCounty);
         String rvURL = "/results/country/province/county?";
-        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince + "&sco=" + searchedCounty;
+        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sco=" + URLEncoder.encode(searchedCounty, "UTF-8");
         return new RedirectView(rvURL);
     }
 
@@ -564,12 +567,32 @@ class MainController {
     // ==================================== SNS ===================================== //
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
-    RedirectView subscribeSNS(String snsAdd, String currentURL, String countryCheck, String provinceCheck, String countyCheck) {
+    RedirectView subscribeSNS(String snsAdd, String currentURL, String countryCheck, String provinceCheck, String countyCheck) throws UnsupportedEncodingException {
+        currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
+        currentURL = AWSDynamoDBMethods.checkURLRedundant(currentURL);
+
+        // if nothing was selected, return a failure message
         if (countryCheck == null && provinceCheck == null && countyCheck == null) {
-            currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
-            currentURL = AWSDynamoDBMethods.checkURLRedundant(currentURL);
             return new RedirectView(currentURL + "&checks=empty");
         }
+
+        // add to URL anything selected
+        StringBuilder checks = new StringBuilder();
+        if (countryCheck != null) {
+            checks.append(URLEncoder.encode(countryCheck, "UTF-8"));
+        }
+        if (checks.length() == 0 && provinceCheck != null) {
+            checks.append(URLEncoder.encode(provinceCheck, "UTF-8"));
+        } else if (checks.length() > 0 && provinceCheck != null) {
+            checks.append(',').append(URLEncoder.encode(provinceCheck, "UTF-8"));
+        }
+        if (checks.length() == 0 && countyCheck != null) {
+            checks.append(URLEncoder.encode(countyCheck, "UTF-8"));
+        } else if (checks.length() > 0 && countyCheck != null) {
+            checks.append(',').append(URLEncoder.encode(countyCheck, "UTF-8"));
+        }
+
+        currentURL = currentURL + "&checks=" + checks.toString();
 
         // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
         String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
