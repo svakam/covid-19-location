@@ -57,7 +57,7 @@ public class AWSSNSMethods {
         }
         // else don't subscribe/publish
         else {
-            endpoint = "false";
+            endpoint = "invalid";
         }
 
         // accounts for redundant requestparam
@@ -105,12 +105,12 @@ public class AWSSNSMethods {
 
     // check URL for redundant parameters
     static String checkURLRedundant(String currentURL) {
-        if (currentURL.contains("&endpoint=true")) {
-            int index = currentURL.indexOf("&endpoint=true");
+        if (currentURL.contains("&endpoint=valid")) {
+            int index = currentURL.indexOf("&endpoint=valid");
             currentURL = currentURL.substring(0, index);
         }
-        if (currentURL.contains("&endpoint=false")) {
-            int index = currentURL.indexOf("&endpoint=false");
+        if (currentURL.contains("&endpoint=invalid")) {
+            int index = currentURL.indexOf("&endpoint=invalid");
             currentURL = currentURL.substring(0, index);
         }
         return currentURL;

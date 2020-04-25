@@ -67,11 +67,15 @@ class MainController {
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "valid") String valid, Model model, HttpServletRequest req) throws IOException, ParseException {
+    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
+                             @RequestParam(required = false, name = "checks") String checks, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("endpoint", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 //        System.out.println("searched country = " + searchedCountry);
 
@@ -222,11 +226,15 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "valid", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) String checks,
+                              Model model, HttpServletRequest req) throws ParseException {
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("valid", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
@@ -335,8 +343,12 @@ class MainController {
                     provinceDataTable[1] = caseInfo[1];
                     graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
                     graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
-                    model.addAttribute("graphNewConf", graphNewConf);
-                    model.addAttribute("graphTotalConf", graphTotalConf);
+                    if (graphNewConf.length > 0) {
+                        model.addAttribute("graphNewConf", graphNewConf);
+                    }
+                    if(graphTotalConf.length > 0) {
+                        model.addAttribute("graphTotalConf", graphTotalConf);
+                    }
                 }
             }
             if (deathsDataUS == null) {
@@ -350,8 +362,12 @@ class MainController {
                     provinceDataTable[3] = caseInfo[1];
                     graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
                     graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
-                    model.addAttribute("graphNewDeaths", graphNewDeaths);
-                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                    if (graphNewDeaths.length > 0) {
+                        model.addAttribute("graphNewDeaths", graphNewDeaths);
+                    }
+                    if (graphTotalDeaths.length > 0) {
+                        model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                    }
                 }
             }
         }
@@ -429,7 +445,8 @@ class MainController {
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint,
+                            @RequestParam(required = false, name = "checks") String checks, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
@@ -438,6 +455,9 @@ class MainController {
         // if number valid, show success message, else failure message
         if (endpoint != null) {
             model.addAttribute("endpoint", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 
         // initializers
@@ -470,8 +490,12 @@ class MainController {
                 countyDataTable[1] = countyPull.getSumTotalCasesAcrossCounty();
                 Map<Object, Object>[] graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumTotalCasesAcrossCounty());
-                model.addAttribute("graphNewConf", graphNewConf);
-                model.addAttribute("graphTotalConf", graphTotalConf);
+                if (graphNewConf.length > 0) {
+                    model.addAttribute("graphNewConf", graphNewConf);
+                }
+                if (graphTotalConf.length > 0) {
+                    model.addAttribute("graphTotalConf", graphTotalConf);
+                }
             }
         }
         if (deathsDataUS == null) {
@@ -485,8 +509,12 @@ class MainController {
                 countyDataTable[3] = countyPull.getSumTotalCasesAcrossCounty();
                 Map<Object, Object>[] graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumTotalCasesAcrossCounty());
-                model.addAttribute("graphNewDeaths", graphNewDeaths);
-                model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                if (graphNewDeaths.length > 0) {
+                    model.addAttribute("graphNewDeaths", graphNewDeaths);
+                }
+                if (graphTotalDeaths.length > 0) {
+                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                }
             }
         }
 
@@ -537,19 +565,24 @@ class MainController {
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
     RedirectView subscribeSNS(String snsAdd, String currentURL, String countryCheck, String provinceCheck, String countyCheck) {
+        if (countryCheck == null && provinceCheck == null && countyCheck == null) {
+            currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
+            currentURL = AWSDynamoDBMethods.checkURLRedundant(currentURL);
+            return new RedirectView(currentURL + "&checks=empty");
+        }
 
         // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
         String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
         currentURL = parameters[0];
-        String valid = parameters[1];
+        String validity = parameters[1];
         snsAdd = parameters[2];
 
         // AWS DynamoDB: get requested items to subscribe to and add to DB
-        if (valid.equals("true")) {
+        if (validity.equals("valid")) {
             AWSDynamoDBMethods.addRequestToDB(snsAdd, countryCheck, provinceCheck, countyCheck);
         }
 
-        return new RedirectView(currentURL + "&valid=" + valid);
+        return new RedirectView(currentURL + "&endpoint=" + validity);
     }
 
     @PostMapping("/sms/unsubscribe")
@@ -557,6 +590,9 @@ class MainController {
 
         return new RedirectView(currentURL);
     }
+
+
+
 
     // ============================================================================== //
     // ============================= show API routes ================================ //

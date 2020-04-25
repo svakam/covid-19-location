@@ -20,12 +20,15 @@
 <body>
 <header th:replace="../fragments/headernav :: headernav"></header>
 <main>
+    <th:block th:if="${checks == 'empty'}">
+        <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
+    </th:block>
     <th:block th:if="${endpoint}">
-        <th:block th:if="${endpoint == 'valid'}">
-            <div th:replace="../fragments/validNo :: validNo"></div>
-        </th:block>
         <th:block th:if="${endpoint == 'invalid'}">
             <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+        </th:block>
+        <th:block th:if="${endpoint == 'valid'} and ${checks != 'empty'}">
+            <div th:replace="../fragments/validNo :: validNo"></div>
         </th:block>
     </th:block>
     <h1>Statistics</h1>

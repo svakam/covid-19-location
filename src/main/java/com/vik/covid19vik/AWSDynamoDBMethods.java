@@ -10,4 +10,13 @@ public class AWSDynamoDBMethods {
         System.out.println(snsAdd);
         System.out.format("%s %s %s", countryCheck, provinceCheck, countyCheck);
     }
+
+    // check URL for redundant parameters
+    static String checkURLRedundant(String currentURL) {
+        if (currentURL.contains("&checks=")) {
+            int index = currentURL.indexOf("&checks=");
+            currentURL = currentURL.substring(0, index);
+        }
+        return currentURL;
+    }
 }
