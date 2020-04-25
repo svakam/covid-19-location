@@ -7,6 +7,8 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,6 +57,7 @@ public class AWSDynamoDBTest {
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
 
+        // each item is a collection of attributes: primary key is always required, others are not
         HashMap<String, AttributeValue> itemValues = new HashMap<>();
         itemValues.put("endpoint", AttributeValue.builder().s("4258923077").build());
         itemValues.put("countries", AttributeValue.builder().s("US").build());
@@ -71,6 +74,40 @@ public class AWSDynamoDBTest {
             System.out.println("cv19location updated");
         } catch (ResourceNotFoundException e) {
             System.out.print("Error: table can't be found");
+        } catch (DynamoDbException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    void testGetFromTable() {
+        DynamoDbClient client = DynamoDbClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        // getting an item by its primary key and the desired value
+        HashMap<String, AttributeValue> keyToGet = new HashMap<>();
+        keyToGet.put("endpoint", AttributeValue.builder().s("4258923077").build());
+
+        GetItemRequest request = GetItemRequest.builder()
+                .key(keyToGet)
+                .tableName("cv19location")
+                .build();
+
+        try {
+            Map<String, AttributeValue> returnedItem = client.getItem(request).item();
+
+            if (returnedItem != null) {
+                Set<String> keys = returnedItem.keySet();
+                System.out.println("Table attributes: ");
+
+                for (String key1 : keys) {
+                    System.out.println("key1 = " + key1 + ", returned item = " + returnedItem.get(key1).s());
+                }
+            } else {
+                System.out.println("No item found with that endpoint");
+            }
         } catch (DynamoDbException e) {
             System.out.println(e.getMessage());
         }
