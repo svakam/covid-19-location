@@ -429,15 +429,15 @@ class MainController {
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "valid") String valid, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
 //        System.out.println("getmapping searched county = " + searchedCounty);
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("endpoint", endpoint);
         }
 
         // initializers

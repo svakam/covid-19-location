@@ -19,11 +19,11 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block th:if="${valid}">
-                <th:block th:if="${valid == 'true'}">
+            <th:block th:if="${endpoint}">
+                <th:block th:if="${endpoint == 'valid'}">
                     <div th:replace="../fragments/validNo :: validNo"></div>
                 </th:block>
-                <th:block th:if="${valid == 'false'}">
+                <th:block th:if="${endpoint == 'invalid'}">
                     <div th:replace="../fragments/invalidNo :: invalidNo"></div>
                 </th:block>
             </th:block>

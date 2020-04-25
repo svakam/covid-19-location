@@ -42,22 +42,22 @@ public class AWSSNSMethods {
         Matcher matcherComplete = compiledComplete.matcher(snsAdd);
         Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
 
-        String valid;
+        String endpoint;
 
         // if valid number, subscribe and publish
         if (matcherComplete.matches()) {
             returnVals[2] = snsAdd;
             AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
-            valid = "true";
+            endpoint = "valid";
         } else if (matcherNoCC.matches()) {
             String snsAddAndCC = "+1" + snsAdd;
             returnVals[2] = snsAddAndCC;
             AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
-            valid = "true";
+            endpoint = "valid";
         }
         // else don't subscribe/publish
         else {
-            valid = "false";
+            endpoint = "false";
         }
 
         // accounts for redundant requestparam
@@ -65,7 +65,7 @@ public class AWSSNSMethods {
         client.close();
 
         returnVals[0] = currentURL;
-        returnVals[1] = valid;
+        returnVals[1] = endpoint;
 
         return returnVals;
     }
@@ -105,12 +105,12 @@ public class AWSSNSMethods {
 
     // check URL for redundant parameters
     static String checkURLRedundant(String currentURL) {
-        if (currentURL.contains("&valid=true")) {
-            int index = currentURL.indexOf("&valid=true");
+        if (currentURL.contains("&endpoint=true")) {
+            int index = currentURL.indexOf("&endpoint=true");
             currentURL = currentURL.substring(0, index);
         }
-        if (currentURL.contains("&valid=false")) {
-            int index = currentURL.indexOf("&valid=false");
+        if (currentURL.contains("&endpoint=false")) {
+            int index = currentURL.indexOf("&endpoint=false");
             currentURL = currentURL.substring(0, index);
         }
         return currentURL;
