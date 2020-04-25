@@ -1,8 +1,5 @@
 <div th:fragment="validNo">
     <h5 style="color: green;">SMS subscription successful.</h5>
-    <th:block th:if="${combinedKey}">
-        <p style="color: green;">You will receive daily case updates for [[${combinedKey}]].</p>
-    </th:block>
     <th:block th:if="${searchedCountry}">
         <p style="color: green;">You will receive daily case updates for [[${searchedCountry}]].</p>
     </th:block>

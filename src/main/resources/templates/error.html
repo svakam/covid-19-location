@@ -13,16 +13,8 @@
         <link rel="stylesheet" href="../../css/baseindex.css" type="text/css">
         <link rel="stylesheet" href="../../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../../css/state.css" type="text/css">
-        <title>COVID-19 Locator</title>
     </head>
     <body>
-        <header th:replace="../fragments/headernav :: headernav"></header>
-        <h1>Error: 404 Not Found</h1>
-        <th:block th:if="${searchedCountry}">
-            <p>Sorry, but the country you were looking for ([[${searchedCountry}]]) could not be found.</p>
-        </th:block>
-        <th:block th:unless="${searchedCountry}">
-            <p>Sorry, but that page could not be found.</p>
-        </th:block>
+        <h1>Sorry, but something went wrong.</h1>
     </body>
 </html>

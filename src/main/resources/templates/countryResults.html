@@ -11,27 +11,32 @@
         <link rel="stylesheet" href="../css/baseindex.css" type="text/css">
         <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="../css/state.css" type="text/css">
-        <!-- JS script Canvas -->
-        <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+
         <title>COVID-19 Locator</title>
+        <div th:replace="../fragments/plotpoints :: plotpoints"></div>
     </head>
 
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block th:if="${valid}">
-                <th:block th:if="${valid == true}">
-                    <div th:replace="../fragments/validNo :: validNo"></div>
-                </th:block>
-                <th:block th:if="${valid == false}">
+            <th:block th:if="${checks == 'empty'}">
+                <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
+            </th:block>
+            <th:block th:if="${endpoint}">
+                <th:block th:if="${endpoint == 'invalid'}">
                     <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+                </th:block>
+                <th:block th:if="${endpoint == 'valid'} and ${checks != 'empty'}">
+                    <div th:replace="../fragments/validNo :: validNo"></div>
                 </th:block>
             </th:block>
             <h1>Statistics</h1>
             <h2 th:text="${searchedCountry}"></h2>
 
             <!-- line graph -->
-            <div class="container justify-content-center" id="chartContainer" style="height: 400px; width: 95%;"></div>
+            <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
+                <div class="container justify-content-center" id="chartContainer" style="height: 400px; width: 95%;"></div>
+            </th:block>
 
             <!-- table -->
 

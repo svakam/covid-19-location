@@ -166,6 +166,9 @@ class USTimeSeries {
         // get each county's new and total cases
         HashMap<String, State> statesWithCountyData = data.getStatesWithCountyData();
         State state = statesWithCountyData.get(searchedProvince);
+        if (state == null) {
+            return null;
+        }
         HashMap<String, State.County> allCounties = state.getCountyAndCases();
         for (Map.Entry<String, State.County> aCounty : allCounties.entrySet()) {
             State.County county = aCounty.getValue();

@@ -15,25 +15,29 @@
         <link rel="stylesheet" href="../../css/state.css" type="text/css">
 
         <div th:replace="../fragments/plotpoints :: plotpoints"></div>
-
         <title>COVID-19 Locator</title>
     </head>
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <th:block th:if="${valid}">
-                <th:block th:if="${valid == true}">
-                    <div th:replace="../fragments/validNo :: validNo"></div>
-                </th:block>
-                <th:block th:if="${valid == false}">
+            <th:block th:if="${checks == 'empty'}">
+                <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
+            </th:block>
+            <th:block th:if="${endpoint}">
+                <th:block th:if="${endpoint == 'invalid'}">
                     <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+                </th:block>
+                <th:block th:if="${endpoint == 'valid'} and ${checks != 'empty'}">
+                    <div th:replace="../fragments/validNo :: validNo"></div>
                 </th:block>
             </th:block>
             <h1>Statistics</h1>
             <h2 th:text="${combinedKey}"></h2>
 
             <!-- line graph -->
-            <div class="container justify-content-center" id="chartContainer" style="position: relative; height: 450px; width: 95%;"></div>
+            <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
+                <div class="container justify-content-center" id="chartContainer" style="height: 400px; width: 95%;"></div>
+            </th:block></div>
 
             <th:block th:if="${searchedCountry == 'US'}">
                 <p>(Sorry, but recovery data for the United States is not available.)</p>

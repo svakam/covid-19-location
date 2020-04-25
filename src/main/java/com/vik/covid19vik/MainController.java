@@ -13,6 +13,9 @@ import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -59,19 +62,23 @@ class MainController {
 
     // post request with user's country name search
     @PostMapping("/results/country")
-    RedirectView submitCountrySearch(String searchedCountry) {
+    RedirectView submitCountrySearch(String searchedCountry) throws UnsupportedEncodingException {
 
 //        System.out.println("Dropdown selected = " + searchedCountry);
 
-        return new RedirectView("/results/country?sc=" + searchedCountry);
+        return new RedirectView("/results/country?sc=" + URLEncoder.encode(searchedCountry, "UTF-8"));
     }
 
     @GetMapping("/results/country")
-    String resultsForCountry(@RequestParam(required = true, name = "sc") String searchedCountry, @RequestParam(required = false, name = "valid") String valid, Model model, HttpServletRequest req) throws IOException, ParseException {
+    String resultsForCountry(@RequestParam(name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
+                             @RequestParam(required = false, name = "checks") String checks, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("endpoint", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 //        System.out.println("searched country = " + searchedCountry);
 
@@ -212,21 +219,25 @@ class MainController {
     // ============================================================================== //
 
     @PostMapping("/results/country/province")
-    RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) {
+    RedirectView submitProvinceSearch(String searchedProvince, String searchedCountry) throws UnsupportedEncodingException {
 //        System.out.println("sp = " + searchedProvince);
 //        System.out.println("sc = " + searchedCountry);
         String rvURL = "/results/country/province?";
-        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince;
+        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedProvince, "UTF-8");
         return new RedirectView(rvURL);
     }
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "valid", required = false) String valid, Model model, HttpServletRequest req) throws ParseException {
+                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) String checks,
+                              Model model, HttpServletRequest req) throws ParseException {
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("endpoint", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
@@ -335,8 +346,12 @@ class MainController {
                     provinceDataTable[1] = caseInfo[1];
                     graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
                     graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
-                    model.addAttribute("graphNewConf", graphNewConf);
-                    model.addAttribute("graphTotalConf", graphTotalConf);
+                    if (graphNewConf.length > 0) {
+                        model.addAttribute("graphNewConf", graphNewConf);
+                    }
+                    if(graphTotalConf.length > 0) {
+                        model.addAttribute("graphTotalConf", graphTotalConf);
+                    }
                 }
             }
             if (deathsDataUS == null) {
@@ -350,8 +365,12 @@ class MainController {
                     provinceDataTable[3] = caseInfo[1];
                     graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
                     graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
-                    model.addAttribute("graphNewDeaths", graphNewDeaths);
-                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                    if (graphNewDeaths.length > 0) {
+                        model.addAttribute("graphNewDeaths", graphNewDeaths);
+                    }
+                    if (graphTotalDeaths.length > 0) {
+                        model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                    }
                 }
             }
         }
@@ -418,26 +437,30 @@ class MainController {
     // ============================================================================== //
 
     @PostMapping("results/country/province/county")
-    RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) {
+    RedirectView submitCountySearch(String searchedCounty, String searchedCountry, String searchedProvince) throws UnsupportedEncodingException {
 //        System.out.println("searched country = " + searchedCountry);
 //        System.out.println("searched province = " + searchedProvince);
 //        System.out.println("searched county = " + searchedCounty);
         String rvURL = "/results/country/province/county?";
-        rvURL = rvURL + "sc=" + searchedCountry + "&sp=" + searchedProvince + "&sco=" + searchedCounty;
+        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedProvince, "UTF-8") + "&sco=" + URLEncoder.encode(searchedCounty, "UTF-8");
         return new RedirectView(rvURL);
     }
 
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "valid") String valid, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint,
+                            @RequestParam(required = false, name = "checks") String checks, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
 //        System.out.println("getmapping searched county = " + searchedCounty);
 
         // if number valid, show success message, else failure message
-        if (valid != null) {
-            model.addAttribute("valid", valid);
+        if (endpoint != null) {
+            model.addAttribute("endpoint", endpoint);
+        }
+        if (checks != null) {
+            model.addAttribute("checks", checks);
         }
 
         // initializers
@@ -470,8 +493,12 @@ class MainController {
                 countyDataTable[1] = countyPull.getSumTotalCasesAcrossCounty();
                 Map<Object, Object>[] graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumTotalCasesAcrossCounty());
-                model.addAttribute("graphNewConf", graphNewConf);
-                model.addAttribute("graphTotalConf", graphTotalConf);
+                if (graphNewConf.length > 0) {
+                    model.addAttribute("graphNewConf", graphNewConf);
+                }
+                if (graphTotalConf.length > 0) {
+                    model.addAttribute("graphTotalConf", graphTotalConf);
+                }
             }
         }
         if (deathsDataUS == null) {
@@ -485,8 +512,12 @@ class MainController {
                 countyDataTable[3] = countyPull.getSumTotalCasesAcrossCounty();
                 Map<Object, Object>[] graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumTotalCasesAcrossCounty());
-                model.addAttribute("graphNewDeaths", graphNewDeaths);
-                model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                if (graphNewDeaths.length > 0) {
+                    model.addAttribute("graphNewDeaths", graphNewDeaths);
+                }
+                if (graphTotalDeaths.length > 0) {
+                    model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                }
             }
         }
 
@@ -536,55 +567,44 @@ class MainController {
     // ==================================== SNS ===================================== //
     // ============================================================================== //
     @PostMapping("/sms/subscribe")
-    RedirectView subscribeSNS(String snsAdd, String currentURL) {
-        // instantiate SNS client
-        SnsClient client = SnsClient.builder()
-                .region(Region.US_WEST_2)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
-        // get topic
-        ListTopicsResponse ltr = client.listTopics();
-        List<Topic> topics = ltr.topics();
-        String arn = null;
-        for (Topic topic : topics) {
-            if (topic.topicArn().contains("CovidLocatorSNS")) {
-                arn = topic.topicArn();
-            }
-        }
-        if (arn == null) {
-            throw new NullPointerException("Could not find topic ARN");
-        }
-
-        // validate endpoint
-        String regexComplete = "\\+1\\d{10}";
-        String regexNoCountryCode = "\\d{10}";
-        Pattern compiledComplete = Pattern.compile(regexComplete);
-        Pattern compiledNoCountrycode = Pattern.compile(regexNoCountryCode);
-        Matcher matcherComplete = compiledComplete.matcher(snsAdd);
-        Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
-
-        String valid;
-
-        // if valid number, subscribe and publish
-        if (matcherComplete.matches()) {
-            AWSSNSMethods.subscribeAndPublish(arn, snsAdd, client);
-            valid = "true";
-        } else if (matcherNoCC.matches()) {
-            String snsAddAndCC = "+1" + snsAdd;
-            AWSSNSMethods.subscribeAndPublish(arn, snsAddAndCC, client);
-            valid = "true";
-        }
-        // else don't subscribe/publish
-        else {
-            valid = "false";
-        }
-
-        // accounts for redundant requestparam
+    RedirectView subscribeSNS(String snsAdd, String currentURL, String countryCheck, String provinceCheck, String countyCheck) throws UnsupportedEncodingException {
         currentURL = AWSSNSMethods.checkURLRedundant(currentURL);
-        client.close();
+        currentURL = AWSDynamoDBMethods.checkURLRedundant(currentURL);
 
-        return new RedirectView(currentURL + "&valid=" + valid);
+        // if nothing was selected, return a failure message
+        if (countryCheck == null && provinceCheck == null && countyCheck == null) {
+            return new RedirectView(currentURL + "&checks=empty");
+        }
+
+        // add to URL anything selected
+        StringBuilder checks = new StringBuilder();
+        if (countryCheck != null) {
+            checks.append(URLEncoder.encode(countryCheck, "UTF-8"));
+        }
+        if (checks.length() == 0 && provinceCheck != null) {
+            checks.append(URLEncoder.encode(provinceCheck, "UTF-8"));
+        } else if (checks.length() > 0 && provinceCheck != null) {
+            checks.append(',').append(URLEncoder.encode(provinceCheck, "UTF-8"));
+        }
+        if (checks.length() == 0 && countyCheck != null) {
+            checks.append(URLEncoder.encode(countyCheck, "UTF-8"));
+        } else if (checks.length() > 0 && countyCheck != null) {
+            checks.append(',').append(URLEncoder.encode(countyCheck, "UTF-8"));
+        }
+        currentURL = currentURL + "&checks=" + checks.toString();
+
+        // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
+        String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
+        currentURL = parameters[0];
+        String validity = parameters[1];
+        snsAdd = parameters[2];
+
+        // AWS DynamoDB: get requested items to subscribe to and add to DB
+        if (validity.equals("valid")) {
+            AWSDynamoDBMethods.addRequestToDB(snsAdd, countryCheck, provinceCheck, countyCheck);
+        }
+
+        return new RedirectView(currentURL + "&endpoint=" + validity);
     }
 
     @PostMapping("/sms/unsubscribe")
@@ -592,6 +612,9 @@ class MainController {
 
         return new RedirectView(currentURL);
     }
+
+
+
 
     // ============================================================================== //
     // ============================= show API routes ================================ //

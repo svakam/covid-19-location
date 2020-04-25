@@ -15,18 +15,20 @@
     <link rel="stylesheet" href="../../../css/state.css" type="text/css">
 
     <div th:replace="../fragments/plotpoints :: plotpoints"></div>
-
     <title>COVID-19 Locator</title>
 </head>
 <body>
 <header th:replace="../fragments/headernav :: headernav"></header>
 <main>
-    <th:block th:if="${valid}">
-        <th:block th:if="${valid == true}">
-            <div th:replace="../fragments/validNo :: validNo"></div>
-        </th:block>
-        <th:block th:if="${valid == false}">
+    <th:block th:if="${checks == 'empty'}">
+        <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
+    </th:block>
+    <th:block th:if="${endpoint}">
+        <th:block th:if="${endpoint == 'invalid'}">
             <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+        </th:block>
+        <th:block th:if="${endpoint == 'valid'} and ${checks != 'empty'}">
+            <div th:replace="../fragments/validNo :: validNo"></div>
         </th:block>
     </th:block>
     <h1>Statistics</h1>

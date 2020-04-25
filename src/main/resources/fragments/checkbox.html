@@ -1,0 +1,15 @@
+<div th:fragment="checkbox">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#smssubmit').click(function() {
+                checked = $("input[type=checkbox]:checked").length;
+                console.log(checked);
+
+                if(!checked) {
+                    alert("You must check at least one option.");
+                    return false;
+                }
+            });
+        });
+    </script>
+</div>
