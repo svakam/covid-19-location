@@ -442,7 +442,7 @@ class MainController {
 //        System.out.println("searched province = " + searchedProvince);
 //        System.out.println("searched county = " + searchedCounty);
         String rvURL = "/results/country/province/county?";
-        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sco=" + URLEncoder.encode(searchedCounty, "UTF-8");
+        rvURL = rvURL + "sc=" + URLEncoder.encode(searchedCountry, "UTF-8") + "&sp=" + URLEncoder.encode(searchedProvince, "UTF-8") + "&sco=" + URLEncoder.encode(searchedCounty, "UTF-8");
         return new RedirectView(rvURL);
     }
 
@@ -591,7 +591,6 @@ class MainController {
         } else if (checks.length() > 0 && countyCheck != null) {
             checks.append(',').append(URLEncoder.encode(countyCheck, "UTF-8"));
         }
-
         currentURL = currentURL + "&checks=" + checks.toString();
 
         // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
