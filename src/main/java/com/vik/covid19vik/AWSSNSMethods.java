@@ -52,13 +52,18 @@ public class AWSSNSMethods {
         if (countryCheck != null) {
             msg.append(countryCheck);
         }
+
         if (countryCheck != null && countyCheck != null && provinceCheck != null){
             msg.append(", ").append(provinceCheck).append(", and ").append(countyCheck);
         } else if (countryCheck != null && countyCheck == null && provinceCheck != null) {
-            msg.append(" and ").append(provinceCheck);
-        } else if (countryCheck == null && provinceCheck != null && countyCheck != null) {
+            msg.append(" and ").append(provinceCheck).append(", ").append(countryCheck);
+        } else if (countryCheck != null && countyCheck != null) {
+            msg.append(" and ").append(countyCheck).append(" county, ").append(countryCheck);
+        } else if (countryCheck == null && countyCheck == null && provinceCheck != null) {
+            msg.append(provinceCheck).append(", ");
+        } else if (countryCheck == null && provinceCheck != null) {
             msg.append(provinceCheck).append(" and ").append(countyCheck).append(" county");
-        } else if (countryCheck == null && provinceCheck == null && countyCheck != null) {
+        } else if (countryCheck == null && countyCheck != null) {
             msg.append(countyCheck).append(" county");
         }
         msg.append(". To unsubscribe, please reply STOP");
