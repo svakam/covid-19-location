@@ -2,7 +2,7 @@
 
 (work in progress)
 
-Deployed at: http://www.cv19location.com (being updated)
+Deployed at: http://www.cv19location.com (currently in alpha)
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current case 
 information on how COVID-19 is impacting their community in the United States. Raw case information (total confirmed/deaths/recovered cases) 
@@ -13,10 +13,12 @@ NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United
 there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
 imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
 
-NOTE: As of 03/28/2020, all JHU CSSE data has been well-standardized and more developer-approachable for parsing. 
+NOTE: As of 03/28/2020, JHU CSSE .csv data appears to have been re-standardized and more developer-approachable for parsing.
+
+NOTE: As of 04/15/2020, I've noticed an errata.csv file in JHU CSSE. I'm looking into this.  
 
 ## Run the app
-Visit the website at: http://www.cv19location.com (being updated)
+Visit the website at: http://www.cv19location.com (currently in alpha)
 
 Or if you'd like to run it from your local machine: 
 - Install IntelliJ IDEA. 
@@ -28,7 +30,7 @@ Or if you'd like to run it from your local machine:
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
 ## Screenshots
-
+Coming soon! (once I'm a little less embarrassed by the front-end)
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
@@ -39,10 +41,10 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
 - Technologies
   - IDE: IntelliJ IDEA
   - Frameworks/APIs: CV19Locator API, SpringMVC, Spring Boot, Thymeleaf, GSON, Bootstrap, CanvasJS, Postman
-  - AWS: Route 53, Elastic Beanstalk, SNS
+  - AWS: DynamoDB, SNS, Elastic Beanstalk, Route 53
   
 ## Contact
-If you're interested in contributing, or have questions regarding the CV19Locator API, email me at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
+If you're interested in contributing, or have questions regarding the CV19Locator API, drop an email at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
 
 ## Acknowledgements
 AWS:

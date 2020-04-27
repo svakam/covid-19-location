@@ -1,5 +1,6 @@
 <div th:fragment="snsAdd">
     <h5>Get daily text notifications for case updates on this location.</h5>
+    <p>(Currently supporting one subscription per number. If you subscribe again after an initial subscription, the previous subscription will be overwritten.)</p>
     <span>
         <form class="container" action="/sms/subscribe" method="POST">
             <div class="row">

@@ -102,8 +102,12 @@ public class AWSDynamoDBTest {
                 Set<String> keys = returnedItem.keySet();
                 System.out.println("Table attributes: ");
 
-                for (String key1 : keys) {
-                    System.out.println("key1 = " + key1 + ", returned item = " + returnedItem.get(key1).s());
+                if (keys.size() == 0) {
+                    System.out.println("No items found with that endpoint");
+                } else {
+                    for (String aKey : keys) {
+                        System.out.println("key1 = " + aKey + ", returned item = " + returnedItem.get(aKey).s());
+                    }
                 }
             } else {
                 System.out.println("No item found with that endpoint");
@@ -111,5 +115,6 @@ public class AWSDynamoDBTest {
         } catch (DynamoDbException e) {
             System.out.println(e.getMessage());
         }
+        client.close();
     }
 }
