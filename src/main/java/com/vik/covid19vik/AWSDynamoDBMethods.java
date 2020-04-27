@@ -15,12 +15,11 @@ import java.util.stream.Collectors;
 public class AWSDynamoDBMethods {
     // add requests to DB
     static void addRequestToDB(String snsAdd, String countryCheck, String provinceCheck, String countyCheck) {
-        DynamoDbAsyncClient client = DynamoDbAsyncClient.builder()
+
+        DynamoDbClient client = DynamoDbClient.builder()
                 .region(Region.US_WEST_2)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
-
-        getRequestToDB(client, snsAdd);
 
         // each item is a collection of attributes: primary key always required, others are not
         HashMap<String, AttributeValue> itemValues = new HashMap<>();
@@ -42,20 +41,23 @@ public class AWSDynamoDBMethods {
 
         try {
             client.putItem(request);
-            System.out.println("cv19location updated");
+            System.out.println("table updated");
         } catch (ResourceNotFoundException e) {
             System.out.print("Error: table can't be found");
         } catch (DynamoDbException e) {
             System.out.println(e.getMessage());
         }
+
+        client.close();
     }
 
-    // could be useful if user wants to enter number to find out what they are subscribed to
-//    static void getRequestToDB() {
-//
-//    }
+    // could be useful if user wants to find out what they are subscribed to
+    static void getRequestToDB(String snsAdd) {
+        DynamoDbClient client = DynamoDbClient.builder()
+                .region(Region.US_WEST_2)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
-    static void getRequestToDB(DynamoDbAsyncClient client, String snsAdd) {
         HashMap<String, AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put("endpoint", AttributeValue.builder().s(snsAdd).build());
 
@@ -65,15 +67,23 @@ public class AWSDynamoDBMethods {
                     .tableName("cv19location")
                     .build();
 
-            Collection<AttributeValue> returnedItem = client.getItem(request).join().item().values();
-            Map<String, AttributeValue> map = returnedItem.stream().collect(Collectors.toMap(AttributeValue::s, s->s));
-            Set<String> keys = map.keySet();
-            for (String key : keys) {
-                System.out.format("%s: %s\n", key, map.get(key).toString());
+            Map<String, AttributeValue> returnedItem = client.getItem(request).item();
+            if (returnedItem != null) {
+                Set<String> keys = returnedItem.keySet();
+                if (keys.size() == 0) {
+                    System.out.println("No items found with that endpoint");
+                }
+                for (String key : keys) {
+                    System.out.format("%s: %s\n", key, returnedItem.get(key).s());
+                }
+            } else {
+                System.out.println("No item found with that key");
             }
         } catch(DynamoDbException e) {
             System.err.println(e.getMessage());
         }
+
+        client.close();
     }
 
     // check URL for redundant parameters

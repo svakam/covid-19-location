@@ -593,18 +593,33 @@ class MainController {
         }
         currentURL = currentURL + "&checks=" + checks.toString();
 
-        // AWS SNS: validate endpoint, subscribe and publish confirmation message to endpoint
-        String[] parameters = AWSSNSMethods.subscribeEndpoint(snsAdd, currentURL);
-        currentURL = parameters[0];
-        String validity = parameters[1];
-        snsAdd = parameters[2];
-
-        // AWS DynamoDB: get requested items to subscribe to and add to DB
-        if (validity.equals("valid")) {
-            AWSDynamoDBMethods.addRequestToDB(snsAdd, countryCheck, provinceCheck, countyCheck);
+        // validate endpoint
+        String regexComplete = "\\+1\\d{10}";
+        String regexNoCountryCode = "\\d{10}";
+        Pattern compiledComplete = Pattern.compile(regexComplete);
+        Pattern compiledNoCountrycode = Pattern.compile(regexNoCountryCode);
+        Matcher matcherComplete = compiledComplete.matcher(snsAdd);
+        Matcher matcherNoCC = compiledNoCountrycode.matcher(snsAdd);
+        String endpoint;
+        if (matcherComplete.matches()) {
+            endpoint = "valid";
+        } else if (matcherNoCC.matches()) {
+            snsAdd = "+1" + snsAdd;
+            endpoint = "valid";
+        }
+        // else don't subscribe/publish
+        else {
+            endpoint = "invalid";
         }
 
-        return new RedirectView(currentURL + "&endpoint=" + validity);
+        // DynamoDB: check if endpoint exists in DB; if in DB, update with new fields, else create new item
+        // SNS: subscribe and publish confirmation message to endpoint
+        if (endpoint.equals("valid")) {
+            AWSDynamoDBMethods.addRequestToDB(snsAdd, countryCheck, provinceCheck, countyCheck);
+            AWSSNSMethods.subscribeEndpoint(snsAdd, countryCheck, provinceCheck, countyCheck);
+        }
+
+        return new RedirectView(currentURL + "&endpoint=" + endpoint);
     }
 
     @PostMapping("/sms/unsubscribe")
