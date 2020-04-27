@@ -51,11 +51,7 @@ public class AWSDynamoDBMethods {
         client.close();
     }
 
-    // could be useful if user wants to enter number to find out what they are subscribed to
-//    static void getRequestToDB() {
-//
-//    }
-
+    // could be useful if user wants to find out what they are subscribed to
     static void getRequestToDB(String snsAdd) {
         DynamoDbClient client = DynamoDbClient.builder()
                 .region(Region.US_WEST_2)
