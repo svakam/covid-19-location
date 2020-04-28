@@ -71,7 +71,7 @@ class MainController {
 
     @GetMapping("/results/country")
     String resultsForCountry(@RequestParam(name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
-                             @RequestParam(required = false, name = "checks") String checks, Model model, HttpServletRequest req) throws IOException, ParseException {
+                             @RequestParam(required = false, name = "checks") List<String> checks, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         // if number valid, show success message, else failure message
         if (endpoint != null) {
@@ -229,7 +229,7 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) String checks,
+                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) List<String> checks,
                               Model model, HttpServletRequest req) throws ParseException {
 
         // if number valid, show success message, else failure message
@@ -449,7 +449,7 @@ class MainController {
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
                             @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint,
-                            @RequestParam(required = false, name = "checks") String checks, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(required = false, name = "checks") List<String> checks, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
@@ -627,8 +627,6 @@ class MainController {
 
         return new RedirectView(currentURL);
     }
-
-
 
 
     // ============================================================================== //

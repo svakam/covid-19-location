@@ -120,6 +120,7 @@ https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values
 https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
 - Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
 - AWS Builder vs. Class Instances and Private Access: https://stackoverflow.com/questions/60102950/maven-project-amazons3clientbuilder-has-private-access-in-com-amazonaws-servi
+- Bootstrap Modal on Page Load: https://stackoverflow.com/questions/10233550/launch-bootstrap-modal-on-page-load
 
 
 Thymeleaf: 

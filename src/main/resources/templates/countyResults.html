@@ -20,6 +20,7 @@
 <body>
 <header th:replace="../fragments/headernav :: headernav"></header>
 <main>
+    <!-- subscription modals -->
     <th:block th:if="${checks == 'empty'}">
         <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
     </th:block>
@@ -62,6 +63,7 @@
 </footer>
 <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
 <div th:replace="../fragments/canvasjs :: canvasjs"></div>
+<div th:replace="../fragments/modaljs :: modaljs"></div>
 <div th:replace="../fragments/firebase :: firebase"></div>
 </body>
 </html>

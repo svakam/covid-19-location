@@ -1,6 +1,35 @@
 <div th:fragment="validNo">
-    <h5 style="color: green;">SMS subscription successful.</h5>
-    <th:block th:if="${searchedCountry}">
-        <p style="color: green;">You will receive daily case updates for [[${searchedCountry}]].</p>
-    </th:block>
+    <div id="validModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="color: green;">SMS subscription successful.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>You will receive daily case updates for
+                        <th:block th:each="check,iStat : ${checks}">
+                            <th:block th:if="${iStat.size == 3}">
+                                <th:block th:if="${iStat.index == 0}" th:text="${check} + ', '"></th:block>
+                                <th:block th:if="${iStat.index == 1}" th:text="${check}"></th:block>
+                                <th:block th:if="${iStat.index == 2}" th:text="' and ' + ${check} + '.'"></th:block>
+                            </th:block>
+                            <th:block th:unless="${iStat.size == 3}">
+                                <th:block th:if="${iStat.size == 2}">
+                                    <th:block th:text="${iStat.index == 0}? ${check}"></th:block>
+                                    <th:block th:text="${iStat.index == 1}? ' and ' + ${check} + '.'"></th:block>
+                                </th:block>
+                                <th:block th:unless="${iStat.size == 2}" th:text="${check} + '.'"></th:block>
+                            </th:block>
+                        </th:block>
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
