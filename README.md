@@ -118,7 +118,6 @@ https://stackoverflow.com/questions/24059773/correct-way-to-pass-multiple-values
 - HTTP Content-Type: https://stackoverflow.com/questions/23714383/what-are-all-the-possible-values-for-http-content-type-header
 - HTTP Servlet Request: https://stackoverflow.com/questions/9607903/get-domain-name-from-given-url 
 https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-current-url-in-spring-mvc
-- LinkedList array: https://stackoverflow.com/questions/20202889/how-can-i-create-an-array-of-linked-lists-in-java
 - Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
 - AWS Builder vs. Class Instances and Private Access: https://stackoverflow.com/questions/60102950/maven-project-amazons3clientbuilder-has-private-access-in-com-amazonaws-servi
 
@@ -130,9 +129,8 @@ Thymeleaf:
 
 
 Other:
-- HTTP Crash Course & Exploration: https://www.youtube.com/watch?v=iYM2zFP3Zn0
+- HTTP: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
-- Dropdown: https://www.w3schools.com/tags/att_option_value.asp
 - RESTful Practice: http://zetcode.com/springboot/requestparam/ https://www.codebyamir.com/blog/spring-mvc-essentials-requestmapping-pathvariable-annotations 
 https://www.baeldung.com/spring-request-param https://apiguide.readthedocs.io/en/latest/build_and_publish/use_RESTful_urls.html
 - URL Encoding: https://www.urlencoder.io/learn/ https://docs.oracle.com/javase/7/docs/api/java/net/URLEncoder.html 
@@ -140,7 +138,6 @@ https://www.geeksforgeeks.org/java-net-urlencoder-class-java/
 - CSV Format: https://www.howtogeek.com/348960/what-is-a-csv-file-and-how-do-i-open-it/
 - Parsing and type-casting: https://beginnersbook.com/2019/04/java-char-to-int-conversion/
 - Parts of a URL: https://blog.hubspot.com/marketing/parts-url
-- Access inner static class notation: https://www.tutorialspoint.com/What-is-a-static-class-in-Java
 - Regex & Java: https://www.freeformatter.com/java-regex-tester.html#ad-output 
 https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html https://docs.oracle.com/javase/tutorial/essential/regex/pattern.html
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
