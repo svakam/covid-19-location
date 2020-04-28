@@ -20,7 +20,7 @@
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
             <!-- subscription modals -->
-            <th:block th:if="${checks == 'empty'}">
+            <th:block th:if="${checks[0] == 'empty'}">
                 <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
             </th:block>
             <th:block th:if="${endpoint}">
