@@ -117,6 +117,7 @@ class MainController {
         int code3 = -1;
         int fips = -1;
         int population = -1;
+        String combinedKey = null;
 
         // retrieve data
         if (confDataGlobal == null) {
@@ -186,6 +187,7 @@ class MainController {
             code3 = uifPopData.getCode3();
             fips = uifPopData.getFips();
             population = uifPopData.getPopulation();
+            combinedKey = uifPopData.getCombinedKey();
         }
 
         // -- get province dropdown based on searched country -- //
@@ -198,6 +200,7 @@ class MainController {
         model.addAttribute("uid", uid);
         model.addAttribute("iso2", iso2);
         model.addAttribute("iso3", iso3);
+        model.addAttribute("combinedKey", combinedKey);
         if (provinceDropdown != null) {
             model.addAttribute("provinceNames", provinceDropdown);
         }
@@ -209,7 +212,7 @@ class MainController {
         }
         model.addAttribute("population", population);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "countryResults";
+        return "results";
     }
 
 
@@ -429,7 +432,7 @@ class MainController {
         }
         model.addAttribute("population", population);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "provinceResults";
+        return "results";
     }
 
     // ============================================================================== //
@@ -558,7 +561,7 @@ class MainController {
         model.addAttribute("combinedKey", combinedKey);
         model.addAttribute("countyDataTable", countyDataTable);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "countyResults";
+        return "results";
     }
 
 

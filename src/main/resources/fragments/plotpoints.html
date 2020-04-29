@@ -8,32 +8,25 @@
         if ([[${combinedKey}]]) {
             searchedName = [[${combinedKey}]];
         }
-        console.log(searchedName);
 
         /* case info */
         if ([[${graphNewConf}]]) {
             var newConf = [[${graphNewConf}]];
-            console.log(newConf);
         }
         if ([[${graphTotalConf}]]) {
             var totalConf = [[${graphTotalConf}]];
-            console.log(totalConf);
         }
         if ([[${graphNewDeaths}]]) {
             var newDeaths = [[${graphNewDeaths}]];
-            console.log(newDeaths);
         }
         if ([[${graphTotalDeaths}]]) {
             var totalDeaths = [[${graphTotalDeaths}]];
-            console.log(totalDeaths);
         }
         if ([[${graphNewRecovs}]]) {
             var newRecovs = [[${graphNewRecovs}]];
-            console.log(newRecovs);
         }
         if ([[${graphTotalRecovs}]]) {
             var totalRecovs = [[${graphTotalRecovs}]];
-            console.log(totalRecovs);
         }
 
         /* render data */
@@ -41,6 +34,7 @@
             var options = {
                 animationEnabled: true,
                 zoomEnabled: true,
+                theme: "light2",
                 title: {
                     text: "Time Series Data"
                 },

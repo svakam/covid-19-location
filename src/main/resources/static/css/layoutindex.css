@@ -12,6 +12,10 @@ iframe {
     font-size: 12px;
 }
 
+#chartContainer {
+    box-sizing: none;
+}
+
 @media (min-width: 820px) {
     #disclaimer {
         margin-top: 100px;

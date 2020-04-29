@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- native CSS -->
+        <link rel="stylesheet" href="../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="../css/state.css" type="text/css">
+
+        <title>CV19Locator</title>
+        <div th:replace="../fragments/plotpoints :: plotpoints"></div>
+    </head>
+
+    <body>
+        <header th:replace="../fragments/headernav :: headernav"></header>
+        <main>
+            <!-- subscription modals -->
+            <th:block th:if="${checks}">
+                <th:block th:if="${checks[0] == 'empty'}">
+                    <div th:replace="../fragments/checkAnOption :: checkAnOption"></div>
+                </th:block>
+            </th:block>
+            <th:block th:if="${endpoint}">
+                <th:block th:if="${endpoint == 'invalid'}">
+                    <div th:replace="../fragments/invalidNo :: invalidNo"></div>
+                </th:block>
+                <th:block th:if="${endpoint == 'valid'} and ${checks != 'empty'}">
+                    <div th:replace="../fragments/validNo :: validNo"></div>
+                </th:block>
+            </th:block>
+
+            <h1 th:if="${combinedKey}" th:text="'Results for ' + ${combinedKey}"></h1>
+            <div class="card">
+                <div class="card-body">
+                    <h1>Statistics</h1>
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- overall stats -->
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card col-md">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Cases Confirmed</h5>
+                                            <p>Total: 500</p>
+                                            <p>New: 20</p>
+                                        </div>
+                                    </div>
+                                    <div class="card col-md">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Fatal Cases</h5>
+                                            <p>Total: 20</p>
+                                            <p>New: 3</p>
+                                        </div>
+                                    </div>
+                                    <div class="card col-md">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Cases Recovered</h5>
+                                            <p>Total: 30</p>
+                                            <p>New: 5</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- progression graph -->
+                            <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
+                                <div class="card justify-content-center">
+                                    <div class="card-body">
+                                        <div id="chartContainer" style="height: 500px;"></div>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
+                    <th:block th:if="${provinceNames}">
+                        <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
+                        <th:block th:if="${searchedCountry == 'US'} and ${countyNames}">
+                            <div th:replace="../fragments/countydropdown :: countydropdown"></div>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+
+            <!-- table -->
+
+            <br>
+
+            <div class="card justify-content-center">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="'Codes for ' + ${searchedCountry}"></h5><p th:text="'UID: ' + ${uid}"></p>
+                    <p class="card-text" th:text="'Iso2: ' + ${iso2}"></p>
+                    <p class="card-text" th:text="'Iso3: ' + ${iso3}"></p>
+                    <p class="card-text" th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+                    <p class="card-text" th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+                    <p class="card-text" th:text="'Population: ' + ${population}"></p>
+                </div>
+            </div>
+
+            <!-- sns -->
+            <div th:replace="../fragments/snsAdd :: snsAdd"></div>
+
+            <h2>In The News</h2>
+            <p>(Coming soon!)</p>
+
+            <footer>
+
+            </footer>
+        </main>
+        <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/canvasjs :: canvasjs"></div>
+        <div th:replace="../fragments/modaljs :: modaljs"></div>
+        <div th:replace="../fragments/firebase :: firebase"></div>
+    </body>
+</html>

@@ -1,3 +1,8 @@
+body  {
+    background-image: linear-gradient(#FFF2C4, #FFE078);
+    color: #303FB3;
+}
+
 #indexbody {
     background-color: #010302;
 }
