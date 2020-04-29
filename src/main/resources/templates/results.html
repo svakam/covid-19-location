@@ -8,9 +8,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <!-- native CSS -->
-        <link rel="stylesheet" href="../css/baseindex.css" type="text/css">
-        <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
-        <link rel="stylesheet" href="../css/state.css" type="text/css">
+        <link rel="stylesheet" href="css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="css/state.css" type="text/css">
 
         <title>CV19Locator</title>
         <div th:replace="../fragments/plotpoints :: plotpoints"></div>
@@ -18,7 +18,7 @@
 
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
-        <main>
+        <main class="text-center">
             <!-- subscription modals -->
             <th:block th:if="${checks}">
                 <th:block th:if="${checks[0] == 'empty'}">
