@@ -26,3 +26,18 @@ iframe {
         margin-left: 100px;
     }
 }
+
+/* --------------- results ----------------- */
+#totalCases .card {
+    margin: 5%;
+}
+
+body main {
+    padding: 4%;
+}
+
+@media (max-width: 400px) {
+    #resultsFor {
+        font-size: 70px;
+    }
+}

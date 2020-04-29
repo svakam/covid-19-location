@@ -8,9 +8,15 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <!-- native CSS -->
-        <link rel="stylesheet" href="css/baseindex.css" type="text/css">
-        <link rel="stylesheet" href="css/layoutindex.css" type="text/css">
-        <link rel="stylesheet" href="css/state.css" type="text/css">
+        <link rel="stylesheet" href="/css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/css/state.css" type="text/css">
+        <link rel="stylesheet" href="/../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/../css/state.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/state.css" type="text/css">
 
         <title>CV19Locator</title>
         <div th:replace="../fragments/plotpoints :: plotpoints"></div>
@@ -34,43 +40,45 @@
                 </th:block>
             </th:block>
 
-            <h1 th:if="${combinedKey}" th:text="'Results for ' + ${combinedKey}"></h1>
+            <h1 id="resultsFor" class="display-1" th:if="${combinedKey}" th:text="'Results for ' + ${combinedKey}"></h1>
             <div class="card">
                 <div class="card-body">
-                    <h1>Statistics</h1>
+                    <h1 class="display-3">Statistics</h1>
                     <div class="card">
                         <div class="card-body">
                             <!-- overall stats -->
+                            <h1 class="display-4">Totals</h1>
                             <div class="container">
-                                <div class="row">
-                                    <div class="card col-md">
+                                <div id="totalCases" class="row">
+                                    <div class="card col-lg">
                                         <div class="card-body">
-                                            <h5 class="card-title">Cases Confirmed</h5>
-                                            <p>Total: 500</p>
-                                            <p>New: 20</p>
+                                            <h4 class="card-title">Cases Confirmed</h4>
+                                            <p class="lead">Total: 500</p>
+                                            <p class="lead">New: 20</p>
                                         </div>
                                     </div>
-                                    <div class="card col-md">
+                                    <div class="card col-lg">
                                         <div class="card-body">
-                                            <h5 class="card-title">Fatal Cases</h5>
-                                            <p>Total: 20</p>
-                                            <p>New: 3</p>
+                                            <h4 class="card-title">Fatal Cases</h4>
+                                            <p class="lead">Total: 20</p>
+                                            <p class="lead">New: 3</p>
                                         </div>
                                     </div>
-                                    <div class="card col-md">
+                                    <div class="card col-lg">
                                         <div class="card-body">
-                                            <h5 class="card-title">Cases Recovered</h5>
-                                            <p>Total: 30</p>
-                                            <p>New: 5</p>
+                                            <h4 class="card-title">Cases Recovered</h4>
+                                            <p class="lead">Total: 30</p>
+                                            <p class="lead">New: 5</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- progression graph -->
                             <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
-                                <div class="card justify-content-center">
+                                <div id="graph" class="card justify-content-center">
                                     <div class="card-body">
-                                        <div id="chartContainer" style="height: 500px;"></div>
+                                        <h1 class="display-4">Progression</h1>
+                                        <div id="chartContainer" style="height: 300px;"></div>
                                     </div>
                                 </div>
                             </th:block>
@@ -104,8 +112,12 @@
             <!-- sns -->
             <div th:replace="../fragments/snsAdd :: snsAdd"></div>
 
-            <h2>In The News</h2>
-            <p>(Coming soon!)</p>
+            <div class="card justify-content-center">
+                <div class="card-body">
+                    <h2 class="card-title">In The News</h2>
+                    <p class="card-text">(Coming soon!)</p>
+                </div>
+            </div>
 
             <footer>
 
