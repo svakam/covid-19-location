@@ -38,6 +38,10 @@ body main {
 
 @media (max-width: 400px) {
     #resultsFor {
-        font-size: 70px;
+        font-size: 4.0rem;
+    }
+
+    #graph div h1 {
+        font-size: 2.8rem;
     }
 }
