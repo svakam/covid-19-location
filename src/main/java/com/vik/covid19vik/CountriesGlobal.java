@@ -1,5 +1,7 @@
 package com.vik.covid19vik;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -130,7 +132,7 @@ public class CountriesGlobal {
     }
 
     static LinkedList<Integer>[] retrieveCountryTSInfoAPICall(HashSet<String> countriesSeen, String searchedCountry, CountriesGlobal data) {
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[2];
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForCountry = new LinkedList[4];
 
         LinkedList<CountriesGlobal.Country> countries = data.getCountries();
         int i = 0;
@@ -147,6 +149,15 @@ public class CountriesGlobal {
                     caseInfoForCountry[0] = newConfCases;
                     LinkedList<Integer> totalConfCases = country.getTotalCases();
                     caseInfoForCountry[1] = totalConfCases;
+
+                    // get recent data
+                    LinkedList<Integer> recentNewData = new LinkedList<>();
+                    LinkedList<Integer> recentTotalData = new LinkedList<>();
+                    recentNewData.add(newConfCases.get(newConfCases.size() - 1));
+                    recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
+                    caseInfoForCountry[2] = recentNewData;
+                    caseInfoForCountry[3] = recentTotalData;
+
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }
@@ -158,6 +169,8 @@ public class CountriesGlobal {
                     // as long as the country is still the current country, do this check
                     LinkedList<Integer> allNewCases = new LinkedList<>();
                     LinkedList<Integer> allTotalCases = new LinkedList<>();
+                    LinkedList<Integer> recentNewData = new LinkedList<>();
+                    LinkedList<Integer> recentTotalData = new LinkedList<>();
                     while (i < countries.size()) {
 //                        System.out.println("looping rest of countries " + countries.get(i).getCountryOrRegion());
                         if (countries.get(i).getCountryOrRegion().equals(searchedCountry) && countries.get(i).getProvinceOrState().equals("")) {
@@ -166,11 +179,18 @@ public class CountriesGlobal {
                             caseInfoForCountry[0] = newConfCases;
                             LinkedList<Integer> totalConfCases = countries.get(i).getTotalCases();
                             caseInfoForCountry[1] = totalConfCases;
+
+                            // get recent data
+                            recentNewData.add(newConfCases.get(newConfCases.size() - 1));
+                            recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
+                            caseInfoForCountry[2] = recentNewData;
+                            caseInfoForCountry[3] = recentTotalData;
+
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
+
                         } else if (countries.get(i).getCountryOrRegion().equals(searchedCountry) && !countries.get(i).getProvinceOrState().equals("")) {
 //                            System.out.println("country = " + countries.get(i).getCountryOrRegion() + ", province = " + countries.get(i).getProvinceOrState());
-
                             // if province exists, add case data to final array and go to next country
                             LinkedList<Integer> newConfCases = countries.get(i).getNewCases();
                             if (allNewCases.size() == 0) {
@@ -180,6 +200,11 @@ public class CountriesGlobal {
                             else {
                                 for (int caseIndex = 0; caseIndex < allNewCases.size(); caseIndex++) {
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));
+
+                                    // get most recent data
+                                    if (caseIndex == allNewCases.size() - 1) {
+                                        recentNewData.add(allNewCases.get(caseIndex));
+                                    }
                                 }
                             }
                             LinkedList<Integer> totalConfCases = countries.get(i).getTotalCases();
@@ -189,6 +214,11 @@ public class CountriesGlobal {
                                 // iterate through total list and add current province's cases
                                 for (int caseIndex = 0; caseIndex < allTotalCases.size(); caseIndex++) {
                                     allTotalCases.set(caseIndex, (totalConfCases.get(caseIndex) + allTotalCases.get(caseIndex)));
+
+                                    // get most recent data
+                                    if (caseIndex == allNewCases.size() - 1) {
+                                        recentTotalData.add(allTotalCases.get(caseIndex));
+                                    }
                                 }
                             }
                         }
@@ -196,6 +226,9 @@ public class CountriesGlobal {
                     }
                     caseInfoForCountry[0] = allNewCases;
                     caseInfoForCountry[1] = allTotalCases;
+                    // add recent cases
+                    caseInfoForCountry[2] = recentNewData;
+                    caseInfoForCountry[3] = recentTotalData;
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }

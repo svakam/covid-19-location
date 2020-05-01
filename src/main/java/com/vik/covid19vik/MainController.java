@@ -119,6 +119,10 @@ class MainController {
         int population = -1;
         String combinedKey = null;
 
+        // initialize total data
+        int recentNewData = -191919;
+        int recentTotalData = -191919;
+
         // retrieve data
         if (confDataGlobal == null) {
             confDataGlobal = ApiMethods.getTimeSeriesConf(req);
@@ -129,6 +133,8 @@ class MainController {
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
             graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
             graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
+            recentNewData = caseInfo[2].get(0);
+            recentTotalData = caseInfo[3].get(0);
             countryData[0] = caseInfo[0];
             countryData[1] = caseInfo[1];
             model.addAttribute("graphNewConf", graphNewConf);
@@ -146,12 +152,14 @@ class MainController {
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsDataGlobal);
             graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
             graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
+            recentNewData = caseInfo[2].get(0);
+            recentTotalData = caseInfo[3].get(0);
             countryData[2] = caseInfo[0];
             countryData[3] = caseInfo[1];
             model.addAttribute("graphNewDeaths", graphNewDeaths);
             model.addAttribute("graphTotalDeaths", graphTotalDeaths);
         } else {
-            System.out.println("Could not get confirmed series data");
+            System.out.println("Could not get deaths series data");
         }
         // get recovered cases for searched country
         if (recovDataGlobal == null) {
@@ -163,10 +171,14 @@ class MainController {
             LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovDataGlobal);
             graphNewRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[0]);
             graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
+            recentNewData = caseInfo[2].get(0);
+            recentTotalData = caseInfo[3].get(0);
             countryData[4] = caseInfo[0];
             countryData[5] = caseInfo[1];
             model.addAttribute("graphNewRecovs", graphNewRecovs);
             model.addAttribute("graphTotalRecovs", graphTotalRecovs);
+        } else {
+            System.out.println("Could not get recovered series data");
         }
 
 
@@ -194,6 +206,8 @@ class MainController {
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
         // add to template
+        model.addAttribute("recentNewData", recentNewData);
+        model.addAttribute("recentTotalData", recentTotalData);
         model.addAttribute("countryData", countryData);
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("countryNames", countryDropdown);
