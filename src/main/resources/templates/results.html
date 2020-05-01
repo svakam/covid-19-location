@@ -96,6 +96,17 @@
                             </article>
                         </article>
                     </section>
+                    <section class="card statCard justify-content-center">
+                        <article class="card-body">
+                            <h1 class="resultsHeaders totalsProgression display-4">Other</h1>
+                            <p class="card-text" th:text="'Population: ' + ${population}"></p>
+                            <p th:text="'UID: ' + ${uid}"></p>
+                            <p class="card-text" th:text="'Iso2: ' + ${iso2}"></p>
+                            <p class="card-text" th:text="'Iso3: ' + ${iso3}"></p>
+                            <p class="card-text" th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
+                            <p class="card-text" th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
+                        </article>
+                    </section>
                     <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
                     <th:block th:if="${provinceNames}">
                         <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
@@ -113,17 +124,6 @@
             <!-- table -->
 
             <br>
-
-            <div class="card justify-content-center">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="'Codes for ' + ${searchedCountry}"></h5><p th:text="'UID: ' + ${uid}"></p>
-                    <p class="card-text" th:text="'Iso2: ' + ${iso2}"></p>
-                    <p class="card-text" th:text="'Iso3: ' + ${iso3}"></p>
-                    <p class="card-text" th:if=${code3} th:text="'Code3: ' + ${code3}"></p>
-                    <p class="card-text" th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
-                    <p class="card-text" th:text="'Population: ' + ${population}"></p>
-                </div>
-            </div>
 
             <div class="card justify-content-center">
                 <div class="card-body">
