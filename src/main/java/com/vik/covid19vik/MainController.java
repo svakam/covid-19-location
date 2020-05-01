@@ -18,6 +18,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,12 +36,12 @@ class MainController {
     // US data
     USTimeSeries confDataUS;
     USTimeSeries deathsDataUS;
-
     // uiflookup data
     CountryUIFLookup[] countries;
 
-    // hashmap of already looked up countries
-    HashMap<String, Integer> lookedUpCountries = new HashMap<>();
+    static {
+        ScheduledExecutorService ses = Executors.
+    }
 
     // ============================================================================== //
     // =================================  home ====================================== //
