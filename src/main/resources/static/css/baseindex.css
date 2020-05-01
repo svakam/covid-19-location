@@ -1,5 +1,5 @@
 body main > .card {
-    background-image: linear-gradient(#FFF2C4, #FFE078);
+    background-image: linear-gradient(#FFFFFF, #DDDDDD);
 }
 
 body main {
@@ -9,11 +9,6 @@ body main {
 
 #resultsFor {
     color: white;
-}
-
-#totalCases .card {
-    background-image: linear-gradient(#6D7FFF, #888888);
-    color: black;
 }
 
 #indexbody {
@@ -28,6 +23,26 @@ body main {
 
 table, td, tr, th {
     border: 1px solid black;
+}
+
+#totalCases .card {
+    color: black;
+}
+
+#totalConfirmed {
+    background-image: linear-gradient(#0FB0FF, #4433CF);
+}
+
+#totalDeaths {
+    background-image: linear-gradient(#FF0000, #8F0000);
+}
+
+#totalRecov {
+    background-image: linear-gradient(#55FF55, #005F00);
+}
+
+.statCard {
+    background-image: linear-gradient(160deg, #EFEFEF, #FFFFFF);
 }
 
 
