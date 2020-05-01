@@ -40,7 +40,9 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - Java, JavaScript, HTML/CSS
 - Technologies
   - IDE: IntelliJ IDEA
-  - Frameworks/APIs: CV19Locator API, SpringMVC, Spring Boot, Thymeleaf, GSON, Bootstrap, CanvasJS, Postman
+  - Frameworks: SpringMVC, Spring Boot, Thymeleaf
+  - APIs: CV19Locator API, Postman
+  - Libraries: CanvasJS, Bootstrap, GSON, jQuery
   - AWS: DynamoDB, SNS, Elastic Beanstalk, Route 53
   
 ## Contact
@@ -121,7 +123,7 @@ https://stackoverflow.com/questions/1490821/whats-the-best-way-to-get-the-curren
 - Static instantiation block: https://stackoverflow.com/questions/8082469/what-does-static-mean-in-the-java-syntax/8082526
 - AWS Builder vs. Class Instances and Private Access: https://stackoverflow.com/questions/60102950/maven-project-amazons3clientbuilder-has-private-access-in-com-amazonaws-servi
 - Bootstrap Modal on Page Load: https://stackoverflow.com/questions/10233550/launch-bootstrap-modal-on-page-load
-
+- Auto-scroll to divs: https://stackoverflow.com/questions/18071046/smooth-scroll-to-specific-div-on-click/18071231
 
 Thymeleaf: 
 - Layouts: https://www.thymeleaf.org/doc/articles/layouts.html

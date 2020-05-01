@@ -40,6 +40,7 @@ body main {
     margin: 2%;
 }
 
+/* mobile */
 @media (max-width: 400px) {
     .resultsHeaders {
         font-size: 3.2rem;
@@ -91,6 +92,7 @@ body main {
     }
 }
 
+/* ipads and larger */
 @media (min-width: 769px) {
     .totalsProgression {
         font-size: 2.7rem;
