@@ -44,6 +44,10 @@
             <section class="card">
                 <div class="card-body">
                     <h1 class="display-4 resultsHeaders">Statistics</h1>
+                    <!-- sns -->
+                    <div id="snsAddTop">
+                        <div th:replace="../fragments/snsAdd :: snsAdd"></div>
+                    </div>
                     <section class="card statCard">
                         <article class="card-body">
                             <!-- overall stats -->
@@ -78,7 +82,8 @@
                     <section class="card statCard">
                         <article class="card-body">
                             <h1 class="resultsHeaders totalsProgression display-4">Progression</h1>
-                            <p class="lead">(Mobile: rotate to landscape view.)</p>
+                            <p class="lead">Tap on the graph or legend to interact with them.</p>
+                            <p id="mobiletip" class="lead">(Mobile: rotate to landscape view.)</p>
                             <article class="card-body">
                                 <!-- progression graph -->
                                 <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
@@ -98,6 +103,10 @@
                             <div th:replace="../fragments/countydropdown :: countydropdown"></div>
                         </th:block>
                     </th:block>
+                    <!-- sns -->
+                    <div id="snsAddBottom">
+                        <div th:replace="../fragments/snsAdd :: snsAdd"></div>
+                    </div>
                 </div>
             </section>
 
@@ -115,9 +124,6 @@
                     <p class="card-text" th:text="'Population: ' + ${population}"></p>
                 </div>
             </div>
-
-            <!-- sns -->
-            <div th:replace="../fragments/snsAdd :: snsAdd"></div>
 
             <div class="card justify-content-center">
                 <div class="card-body">
