@@ -157,6 +157,8 @@ public class CountriesGlobal {
                     recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
                     caseInfoForCountry[2] = recentNewData;
                     caseInfoForCountry[3] = recentTotalData;
+//                    System.out.println(recentNewData);
+//                    System.out.println(recentTotalData);
 
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
@@ -185,6 +187,8 @@ public class CountriesGlobal {
                             recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
                             caseInfoForCountry[2] = recentNewData;
                             caseInfoForCountry[3] = recentTotalData;
+//                            System.out.println(recentNewData);
+//                            System.out.println(recentTotalData);
 
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
@@ -200,11 +204,6 @@ public class CountriesGlobal {
                             else {
                                 for (int caseIndex = 0; caseIndex < allNewCases.size(); caseIndex++) {
                                     allNewCases.set(caseIndex, (newConfCases.get(caseIndex) + allNewCases.get(caseIndex)));
-
-                                    // get most recent data
-                                    if (caseIndex == allNewCases.size() - 1) {
-                                        recentNewData.add(allNewCases.get(caseIndex));
-                                    }
                                 }
                             }
                             LinkedList<Integer> totalConfCases = countries.get(i).getTotalCases();
@@ -214,11 +213,6 @@ public class CountriesGlobal {
                                 // iterate through total list and add current province's cases
                                 for (int caseIndex = 0; caseIndex < allTotalCases.size(); caseIndex++) {
                                     allTotalCases.set(caseIndex, (totalConfCases.get(caseIndex) + allTotalCases.get(caseIndex)));
-
-                                    // get most recent data
-                                    if (caseIndex == allNewCases.size() - 1) {
-                                        recentTotalData.add(allTotalCases.get(caseIndex));
-                                    }
                                 }
                             }
                         }
@@ -227,8 +221,12 @@ public class CountriesGlobal {
                     caseInfoForCountry[0] = allNewCases;
                     caseInfoForCountry[1] = allTotalCases;
                     // add recent cases
+                    recentNewData.add(allNewCases.get(allNewCases.size() - 1));
+                    recentTotalData.add(allTotalCases.get(allTotalCases.size() - 1));
                     caseInfoForCountry[2] = recentNewData;
                     caseInfoForCountry[3] = recentTotalData;
+//                    System.out.println(recentNewData);
+//                    System.out.println(recentTotalData);
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }

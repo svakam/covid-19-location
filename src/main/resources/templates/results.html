@@ -57,22 +57,22 @@
                                     <article class="card col-lg" id="totalConfirmed">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Confirmed</h4>
-                                            <p class="lead">Total: 500</p>
-                                            <p class="lead">New: 20</p>
+                                            <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
+                                            <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
                                         </div>
                                     </article>
                                     <article class="card col-lg" id="totalDeaths">
                                         <div class="card-body">
                                             <h4 class="card-title">Fatal Cases</h4>
-                                            <p class="lead">Total: 20</p>
-                                            <p class="lead">New: 3</p>
+                                            <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
+                                            <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
                                         </div>
                                     </article>
                                     <article class="card col-lg" id="totalRecov">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Recovered</h4>
-                                            <p class="lead">Total: 30</p>
-                                            <p class="lead">New: 5</p>
+                                            <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
+                                            <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
                                         </div>
                                     </article>
                                 </div>
