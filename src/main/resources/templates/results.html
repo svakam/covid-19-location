@@ -52,6 +52,8 @@
                         <article class="card-body">
                             <!-- overall stats -->
                             <h1 class="resultsHeaders totalsProgression display-4">Totals</h1>
+                            <p class="lead" th:if="${searchedCountry == 'US'} and ${searchedProvince}">Recovery data for the US by state/county level is unavailable.</p>
+                            <p class="lead" th:if="${searchedCountry == 'Canada'} and ${searchedProvince}">Recovery data for Canadian provinces is unavailable.</p>
                             <div class="container">
                                 <div id="totalCases" class="row">
                                     <article class="card col-lg" id="totalConfirmed">
@@ -89,8 +91,6 @@
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
-                                        <p th:if="${searchedCountry == 'US'} and ${searchedProvince}">Recovery data for the US is unavailable.</p>
-                                        <p th:if="${searchedCountry == 'Canada'} and ${searchedProvince}">Recovery data for Canadian provinces is unavailable.</p>
                                     </article>
                                 </div>
                             </div>

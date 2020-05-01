@@ -371,6 +371,8 @@ class MainController {
                 if (caseInfo != null) {
                     provinceDataTable[0] = caseInfo[0];
                     provinceDataTable[1] = caseInfo[1];
+                    int recentNewConf = caseInfo[2].get(0);
+                    int recentTotalConf = caseInfo[3].get(0);
                     graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
                     graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
                     if (graphNewConf.length > 0) {
@@ -379,6 +381,8 @@ class MainController {
                     if(graphTotalConf.length > 0) {
                         model.addAttribute("graphTotalConf", graphTotalConf);
                     }
+                    model.addAttribute("recentNewConf", recentNewConf);
+                    model.addAttribute("recentTotalConf", recentTotalConf);
                 }
             }
             if (deathsDataUS == null) {
@@ -390,6 +394,8 @@ class MainController {
                 if (caseInfo != null) {
                     provinceDataTable[2] = caseInfo[0];
                     provinceDataTable[3] = caseInfo[1];
+                    int recentNewDeaths = caseInfo[2].get(0);
+                    int recentTotalDeaths = caseInfo[3].get(0);
                     graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
                     graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
                     if (graphNewDeaths.length > 0) {
@@ -398,6 +404,8 @@ class MainController {
                     if (graphTotalDeaths.length > 0) {
                         model.addAttribute("graphTotalDeaths", graphTotalDeaths);
                     }
+                    model.addAttribute("recentNewDeaths", recentNewDeaths);
+                    model.addAttribute("recentTotalDeaths", recentTotalDeaths);
                 }
             }
         }
@@ -518,6 +526,8 @@ class MainController {
             if (countyPull != null) {
                 countyDataTable[0] = countyPull.getSumNewCasesAcrossCounty();
                 countyDataTable[1] = countyPull.getSumTotalCasesAcrossCounty();
+                int recentNewConf = countyPull.getRecentNewData();
+                int recentTotalConf = countyPull.getRecentTotalData();
                 Map<Object, Object>[] graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, countyPull.getSumTotalCasesAcrossCounty());
                 if (graphNewConf.length > 0) {
@@ -526,6 +536,8 @@ class MainController {
                 if (graphTotalConf.length > 0) {
                     model.addAttribute("graphTotalConf", graphTotalConf);
                 }
+                model.addAttribute("recentNewConf", recentNewConf);
+                model.addAttribute("recentTotalConf", recentTotalConf);
             }
         }
         if (deathsDataUS == null) {
@@ -537,6 +549,8 @@ class MainController {
             if (countyPull != null) {
                 countyDataTable[2] = countyPull.getSumNewCasesAcrossCounty();
                 countyDataTable[3] = countyPull.getSumTotalCasesAcrossCounty();
+                int recentNewDeaths = countyPull.getRecentNewData();
+                int recentTotalDeaths = countyPull.getRecentTotalData();
                 Map<Object, Object>[] graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumNewCasesAcrossCounty());
                 Map<Object, Object>[] graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, countyPull.getSumTotalCasesAcrossCounty());
                 if (graphNewDeaths.length > 0) {
@@ -545,6 +559,8 @@ class MainController {
                 if (graphTotalDeaths.length > 0) {
                     model.addAttribute("graphTotalDeaths", graphTotalDeaths);
                 }
+                model.addAttribute("recentNewDeaths", recentNewDeaths);
+                model.addAttribute("recentTotalDeaths", recentTotalDeaths);
             }
         }
 

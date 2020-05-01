@@ -159,7 +159,7 @@ class USTimeSeries {
     }
 
     static LinkedList<Integer>[] retrieveProvinceTSInfoAPICall(String searchedProvince, USTimeSeries data) {
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] newTotalCasesAcrossCounties = new LinkedList[2];
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] newTotalCasesAcrossCounties = new LinkedList[4];
         LinkedList<Integer> sumTotalCasesAcrossCounty = new LinkedList<>();
         LinkedList<Integer> sumNewCasesAcrossCounty = new LinkedList<>();
 
@@ -196,26 +196,48 @@ class USTimeSeries {
 
         newTotalCasesAcrossCounties[0] = sumNewCasesAcrossCounty;
         newTotalCasesAcrossCounties[1] = sumTotalCasesAcrossCounty;
+
+        // get recent data
+        LinkedList<Integer> recentNewData = new LinkedList<>();
+        LinkedList<Integer> recentTotalData = new LinkedList<>();
+        recentNewData.add(sumNewCasesAcrossCounty.get(sumNewCasesAcrossCounty.size() - 1));
+        recentTotalData.add(sumTotalCasesAcrossCounty.get(sumTotalCasesAcrossCounty.size() -1));
+        newTotalCasesAcrossCounties[2] = recentNewData;
+        newTotalCasesAcrossCounties[3] = recentTotalData;
         return newTotalCasesAcrossCounties;
     }
 
     static class CountyCaseAndUIF extends CountryUIFLookup {
+        // these names are misleading; used initially as a variable for totaled county data for a state's totals, but also for an individual county's data
         LinkedList<Integer> sumTotalCasesAcrossCounty;
         LinkedList<Integer> sumNewCasesAcrossCounty;
+        int recentNewData;
+        int recentTotalData;
 
+        // getters and setters
         LinkedList<Integer> getSumTotalCasesAcrossCounty() {
             return sumTotalCasesAcrossCounty;
         }
         void setSumTotalCasesAcrossCounty(LinkedList<Integer> sumTotalCasesAcrossCounty) {
             this.sumTotalCasesAcrossCounty = sumTotalCasesAcrossCounty;
         }
-
         public LinkedList<Integer> getSumNewCasesAcrossCounty() {
             return sumNewCasesAcrossCounty;
         }
-
         public void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
             this.sumNewCasesAcrossCounty = sumNewCasesAcrossCounty;
+        }
+        public int getRecentNewData() {
+            return recentNewData;
+        }
+        public void setRecentNewData(int recentNewData) {
+            this.recentNewData = recentNewData;
+        }
+        public int getRecentTotalData() {
+            return recentTotalData;
+        }
+        public void setRecentTotalData(int recentTotalData) {
+            this.recentTotalData = recentTotalData;
         }
     }
 
@@ -228,6 +250,8 @@ class USTimeSeries {
             State.County countyData = countiesData.get(searchedCounty);
             countyCaseAndUIF.setSumNewCasesAcrossCounty(countyData.getNewCases());
             countyCaseAndUIF.setSumTotalCasesAcrossCounty(countyData.getTotalCases());
+            countyCaseAndUIF.setRecentNewData(countyData.getNewCases().get(countyData.getNewCases().size() - 1));
+            countyCaseAndUIF.setRecentTotalData(countyData.getTotalCases().get(countyData.getTotalCases().size() - 1));
             countyCaseAndUIF.setUid(countyData.getUid());
             countyCaseAndUIF.setIso2(countyData.getIso2());
             countyCaseAndUIF.setIso3(countyData.getIso3());
