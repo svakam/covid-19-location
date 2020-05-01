@@ -1,0 +1,18 @@
+<div th:fragment="modaljs">
+    <script>
+        $(document).ready(function() {
+            $("#invalidModal").modal('show');
+        });
+        $(document).ready(function() {
+            $("#validModal").modal('show');
+        });
+        $(document).ready(function() {
+            $("#checkOptionModal").modal('show');
+        });
+        $("#goToDropdowns").click(function() {
+            $('html,body').animate({
+                scrollTop: $("#countryDropdown").offset().top},
+                'slow');
+        });
+    </script>
+</div>

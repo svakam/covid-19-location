@@ -8,32 +8,25 @@
         if ([[${combinedKey}]]) {
             searchedName = [[${combinedKey}]];
         }
-        console.log(searchedName);
 
         /* case info */
         if ([[${graphNewConf}]]) {
             var newConf = [[${graphNewConf}]];
-            console.log(newConf);
         }
         if ([[${graphTotalConf}]]) {
             var totalConf = [[${graphTotalConf}]];
-            console.log(totalConf);
         }
         if ([[${graphNewDeaths}]]) {
             var newDeaths = [[${graphNewDeaths}]];
-            console.log(newDeaths);
         }
         if ([[${graphTotalDeaths}]]) {
             var totalDeaths = [[${graphTotalDeaths}]];
-            console.log(totalDeaths);
         }
         if ([[${graphNewRecovs}]]) {
             var newRecovs = [[${graphNewRecovs}]];
-            console.log(newRecovs);
         }
         if ([[${graphTotalRecovs}]]) {
             var totalRecovs = [[${graphTotalRecovs}]];
-            console.log(totalRecovs);
         }
 
         /* render data */
@@ -41,6 +34,7 @@
             var options = {
                 animationEnabled: true,
                 zoomEnabled: true,
+                theme: "light2",
                 title: {
                     text: "Time Series Data"
                 },
@@ -51,6 +45,7 @@
                     title: "Dates",
                     valueFormatString: "MM/DD/YY",
                     intervalType: "day",
+                    labelAngle: -20
                 },
                 axisY: {
                     title: "Cases",
@@ -76,6 +71,36 @@
 		                itemclick: toggleDataVisible
 	            },
                 data: [{
+                    name: "Total Confirmed Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalConf
+                },
+                {
+                    name: "Total Fatal Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalDeaths
+                },
+                {
+                    name: "Total Recovered Cases",
+                    showInLegend: true,
+                    connectNullData: true,
+                    yValueFormatString: "###,###,###",
+                    xValueType: "dateTime",
+                    xValueFormatString: "DD-MM-YY",
+                    type: "line",
+                    dataPoints: totalRecovs
+                },
+                {
                     name: "New Confirmed Cases",
                     showInLegend: true,
                     connectNullData: true,
@@ -85,16 +110,6 @@
                     type: "line",
                     lineDashType: "dash",
                     dataPoints: newConf
-                },
-                {
-                    name: "Total Confirmed Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalConf
                 },
                 {
                     name: "New Fatal Cases",
@@ -108,16 +123,6 @@
                     dataPoints: newDeaths
                 },
                 {
-                    name: "Total Fatal Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalDeaths
-                },
-                {
                     name: "New Recovered Cases",
                     showInLegend: true,
                     connectNullData: true,
@@ -127,18 +132,7 @@
                     type: "line",
                     lineDashType: "dash",
                     dataPoints: newRecovs
-                },
-                {
-                    name: "Total Recovered Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalRecovs
-                }
-                ]
+                }]
             };
             $("#chartContainer").CanvasJSChart(options);
 

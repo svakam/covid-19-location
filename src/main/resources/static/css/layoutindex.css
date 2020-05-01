@@ -1,7 +1,3 @@
-html {
-    min-width: 480px;
-}
-
 #indexbody main section {
     padding: 7%;
     margin-bottom: -2rem;
@@ -16,6 +12,10 @@ iframe {
     font-size: 12px;
 }
 
+#chartContainer {
+    box-sizing: none;
+}
+
 @media (min-width: 820px) {
     #disclaimer {
         margin-top: 100px;
@@ -24,5 +24,92 @@ iframe {
     #indexbody main section article {
         margin-right: 100px;
         margin-left: 100px;
+    }
+}
+
+/* --------------- results ----------------- */
+#totalCases .card {
+    margin: 2%;
+}
+
+body main {
+    padding: 4%;
+}
+
+.statCard {
+    margin: 2%;
+}
+
+/* mobile */
+@media (max-width: 400px) {
+    .resultsHeaders {
+        font-size: 3.2rem;
+    }
+
+    #resultsFor {
+
+    }
+
+    #countryDropdown {
+        width: 125%;
+        position: relative;
+        right: 35px;
+    }
+}
+
+@media (max-width: 450px) {
+    #countrydropdown {
+        width: 125%;
+        position: relative;
+        right: 27px;
+    }
+
+    .totalsProgression {
+        font-size: 2.5rem;
+    }
+
+    .statCard {
+        margin-top: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    #resultsFor {
+        font-size: 3.5rem;
+    }
+
+    #totalCases .card {
+        margin: 5%;
+    }
+
+    #mobiletip {
+        display: block;
+    }
+
+    #snsAddBottom {
+        position: relative;
+        top: 10px;
+    }
+}
+
+/* ipads and larger */
+@media (min-width: 769px) {
+    .totalsProgression {
+        font-size: 2.7rem;
+    }
+
+    #mobiletip {
+        display: none;
+    }
+
+    #snsAddTop {
+        position: absolute;
+        right: 45px;
+        top: 39px;
+    }
+
+    #snsAddBottom {
+        position: relative;
+        top: 10px;
     }
 }

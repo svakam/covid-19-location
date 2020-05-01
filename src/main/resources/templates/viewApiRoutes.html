@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Required meta -->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- native CSS -->
+    <link rel="stylesheet" href="../css/baseindex.css" type="text/css">
+    <link rel="stylesheet" href="../css/layoutindex.css" type="text/css">
+    <link rel="stylesheet" href="../css/state.css" type="text/css">
+
+    <title>CV19Locator</title>
 </head>
 <body>
-
+    <div th:replace="../fragments/headernav :: headernav"></div>
+    <main>
+        <h1>CV19Locator API</h1>
+        <h3>For Developers</h3>
+        <p>The CV19Locator API obtains case data from the GitHub of the Johns Hopkins University Center for Systems Science and Engineering. View the documentation
+            on Postman <a href="">here.</a></p>
+    </main>
+    <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
 </body>
 </html>

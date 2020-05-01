@@ -1,32 +1,51 @@
 <div th:fragment="snsAdd">
-    <h5>Get daily text notifications for case updates on this location.</h5>
-    <p>(Currently supporting one subscription per number. If you subscribe again after an initial subscription, the previous subscription will be overwritten.)</p>
-    <span>
-        <form class="container" action="/sms/subscribe" method="POST">
-            <div class="row">
-                <label>Phone (US): <input type="tel" name="snsAdd" placeholder="+12223334444" aria-placeholder="+12223334444"/></label>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#snsmodal">Get location notifications</button>
+    <div style="max-width: 100vw;" class="modal fade" id="snsmodal" tabindex="-1" role="dialog" aria-labelledby="snsmodaltitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="snsmodaltitle">Get daily text notifications for case updates on this location.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>NOTE: Currently supporting one subscription per number. If you subscribe again after a previous subscription, it will be overwritten.</p>
+                    <form class="container" action="/sms/subscribe" method="POST">
+                        <div class="row">
+                            <label>Phone (US): <input type="tel" name="snsAdd" placeholder="+12223334444" aria-placeholder="+12223334444"/></label>
+                        </div>
+                        <div class="row">
+                            <th:block th:if="${searchedCountry}">
+                                <input type="checkbox" id="countryCheck" name="countryCheck" th:value="${searchedCountry}" />
+                                <label for="countryCheck">Subscribe to this country ([[${searchedCountry}]])</label>
+                            </th:block>
+                        </div>
+                        <div class="row">
+                            <th:block th:if="${searchedProvince}">
+                                <input type="checkbox" id="provinceCheck" name="provinceCheck" th:value="${searchedProvince}" />
+                                <th:block th:if="${searchedCountry == 'US'}">
+                                    <label for="provinceCheck">Subscribe to this state ([[${searchedProvince}]])</label>
+                                </th:block>
+                                <th:block th:unless="${searchedCountry == 'US'}">
+                                    <label for="provinceCheck">Subscribe to this province ([[${searchedProvince}]])</label>
+                                </th:block>
+                            </th:block>
+                        </div>
+                        <div class="row">
+                            <th:block th:if="${searchedCounty}">
+                                <input type="checkbox" id="countyCheck" name="countyCheck" th:value="${searchedCounty}" />
+                                <label for="countyCheck">Subscribe to this county ([[${searchedCounty}]])</label>
+                            </th:block>
+                            <input type="hidden" th:name="currentURL" th:value="${currentURL}" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="smssubmit" class="btn btn-primary btn-md" data-toggle="popover" title="Subscribing..." data-content="...">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="row">
-                <th:block th:if="${searchedCountry}">
-                    <input type="checkbox" id="countryCheck" name="countryCheck" th:value="${searchedCountry}" />
-                    <label for="countryCheck">Subscribe to this country</label>
-                </th:block>
-                <th:block th:if="${searchedProvince}">
-                    <input type="checkbox" id="provinceCheck" name="provinceCheck" th:value="${searchedProvince}" />
-                    <th:block th:if="${searchedCountry == 'US'}">
-                        <label for="provinceCheck">Subscribe to this state</label>
-                    </th:block>
-                    <th:block th:unless="${searchedCountry == 'US'}">
-                        <label for="provinceCheck">Subscribe to this province</label>
-                    </th:block>
-                </th:block>
-                <th:block th:if="${searchedCounty}">
-                    <input type="checkbox" id="countyCheck" name="countyCheck" th:value="${searchedCounty}" />
-                    <label for="countyCheck">Subscribe to this county</label>
-                </th:block>
-            </div>
-                <input type="hidden" th:name="currentURL" th:value="${currentURL}" />
-            <button type="submit" id="smssubmit" class="btn btn-secondary btn-md">Subscribe</button>
-        </form>
-    </span>
+        </div>
+    </div>
 </div>

@@ -1,16 +1,21 @@
 <header th:fragment="headernav" class="sticky-top">
-    <nav class="navbar sticky-top navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-md scrolling-navbar navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="/">CV19Locator</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbarNav">
-                <form th:replace="../fragments/countrydropdown :: countrydropdown"></form>
-                <a class="nav-item nav-link" href="#">Pricing</a>
-                <a class="nav-item nav-link" href="/tips">Ways to stay safe</a>
-                <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/tips">How to Stay Safe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/api">CV19Locator API</a>
+                </li>
+                <li class="nav-item">
+                    <a id="goToDropdowns" class="nav-link" href="#">Search by location...</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>

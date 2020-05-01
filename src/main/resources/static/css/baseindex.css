@@ -1,3 +1,16 @@
+body main > .card {
+    background-image: linear-gradient(#FFFFFF, #DDDDDD);
+}
+
+body main {
+    color: #303FB3;
+    background-image: url("../img/william-navarro-world-1920.jpg");
+}
+
+#resultsFor {
+    color: white;
+}
+
 #indexbody {
     background-color: #010302;
 }
@@ -12,5 +25,25 @@ table, td, tr, th {
     border: 1px solid black;
 }
 
+#totalCases .card {
+    color: white;
+}
 
-/* color scheme: #FFF2C4 light caramel, #303FB3 dark blue, #6D7FFF light blue, #FFE078 some yellow, #B38B00 turd
+#totalConfirmed {
+    background-image: linear-gradient(#0FB0FF, #4433CF);
+}
+
+#totalDeaths {
+    background-image: linear-gradient(#FF0000, #8F0000);
+}
+
+#totalRecov {
+    background-image: linear-gradient(#55FF55, #005F00);
+}
+
+.statCard {
+    background-image: linear-gradient(160deg, #EFEFEF, #FFFFFF);
+}
+
+
+/* color scheme: #FFF2C4 light caramel, #303FB3 dark blue, #6D7FFF light blue, #FFE078 some yellow, #B38B00 dark brown

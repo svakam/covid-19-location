@@ -14,15 +14,15 @@
         <link rel="stylesheet" href="css/layoutindex.css" type="text/css">
         <link rel="stylesheet" href="css/state.css" type="text/css">
 
-        <title>COVID-19 Locator</title>
+        <title>CV19Locator</title>
     </head>
     <body id="indexbody">
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
             <section class="jumbotron jumbotron-fluid">
-                <h1 class="display-1 text-center">COVID-19 Locator</h1>
-                <h3 class="display-4 text-center">Learn how your community is being affected.</h3>
-                <hr class="my-4">
+                <h1 class="display-1 text-center">CV19 Locator</h1>
+                <h3 class="display-4 text-center">Learn how your community is being affected by COVID-19.</h3>
+                <hr style="background-color: white;" class="my-4">
                 <form th:replace="../fragments/countrydropdown :: countrydropdown"></form>
                 <article class="row row-cols-1 justify-content-center">
                     <iframe width="850" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
@@ -31,18 +31,19 @@
                     <p class="text-right"><em>Source: Johns Hopkins University</em></p>
                 </article>
                 <!-- https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61 -->
-                <div class="alert alert-light" role="alert" id="disclaimer">DISCLAIMER: <br> This website renders data from
-                    <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University CSSE</a>. From JHU CSSE's Terms of Use:
+                <div class="alert alert-light" role="alert" id="disclaimer">DISCLAIMER: <br> This website renders data from the
+                    <a href="https://github.com/CSSEGISandData/COVID-19">Johns Hopkins University Center for Systems Science and Engineering</a>.
+                    From JHU CSSE's Terms of Use:
                     "The Website relies upon publicly available data from multiple sources, that do not always agree. The Johns Hopkins University hereby
                     disclaims any and all representations and warranties with respect to the Website, including accuracy, fitness for use, and merchantability.
                     Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."
                 </div>
             </section>
         </main>
-        <footer>
-
-        </footer>
+        <div th:replace="../fragments/footernav :: footernav"></div>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/modaljs :: modaljs"></div>
+        <noscript>Sorry, your browser has does not support or disabled JavaScript.</noscript>
         <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

@@ -54,13 +54,13 @@ public class AWSSNSMethods {
         }
 
         if (countryCheck != null && countyCheck != null && provinceCheck != null){
-            msg.append(", ").append(provinceCheck).append(", and ").append(countyCheck);
+            msg.append(", ").append(provinceCheck).append(", and ").append(countyCheck).append(" county");
         } else if (countryCheck != null && countyCheck == null && provinceCheck != null) {
             msg.append(" and ").append(provinceCheck).append(", ").append(countryCheck);
         } else if (countryCheck != null && countyCheck != null) {
-            msg.append(" and ").append(countyCheck).append(" county, ").append(countryCheck);
+            msg.append(" and ").append(countyCheck).append(" county, ");
         } else if (countryCheck == null && countyCheck == null && provinceCheck != null) {
-            msg.append(provinceCheck).append(", ");
+            msg.append(provinceCheck);
         } else if (countryCheck == null && provinceCheck != null) {
             msg.append(provinceCheck).append(" and ").append(countyCheck).append(" county");
         } else if (countryCheck == null && countyCheck != null) {

@@ -71,7 +71,7 @@ class MainController {
 
     @GetMapping("/results/country")
     String resultsForCountry(@RequestParam(name = "sc") String searchedCountry, @RequestParam(required = false, name = "endpoint") String endpoint,
-                             @RequestParam(required = false, name = "checks") String checks, Model model, HttpServletRequest req) throws IOException, ParseException {
+                             @RequestParam(required = false, name = "checks") List<String> checks, Model model, HttpServletRequest req) throws IOException, ParseException {
 
         // if number valid, show success message, else failure message
         if (endpoint != null) {
@@ -117,6 +117,7 @@ class MainController {
         int code3 = -1;
         int fips = -1;
         int population = -1;
+        String combinedKey = null;
 
         // retrieve data
         if (confDataGlobal == null) {
@@ -186,6 +187,7 @@ class MainController {
             code3 = uifPopData.getCode3();
             fips = uifPopData.getFips();
             population = uifPopData.getPopulation();
+            combinedKey = uifPopData.getCombinedKey();
         }
 
         // -- get province dropdown based on searched country -- //
@@ -198,6 +200,7 @@ class MainController {
         model.addAttribute("uid", uid);
         model.addAttribute("iso2", iso2);
         model.addAttribute("iso3", iso3);
+        model.addAttribute("combinedKey", combinedKey);
         if (provinceDropdown != null) {
             model.addAttribute("provinceNames", provinceDropdown);
         }
@@ -209,7 +212,7 @@ class MainController {
         }
         model.addAttribute("population", population);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "countryResults";
+        return "results";
     }
 
 
@@ -229,7 +232,7 @@ class MainController {
 
     @GetMapping("/results/country/province")
     String resultsForProvince(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
-                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) String checks,
+                               @RequestParam(name = "endpoint", required = false) String endpoint, @RequestParam(name = "checks", required = false) List<String> checks,
                               Model model, HttpServletRequest req) throws ParseException {
 
         // if number valid, show success message, else failure message
@@ -429,7 +432,7 @@ class MainController {
         }
         model.addAttribute("population", population);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "provinceResults";
+        return "results";
     }
 
     // ============================================================================== //
@@ -449,7 +452,7 @@ class MainController {
     @GetMapping("/results/country/province/county")
     String resultsForCounty(@RequestParam(name = "sc") String searchedCountry, @RequestParam(name = "sp") String searchedProvince,
                             @RequestParam(name = "sco") String searchedCounty, @RequestParam(required = false, name = "endpoint") String endpoint,
-                            @RequestParam(required = false, name = "checks") String checks, HttpServletRequest req, Model model) throws ParseException {
+                            @RequestParam(required = false, name = "checks") List<String> checks, HttpServletRequest req, Model model) throws ParseException {
 
 //        System.out.println("getmapping searched province = " + searchedProvince);
 //        System.out.println("getmapping searched country = " + searchedCountry);
@@ -558,7 +561,7 @@ class MainController {
         model.addAttribute("combinedKey", combinedKey);
         model.addAttribute("countyDataTable", countyDataTable);
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
-        return "countyResults";
+        return "results";
     }
 
 
@@ -629,12 +632,10 @@ class MainController {
     }
 
 
-
-
     // ============================================================================== //
     // ============================= show API routes ================================ //
     // ============================================================================== //
-    @GetMapping("/API")
+    @GetMapping("/api")
     String APIroutes(Model model, HttpServletRequest req) {
 
         if (countries == null) {
