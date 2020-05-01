@@ -92,8 +92,6 @@ class MainController {
         // [recov total]
         // ]
 
-
-
         // initialize dates
         LinkedList<String> confDates;
         LinkedList<String> deathsDates;
@@ -108,7 +106,7 @@ class MainController {
         Map<Object, Object>[] graphTotalRecovs;
 
         // initialize table data
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] countryData = new LinkedList[6];
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] countryDataTable = new LinkedList[6];
 
         // initialize other
         float uid = -1;
@@ -131,8 +129,8 @@ class MainController {
             graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
             int recentNewConf = caseInfo[2].get(0);
             int recentTotalConf = caseInfo[3].get(0);
-            countryData[0] = caseInfo[0];
-            countryData[1] = caseInfo[1];
+            countryDataTable[0] = caseInfo[0];
+            countryDataTable[1] = caseInfo[1];
             model.addAttribute("graphNewConf", graphNewConf);
             model.addAttribute("graphTotalConf", graphTotalConf);
             model.addAttribute("recentNewConf", recentNewConf);
@@ -152,8 +150,8 @@ class MainController {
             graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
             int recentNewDeaths = caseInfo[2].get(0);
             int recentTotalDeaths = caseInfo[3].get(0);
-            countryData[2] = caseInfo[0];
-            countryData[3] = caseInfo[1];
+            countryDataTable[2] = caseInfo[0];
+            countryDataTable[3] = caseInfo[1];
             model.addAttribute("graphNewDeaths", graphNewDeaths);
             model.addAttribute("graphTotalDeaths", graphTotalDeaths);
             model.addAttribute("recentNewDeaths", recentNewDeaths);
@@ -173,8 +171,8 @@ class MainController {
             graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
             int recentNewRecov = caseInfo[2].get(0);
             int recentTotalRecov = caseInfo[3].get(0);
-            countryData[4] = caseInfo[0];
-            countryData[5] = caseInfo[1];
+            countryDataTable[4] = caseInfo[0];
+            countryDataTable[5] = caseInfo[1];
             model.addAttribute("graphNewRecovs", graphNewRecovs);
             model.addAttribute("graphTotalRecovs", graphTotalRecovs);
             model.addAttribute("recentNewRecov", recentNewRecov);
@@ -208,7 +206,7 @@ class MainController {
         LinkedList<String> provinceDropdown = CountryWithProvinces.getProvincesForCountry(searchedCountry, countries);
 
         // add to template
-        model.addAttribute("countryData", countryData);
+        model.addAttribute("countryDataTable", countryDataTable);
         model.addAttribute("searchedCountry", searchedCountry);
         model.addAttribute("countryNames", countryDropdown);
         model.addAttribute("uid", uid);
@@ -302,10 +300,14 @@ class MainController {
                 if (caseInfo != null) {
                     provinceDataTable[0] = caseInfo[0];
                     provinceDataTable[1] = caseInfo[1];
+                    int recentNewConf = caseInfo[2].get(0);
+                    int recentTotalConf = caseInfo[3].get(0);
                     graphNewConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[0]);
                     graphTotalConf = CanvasJSChartData.convertToXYPoints(confDates, caseInfo[1]);
                     model.addAttribute("graphNewConf", graphNewConf);
                     model.addAttribute("graphTotalConf", graphTotalConf);
+                    model.addAttribute("recentNewConf", recentNewConf);
+                    model.addAttribute("recentTotalConf", recentTotalConf);
                 }
             }
             if (deathsDataGlobal == null) {
@@ -317,10 +319,14 @@ class MainController {
                 if (caseInfo != null) {
                     provinceDataTable[2] = caseInfo[0];
                     provinceDataTable[3] = caseInfo[1];
+                    int recentNewDeaths = caseInfo[2].get(0);
+                    int recentTotalDeaths = caseInfo[3].get(0);
                     graphNewDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[0]);
                     graphTotalDeaths = CanvasJSChartData.convertToXYPoints(deathsDates, caseInfo[1]);
                     model.addAttribute("graphNewDeaths", graphNewDeaths);
                     model.addAttribute("graphTotalDeaths", graphTotalDeaths);
+                    model.addAttribute("recentNewDeaths", recentNewDeaths);
+                    model.addAttribute("recentTotalDeaths", recentTotalDeaths);
                 }
             }
             if (recovDataGlobal == null) {
@@ -332,10 +338,14 @@ class MainController {
                 if (caseInfo != null) {
                     provinceDataTable[4] = caseInfo[0];
                     provinceDataTable[5] = caseInfo[1];
+                    int recentNewRecov = caseInfo[2].get(0);
+                    int recentTotalRecov = caseInfo[3].get(0);
                     graphNewRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[0]);
                     graphTotalRecovs = CanvasJSChartData.convertToXYPoints(recovDates, caseInfo[1]);
                     model.addAttribute("graphNewRecovs", graphNewRecovs);
                     model.addAttribute("graphTotalRecovs", graphTotalRecovs);
+                    model.addAttribute("recentNewRecov", recentNewRecov);
+                    model.addAttribute("recentTotalRecov", recentTotalRecov);
                 }
             }
         }

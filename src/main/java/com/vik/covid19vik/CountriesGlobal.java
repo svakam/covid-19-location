@@ -236,7 +236,7 @@ public class CountriesGlobal {
     }
 
     static LinkedList<Integer>[] retrieveProvinceTSInfoAPICall(String searchedProvince, CountriesGlobal data) {
-        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForProvince = new LinkedList[2];
+        @SuppressWarnings("unchecked") LinkedList<Integer>[] caseInfoForProvince = new LinkedList[4];
         LinkedList<Country> countries = data.getCountries();
         int i = 0;
         while (!countries.get(i).getProvinceOrState().equals(searchedProvince)) {
@@ -249,9 +249,19 @@ public class CountriesGlobal {
             System.out.println("Unable to pull province data for status: " + data.status);
             return null;
         } else {
-             caseInfoForProvince[0] = countries.get(i).newCases;
-             caseInfoForProvince[1] = countries.get(i).totalCases;
-             return caseInfoForProvince;
+            LinkedList<Integer> newCaseData = countries.get(i).newCases;
+            LinkedList<Integer> totalCaseData = countries.get(i).totalCases;
+            caseInfoForProvince[0] = newCaseData;
+            caseInfoForProvince[1] = totalCaseData;
+
+            // get recent data
+            LinkedList<Integer> recentNewData = new LinkedList<>();
+            LinkedList<Integer> recentTotalData = new LinkedList<>();
+            recentNewData.add(newCaseData.get(newCaseData.size() - 1));
+            recentTotalData.add(totalCaseData.get(totalCaseData.size() -1));
+            caseInfoForProvince[2] = recentNewData;
+            caseInfoForProvince[3] = recentTotalData;
+            return caseInfoForProvince;
         }
     }
 }

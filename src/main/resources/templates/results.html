@@ -57,23 +57,40 @@
                                     <article class="card col-lg" id="totalConfirmed">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Confirmed</h4>
-                                            <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
-                                            <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
+                                            <th:block th:if="${recentTotalConf} and ${recentNewConf}">
+                                                <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
+                                                <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
+                                            </th:block>
+                                            <th:block th:unless="${recentTotalConf} and ${recentNewConf}">
+                                                <p class="lead">Unavailable</p>
+                                            </th:block>
                                         </div>
                                     </article>
                                     <article class="card col-lg" id="totalDeaths">
                                         <div class="card-body">
                                             <h4 class="card-title">Fatal Cases</h4>
-                                            <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
-                                            <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
+                                            <th:block th:if="${recentTotalDeaths} and ${recentNewDeaths}">
+                                                <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
+                                                <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
+                                            </th:block>
+                                            <th:block th:unless="${recentTotalDeaths} and ${recentNewDeaths}">
+                                                <p class="lead">Unavailable</p>
+                                            </th:block>
                                         </div>
                                     </article>
                                     <article class="card col-lg" id="totalRecov">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Recovered</h4>
-                                            <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
-                                            <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
+                                            <th:block th:if="${recentTotalRecov} and ${recentNewRecov}">
+                                                <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
+                                                <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
+                                            </th:block>
+                                            <th:block th:unless="${recentTotalRecov} and ${recentNewRecov}">
+                                                <p class="lead">Unavailable</p>
+                                            </th:block>
                                         </div>
+                                        <p th:if="${searchedCountry == 'US'} and ${searchedProvince}">Recovery data for the US is unavailable.</p>
+                                        <p th:if="${searchedCountry == 'Canada'} and ${searchedProvince}">Recovery data for Canadian provinces is unavailable.</p>
                                     </article>
                                 </div>
                             </div>
@@ -82,14 +99,14 @@
                     <section class="card statCard">
                         <article class="card-body">
                             <h1 class="resultsHeaders totalsProgression display-4">Progression</h1>
-                            <p class="lead">Tap on the graph or legend to interact with them.</p>
+                            <p class="lead">Tap/drag on the graph or tap its legend to interact.</p>
                             <p id="mobiletip" class="lead">(Mobile: rotate to landscape view.)</p>
                             <article class="card-body">
                                 <!-- progression graph -->
                                 <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
                                     <div id="graph" class="card justify-content-center">
                                         <div class="card-body">
-                                            <div id="chartContainer" style="height: 300px;"></div>
+                                            <div id="chartContainer" style="height: 350px;"></div>
                                         </div>
                                     </div>
                                 </th:block>
