@@ -59,11 +59,11 @@
                                     <article class="card col-lg" id="totalConfirmed">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Confirmed</h4>
-                                            <th:block th:if="${recentTotalConf} and ${recentNewConf}">
+                                            <th:block th:unless="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalConf} and ${recentNewConf}">
+                                            <th:block th:if="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
@@ -71,11 +71,11 @@
                                     <article class="card col-lg" id="totalDeaths">
                                         <div class="card-body">
                                             <h4 class="card-title">Fatal Cases</h4>
-                                            <th:block th:if="${recentTotalDeaths} and ${recentNewDeaths}">
+                                            <th:block th:unless="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalDeaths} and ${recentNewDeaths}">
+                                            <th:block th:if="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
@@ -83,11 +83,11 @@
                                     <article class="card col-lg" id="totalRecov">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Recovered</h4>
-                                            <th:block th:if="${recentTotalRecov} and ${recentNewRecov}">
+                                            <th:block th:unless="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalRecov} and ${recentNewRecov}">
+                                            <th:block th:if="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
