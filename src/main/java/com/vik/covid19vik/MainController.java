@@ -40,7 +40,7 @@ class MainController {
     CountryUIFLookup[] countries;
 
     static {
-        ScheduledExecutorService ses = Executors.
+        // scheduled executor to refresh data
     }
 
     // ============================================================================== //
