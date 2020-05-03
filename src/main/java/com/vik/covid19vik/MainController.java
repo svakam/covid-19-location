@@ -675,6 +675,12 @@ class MainController {
     @GetMapping("/api")
     String APIroutes(Model model, HttpServletRequest req) {
 
+        if (countries == null) {
+            countries = ApiMethods.getUIFLookup(req);
+        }
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
+
+        model.addAttribute("countryNames", countryDropdown);
         return "viewApiRoutes";
     }
 
@@ -685,6 +691,12 @@ class MainController {
     @GetMapping("/tips")
     String getStaySafe(Model model, HttpServletRequest req) {
 
+        if (countries == null) {
+            countries = ApiMethods.getUIFLookup(req);
+        }
+        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
+
+        model.addAttribute("countryNames", countryDropdown);
         return "staySafe";
     }
 

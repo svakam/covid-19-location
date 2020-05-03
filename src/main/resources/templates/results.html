@@ -40,10 +40,13 @@
                 </th:block>
             </th:block>
 
+            <hr/>
             <h1 id="resultsFor" class="display-3 resultsHeaders" th:if="${combinedKey}" th:text="'Results for ' + ${combinedKey}"></h1>
+            <hr/>
             <section class="card">
                 <div class="card-body">
                     <h1 class="display-4 resultsHeaders">Statistics</h1>
+                    <hr/>
                     <!-- sns -->
                     <div id="snsAddTop">
                         <div th:replace="../fragments/snsAdd :: snsAdd"></div>
@@ -124,6 +127,10 @@
                             <p class="card-text" th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
                         </article>
                     </section>
+
+                    <!-- table -->
+
+                    <!-- dropdowns -->
                     <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
                     <th:block th:if="${provinceNames}">
                         <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
@@ -131,20 +138,21 @@
                             <div th:replace="../fragments/countydropdown :: countydropdown"></div>
                         </th:block>
                     </th:block>
+
                     <!-- sns -->
                     <div id="snsAddBottom">
                         <div th:replace="../fragments/snsAdd :: snsAdd"></div>
                     </div>
+
                 </div>
             </section>
-
-            <!-- table -->
 
             <br>
 
             <div class="card justify-content-center">
                 <div class="card-body">
                     <h1 class="resultsHeaders display-4">In The News</h1>
+                    <hr/>
                     <p class="lead card-text">(Coming soon!)</p>
                 </div>
             </div>
@@ -155,6 +163,7 @@
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/canvasjs :: canvasjs"></div>
         <div th:replace="../fragments/modaljs :: modaljs"></div>
+        <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>
         <noscript>Sorry, your browser has does not support or disabled JavaScript.</noscript>
     </body>
 </html>

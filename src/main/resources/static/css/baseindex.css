@@ -7,10 +7,6 @@ body main {
     background-image: url("../img/william-navarro-world-1920.jpg");
 }
 
-#resultsFor {
-    color: white;
-}
-
 #indexbody {
     background-color: #010302;
 }
@@ -23,6 +19,11 @@ body main {
 
 table, td, tr, th {
     border: 1px solid black;
+}
+
+/* results */
+#resultsFor {
+    color: white;
 }
 
 #totalCases .card {

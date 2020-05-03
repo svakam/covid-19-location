@@ -23,7 +23,8 @@
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
         <main>
-            <h1>Learn to understand. Understand to be prepared. Prepare to make it through.</h1>
+            <div th:replace="../fragments/searchByLocation :: searchByLocation"></div>
+            <h1>Learn. Prepare. Stay home.</h1>
             <section class="card">
                 <div class="card-body">
                     <div class="card">
@@ -59,5 +60,6 @@
         </main>
         <footer th:replace="../fragments/footernav :: footernav"></footer>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>
     </body>
 </html>
