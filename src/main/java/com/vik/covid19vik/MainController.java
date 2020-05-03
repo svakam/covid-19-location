@@ -6,15 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
@@ -680,12 +675,6 @@ class MainController {
     @GetMapping("/api")
     String APIroutes(Model model, HttpServletRequest req) {
 
-        if (countries == null) {
-            countries = ApiMethods.getUIFLookup(req);
-        }
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
-
-        model.addAttribute("countryNames", countryDropdown);
         return "viewApiRoutes";
     }
 
@@ -696,25 +685,12 @@ class MainController {
     @GetMapping("/tips")
     String getStaySafe(Model model, HttpServletRequest req) {
 
-        if (countries == null) {
-            countries = ApiMethods.getUIFLookup(req);
-        }
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
-
-        model.addAttribute("countryNames", countryDropdown);
         return "staySafe";
     }
 
     // =================================== fallback ================================== //
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
-
-        if (countries == null) {
-            countries = ApiMethods.getUIFLookup(req);
-        }
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
-
-        model.addAttribute("countryNames", countryDropdown);
 
         return "error";
     }
