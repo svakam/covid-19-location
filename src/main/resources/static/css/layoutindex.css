@@ -125,3 +125,13 @@ img {
     width: 80%;
     margin: auto;
 }
+
+.staysafe {
+    margin: 5%;
+}
+
+.info {
+    margin: 1%;
+    min-width: 303px;
+    max-width: 303px;
+}
