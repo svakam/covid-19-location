@@ -135,3 +135,7 @@ img {
     min-width: 303px;
     max-width: 303px;
 }
+
+#howSpreadCard {
+    margin-bottom: 2%;
+}

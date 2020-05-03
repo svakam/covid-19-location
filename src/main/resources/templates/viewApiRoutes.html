@@ -20,11 +20,25 @@
     <div th:replace="../fragments/headernav :: headernav"></div>
     <main>
         <div th:replace="../fragments/searchByLocation :: searchByLocation"></div>
-        <h1>CV19Locator API</h1>
+        <h1 class="display-4">CV19Locator API</h1>
         <h3>For Developers</h3>
-        <p>The CV19Locator API obtains case data from the GitHub of the Johns Hopkins University Center for Systems Science and Engineering. View the documentation
-            on Postman <a href="">here.</a></p>
-        <p>More information coming soon.</p>
+        <p>The CV19Locator API obtains case data from the GitHub of the Johns Hopkins University Center for Systems Science and Engineering.</p>
+        <p>This public API allows developers to avoid the hassle of having to parse through .csv files and come up with arduous implementations to sort through case data by location.</p>
+        <p>Postman documentation will be available soon!</p>
+        <h3>Current available endpoints (copy-paste these URLs into your browser or Postman):</h3>
+        <h4>http://cv19location.com/API/series/global/confirmed</h4>
+        <p>Obtains time series global data on confirmed cases.</p>
+        <h4>http://cv19location.com/API/series/global/deaths</h4>
+        <p>Obtains time series global data on fatal cases.</p>
+        <h4>http://cv19location.com/API/series/global/recovered</h4>
+        <p>Obtains time series global data on recovered cases.</p>
+        <h4>http://cv19location.com/API/series/US/confirmed</h4>
+        <p>Obtains time series US data on confirmed cases.</p>
+        <h4>http://cv19location.com/API/series/US/deaths</h4>
+        <p>Obtains time series US data on fatal cases.</p>
+        <h4>http://cv19location.com/API/uifcountries</h4>
+        <p>Obtains country codes and population data on countries/provinces/counties.</p>
+        <p>(This page is a work in progress.)</p>
     </main>
     <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
     <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>

@@ -2,7 +2,7 @@ body main > .card {
     background-image: linear-gradient(90deg, #CDCDCD, #CCCCCC);
 }
 
-body main {
+.bgmain {
     color: #303FB3;
     background-image: url("../img/william-navarro-world-1920.jpg");
 }
