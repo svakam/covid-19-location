@@ -1,5 +1,5 @@
 body main > .card {
-    background-image: linear-gradient(90deg, #CDCDCD, #BBBBBB);
+    background-image: linear-gradient(90deg, #CDCDCD, #CCCCCC);
 }
 
 body main {
@@ -22,7 +22,7 @@ table, td, tr, th {
 }
 
 /* results */
-#resultsFor {
+#resultsFor, .protect {
     color: white;
 }
 
