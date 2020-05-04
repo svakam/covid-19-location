@@ -6,18 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.sns.SnsClient;
-import software.amazon.awssdk.services.sns.model.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,12 +31,12 @@ class MainController {
     // US data
     USTimeSeries confDataUS;
     USTimeSeries deathsDataUS;
-
     // uiflookup data
     CountryUIFLookup[] countries;
 
-    // hashmap of already looked up countries
-    HashMap<String, Integer> lookedUpCountries = new HashMap<>();
+    static {
+        // scheduled executor to refresh data
+    }
 
     // ============================================================================== //
     // =================================  home ====================================== //
@@ -706,13 +703,6 @@ class MainController {
     // =================================== fallback ================================== //
     @GetMapping("*")
     String fallback(Model model, HttpServletRequest req) {
-
-        if (countries == null) {
-            countries = ApiMethods.getUIFLookup(req);
-        }
-        LinkedList<String> countryDropdown = UIFMethods.createCountryDropdown(countries);
-
-        model.addAttribute("countryNames", countryDropdown);
 
         return "error";
     }

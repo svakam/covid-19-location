@@ -1,16 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Required meta -->
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- favicon -->
+        <div th:replace="../fragments/favicon :: favicon"></div>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- native CSS -->
+        <link rel="stylesheet" href="/css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/css/state.css" type="text/css">
+        <link rel="stylesheet" href="/../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/../css/state.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/baseindex.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/layoutindex.css" type="text/css">
+        <link rel="stylesheet" href="/../../css/state.css" type="text/css">
+
         <title>CV19Locator</title>
     </head>
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
-        <main>
-
+        <main class="bgmain">
+            <div th:replace="../fragments/searchByLocation :: searchByLocation"></div>
+            <h1 class="protect protectHeaders display-3 text-center">Protect others. Protect yourself.</h1>
+            <hr/>
+            <section id="howSpreadCard" class="card text-center">
+                <div class="card-body">
+                    <div class="card">
+                        <h1 class="display-4 protectHeaders card-title">How it spreads:</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/person-to-person-ddara.png" />
+                                <p class="lead">Person-to-person</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/sixfeet-vectorsmarket.png" />
+                                <p class="lead">Close contact (6 feet)</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/breathe-freepik.png" />
+                                <p class="lead">Through inhalation of respiratory droplets from coughs, sneezes, speech</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/enjoying-freepik.png" />
+                                <p class="lead">Through asymptomatic individuals</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="card text-center">
+                <div class="card-body">
+                    <div class="card">
+                        <h1 class="protectHeaders display-4">Everyone should:</h1>
+                        <h1 class="display-4 safeSubHeaders card-title">Wash your hands often...</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/soapwater-freepik.png" />
+                                <p class="lead">With soap AND water</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/twenty-roundicons.png" />
+                                <p class="lead">20+ seconds</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/hands-and-gestures-smashicons.png" />
+                                <p class="lead">Cover all surfaces of your hands</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/public.png" />
+                                <p class="lead">Especially after being in a public place</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/cough-freepik.png" />
+                                <p class="lead">Or after blowing your nose, coughing, or sneezing</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/sanitizer-freepik.png" />
+                                <p class="lead">If no soap, hand sanitizer with at LEAST 60% alcohol (until dry)</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/eye.png"/>
+                                <p class="lead">Avoid touching eyes/nose/mouth with unwashed hands</p>
+                            </div>
+                        </article>
+                        <h1 class="safeSubHeaders display-4 card-title">Avoid close contact</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/social-distance-freepik.png" />
+                                <p>Put distance between yourself and others</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/sixfeet-dariusdan.png" />
+                                <p>At LEAST 6 feet</p>
+                            </div>
+                        </article>
+                        <h1 class="safeSubHeaders display-4 card-title">Cover your mouth and nose in public...</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/kerchief-freepik.png" />
+                                <p>With a cloth face cover</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/nobaby-freepik.png" />
+                                <p>Do NOT use cloth face coverings on children below age 2</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/cantbreathe-goodware.png" />
+                                <p>Or on those who have trouble breathing or are unconscious/incapacitated</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/nofacemask.PNG" />
+                                <p>Do NOT use a facemask meant for a healthcare worker</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/coverandsd-linector.png" />
+                                <p>Cover AND social distance</p>
+                            </div>
+                        </article>
+                        <h1 class="safeSubHeaders display-4 card-title">Cover coughs and sneezes...</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/tissue-freepik.png" />
+                                <p>With a tissue</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/coughelbow-vitalygorbachev.png" />
+                                <p>Or the inside of your elbow</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/trash-freepik.png" />
+                                <p>Throw away used tissues</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/washhands20-freepik.png" />
+                                <p>Immediately wash your hands with soap and water for 20+ seconds</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/sanitizer-prettycon.png" />
+                                <p>Or hand sanitizer (until dry)</p>
+                            </div>
+                        </article>
+                        <h1 class="safeSubHeaders display-4 card-title">Clean and disinfect...</h1>
+                        <hr/>
+                        <article class="card-body row justify-content-around">
+                            <div class="info card col-md">
+                                <img src="img/surface-dariusdan.png" />
+                                <p>Frequently touched surfaces</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/check-freepik.png" />
+                                <p>DAILY!</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/table-payungkead.png" />
+                                <p>Tables</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/doorknob-freepik.png" />
+                                <p>Doorknobs</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/switch-flaticon.png"/>
+                                <p>Light switches</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/countertop-freepik.png" />
+                                <p>Countertops</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/handle-freepik.png" />
+                                <p>Handles</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/desk-freepik.png" />
+                                <p>Desks</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/phone-prettycon.png" />
+                                <p>Phones</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/keyboard-freepik.png" />
+                                <p>Keyboards</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/toilet-creticcacreativeagency.png"/>
+                                <p>Toilets</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/faucet-monkik.png"/>
+                                <p>Faucets</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/sink-eucalyp.png" />
+                                <p>Sinks</p></div>
+                            <div class="info card col-md">
+                                <img src="img/dirtyshirt-freepik.png" />
+                                <p>Dirty surfaces</p></div>
+                            <div class="info card col-md">
+                                <img src="img/detergent-freepik.png" />
+                                <p>Detergent or soap and water prior to disinfection</p>
+                            </div>
+                            <div class="info card col-md">
+                                <img src="img/disinfectant-freepik.png" />
+                                <p>Then use a household disinfectant (EPA-registered)</p></div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <p><i class="protect">Source: <a target="_blank" href="https://www.cdc.gov/coronavirus/2019-ncov/prevent-getting-sick/prevention.html">CDC</a></i></p>
         </main>
-        <footer>
-
-        </footer>
+        <footer th:replace="../fragments/footernav :: footernav"></footer>
+        <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
+        <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>
     </body>
 </html>

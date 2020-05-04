@@ -1,14 +1,10 @@
 body main > .card {
-    background-image: linear-gradient(#FFFFFF, #DDDDDD);
+    background-image: linear-gradient(90deg, #CDCDCD, #CCCCCC);
 }
 
-body main {
+.bgmain {
     color: #303FB3;
     background-image: url("../img/william-navarro-world-1920.jpg");
-}
-
-#resultsFor {
-    color: white;
 }
 
 #indexbody {
@@ -23,6 +19,11 @@ body main {
 
 table, td, tr, th {
     border: 1px solid black;
+}
+
+/* results */
+#resultsFor, .protect {
+    color: white;
 }
 
 #totalCases .card {

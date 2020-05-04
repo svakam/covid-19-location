@@ -1,0 +1,13 @@
+<div th:fragment="goToDropdowns">
+    <script>
+        $("#goToDropdowns").click(function() {
+            if (!window.location.href.includes('results')) {
+                $("#searchByLocation").modal('show');
+            } else {
+                $('html,body').animate({
+                    scrollTop: $("#countryDropdown").offset().top},
+                    'slow');
+            }
+        });
+    </script>
+</div>

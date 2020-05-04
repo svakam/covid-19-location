@@ -258,6 +258,7 @@ class USTimeSeries {
             countyCaseAndUIF.setCode3(countyData.getCode3());
             countyCaseAndUIF.setFips((int) countyData.getFips());
             countyCaseAndUIF.setCombinedKey(countyData.getCombinedKey());
+            countyCaseAndUIF.setPopulation(countyData.getPopulation());
             System.out.println("Successfully pulled county data");
             return countyCaseAndUIF;
         }

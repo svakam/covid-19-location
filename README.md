@@ -146,4 +146,6 @@ https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/
 - Inheritance and instantiating superclass declaration as subclass: https://www.codesdope.com/java-subclass/ https://www.geeksforgeeks.org/referencing-subclass-objects-subclass-vs-superclass-reference/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
 - Validating JSON schema: https://www.youtube.com/watch?v=X072eKtOIio
+- JS Window Location: https://www.w3schools.com/js/js_window_location.asp
+- Free icons: https://www.flaticon.com/home
 - Code Fellows Java curriculum

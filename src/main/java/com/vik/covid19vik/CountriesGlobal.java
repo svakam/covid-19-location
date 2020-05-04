@@ -157,8 +157,8 @@ public class CountriesGlobal {
                     recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
                     caseInfoForCountry[2] = recentNewData;
                     caseInfoForCountry[3] = recentTotalData;
-//                    System.out.println(recentNewData);
-//                    System.out.println(recentTotalData);
+//                    System.out.println("rn = " + recentNewData);
+//                    System.out.println("rt = " + recentTotalData);
 
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
@@ -187,8 +187,8 @@ public class CountriesGlobal {
                             recentTotalData.add(totalConfCases.get(totalConfCases.size() - 1));
                             caseInfoForCountry[2] = recentNewData;
                             caseInfoForCountry[3] = recentTotalData;
-//                            System.out.println(recentNewData);
-//                            System.out.println(recentTotalData);
+//                            System.out.println("rn = " + recentNewData);
+//                            System.out.println("rt = " + recentTotalData);
 
                             countriesSeen.add(country.getCountryOrRegion());
                             return caseInfoForCountry;
@@ -225,8 +225,8 @@ public class CountriesGlobal {
                     recentTotalData.add(allTotalCases.get(allTotalCases.size() - 1));
                     caseInfoForCountry[2] = recentNewData;
                     caseInfoForCountry[3] = recentTotalData;
-//                    System.out.println(recentNewData);
-//                    System.out.println(recentTotalData);
+//                    System.out.println("rn = " + recentNewData);
+//                    System.out.println("rt = " + recentTotalData);
                     countriesSeen.add(country.getCountryOrRegion());
                     return caseInfoForCountry;
                 }

@@ -4,11 +4,11 @@
         <!-- Required meta -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+        <!-- favicon -->
+        <div th:replace="../fragments/favicon :: favicon"></div>
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
         <!-- native CSS -->
         <link rel="stylesheet" href="css/baseindex.css" type="text/css">
         <link rel="stylesheet" href="css/layoutindex.css" type="text/css">
@@ -39,11 +39,11 @@
                     Reliance on the Website for medical guidance or use of the Website in commerce is strictly prohibited."
                 </div>
             </section>
+            <div th:replace="../fragments/searchByLocation :: searchByLocation"></div>
         </main>
         <div th:replace="../fragments/footernav :: footernav"></div>
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
-        <div th:replace="../fragments/modaljs :: modaljs"></div>
+        <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>
         <noscript>Sorry, your browser has does not support or disabled JavaScript.</noscript>
-        <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>

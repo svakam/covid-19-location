@@ -4,6 +4,8 @@
         <!-- Required meta -->
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- favicon -->
+        <div th:replace="../fragments/favicon :: favicon"></div>
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -24,7 +26,7 @@
 
     <body>
         <header th:replace="../fragments/headernav :: headernav"></header>
-        <main class="text-center">
+        <main class="bgmain text-center">
             <!-- subscription modals -->
             <th:block th:if="${checks}">
                 <th:block th:if="${checks[0] == 'empty'}">
@@ -40,10 +42,13 @@
                 </th:block>
             </th:block>
 
+            <hr/>
             <h1 id="resultsFor" class="display-3 resultsHeaders" th:if="${combinedKey}" th:text="'Results for ' + ${combinedKey}"></h1>
+            <hr/>
             <section class="card">
                 <div class="card-body">
                     <h1 class="display-4 resultsHeaders">Statistics</h1>
+                    <hr/>
                     <!-- sns -->
                     <div id="snsAddTop">
                         <div th:replace="../fragments/snsAdd :: snsAdd"></div>
@@ -59,11 +64,11 @@
                                     <article class="card col-lg" id="totalConfirmed">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Confirmed</h4>
-                                            <th:block th:if="${recentTotalConf} and ${recentNewConf}">
+                                            <th:block th:unless="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalConf} and ${recentNewConf}">
+                                            <th:block th:if="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
@@ -71,11 +76,11 @@
                                     <article class="card col-lg" id="totalDeaths">
                                         <div class="card-body">
                                             <h4 class="card-title">Fatal Cases</h4>
-                                            <th:block th:if="${recentTotalDeaths} and ${recentNewDeaths}">
+                                            <th:block th:unless="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalDeaths} and ${recentNewDeaths}">
+                                            <th:block th:if="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
@@ -83,11 +88,11 @@
                                     <article class="card col-lg" id="totalRecov">
                                         <div class="card-body">
                                             <h4 class="card-title">Cases Recovered</h4>
-                                            <th:block th:if="${recentTotalRecov} and ${recentNewRecov}">
+                                            <th:block th:unless="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
                                                 <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
                                             </th:block>
-                                            <th:block th:unless="${recentTotalRecov} and ${recentNewRecov}">
+                                            <th:block th:if="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead">Unavailable</p>
                                             </th:block>
                                         </div>
@@ -124,6 +129,10 @@
                             <p class="card-text" th:if=${fips} th:text="'FIPS: ' + ${fips}"></p>
                         </article>
                     </section>
+
+                    <!-- table -->
+
+                    <!-- dropdowns -->
                     <div th:replace="../fragments/countrydropdown :: countrydropdown"></div>
                     <th:block th:if="${provinceNames}">
                         <div th:replace="../fragments/provincedropdown :: provincedropdown"></div>
@@ -131,21 +140,22 @@
                             <div th:replace="../fragments/countydropdown :: countydropdown"></div>
                         </th:block>
                     </th:block>
+
                     <!-- sns -->
                     <div id="snsAddBottom">
                         <div th:replace="../fragments/snsAdd :: snsAdd"></div>
                     </div>
+
                 </div>
             </section>
-
-            <!-- table -->
 
             <br>
 
             <div class="card justify-content-center">
                 <div class="card-body">
-                    <h2 class="card-title">In The News</h2>
-                    <p class="card-text">(Coming soon!)</p>
+                    <h1 class="resultsHeaders display-4">In The News</h1>
+                    <hr/>
+                    <p class="lead card-text">(Coming soon!)</p>
                 </div>
             </div>
 
@@ -155,7 +165,7 @@
         <div th:replace="../fragments/bootstrapjs :: bootstrapjs"></div>
         <div th:replace="../fragments/canvasjs :: canvasjs"></div>
         <div th:replace="../fragments/modaljs :: modaljs"></div>
+        <div th:replace="../fragments/goToDropdowns :: goToDropdowns"></div>
         <noscript>Sorry, your browser has does not support or disabled JavaScript.</noscript>
-        <div th:replace="../fragments/firebase :: firebase"></div>
     </body>
 </html>
