@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
@@ -130,8 +131,8 @@ class MainController {
             countryDataTable[1] = caseInfo[1];
             model.addAttribute("graphNewConf", graphNewConf);
             model.addAttribute("graphTotalConf", graphTotalConf);
-            model.addAttribute("recentNewConf", recentNewConf);
-            model.addAttribute("recentTotalConf", recentTotalConf);
+            model.addAttribute("recentNewConf", NumberFormat.getNumberInstance(Locale.US).format(recentNewConf));
+            model.addAttribute("recentTotalConf", NumberFormat.getNumberInstance(Locale.US).format(recentTotalConf));
         } else {
             System.out.println("Could not get confirmed series data");
         }
@@ -151,8 +152,8 @@ class MainController {
             countryDataTable[3] = caseInfo[1];
             model.addAttribute("graphNewDeaths", graphNewDeaths);
             model.addAttribute("graphTotalDeaths", graphTotalDeaths);
-            model.addAttribute("recentNewDeaths", recentNewDeaths);
-            model.addAttribute("recentTotalDeaths", recentTotalDeaths);
+            model.addAttribute("recentNewDeaths", NumberFormat.getNumberInstance(Locale.US).format(recentNewDeaths));
+            model.addAttribute("recentTotalDeaths", NumberFormat.getNumberInstance(Locale.US).format(recentTotalDeaths));
         } else {
             System.out.println("Could not get deaths series data");
         }
@@ -172,8 +173,8 @@ class MainController {
             countryDataTable[5] = caseInfo[1];
             model.addAttribute("graphNewRecovs", graphNewRecovs);
             model.addAttribute("graphTotalRecovs", graphTotalRecovs);
-            model.addAttribute("recentNewRecov", recentNewRecov);
-            model.addAttribute("recentTotalRecov", recentTotalRecov);
+            model.addAttribute("recentNewRecov", NumberFormat.getNumberInstance(Locale.US).format(recentNewRecov));
+            model.addAttribute("recentTotalRecov", NumberFormat.getNumberInstance(Locale.US).format(recentTotalRecov));
         } else {
             System.out.println("Could not get recovered series data");
         }
@@ -219,7 +220,7 @@ class MainController {
         if (fips != -1) {
             model.addAttribute("fips", fips);
         }
-        model.addAttribute("population", population);
+        model.addAttribute("population", NumberFormat.getNumberInstance(Locale.US).format(population));
         model.addAttribute("currentURL", req.getRequestURL() + "?" + req.getQueryString());
         return "results";
     }
