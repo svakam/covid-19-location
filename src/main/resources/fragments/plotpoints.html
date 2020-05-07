@@ -71,36 +71,6 @@
 		                itemclick: toggleDataVisible
 	            },
                 data: [{
-                    name: "Total Confirmed Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalConf
-                },
-                {
-                    name: "Total Fatal Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalDeaths
-                },
-                {
-                    name: "Total Recovered Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalRecovs
-                },
-                {
                     name: "New Confirmed Cases",
                     showInLegend: true,
                     connectNullData: true,
@@ -112,7 +82,7 @@
                     dataPoints: newConf
                 },
                 {
-                    name: "New Fatal Cases",
+                    name: "New Deaths",
                     showInLegend: true,
                     connectNullData: true,
                     yValueFormatString: "###,###,###",
@@ -123,7 +93,7 @@
                     dataPoints: newDeaths
                 },
                 {
-                    name: "New Recovered Cases",
+                    name: "New Recoveries",
                     showInLegend: true,
                     connectNullData: true,
                     yValueFormatString: "###,###,###",
