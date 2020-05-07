@@ -36,19 +36,17 @@
                 zoomEnabled: true,
                 theme: "light2",
                 title: {
-                    text: "Time Series Data"
+                    text: "New Cases, Deaths, and Recoveries"
                 },
                 subtitles: [{
                     text: searchedName
                 }],
                 axisX: {
-                    title: "Dates",
                     valueFormatString: "MM/DD/YY",
                     intervalType: "day",
                     labelAngle: -20
                 },
                 axisY: {
-                    title: "Cases",
                     logarithmic: false,
                     interlacedColor: "#F0F8FF",
                 },
@@ -71,36 +69,6 @@
 		                itemclick: toggleDataVisible
 	            },
                 data: [{
-                    name: "Total Confirmed Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalConf
-                },
-                {
-                    name: "Total Fatal Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalDeaths
-                },
-                {
-                    name: "Total Recovered Cases",
-                    showInLegend: true,
-                    connectNullData: true,
-                    yValueFormatString: "###,###,###",
-                    xValueType: "dateTime",
-                    xValueFormatString: "DD-MM-YY",
-                    type: "line",
-                    dataPoints: totalRecovs
-                },
-                {
                     name: "New Confirmed Cases",
                     showInLegend: true,
                     connectNullData: true,
@@ -109,10 +77,11 @@
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
                     lineDashType: "dash",
+                    color: "blue",
                     dataPoints: newConf
                 },
                 {
-                    name: "New Fatal Cases",
+                    name: "New Deaths",
                     showInLegend: true,
                     connectNullData: true,
                     yValueFormatString: "###,###,###",
@@ -120,10 +89,11 @@
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
                     lineDashType: "dash",
+                    color: "red",
                     dataPoints: newDeaths
                 },
                 {
-                    name: "New Recovered Cases",
+                    name: "New Recoveries",
                     showInLegend: true,
                     connectNullData: true,
                     yValueFormatString: "###,###,###",
@@ -131,6 +101,7 @@
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
                     lineDashType: "dash",
+                    color: "green",
                     dataPoints: newRecovs
                 }]
             };

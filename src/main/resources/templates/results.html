@@ -56,7 +56,7 @@
                     <section class="card statCard">
                         <article class="card-body">
                             <!-- overall stats -->
-                            <h1 class="resultsHeaders totalsProgression display-4">Totals</h1>
+                            <h1 class="resultsHeaders totalsProgression display-4">Cumulative Totals</h1>
                             <p class="lead" th:if="${searchedCountry == 'US'} and ${searchedProvince}">Recovery data for the US by state/county level is unavailable.</p>
                             <p class="lead" th:if="${searchedCountry == 'Canada'} and ${searchedProvince}">Recovery data for Canadian provinces is unavailable.</p>
                             <div class="container">
@@ -66,7 +66,6 @@
                                             <h4 class="card-title">Cases Confirmed</h4>
                                             <th:block th:unless="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalConf}"></p>
-                                                <p class="lead" th:text="'New: ' + ${recentNewConf}"></p>
                                             </th:block>
                                             <th:block th:if="${recentTotalConf == null} and ${recentNewConf == null}">
                                                 <p class="lead">Unavailable</p>
@@ -78,7 +77,6 @@
                                             <h4 class="card-title">Fatal Cases</h4>
                                             <th:block th:unless="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalDeaths}"></p>
-                                                <p class="lead" th:text="'New: ' + ${recentNewDeaths}"></p>
                                             </th:block>
                                             <th:block th:if="${recentTotalDeaths == null} and ${recentNewDeaths == null}">
                                                 <p class="lead">Unavailable</p>
@@ -90,7 +88,6 @@
                                             <h4 class="card-title">Cases Recovered</h4>
                                             <th:block th:unless="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead" th:text="'Total: ' + ${recentTotalRecov}"></p>
-                                                <p class="lead" th:text="'New: ' + ${recentNewRecov}"></p>
                                             </th:block>
                                             <th:block th:if="${recentTotalRecov == null} and ${recentNewRecov == null}">
                                                 <p class="lead">Unavailable</p>
