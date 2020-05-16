@@ -32,7 +32,10 @@ Or if you'd like to run it from your local machine:
 - Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
 
 ## Screenshots
-Coming soon! (once I'm a little less embarrassed by the front-end)
+![Landing](src/main/resources/static/img/Landing.PNG)
+![Totals](src/main/resources/static/img/Totals.PNG)
+![Progression](src/main/resources/static/img/Progression.PNG)
+![Subscribe](src/main/resources/static/img/Subscribe.PNG)
 
 ## Project management
 Trello: https://trello.com/b/LuJDmF4r/covid-19
