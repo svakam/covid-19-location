@@ -15,7 +15,9 @@ imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_pi
 
 NOTE: As of 03/28/2020, JHU CSSE .csv data appears to have been re-standardized and more developer-approachable for parsing.
 
-NOTE: As of 04/15/2020, I've noticed an errata.csv file in JHU CSSE. I'm looking into this.  
+NOTE: As of 04/15/2020, I've noticed an errata.csv file in JHU CSSE. I'm looking into this. 
+
+NOTE: As of 05/01/2020, errata.csv is already accounted for in the data. 
 
 ## Run the app
 Visit the website at: http://www.cv19location.com (currently in alpha)
@@ -62,14 +64,12 @@ AWS:
 - Route 53: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
 - Logging AWS SDK for Java Calls: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/java-dg-logging.html
 
-
 COVID-19 APIs and COVID-19 data consulted:
 - Johns Hopkins CSSE: https://github.com/CSSEGISandData/COVID-19 https://systems.jhu.edu/research/public-health/2019-ncov-map-faqs/ https://www.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6
 - CDC: https://open.cdc.gov/apis.html
 - Kyle Redelinghuys, who created the [Covid19API](https://covid19api.com/#details)
 - USAFacts: https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/
 - Some state/local health department websites
-
 
 Baeldung:
 - HTTP Request in Java: https://www.baeldung.com/java-http-request
@@ -78,16 +78,13 @@ Baeldung:
 - GSON Deserialization: https://www.baeldung.com/gson-deserialization-guide
 - URLEncoder: https://www.baeldung.com/java-url-encoding-decoding
 
-
 Bootstrap: 
 - Docs: https://getbootstrap.com/docs/4.4/getting-started/introduction/
-
 
 CanvasJS:
 - Docs: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/
 - Date/time: https://canvasjs.com/docs/charts/basics-of-creating-html5-chart/formatting-date-time/ https://canvasjs.com/forums/topic/date-time-formatting-issues/ 
 https://jsfiddle.net/canvasjs/6ftyg155/
-
 
 Deployment: 
 - Heroku vs AWS: https://www.guru99.com/heroku-vs-aws.html
@@ -96,17 +93,14 @@ Deployment:
 - Routing Traffic to an AWS Elastic Beanstalk Environment: https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-
 beanstalk-environment.html#routing-to-beanstalk-environment-create-alias-procedure
 
-
 GSON: 
 - GitHub: https://github.com/google/gson/blob/master/UserGuide.md 
 - BEGIN_ARRAY vs. BEGIN_OBJECT: https://futurestud.io/tutorials/gson-mapping-of-arrays-and-lists-of-objects
-
 
 Spring.io:
 - REST: https://spring.io/guides/gs/rest-service/
 - REST/HTTP: https://spring.io/guides/tutorials/bookmarks/
 - REST: https://spring.io/guides/gs/serving-web-content/
-
 
 Stack Overflow:
 - Using Firebase with Spring boot REST application https://stackoverflow.com/questions/39183107/how-to-use-firebase-with-spring-boot-rest-application
@@ -130,7 +124,6 @@ Thymeleaf:
 - Iteration: https://www.baeldung.com/thymeleaf-iteration
 - Manual: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#the-good-thymes-virtual-grocery
 
-
 Other:
 - HTTP: https://www.youtube.com/watch?v=iYM2zFP3Zn0
 - HTTP Request Lifecycle: https://dev.to/dangolant/things-i-brushed-up-on-this-week-the-http-request-lifecycle-
@@ -147,5 +140,6 @@ https://regex101.com/ https://docs.oracle.com/javase/7/docs/api/java/util/regex/
 https://docs.oracle.com/javase/tutorial/java/IandI/subclasses.html
 - Validating JSON schema: https://www.youtube.com/watch?v=X072eKtOIio
 - JS Window Location: https://www.w3schools.com/js/js_window_location.asp
-- Free icons: https://www.flaticon.com/home
+- Free Icons: https://www.flaticon.com/home
+- jQuery Animated Number Counter: http://www.i-visionblog.com/2014/11/jquery-animated-number-counter-from-zero-to-value-jquery-animation.html
 - Code Fellows Java curriculum

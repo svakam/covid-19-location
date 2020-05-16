@@ -26,19 +26,19 @@ table, td, tr, th {
     color: white;
 }
 
-#totalCases .card {
+.totalCases .card {
     color: white;
 }
 
-#totalConfirmed {
+.confirmed {
     background-image: linear-gradient(#0FB0FF, #4433CF);
 }
 
-#totalDeaths {
+.deaths {
     background-image: linear-gradient(#FF0000, #8F0000);
 }
 
-#totalRecov {
+.recov {
     background-image: linear-gradient(#55FF55, #005F00);
 }
 

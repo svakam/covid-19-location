@@ -28,7 +28,7 @@ iframe {
 }
 
 /* --------------- results ----------------- */
-#totalCases .card {
+.totalCases .card {
     margin: 2%;
 }
 
@@ -51,7 +51,7 @@ body main {
         top: 5px;
     }
 
-    #totalCases article div h3 {
+    .totalCases article div h3 {
         font-size: 45px;
     }
 
@@ -73,7 +73,7 @@ body main {
         font-size: 2.5rem;
     }
 
-    #totalCases article div h3 {
+    .totalCases article div h3 {
         font-size: 35px;
     }
 
@@ -92,7 +92,7 @@ body main {
         font-size: 3.5rem;
     }
 
-    #totalCases .card {
+    .totalCases .card {
         margin: 5%;
     }
 
@@ -112,7 +112,7 @@ body main {
         font-size: 2.7rem;
     }
 
-    #totalCases article div h3 {
+    .totalCases article div h3 {
         font-size: 43px;
     }
 
@@ -133,13 +133,13 @@ body main {
 }
 
 @media (min-width: 894px) {
-    #totalCases article div h3 {
+    .totalCases article div h3 {
         font-size: 40px;
     }
 }
 
 @media (min-width: 1025px) {
-    #totalCases article div h3 {
+    .totalCases article div h3 {
         font-size: 44px;
     }
 }
