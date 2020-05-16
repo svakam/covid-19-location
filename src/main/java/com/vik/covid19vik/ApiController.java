@@ -1,6 +1,7 @@
 package com.vik.covid19vik;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -55,6 +56,17 @@ class ApiController {
 //    void dailyReport(@RequestParam String date) {
 //
 //    }
+
+    // ------------------------- location specific user query --------------------------- //
+    @GetMapping("API/query")
+    void userQuery(@RequestParam(name = "sc", required = true) String sc, @RequestParam(name = "sp", required = false) String sp, @RequestParam(name = "sco", required = false)
+                     String sco) {
+        System.out.println(sc);
+        System.out.println(sp);
+        System.out.println(sco);
+
+    }
+
 
     // ------------ UID, ISO, FIPS lookup data ------------- //
     @GetMapping("API/uifcountries")
