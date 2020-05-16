@@ -103,12 +103,21 @@
                             <h1 class="resultsHeaders totalsProgression display-4">Progression</h1>
                             <p class="lead">Tap/drag on the graph or tap its legend to interact.</p>
                             <p id="mobiletip" class="lead">(Mobile: rotate to landscape view.)</p>
+                            <!-- progression graphs -->
                             <article class="card-body">
-                                <!-- progression graph -->
-                                <th:block th:unless="${graphNewConfs} and ${graphTotalConfs} and ${graphNewDeaths} and ${graphTotalDeaths} and ${graphNewRecovs} and ${graphTotalRecovs}">
-                                    <div id="graph" class="card justify-content-center">
+                                <th:block th:unless="${graphNewConfs} and ${graphNewDeaths} and ${graphNewRecovs}">
+                                    <div class="card justify-content-center">
                                         <div class="card-body">
-                                            <div id="chartContainer" style="height: 350px;"></div>
+                                            <div id="chartContainerNew" style="height: 350px;"></div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </article>
+                            <article class="card-body">
+                                <th:block th:unless="${graphTotalConfs} and ${graphTotalDeaths} and ${graphTotalRecovs}">
+                                    <div class="card justify-content-center">
+                                        <div class="card-body">
+                                            <div id="chartContainerTotals" style="height: 350px;"></div>
                                         </div>
                                     </div>
                                 </th:block>
