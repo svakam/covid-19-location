@@ -408,7 +408,7 @@ class MainController {
             }
         }
 
-        // dropdowns
+        // dropdowns and uif data
         if (countries == null) {
             countries = ApiMethods.getUIFLookup(req);
         }

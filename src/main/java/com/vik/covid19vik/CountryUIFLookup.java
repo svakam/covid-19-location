@@ -1,5 +1,7 @@
 package com.vik.covid19vik;
 
+import java.util.LinkedList;
+
 public class CountryUIFLookup {
     private float uid;
     private String iso2;

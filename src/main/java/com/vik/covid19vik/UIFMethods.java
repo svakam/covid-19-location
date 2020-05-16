@@ -14,7 +14,6 @@ class UIFMethods {
         private int fips;
         private int population;
         private String combinedKey;
-
         private LinkedList<String> dropdown;
 
         // getters and setters
