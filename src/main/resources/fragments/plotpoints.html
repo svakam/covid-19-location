@@ -31,7 +31,7 @@
 
         // render data
         window.onload = function () {
-            var options = {
+            var optionsNew = {
                 animationEnabled: true,
                 zoomEnabled: true,
                 theme: "light2",
@@ -76,7 +76,6 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "blue",
                     dataPoints: newConf
                 },
@@ -88,7 +87,6 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "red",
                     dataPoints: newDeaths
                 },
@@ -100,12 +98,11 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "green",
                     dataPoints: newRecovs
                 }]
             };
-            $("#chartContainerNew").CanvasJSChart(options);
+            $("#chartContainerNew").CanvasJSChart(optionsNew);
 
             function toggleDataVisibleNew (e) {
 	             if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -113,10 +110,10 @@
 	             } else {
 		             e.dataSeries.visible = true;
 	             }
-	             $("#chartContainerNew").CanvasJSChart(options);
+	             $("#chartContainerNew").CanvasJSChart(optionsNew);
             }
 
-            var options = {
+            var optionsTotal = {
                 animationEnabled: true,
                 zoomEnabled: true,
                 theme: "light2",
@@ -161,7 +158,6 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "blue",
                     dataPoints: totalConf
                 },
@@ -173,7 +169,6 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "red",
                     dataPoints: totalDeaths
                 },
@@ -185,12 +180,11 @@
                     xValueType: "dateTime",
                     xValueFormatString: "DD-MM-YY",
                     type: "line",
-                    lineDashType: "dash",
                     color: "green",
                     dataPoints: totalRecovs
                 }]
             };
-            $("#chartContainerTotals").CanvasJSChart(options);
+            $("#chartContainerTotals").CanvasJSChart(optionsTotal);
 
             function toggleDataVisibleTotals (e) {
 	             if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -198,7 +192,7 @@
 	             } else {
 		             e.dataSeries.visible = true;
 	             }
-	             $("#chartContainerTotals").CanvasJSChart(options);
+	             $("#chartContainerTotals").CanvasJSChart(optionsTotal);
             }
         }
         </script>

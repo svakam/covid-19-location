@@ -1,7 +1,3 @@
-body main > .card {
-    background-image: linear-gradient(90deg, #CDCDCD, #CCCCCC);
-}
-
 .bgmain {
     color: #303FB3;
     background-image: url("../img/william-navarro-world-1920.jpg");
@@ -22,6 +18,10 @@ table, td, tr, th {
 }
 
 /* results */
+.bgmain > section {
+    background-image: linear-gradient(90deg, #DDDDDD, #EEEEEE);
+}
+
 #resultsFor, .protect {
     color: white;
 }
