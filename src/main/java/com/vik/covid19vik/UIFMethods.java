@@ -1,7 +1,6 @@
 package com.vik.covid19vik;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -67,13 +66,13 @@ class UIFMethods {
         }
     }
 
-    static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req, String searchedCountry, CountryUIFLookup[] countries) {
+    static UIFPopData createCountryDropdownAndUIFPopData(HttpServletRequest req, String searchedCountry, UIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         if (countries != null) {
             UIFPopData uifPopData = new UIFPopData();
             System.out.println("API successfully pulled UIFLookup Info");
-            CountryUIFLookup lastCountry = countries[countries.length - 1];
-            for (CountryUIFLookup country : countries) {
+            UIFLookup lastCountry = countries[countries.length - 1];
+            for (UIFLookup country : countries) {
                 if (!countryDropdown.contains(country.getCountryOrRegion())) { // consider refactoring to use hashset to check if country name is contained in there
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());
@@ -103,14 +102,14 @@ class UIFMethods {
         }
     }
 
-    static LinkedList<String> createCountryDropdown(CountryUIFLookup[] countries) {
+    static LinkedList<String> createCountryDropdown(UIFLookup[] countries) {
         if (countries != null) {
             LinkedList<String> countryDropdown = new LinkedList<>();
             System.out.println("API successfully pulled UIFLookup Info");
 
             // ------------- create dropdown ----------------//
-            CountryUIFLookup lastCountry = countries[countries.length - 1];
-            for (CountryUIFLookup country : countries) {
+            UIFLookup lastCountry = countries[countries.length - 1];
+            for (UIFLookup country : countries) {
                 if (!countryDropdown.contains(country.getCountryOrRegion())) {
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());
@@ -126,16 +125,16 @@ class UIFMethods {
         }
     }
 
-    static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, CountryUIFLookup[] countries) {
+    static UIFPopData createCountryDropdownAndUIFPopDataProvince(String searchedProvince, UIFLookup[] countries) {
         LinkedList<String> countryDropdown = new LinkedList<>();
         if (countries != null) {
             System.out.println("createCountryDropdownAndUIFPopDataProvince: API successfully pulled UIFLookup Info");
             UIFPopData uifPopData = new UIFPopData();
             HashSet<String> countriesSeen = new HashSet<>();
-            CountryUIFLookup lastCountry = countries[countries.length - 1];
+            UIFLookup lastCountry = countries[countries.length - 1];
             int i;
             for (i = 0; i < countries.length; i++) {
-                CountryUIFLookup country = countries[i];
+                UIFLookup country = countries[i];
                 if (!countriesSeen.contains(country.getCountryOrRegion())) {
                     // country dropdown of names
                     countryDropdown.add(country.getCountryOrRegion());

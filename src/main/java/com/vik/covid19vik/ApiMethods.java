@@ -173,7 +173,7 @@ class ApiMethods {
 
 
     // ========================= UIF data ========================= //
-    static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
+    static UIFLookup[] getUIFLookup(HttpServletRequest req) {
         String requestURL = req.getRequestURL().toString();
         String baseURL = extractSecondDomainURL(requestURL);
         try {
@@ -188,9 +188,9 @@ class ApiMethods {
         }
         return null;
     }
-    private static CountryUIFLookup[] UIFHttpCall(URL url) {
+    private static UIFLookup[] UIFHttpCall(URL url) {
         try {
-            CountryUIFLookup[] UIFData;
+            UIFLookup[] UIFData;
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
@@ -216,7 +216,7 @@ class ApiMethods {
 
                 // convert json to desired output and return
                 Gson gson = new Gson();
-                UIFData = gson.fromJson(in, CountryUIFLookup[].class);
+                UIFData = gson.fromJson(in, UIFLookup[].class);
                 return UIFData;
             }
         } catch (IOException e) {

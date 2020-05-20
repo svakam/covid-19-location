@@ -1,8 +1,10 @@
 package com.vik.covid19vik;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.LinkedList;
 
-class UserQueryLocation extends CountryUIFLookup {
+class UserQueryLocation extends UIFLookup {
     int mostRecentNewConf;
     int mostRecentTotalConf;
     int mostRecentNewDeaths;
@@ -110,7 +112,45 @@ class UserQueryLocation extends CountryUIFLookup {
         this.recovDates = recovDates;
     }
 
-    UserQueryLocation getData() {
-        
+    static UserQueryLocation getData(JHUTimeSeriesAndUIFData data, HttpServletRequest req) {
+
+        UserQueryLocation location = new UserQueryLocation();
+
+        if (data.getConfDataGlobal() == null) {
+            data.setConfDataGlobal(ApiMethods.getTimeSeriesConf(req));
+            HashSet<String> countriesSeen = new HashSet<>();
+            if (data.getConfDataGlobal() != null) {
+                location.setConfDates(data.getConfDataGlobal().getDates());
+                LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, confDataGlobal);
+                location.setNewConf(caseInfo[0]);
+                location.setTotalConf(caseInfo[1]);
+                location.setMostRecentNewConf(caseInfo[2].get(0));
+                location.setMostRecentTotalConf(caseInfo[3].get(0));
+            }
+        }
+        if (deathsDataGlobal == null) {
+            deathsDataGlobal = ApiMethods.getTimeSeriesDeaths(req);
+            HashSet<String> countriesSeen = new HashSet<>();
+            if (deathsDataGlobal != null) {
+                location.setDeathsDates(deathsDataGlobal.getDates());
+                LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, deathsDataGlobal);
+                location.setNewDeaths(caseInfo[0]);
+                location.setTotalDeaths(caseInfo[1]);
+                location.setMostRecentNewDeaths(caseInfo[2].get(0));
+                location.setMostRecentTotalDeaths(caseInfo[3].get(0));
+            }
+        }
+        if (recovDataGlobal == null) {
+            recovDataGlobal = ApiMethods.getTimeSeriesRecov(req);
+            HashSet<String> countriesSeen = new HashSet<>();
+            if (recovDataGlobal != null) {
+                location.setRecovDates(recovDataGlobal.getDates());
+                LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, searchedCountry, recovDataGlobal);
+                location.setNewRecov(caseInfo[0]);
+                location.setTotalRecov(caseInfo[1]);
+                location.setMostRecentNewRecov(caseInfo[2].get(0));
+                location.setMostRecentTotalRecov(caseInfo[3].get(0));
+            }
+        }
     }
 }

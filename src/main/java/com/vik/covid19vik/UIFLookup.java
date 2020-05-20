@@ -2,21 +2,21 @@ package com.vik.covid19vik;
 
 import java.util.LinkedList;
 
-public class CountryUIFLookup {
+public class UIFLookup {
+    private String county;
+    private String provinceOrState;
+    private String countryOrRegion;
+    private String combinedKey;
+    private int population;
+    private float lat;
+    private float lon;
     private float uid;
     private String iso2;
     private String iso3;
     private int code3;
     private int fips;
-    private String county;
-    private String provinceOrState;
-    private String countryOrRegion;
-    private float lat;
-    private float lon;
-    private String combinedKey;
-    private int population;
 
-    CountryUIFLookup() {
+    UIFLookup() {
         // empty arg constructor
     }
 

@@ -1,7 +1,5 @@
 package com.vik.covid19vik;
 
-import sun.awt.image.ImageWatched;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -207,7 +205,7 @@ class USTimeSeries {
         return newTotalCasesAcrossCounties;
     }
 
-    static class CountyCaseAndUIF extends CountryUIFLookup {
+    static class CountyCaseAndUIF extends UIFLookup {
         // these names are misleading; used initially as a variable for totaled county data for a state's totals, but also for an individual county's data
         LinkedList<Integer> sumTotalCasesAcrossCounty;
         LinkedList<Integer> sumNewCasesAcrossCounty;

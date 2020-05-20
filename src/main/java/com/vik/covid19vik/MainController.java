@@ -14,8 +14,6 @@ import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.*;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +21,7 @@ import java.util.regex.Pattern;
 @Controller
 class MainController {
 
-    // consider adding to database:
+    // needs to be in database or server cache
     // time series:
     // country global data,
     CountriesGlobal confDataGlobal;
@@ -33,7 +31,7 @@ class MainController {
     USTimeSeries confDataUS;
     USTimeSeries deathsDataUS;
     // uiflookup data
-    CountryUIFLookup[] countries;
+    UIFLookup[] countries;
 
     // scheduled executor to refresh data around 10pm PST (JHU data refreshed between 3:30-4:00 UTC)
     static {
