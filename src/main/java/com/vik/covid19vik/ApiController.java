@@ -84,18 +84,6 @@ class ApiController {
         return UIFLookupParse.parseDatatoJSON();
     }
 
-    static class UserSearch {
-        String searchedCountry;
-        String searchedProvince;
-        String searchedCounty;
-
-        UserSearch(String searchedCountry, String searchedProvince, String searchedCounty) {
-            this.searchedCountry = searchedCountry;
-            this.searchedProvince = searchedProvince;
-            this.searchedCounty = searchedCounty;
-        }
-    }
-
     // ------------------------- location specific user query --------------------------- //
     @GetMapping("API/query")
     String userQuery(@RequestParam(name = "sc", required = false) String searchedCountry, @RequestParam(name = "sp", required = false) String searchedProvince,
@@ -106,42 +94,8 @@ class ApiController {
             return "No query provided";
         }
 
-        // only searched province as query
-        else if (searchedCountry == null && searchedProvince != null && searchedCounty == null) {
-            UserQueryLocation locationData = UserQueryLocation.getData(jhuTimeSeriesAndUIFData, searchedProvince, req);
-        }
-
-        // all are query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty != null) {
-            if (!searchedCountry.equals("US")) {
-                UserQueryLocation locationData = UserQueryLocation.getData(jhuTimeSeriesAndUIFData, searchedCountry, searchedProvince, searchedCounty,
-            }
-        }
-
-        // searched country and province as query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty == null) {
-
-        }
-
-        // query only contains searched country
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty == null) {
-
-        }
-
-        // only searched county as query
-        else if (searchedCountry == null && searchedProvince == null && searchedCounty != null) {
-
-        }
-
-        // searched province and county as query
-        else if (searchedCountry == null && searchedProvince != null && searchedCounty != null) {
-
-        }
-
-        // searched country and county as query
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty != null) {
-
-        }
+        UserQueryData.UserQuery userQuery = new UserQueryData.UserQuery(searchedCountry, searchedProvince, searchedCounty);
+        UserQueryData locationData = UserQueryData.getData(jhuTimeSeriesAndUIFData, userQuery, req);
 
         // return json
         Gson gson = new Gson();
