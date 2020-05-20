@@ -9,16 +9,6 @@ information on how COVID-19 is impacting their community in the United States. R
 is rendered directly from Johns Hopkins University CSSE .csv files sourced on GitHub. Users can browse for a location to see case data visualized in graphs and tables. Users
 may also subscribe to SMS to receive daily updates on new case information for their selected location. 
 
-NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
-there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
-imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
-
-NOTE: As of 03/28/2020, JHU CSSE .csv data appears to have been re-standardized and more developer-approachable for parsing.
-
-NOTE: As of 04/15/2020, I've noticed an errata.csv file in JHU CSSE. I'm looking into this. 
-
-NOTE: As of 05/01/2020, errata.csv is already accounted for in the data. 
-
 ## Run the app
 Visit the website at: http://www.cv19location.com (currently in alpha)
 
@@ -49,9 +39,24 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - APIs: CV19Locator API, Postman
   - Libraries: CanvasJS, Bootstrap, GSON, jQuery
   - AWS: DynamoDB, SNS, Elastic Beanstalk, Route 53
+
+## Data Summary and Organization
+For the sake of clarity, here's some definition for the class structure involved in organizing and pulling JHU data to provide desired output. 
+- API calls to JHU: ApiController -> ApiMethods -> JHUPullMethods -> CountriesGlobalDataParse, USTimeSeriesParse, CountryUIFLookupParse
   
 ## Contact
 If you're interested in contributing, or have questions regarding the CV19Locator API, drop an email at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
+
+## JHU Data Changes
+- NOTE: As of 03/25/2020, for JHU CSSE's _county-level_ information for the United States, there is no data available between and including 03/10/2020 and 03/22/2020. In addition,
+there are a number of redundancies in countries names, associated slugs, and state/province names. This spreadsheet outlines the issues being addressed (and hopefully corrected for)
+imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_piVtvlo8lgi_DictI/edit?usp=sharing
+
+- NOTE: As of 03/28/2020, JHU CSSE .csv data appears to have been re-standardized and more developer-approachable for parsing.
+
+- NOTE: As of 04/15/2020, I've noticed an errata.csv file in JHU CSSE. I'm looking into this. 
+
+- NOTE: As of 05/01/2020, errata.csv is already accounted for in the data. 
 
 ## Acknowledgements
 AWS:

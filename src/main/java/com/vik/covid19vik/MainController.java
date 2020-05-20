@@ -35,8 +35,9 @@ class MainController {
     // uiflookup data
     CountryUIFLookup[] countries;
 
+    // scheduled executor to refresh data around 10pm PST (JHU data refreshed between 3:30-4:00 UTC)
     static {
-        // scheduled executor to refresh data
+        // code
     }
 
     // ============================================================================== //

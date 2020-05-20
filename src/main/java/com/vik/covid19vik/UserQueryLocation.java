@@ -109,4 +109,8 @@ class UserQueryLocation extends CountryUIFLookup {
     void setRecovDates(LinkedList<String> recovDates) {
         this.recovDates = recovDates;
     }
+
+    UserQueryLocation getData() {
+        
+    }
 }

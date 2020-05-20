@@ -89,6 +89,11 @@ public class AWSSNSMethods {
         client.close();
     }
 
+    // send SMS to endpoint based on their subscribed location
+    static void publishDataToEndpoint() {
+        // 
+    }
+
     // check URL for redundant parameters
     static String checkURLRedundant(String currentURL) {
         if (currentURL.contains("&endpoint=valid")) {
