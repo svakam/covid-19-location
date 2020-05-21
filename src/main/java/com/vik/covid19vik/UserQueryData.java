@@ -192,9 +192,11 @@ class UserQueryData extends UIFLookup {
         // only searched province as query
         if (searchedCountry == null && searchedProvince != null && searchedCounty == null) {
             // if searched province is not a US province
+
                 // hit global data
                 location = getGlobalData(data, userQuery, location, req);
                 // hit UIFP data
+                location = getUIFData();
             // else
                 // hit US data
         }
