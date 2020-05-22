@@ -178,8 +178,8 @@ class UserQueryData extends UIFLookup {
 
     }
 
-    static UserQueryData getUIFData() {
-
+    static UserQueryData getUIFData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location) {
+        
     }
 
     static UserQueryData getData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, HttpServletRequest req) {
@@ -196,7 +196,7 @@ class UserQueryData extends UIFLookup {
                 // hit global data
                 location = getGlobalData(data, userQuery, location, req);
                 // hit UIFP data
-                location = getUIFData();
+                location = getUIFData(data, userQuery, location, req);
             // else
                 // hit US data
         }
@@ -204,6 +204,7 @@ class UserQueryData extends UIFLookup {
         // all are query
         else if (searchedCountry != null && searchedProvince != null && searchedCounty != null) {
             // hit global data for US country data
+            location = getGlobalData(data, userQuery, location, req);
             // hit US data for province and county data
         }
 
