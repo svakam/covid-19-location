@@ -21,6 +21,7 @@ class UserQueryData extends UIFLookup {
     LinkedList<String> deathsDates;
     LinkedList<String> recovDates;
 
+    // getters and setters
     int getMostRecentNewConf() {
         return mostRecentNewConf;
     }
@@ -124,7 +125,81 @@ class UserQueryData extends UIFLookup {
         }
     }
 
-    static UserQueryData getGlobalData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location, HttpServletRequest req) {
+    static UserQueryData getData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, HttpServletRequest req) {
+
+        UserQueryData location = new UserQueryData();
+        String searchedCountry = userQuery.searchedCountry;
+        String searchedProvince = userQuery.searchedProvince;
+        String searchedCounty = userQuery.searchedCounty;
+
+        // only searched province as query
+        if (searchedCountry == null && searchedProvince != null && searchedCounty == null) {
+            // if searched province is not a US province
+            if () {
+                // hit global data
+                getGlobalData(data, userQuery, location, req);
+                // hit UIFP data
+                getUIFData(data, userQuery, location, req);
+            }
+            // else hit US data
+            else {
+                getUSData();
+            }
+        }
+
+        // all are query
+        else if (searchedCountry != null && searchedProvince != null && searchedCounty != null) {
+            // hit global data for US country data
+            getGlobalData(data, userQuery, location, req);
+            // hit US data for province and county data
+            getUSData();
+        }
+
+        // searched country and province as query
+        else if (searchedCountry != null && searchedProvince != null && searchedCounty == null) {
+            // if searched country not US
+            if (!searchedCountry.equals("US")) {
+                // hit global data
+                getGlobalData(data, userQuery, location, req);
+                // hit UIFP data
+                getUIFData(data, userQuery, location, req);
+            }
+            // else hit US data
+            else {
+                getUSData();
+            }
+        }
+
+        // query only contains searched country
+        else if (searchedCountry != null && searchedProvince == null && searchedCounty == null) {
+            // hit global data
+            getGlobalData(data, userQuery, location, req);
+            // hit UIFP data
+            getUIFData(data, userQuery, location, req);
+        }
+
+        // only searched county as query
+        else if (searchedCountry == null && searchedProvince == null && searchedCounty != null) {
+            // hit US data
+            getUSData();
+        }
+
+        // searched province and county as query
+        else if (searchedCountry == null && searchedProvince != null && searchedCounty != null) {
+            // hit US data
+            getUSData();
+        }
+
+        // searched country and county as query
+        else if (searchedCountry != null && searchedProvince == null && searchedCounty != null) {
+            // hit US data
+            getUSData();
+        }
+
+        return location;
+    }
+
+    static void getGlobalData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location, HttpServletRequest req) {
         CountriesGlobal confDataGlobal = data.getConfDataGlobal();
         CountriesGlobal deathsDataGlobal = data.getDeathsDataGlobal();
         CountriesGlobal recovDataGlobal = data.getRecovDataGlobal();
@@ -141,6 +216,8 @@ class UserQueryData extends UIFLookup {
             location.setTotalConf(caseInfo[1]);
             location.setMostRecentNewConf(caseInfo[2].get(0));
             location.setMostRecentTotalConf(caseInfo[3].get(0));
+        } else {
+            System.out.println("Could not get confirmed series data");
         }
 
         // deaths data
@@ -155,6 +232,8 @@ class UserQueryData extends UIFLookup {
             location.setTotalDeaths(caseInfo[1]);
             location.setMostRecentNewDeaths(caseInfo[2].get(0));
             location.setMostRecentTotalDeaths(caseInfo[3].get(0));
+        } else {
+            System.out.println("Could not get deaths series data");
         }
 
         // recovered data
@@ -169,73 +248,16 @@ class UserQueryData extends UIFLookup {
             location.setTotalRecov(caseInfo[1]);
             location.setMostRecentNewRecov(caseInfo[2].get(0));
             location.setMostRecentTotalRecov(caseInfo[3].get(0));
+        } else {
+            System.out.println("Could not get recovered series data");
         }
-
-        return location;
     }
 
-    static UserQueryData getUSData() {
+    static void getUSData() {
 
     }
 
-    static UserQueryData getUIFData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location) {
-        
-    }
+    static void getUIFData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location, HttpServletRequest req) {
 
-    static UserQueryData getData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, HttpServletRequest req) {
-
-        UserQueryData location = new UserQueryData();
-        String searchedCountry = userQuery.searchedCountry;
-        String searchedProvince = userQuery.searchedProvince;
-        String searchedCounty = userQuery.searchedCounty;
-
-        // only searched province as query
-        if (searchedCountry == null && searchedProvince != null && searchedCounty == null) {
-            // if searched province is not a US province
-
-                // hit global data
-                location = getGlobalData(data, userQuery, location, req);
-                // hit UIFP data
-                location = getUIFData(data, userQuery, location, req);
-            // else
-                // hit US data
-        }
-
-        // all are query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty != null) {
-            // hit global data for US country data
-            location = getGlobalData(data, userQuery, location, req);
-            // hit US data for province and county data
-        }
-
-        // searched country and province as query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty == null) {
-            // if searched country not US
-                // hit global data
-                // hit UIFP data
-            // else
-                // hit US data
-        }
-
-        // query only contains searched country
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty == null) {
-            // hit global data
-            // hit UIFP data
-        }
-
-        // only searched county as query
-        else if (searchedCountry == null && searchedProvince == null && searchedCounty != null) {
-            // hit US data
-        }
-
-        // searched province and county as query
-        else if (searchedCountry == null && searchedProvince != null && searchedCounty != null) {
-            // hit US data
-        }
-
-        // searched country and county as query
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty != null) {
-            // hit US data
-        }
     }
 }
