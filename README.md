@@ -39,10 +39,6 @@ Trello: https://trello.com/b/LuJDmF4r/covid-19
   - APIs: CV19Locator API, Postman
   - Libraries: CanvasJS, Bootstrap, GSON, jQuery
   - AWS: DynamoDB, SNS, Elastic Beanstalk, Route 53
-
-## Data Summary and Organization
-For the sake of clarity, here's some definition for the class structure involved in organizing and pulling JHU data to provide desired output. 
-- API calls to JHU: ApiController -> ApiMethods -> JHUPullMethods -> CountriesGlobalDataParse, USTimeSeriesParse, CountryUIFLookupParse
   
 ## Contact
 If you're interested in contributing, or have questions regarding the CV19Locator API, drop an email at svakam6370@gmail.com or DM me on LinkedIn at linkedin.com/in/svakam. 
