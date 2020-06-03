@@ -2,10 +2,9 @@ package com.vik.covid19vik;
 
 import com.google.gson.Gson;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
-class CountryUIFLookupParse {
+class UIFLookupParse {
 
     static String parseDatatoJSON() {
 
@@ -13,7 +12,7 @@ class CountryUIFLookupParse {
         String data = JHUPullMethods.getUIFLookup();
 //        System.out.println(data);
 
-        LinkedList<CountryUIFLookup> countries = new LinkedList<>();
+        LinkedList<UIFLookup> countries = new LinkedList<>();
         int cursor = 0;
         int lengthOfCSV = data.length();
         System.out.println(lengthOfCSV);
@@ -36,7 +35,7 @@ class CountryUIFLookupParse {
 
         // instantiate data of each country and store in array
         do {
-            CountryUIFLookup country = new CountryUIFLookup();
+            UIFLookup country = new UIFLookup();
 
             // set UID (always available)
             StringBuilder uid = new StringBuilder();
@@ -246,9 +245,9 @@ class CountryUIFLookupParse {
         return gson.toJson(countries);
     }
 
-    static CountryUIFLookup[] fromJSON() {
+    static UIFLookup[] fromJSON() {
         String json = parseDatatoJSON();
         Gson gson = new Gson();
-        return gson.fromJson(json, CountryUIFLookup[].class);
+        return gson.fromJson(json, UIFLookup[].class);
     }
 }

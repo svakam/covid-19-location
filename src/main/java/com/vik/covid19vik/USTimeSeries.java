@@ -1,7 +1,5 @@
 package com.vik.covid19vik;
 
-import sun.awt.image.ImageWatched;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -207,12 +205,12 @@ class USTimeSeries {
         return newTotalCasesAcrossCounties;
     }
 
-    static class CountyCaseAndUIF extends CountryUIFLookup {
+    static class CountyCaseAndUIF extends UIFLookup {
         // these names are misleading; used initially as a variable for totaled county data for a state's totals, but also for an individual county's data
-        LinkedList<Integer> sumTotalCasesAcrossCounty;
-        LinkedList<Integer> sumNewCasesAcrossCounty;
-        int recentNewData;
-        int recentTotalData;
+        private LinkedList<Integer> sumTotalCasesAcrossCounty;
+        private LinkedList<Integer> sumNewCasesAcrossCounty;
+        private int recentNewData;
+        private int recentTotalData;
 
         // getters and setters
         LinkedList<Integer> getSumTotalCasesAcrossCounty() {
@@ -221,22 +219,22 @@ class USTimeSeries {
         void setSumTotalCasesAcrossCounty(LinkedList<Integer> sumTotalCasesAcrossCounty) {
             this.sumTotalCasesAcrossCounty = sumTotalCasesAcrossCounty;
         }
-        public LinkedList<Integer> getSumNewCasesAcrossCounty() {
+        LinkedList<Integer> getSumNewCasesAcrossCounty() {
             return sumNewCasesAcrossCounty;
         }
-        public void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
+        void setSumNewCasesAcrossCounty(LinkedList<Integer> sumNewCasesAcrossCounty) {
             this.sumNewCasesAcrossCounty = sumNewCasesAcrossCounty;
         }
-        public int getRecentNewData() {
+        int getRecentNewData() {
             return recentNewData;
         }
-        public void setRecentNewData(int recentNewData) {
+        void setRecentNewData(int recentNewData) {
             this.recentNewData = recentNewData;
         }
-        public int getRecentTotalData() {
+        int getRecentTotalData() {
             return recentTotalData;
         }
-        public void setRecentTotalData(int recentTotalData) {
+        void setRecentTotalData(int recentTotalData) {
             this.recentTotalData = recentTotalData;
         }
     }

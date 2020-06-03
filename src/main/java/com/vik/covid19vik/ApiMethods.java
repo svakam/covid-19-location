@@ -170,10 +170,8 @@ class ApiMethods {
     }
 
 
-
-
     // ========================= UIF data ========================= //
-    static CountryUIFLookup[] getUIFLookup(HttpServletRequest req) {
+    static UIFLookup[] getUIFLookup(HttpServletRequest req) {
         String requestURL = req.getRequestURL().toString();
         String baseURL = extractSecondDomainURL(requestURL);
         try {
@@ -188,9 +186,9 @@ class ApiMethods {
         }
         return null;
     }
-    private static CountryUIFLookup[] UIFHttpCall(URL url) {
+    private static UIFLookup[] UIFHttpCall(URL url) {
         try {
-            CountryUIFLookup[] UIFData;
+            UIFLookup[] UIFData;
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
             con.setRequestMethod("GET");
@@ -216,8 +214,63 @@ class ApiMethods {
 
                 // convert json to desired output and return
                 Gson gson = new Gson();
-                UIFData = gson.fromJson(in, CountryUIFLookup[].class);
+                UIFData = gson.fromJson(in, UIFLookup[].class);
                 return UIFData;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    // =========================== user query ============================== //
+    static UserQueryData getLocationData(HttpServletRequest req) {
+        String requestURL = req.getRequestURL().toString();
+        String baseURL = extractSecondDomainURL(requestURL);
+        try {
+            URL url;
+            String fullURL = baseURL + "API/query";
+            url = new URL(fullURL);
+            return locationDataCall(url);
+        } catch (
+                MalformedURLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static UserQueryData locationDataCall(URL url) {
+        try {
+            UserQueryData locationData;
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Content-Type", "text/html;charset=UTF-8");
+
+            System.out.println(StatusMessageHeader.getInfo(con));
+
+            BufferedReader in;
+
+            int status = con.getResponseCode();
+            if (status > 299) {
+                StringBuilder content = new StringBuilder();
+                in = new BufferedReader(
+                        new InputStreamReader(con.getErrorStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine).append("\n");
+                }
+                System.out.println(content.toString());
+            } else {
+                in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+
+                // convert json to desired output and return
+                Gson gson = new Gson();
+                locationData = gson.fromJson(in, UserQueryData.class);
+                return locationData;
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

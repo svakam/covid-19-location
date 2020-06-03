@@ -1,6 +1,5 @@
 package com.vik.covid19vik;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -22,13 +21,13 @@ class CountryWithProvinces {
         this.allProvinces = allProvinces;
     }
 
-    static LinkedList<CountryWithProvinces> createCountriesWithProvinces(CountryUIFLookup[] countries) {
+    static LinkedList<CountryWithProvinces> createCountriesWithProvinces(UIFLookup[] countries) {
         HashSet<String> countriesSeen = new HashSet<>();
         if (countries != null) {
 
             // get index of start of US data
             int k = 0;
-            for (CountryUIFLookup country : countries) {
+            for (UIFLookup country : countries) {
                 if (country.getCountryOrRegion().equals("US")) {
                     break;
                 }
@@ -36,7 +35,7 @@ class CountryWithProvinces {
             }
             // get index of end of state US data
             int l = k;
-            for (CountryUIFLookup country : countries) {
+            for (UIFLookup country : countries) {
                 if (country.getCountryOrRegion().equals("US") && !country.getCounty().equals("")) {
                     break;
                 }
@@ -46,7 +45,7 @@ class CountryWithProvinces {
             // instantiate countries with lists of their provinces
             LinkedList<CountryWithProvinces> countriesWithProvinces = new LinkedList<>();
             for (int i = 0; i < countries.length; i++) {
-                CountryUIFLookup country = countries[i];
+                UIFLookup country = countries[i];
                 CountryWithProvinces countryWithProvinces = new CountryWithProvinces();
                 countryWithProvinces.allProvinces = new LinkedList<>();
 
@@ -54,7 +53,7 @@ class CountryWithProvinces {
                 if (!country.getProvinceOrState().equals("") && !countriesSeen.contains(country.getCountryOrRegion()) && !country.getCountryOrRegion().equals("US")) {
                     countryWithProvinces.setCountry(country.getCountryOrRegion());
                     for (int j = i; j < k; j++) {
-                        CountryUIFLookup next = countries[j];
+                        UIFLookup next = countries[j];
                         if (next.getCountryOrRegion().equals(country.getCountryOrRegion())) {
                             countryWithProvinces.allProvinces.add(next.getProvinceOrState());
                         }
@@ -67,7 +66,7 @@ class CountryWithProvinces {
                 else if (country.getCounty().equals("") && country.getCountryOrRegion().equals("US")) {
                     countryWithProvinces.setCountry("US");
                     while (i < l) {
-                        CountryUIFLookup next = countries[i];
+                        UIFLookup next = countries[i];
                         if (next.getCounty().equals("") && !next.getProvinceOrState().equals("")) {
                             countryWithProvinces.allProvinces.add(next.getProvinceOrState());
                         }
@@ -83,7 +82,7 @@ class CountryWithProvinces {
         }
     }
 
-    static LinkedList<String> getProvincesForCountry(String searchedCountry, CountryUIFLookup[] countries) {
+    static LinkedList<String> getProvincesForCountry(String searchedCountry, UIFLookup[] countries) {
         LinkedList<CountryWithProvinces> countriesWithProvinces = createCountriesWithProvinces(countries);
         for (CountryWithProvinces country : countriesWithProvinces) {
             if (country.getCountry().equals(searchedCountry)) {
