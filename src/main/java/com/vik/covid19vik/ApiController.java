@@ -93,9 +93,13 @@ class ApiController {
         if (searchedCountry == null && searchedProvince == null && searchedCounty == null) {
             return "No query provided";
         }
+        // multiple counties of same name are possible
+        if (searchedCountry.equals("US") && searchedProvince == null && searchedCounty != null) {
+            return "Ambiguous US query - must include a state";
+        }
 
         UserQueryData.UserQuery userQuery = new UserQueryData.UserQuery(searchedCountry, searchedProvince, searchedCounty);
-        UserQueryData locationData = UserQueryData.getData(jhuTimeSeriesAndUIFData, userQuery, req);
+        UserQueryData locationData = UseryQueryDataMethods.getData(jhuTimeSeriesAndUIFData, userQuery, req);
 
         // return json
         Gson gson = new Gson();

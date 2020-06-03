@@ -5,94 +5,267 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 class UserQueryData extends UIFLookup {
-    int mostRecentNewConf;
-    int mostRecentTotalConf;
-    int mostRecentNewDeaths;
-    int mostRecentTotalDeaths;
-    int mostRecentNewRecov;
-    int mostRecentTotalRecov;
-    LinkedList<Integer> newConf;
-    LinkedList<Integer> totalConf;
-    LinkedList<Integer> newDeaths;
-    LinkedList<Integer> totalDeaths;
-    LinkedList<Integer> newRecov;
-    LinkedList<Integer> totalRecov;
+    // country
+    int countryMostRecentNewConf;
+    int countryMostRecentTotalConf;
+    int countryMostRecentNewDeaths;
+    int countryMostRecentTotalDeaths;
+    int countryMostRecentNewRecov;
+    int countryMostRecentTotalRecov;
+    LinkedList<Integer> countryNewConf;
+    LinkedList<Integer> countryTotalConf;
+    LinkedList<Integer> countryNewDeaths;
+    LinkedList<Integer> countryTotalDeaths;
+    LinkedList<Integer> countryNewRecov;
+    LinkedList<Integer> countryTotalRecov;
+    // province
+    int provinceMostRecentNewConf;
+    int provinceMostRecentTotalConf;
+    int provinceMostRecentNewDeaths;
+    int provinceMostRecentTotalDeaths;
+    int provinceMostRecentNewRecov;
+    int provinceMostRecentTotalRecov;
+    LinkedList<Integer> provinceNewConf;
+    LinkedList<Integer> provinceTotalConf;
+    LinkedList<Integer> provinceNewDeaths;
+    LinkedList<Integer> provinceTotalDeaths;
+    LinkedList<Integer> provinceNewRecov;
+    LinkedList<Integer> provinceTotalRecov;
+    // county
+    int countyMostRecentNewConf;
+    int countyMostRecentTotalConf;
+    int countyMostRecentNewDeaths;
+    int countyMostRecentTotalDeaths;
+    int countyMostRecentNewRecov;
+    int countyMostRecentTotalRecov;
+    LinkedList<Integer> countyNewConf;
+    LinkedList<Integer> countyTotalConf;
+    LinkedList<Integer> countyNewDeaths;
+    LinkedList<Integer> countyTotalDeaths;
+    LinkedList<Integer> countyNewRecov;
+    LinkedList<Integer> countyTotalRecov;
+    // dates
     LinkedList<String> confDates;
     LinkedList<String> deathsDates;
     LinkedList<String> recovDates;
 
-    // getters and setters
-    int getMostRecentNewConf() {
-        return mostRecentNewConf;
+    int getCountryMostRecentNewConf() {
+        return countryMostRecentNewConf;
     }
-    void setMostRecentNewConf(int mostRecentNewConf) {
-        this.mostRecentNewConf = mostRecentNewConf;
+    void setCountryMostRecentNewConf(int countryMostRecentNewConf) {
+        this.countryMostRecentNewConf = countryMostRecentNewConf;
     }
-    int getMostRecentTotalConf() {
-        return mostRecentTotalConf;
+    int getCountryMostRecentTotalConf() {
+        return countryMostRecentTotalConf;
     }
-    void setMostRecentTotalConf(int mostRecentTotalConf) {
-        this.mostRecentTotalConf = mostRecentTotalConf;
+    void setCountryMostRecentTotalConf(int countryMostRecentTotalConf) {
+        this.countryMostRecentTotalConf = countryMostRecentTotalConf;
     }
-    int getMostRecentNewDeaths() {
-        return mostRecentNewDeaths;
+    int getCountryMostRecentNewDeaths() {
+        return countryMostRecentNewDeaths;
     }
-    void setMostRecentNewDeaths(int mostRecentNewDeaths) {
-        this.mostRecentNewDeaths = mostRecentNewDeaths;
+    void setCountryMostRecentNewDeaths(int countryMostRecentNewDeaths) {
+        this.countryMostRecentNewDeaths = countryMostRecentNewDeaths;
     }
-    int getMostRecentTotalDeaths() {
-        return mostRecentTotalDeaths;
+    int getCountryMostRecentTotalDeaths() {
+        return countryMostRecentTotalDeaths;
     }
-    void setMostRecentTotalDeaths(int mostRecentTotalDeaths) {
-        this.mostRecentTotalDeaths = mostRecentTotalDeaths;
+    void setCountryMostRecentTotalDeaths(int countryMostRecentTotalDeaths) {
+        this.countryMostRecentTotalDeaths = countryMostRecentTotalDeaths;
     }
-    int getMostRecentNewRecov() {
-        return mostRecentNewRecov;
+    int getCountryMostRecentNewRecov() {
+        return countryMostRecentNewRecov;
     }
-    void setMostRecentNewRecov(int mostRecentNewRecov) {
-        this.mostRecentNewRecov = mostRecentNewRecov;
+    void setCountryMostRecentNewRecov(int countryMostRecentNewRecov) {
+        this.countryMostRecentNewRecov = countryMostRecentNewRecov;
     }
-    int getMostRecentTotalRecov() {
-        return mostRecentTotalRecov;
+    int getCountryMostRecentTotalRecov() {
+        return countryMostRecentTotalRecov;
     }
-    void setMostRecentTotalRecov(int mostRecentTotalRecov) {
-        this.mostRecentTotalRecov = mostRecentTotalRecov;
+    void setCountryMostRecentTotalRecov(int countryMostRecentTotalRecov) {
+        this.countryMostRecentTotalRecov = countryMostRecentTotalRecov;
     }
-    LinkedList<Integer> getNewConf() {
-        return newConf;
+    LinkedList<Integer> getCountryNewConf() {
+        return countryNewConf;
     }
-    void setNewConf(LinkedList<Integer> newConf) {
-        this.newConf = newConf;
+    void setCountryNewConf(LinkedList<Integer> countryNewConf) {
+        this.countryNewConf = countryNewConf;
     }
-    LinkedList<Integer> getTotalConf() {
-        return totalConf;
+    LinkedList<Integer> getCountryTotalConf() {
+        return countryTotalConf;
     }
-    void setTotalConf(LinkedList<Integer> totalConf) {
-        this.totalConf = totalConf;
+    void setCountryTotalConf(LinkedList<Integer> countryTotalConf) {
+        this.countryTotalConf = countryTotalConf;
     }
-    LinkedList<Integer> getNewDeaths() {
-        return newDeaths;
+    LinkedList<Integer> getCountryNewDeaths() {
+        return countryNewDeaths;
     }
-    void setNewDeaths(LinkedList<Integer> newDeaths) {
-        this.newDeaths = newDeaths;
+    void setCountryNewDeaths(LinkedList<Integer> countryNewDeaths) {
+        this.countryNewDeaths = countryNewDeaths;
     }
-    LinkedList<Integer> getTotalDeaths() {
-        return totalDeaths;
+    LinkedList<Integer> getCountryTotalDeaths() {
+        return countryTotalDeaths;
     }
-    void setTotalDeaths(LinkedList<Integer> totalDeaths) {
-        this.totalDeaths = totalDeaths;
+    void setCountryTotalDeaths(LinkedList<Integer> countryTotalDeaths) {
+        this.countryTotalDeaths = countryTotalDeaths;
     }
-    LinkedList<Integer> getNewRecov() {
-        return newRecov;
+    LinkedList<Integer> getCountryNewRecov() {
+        return countryNewRecov;
     }
-    void setNewRecov(LinkedList<Integer> newRecov) {
-        this.newRecov = newRecov;
+    void setCountryNewRecov(LinkedList<Integer> countryNewRecov) {
+        this.countryNewRecov = countryNewRecov;
     }
-    LinkedList<Integer> getTotalRecov() {
-        return totalRecov;
+    LinkedList<Integer> getCountryTotalRecov() {
+        return countryTotalRecov;
     }
-    void setTotalRecov(LinkedList<Integer> totalRecov) {
-        this.totalRecov = totalRecov;
+    void setCountryTotalRecov(LinkedList<Integer> countryTotalRecov) {
+        this.countryTotalRecov = countryTotalRecov;
+    }
+
+    int getProvinceMostRecentNewConf() {
+        return provinceMostRecentNewConf;
+    }
+    void setProvinceMostRecentNewConf(int provinceMostRecentNewConf) {
+        this.provinceMostRecentNewConf = provinceMostRecentNewConf;
+    }
+    int getProvinceMostRecentTotalConf() {
+        return provinceMostRecentTotalConf;
+    }
+    void setProvinceMostRecentTotalConf(int provinceMostRecentTotalConf) {
+        this.provinceMostRecentTotalConf = provinceMostRecentTotalConf;
+    }
+    int getProvinceMostRecentNewDeaths() {
+        return provinceMostRecentNewDeaths;
+    }
+    void setProvinceMostRecentNewDeaths(int provinceMostRecentNewDeaths) {
+        this.provinceMostRecentNewDeaths = provinceMostRecentNewDeaths;
+    }
+    int getProvinceMostRecentTotalDeaths() {
+        return provinceMostRecentTotalDeaths;
+    }
+    void setProvinceMostRecentTotalDeaths(int provinceMostRecentTotalDeaths) {
+        this.provinceMostRecentTotalDeaths = provinceMostRecentTotalDeaths;
+    }
+    int getProvinceMostRecentNewRecov() {
+        return provinceMostRecentNewRecov;
+    }
+    void setProvinceMostRecentNewRecov(int provinceMostRecentNewRecov) {
+        this.provinceMostRecentNewRecov = provinceMostRecentNewRecov;
+    }
+    int getProvinceMostRecentTotalRecov() {
+        return provinceMostRecentTotalRecov;
+    }
+    void setProvinceMostRecentTotalRecov(int provinceMostRecentTotalRecov) {
+        this.provinceMostRecentTotalRecov = provinceMostRecentTotalRecov;
+    }
+    LinkedList<Integer> getProvinceNewConf() {
+        return provinceNewConf;
+    }
+    void setProvinceNewConf(LinkedList<Integer> provinceNewConf) {
+        this.provinceNewConf = provinceNewConf;
+    }
+    LinkedList<Integer> getProvinceTotalConf() {
+        return provinceTotalConf;
+    }
+    void setProvinceTotalConf(LinkedList<Integer> provinceTotalConf) {
+        this.provinceTotalConf = provinceTotalConf;
+    }
+    LinkedList<Integer> getProvinceNewDeaths() {
+        return provinceNewDeaths;
+    }
+    void setProvinceNewDeaths(LinkedList<Integer> provinceNewDeaths) {
+        this.provinceNewDeaths = provinceNewDeaths;
+    }
+    LinkedList<Integer> getProvinceTotalDeaths() {
+        return provinceTotalDeaths;
+    }
+    void setProvinceTotalDeaths(LinkedList<Integer> provinceTotalDeaths) {
+        this.provinceTotalDeaths = provinceTotalDeaths;
+    }
+    LinkedList<Integer> getProvinceNewRecov() {
+        return provinceNewRecov;
+    }
+    void setProvinceNewRecov(LinkedList<Integer> provinceNewRecov) {
+        this.provinceNewRecov = provinceNewRecov;
+    }
+    LinkedList<Integer> getProvinceTotalRecov() {
+        return provinceTotalRecov;
+    }
+    void setProvinceTotalRecov(LinkedList<Integer> provinceTotalRecov) {
+        this.provinceTotalRecov = provinceTotalRecov;
+    }
+
+    int getCountyMostRecentNewConf() {
+        return countyMostRecentNewConf;
+    }
+    void setCountyMostRecentNewConf(int countyMostRecentNewConf) {
+        this.countyMostRecentNewConf = countyMostRecentNewConf;
+    }
+    int getCountyMostRecentTotalConf() {
+        return countyMostRecentTotalConf;
+    }
+    void setCountyMostRecentTotalConf(int countyMostRecentTotalConf) {
+        this.countyMostRecentTotalConf = countyMostRecentTotalConf;
+    }
+    int getCountyMostRecentNewDeaths() {
+        return countyMostRecentNewDeaths;
+    }
+    void setCountyMostRecentNewDeaths(int countyMostRecentNewDeaths) {
+        this.countyMostRecentNewDeaths = countyMostRecentNewDeaths;
+    }
+    int getCountyMostRecentTotalDeaths() {
+        return countyMostRecentTotalDeaths;
+    }
+    void setCountyMostRecentTotalDeaths(int countyMostRecentTotalDeaths) {
+        this.countyMostRecentTotalDeaths = countyMostRecentTotalDeaths;
+    }
+    int getCountyMostRecentNewRecov() {
+        return countyMostRecentNewRecov;
+    }
+    void setCountyMostRecentNewRecov(int countyMostRecentNewRecov) {
+        this.countyMostRecentNewRecov = countyMostRecentNewRecov;
+    }
+    int getCountyMostRecentTotalRecov() {
+        return countyMostRecentTotalRecov;
+    }
+    void setCountyMostRecentTotalRecov(int countyMostRecentTotalRecov) {
+        this.countyMostRecentTotalRecov = countyMostRecentTotalRecov;
+    }
+    LinkedList<Integer> getCountyNewConf() {
+        return countyNewConf;
+    }
+    void setCountyNewConf(LinkedList<Integer> countyNewConf) {
+        this.countyNewConf = countyNewConf;
+    }
+    LinkedList<Integer> getCountyTotalConf() {
+        return countyTotalConf;
+    }
+    void setCountyTotalConf(LinkedList<Integer> countyTotalConf) {
+        this.countyTotalConf = countyTotalConf;
+    }
+    LinkedList<Integer> getCountyNewDeaths() {
+        return countyNewDeaths;
+    }
+    void setCountyNewDeaths(LinkedList<Integer> countyNewDeaths) {
+        this.countyNewDeaths = countyNewDeaths;
+    }
+    LinkedList<Integer> getCountyTotalDeaths() {
+        return countyTotalDeaths;
+    }
+    void setCountyTotalDeaths(LinkedList<Integer> countyTotalDeaths) {
+        this.countyTotalDeaths = countyTotalDeaths;
+    }
+    LinkedList<Integer> getCountyNewRecov() {
+        return countyNewRecov;
+    }
+    void setCountyNewRecov(LinkedList<Integer> countyNewRecov) {
+        this.countyNewRecov = countyNewRecov;
+    }
+    LinkedList<Integer> getCountyTotalRecov() {
+        return countyTotalRecov;
+    }
+    void setCountyTotalRecov(LinkedList<Integer> countyTotalRecov) {
+        this.countyTotalRecov = countyTotalRecov;
     }
     LinkedList<String> getConfDates() {
         return confDates;
@@ -123,141 +296,5 @@ class UserQueryData extends UIFLookup {
             this.searchedProvince = searchedProvince;
             this.searchedCounty = searchedCounty;
         }
-    }
-
-    static UserQueryData getData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, HttpServletRequest req) {
-
-        UserQueryData location = new UserQueryData();
-        String searchedCountry = userQuery.searchedCountry;
-        String searchedProvince = userQuery.searchedProvince;
-        String searchedCounty = userQuery.searchedCounty;
-
-        // only searched province as query
-        if (searchedCountry == null && searchedProvince != null && searchedCounty == null) {
-            // if searched province is not a US province
-            if () {
-                // hit global data
-                getGlobalData(data, userQuery, location, req);
-                // hit UIFP data
-                getUIFData(data, userQuery, location, req);
-            }
-            // else hit US data
-            else {
-                getUSData();
-            }
-        }
-
-        // all are query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty != null) {
-            // hit global data for US country data
-            getGlobalData(data, userQuery, location, req);
-            // hit US data for province and county data
-            getUSData();
-        }
-
-        // searched country and province as query
-        else if (searchedCountry != null && searchedProvince != null && searchedCounty == null) {
-            // if searched country not US
-            if (!searchedCountry.equals("US")) {
-                // hit global data
-                getGlobalData(data, userQuery, location, req);
-                // hit UIFP data
-                getUIFData(data, userQuery, location, req);
-            }
-            // else hit US data
-            else {
-                getUSData();
-            }
-        }
-
-        // query only contains searched country
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty == null) {
-            // hit global data
-            getGlobalData(data, userQuery, location, req);
-            // hit UIFP data
-            getUIFData(data, userQuery, location, req);
-        }
-
-        // only searched county as query
-        else if (searchedCountry == null && searchedProvince == null && searchedCounty != null) {
-            // hit US data
-            getUSData();
-        }
-
-        // searched province and county as query
-        else if (searchedCountry == null && searchedProvince != null && searchedCounty != null) {
-            // hit US data
-            getUSData();
-        }
-
-        // searched country and county as query
-        else if (searchedCountry != null && searchedProvince == null && searchedCounty != null) {
-            // hit US data
-            getUSData();
-        }
-
-        return location;
-    }
-
-    static void getGlobalData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location, HttpServletRequest req) {
-        CountriesGlobal confDataGlobal = data.getConfDataGlobal();
-        CountriesGlobal deathsDataGlobal = data.getDeathsDataGlobal();
-        CountriesGlobal recovDataGlobal = data.getRecovDataGlobal();
-
-        // confirmed data
-        if (confDataGlobal == null) {
-            data.setConfDataGlobal(ApiMethods.getTimeSeriesConf(req));
-        }
-        if (confDataGlobal != null) {
-            HashSet<String> countriesSeen = new HashSet<>();
-            location.setConfDates(data.getConfDataGlobal().getDates());
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, userQuery.searchedCountry, confDataGlobal);
-            location.setNewConf(caseInfo[0]);
-            location.setTotalConf(caseInfo[1]);
-            location.setMostRecentNewConf(caseInfo[2].get(0));
-            location.setMostRecentTotalConf(caseInfo[3].get(0));
-        } else {
-            System.out.println("Could not get confirmed series data");
-        }
-
-        // deaths data
-        if (data.getDeathsDataGlobal() == null) {
-            data.setDeathsDataGlobal(ApiMethods.getTimeSeriesDeaths(req));
-        }
-        if (deathsDataGlobal != null) {
-            HashSet<String> countriesSeen = new HashSet<>();
-            location.setDeathsDates(deathsDataGlobal.getDates());
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, userQuery.searchedCountry, deathsDataGlobal);
-            location.setNewDeaths(caseInfo[0]);
-            location.setTotalDeaths(caseInfo[1]);
-            location.setMostRecentNewDeaths(caseInfo[2].get(0));
-            location.setMostRecentTotalDeaths(caseInfo[3].get(0));
-        } else {
-            System.out.println("Could not get deaths series data");
-        }
-
-        // recovered data
-        if (data.getRecovDataGlobal() == null) {
-            data.setRecovDataGlobal(ApiMethods.getTimeSeriesRecov(req));
-        }
-        if (recovDataGlobal != null) {
-            HashSet<String> countriesSeen = new HashSet<>();
-            location.setRecovDates(recovDataGlobal.getDates());
-            LinkedList<Integer>[] caseInfo = CountriesGlobal.retrieveCountryTSInfoAPICall(countriesSeen, userQuery.searchedCountry, recovDataGlobal);
-            location.setNewRecov(caseInfo[0]);
-            location.setTotalRecov(caseInfo[1]);
-            location.setMostRecentNewRecov(caseInfo[2].get(0));
-            location.setMostRecentTotalRecov(caseInfo[3].get(0));
-        } else {
-            System.out.println("Could not get recovered series data");
-        }
-    }
-
-    static void getUSData() {
-
-    }
-
-    static void getUIFData(JHUTimeSeriesAndUIFData data, UserQuery userQuery, UserQueryData location, HttpServletRequest req) {
-
     }
 }
