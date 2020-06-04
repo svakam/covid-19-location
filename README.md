@@ -19,7 +19,7 @@ Or if you'd like to run it from your local machine:
 - Choose the 'Import project' option, locate the project folder through the file explorer, and import this project. 
 - Wait for the project to build. 
 - Run the app with the green Play button, either located at the bottom left of the IDE or top right. 
-- Open a browser session, and in the URL text box, type 'localhost:8080' and enter. 
+- Open a browser session, and in the URL text box, type 'localhost:5000' and enter. 
 
 ## Screenshots
 ![Landing](src/main/resources/static/img/Landing.PNG)
