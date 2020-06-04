@@ -55,6 +55,11 @@ imminently: https://docs.google.com/spreadsheets/d/19x2CUBdHPlxBKUtfgJU2LzVXR_pi
 - NOTE: As of 05/01/2020, errata.csv is already accounted for in the data. 
 
 ## Acknowledgements
+### Contributors (thank you!)
+- Ellen Conley
+- (hopefully a few more?)
+
+### Sources
 AWS:
 - SNS
   - Java setup: https://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-project-gradle.html
