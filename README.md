@@ -1,13 +1,11 @@
 # COVID-19 Locator
 
-(work in progress)
-
-Deployed at: http://www.cv19location.com (currently in alpha)
+Deployed at: http://www.cv19location.com
 
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current case 
 information on how COVID-19 is impacting their community in the United States. Raw case information (total confirmed/deaths/recovered cases) 
 is rendered directly from Johns Hopkins University CSSE .csv files sourced on GitHub. Users can browse for a location to see case data visualized in graphs and tables. Users
-may also subscribe to SMS to receive daily updates on new case information for their selected location. 
+may also subscribe to SMS to receive daily updates on new case information for their selected location. Developers may access the free COVID-19 Locator API. For more information on available endpoints, access the API tab at the top of the page. 
 
 ## Run the app
 Visit the website at: http://www.cv19location.com (currently in alpha)
