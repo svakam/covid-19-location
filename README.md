@@ -3,7 +3,7 @@
 Deployed at: http://www.cv19location.com
 
 ## UPDATE 06/18/2021
-It's been over a year since this app has been updated. Stay tuned for pending refurbishment! 
+It's been over a year since this app has been updated - hence an outdated API, cloud deployment, and other technical issues. Stay tuned for pending refurbishments!
 
 --------------------------
 
