@@ -5,6 +5,8 @@ Deployed at: http://www.cv19location.com
 ## UPDATE 06/18
 It's been over a year since this app has been updated. Stay tuned for pending refurbishment! 
 
+--------------------------
+
 This Web-based application utilizes SpringMVC and RESTful web services to provide a user with current case 
 information on how COVID-19 is impacting their community in the United States. Raw case information (total confirmed/deaths/recovered cases) 
 is rendered directly from Johns Hopkins University CSSE .csv files sourced on GitHub. Users can browse for a location to see case data visualized in graphs and tables. Users
